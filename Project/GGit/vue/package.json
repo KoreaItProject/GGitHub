@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "vue": "^3.2.41"
+  },
+ 
+  "devDependencies": {
+    "webpack-cli": "^4.10.0"
+  }, 
+  "scripts": {
+    "build": "webpack --watch"
+  }
+}
