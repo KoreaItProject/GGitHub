@@ -7,6 +7,6 @@
 
 -----
 
-웹 : project
+웹 : roject
 
 소스관리 프로그램 : GGitSource
