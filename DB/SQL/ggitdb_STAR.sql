@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.31, for macos12 (x86_64)
 --
--- Host: localhost    Database: sys
+-- Host: localhost    Database: ggitdb
 -- ------------------------------------------------------
 -- Server version	8.0.31
 
@@ -16,30 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `REPO`
+-- Table structure for table `STAR`
 --
 
-DROP TABLE IF EXISTS `REPO`;
+DROP TABLE IF EXISTS `STAR`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `REPO` (
-  `idx` int NOT NULL AUTO_INCREMENT COMMENT '저장소 번호',
-  `name` varchar(45) NOT NULL COMMENT 'Repositories 이름',
-  `createDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '생성일',
-  `public` tinyint NOT NULL COMMENT '공개여부 ',
-  `owner` int NOT NULL COMMENT '소유자',
-  `fork` tinyint NOT NULL DEFAULT '0' COMMENT '포크한 저장소(Repo-idx) / 0일경우 포크저장소가 아니다.',
+CREATE TABLE `STAR` (
+  `idx` int NOT NULL AUTO_INCREMENT,
+  `repo` int NOT NULL COMMENT '저장소번호',
+  `member` int NOT NULL COMMENT '회원번호',
   PRIMARY KEY (`idx`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `REPO`
+-- Dumping data for table `STAR`
 --
 
-LOCK TABLES `REPO` WRITE;
-/*!40000 ALTER TABLE `REPO` DISABLE KEYS */;
-/*!40000 ALTER TABLE `REPO` ENABLE KEYS */;
+LOCK TABLES `STAR` WRITE;
+/*!40000 ALTER TABLE `STAR` DISABLE KEYS */;
+/*!40000 ALTER TABLE `STAR` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

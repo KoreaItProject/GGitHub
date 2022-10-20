@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.31, for macos12 (x86_64)
 --
--- Host: localhost    Database: sys
+-- Host: localhost    Database: ggitdb
 -- ------------------------------------------------------
 -- Server version	8.0.31
 

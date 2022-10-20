@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.31, for macos12 (x86_64)
 --
--- Host: localhost    Database: sys
+-- Host: localhost    Database: ggitdb
 -- ------------------------------------------------------
 -- Server version	8.0.31
 
@@ -16,31 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `PULLREQ`
+-- Table structure for table `REPO`
 --
 
-DROP TABLE IF EXISTS `PULLREQ`;
+DROP TABLE IF EXISTS `REPO`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `PULLREQ` (
-  `idx` int NOT NULL AUTO_INCREMENT COMMENT 'Idx',
-  `repo` int NOT NULL COMMENT '저장소 번호',
-  `member` int NOT NULL COMMENT '회원번호',
-  `message` longtext COMMENT 'EX)병합 요청합니다. / 내용',
-  `token` int NOT NULL COMMENT 'a(원래저장소)에서 b(fork한)를 병합할때 b의 토큰 / ㄷx)bx32sg3ko',
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '시간 / EX)2022-10-17 11:31:41',
-  `marged` tinyint(1) NOT NULL DEFAULT '0' COMMENT '요청을 수락했을때 1이 된다.',
+CREATE TABLE `REPO` (
+  `idx` int NOT NULL AUTO_INCREMENT COMMENT '저장소 번호',
+  `name` varchar(45) NOT NULL COMMENT 'Repositories 이름',
+  `createDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '생성일',
+  `public` tinyint NOT NULL COMMENT '공개여부 ',
+  `owner` int NOT NULL COMMENT '소유자',
+  `fork` tinyint NOT NULL DEFAULT '0' COMMENT '포크한 저장소(Repo-idx) / 0일경우 포크저장소가 아니다.',
   PRIMARY KEY (`idx`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `PULLREQ`
+-- Dumping data for table `REPO`
 --
 
-LOCK TABLES `PULLREQ` WRITE;
-/*!40000 ALTER TABLE `PULLREQ` DISABLE KEYS */;
-/*!40000 ALTER TABLE `PULLREQ` ENABLE KEYS */;
+LOCK TABLES `REPO` WRITE;
+/*!40000 ALTER TABLE `REPO` DISABLE KEYS */;
+/*!40000 ALTER TABLE `REPO` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

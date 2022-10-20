@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.31, for macos12 (x86_64)
 --
--- Host: localhost    Database: sys
+-- Host: localhost    Database: ggitdb
 -- ------------------------------------------------------
 -- Server version	8.0.31
 
@@ -16,27 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `FOLLOW`
+-- Table structure for table `BRANCH`
 --
 
-DROP TABLE IF EXISTS `FOLLOW`;
+DROP TABLE IF EXISTS `BRANCH`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `FOLLOW` (
-  `idx` int NOT NULL AUTO_INCREMENT COMMENT 'Idx',
-  `member` int NOT NULL,
-  `follow` int NOT NULL,
+CREATE TABLE `BRANCH` (
+  `idx` int NOT NULL AUTO_INCREMENT COMMENT '브랜치번호\n',
+  `repo` int NOT NULL COMMENT '저장소 번호',
+  `post` tinyint(1) NOT NULL DEFAULT '1' COMMENT '브랜치는 삭제가 되어도 파일은 삭제 되지 않는다.\npost가 0이면 브랜치 목록에서 보이지 않는다.',
   PRIMARY KEY (`idx`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `FOLLOW`
+-- Dumping data for table `BRANCH`
 --
 
-LOCK TABLES `FOLLOW` WRITE;
-/*!40000 ALTER TABLE `FOLLOW` DISABLE KEYS */;
-/*!40000 ALTER TABLE `FOLLOW` ENABLE KEYS */;
+LOCK TABLES `BRANCH` WRITE;
+/*!40000 ALTER TABLE `BRANCH` DISABLE KEYS */;
+/*!40000 ALTER TABLE `BRANCH` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
