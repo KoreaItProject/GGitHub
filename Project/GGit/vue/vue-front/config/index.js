@@ -33,11 +33,7 @@ module.exports = {
     // https://vue-loader.vuejs.org/en/options.html#cachebusting
     cacheBusting: true,
 
-    cssSourceMap: true,
-    index: path.resolve(__dirname, '../../../src/main/resources/static/view/index.html'),
-    assetsRoot: path.resolve(__dirname, '../../../src/main/resources/static/'),
-    assetsSubDirectory: '',
-    assetsPublicPath: '',
+    cssSourceMap: true
 
   },
 
