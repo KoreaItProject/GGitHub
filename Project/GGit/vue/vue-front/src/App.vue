@@ -1,23 +1,26 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+  <div class="about">
+    <h1>{{ connectData }}</h1>
   </div>
 </template>
-
 <script>
 export default {
-  name: 'App'
-}
+  name: "About",
+  components: [],
+  data() {
+    return {
+      connectData: "",
+    };
+  },
+  methods: {
+    get() {
+      this.axios.get("/connectTest").then((response) => {
+        this.connectData = response.data;
+      });
+    },
+  },
+  mounted() {
+    this.get();
+  },
+};
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
