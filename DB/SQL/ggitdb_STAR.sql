@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 8.0.31, for macos12 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.31, for Win64 (x86_64)
 --
 -- Host: localhost    Database: ggitdb
 -- ------------------------------------------------------
@@ -16,13 +16,13 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `STAR`
+-- Table structure for table `star`
 --
 
-DROP TABLE IF EXISTS `STAR`;
+DROP TABLE IF EXISTS `star`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `STAR` (
+CREATE TABLE `star` (
   `idx` int NOT NULL AUTO_INCREMENT,
   `repo` int NOT NULL COMMENT '저장소번호',
   `member` int NOT NULL COMMENT '회원번호',
@@ -31,13 +31,13 @@ CREATE TABLE `STAR` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `STAR`
+-- Dumping data for table `star`
 --
 
-LOCK TABLES `STAR` WRITE;
-/*!40000 ALTER TABLE `STAR` DISABLE KEYS */;
-INSERT INTO `STAR` VALUES (1,1,19),(2,1,8),(3,1,13),(4,2,17),(5,2,11),(6,2,10),(7,3,18),(8,11,20),(9,10,3),(10,7,17),(11,6,12),(12,12,5),(13,4,13),(14,5,17),(15,2,6),(16,2,12),(17,8,11),(18,8,5),(19,9,11),(20,10,11);
-/*!40000 ALTER TABLE `STAR` ENABLE KEYS */;
+LOCK TABLES `star` WRITE;
+/*!40000 ALTER TABLE `star` DISABLE KEYS */;
+INSERT INTO `star` VALUES (1,1,19),(2,1,8),(3,1,13),(4,2,17),(5,2,11),(6,2,10),(7,3,18),(8,11,20),(9,10,3),(10,7,17),(11,6,12),(12,12,5),(13,4,13),(14,5,17),(15,2,6),(16,2,12),(17,8,11),(18,8,5),(19,9,11),(20,10,11);
+/*!40000 ALTER TABLE `star` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -49,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-10-21 14:30:04
+-- Dump completed on 2022-10-21 14:40:08

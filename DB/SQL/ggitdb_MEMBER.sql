@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 8.0.31, for macos12 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.31, for Win64 (x86_64)
 --
 -- Host: localhost    Database: ggitdb
 -- ------------------------------------------------------
@@ -16,13 +16,13 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `MEMBER`
+-- Table structure for table `member`
 --
 
-DROP TABLE IF EXISTS `MEMBER`;
+DROP TABLE IF EXISTS `member`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `MEMBER` (
+CREATE TABLE `member` (
   `idx` int NOT NULL AUTO_INCREMENT COMMENT '회원번호',
   `nick` varchar(45) NOT NULL COMMENT '''harry'' / 닉네임',
   `email` varchar(45) NOT NULL COMMENT '''harry@naver.com’/ 이메일',
@@ -35,13 +35,13 @@ CREATE TABLE `MEMBER` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `MEMBER`
+-- Dumping data for table `member`
 --
 
-LOCK TABLES `MEMBER` WRITE;
-/*!40000 ALTER TABLE `MEMBER` DISABLE KEYS */;
-INSERT INTO `MEMBER` VALUES (1,'abc1','abc1@naver.com','1234',0,'2022-10-21 05:11:22',NULL),(2,'abc2','abc2@naver.com','1234',0,'2022-10-21 05:11:22',NULL),(3,'abc3','abc3@gmail.com','1234',0,'2022-10-21 05:11:22',NULL),(4,'abc4','abc4@naver.com','1234',0,'2022-10-21 05:11:22',NULL),(5,'abc5','abc5@gmail.com','1234',0,'2022-10-21 05:11:22',NULL),(6,'abc6','abc6@hanmail.net','1234',0,'2022-10-21 05:11:22',NULL),(7,'abc7','abc7@naver.com','1234',0,'2022-10-21 05:11:22',NULL),(8,'abc8','abc8@naver.com','1234',0,'2022-10-21 05:11:22',NULL),(9,'abc9','abc9@gmail.com','1234',0,'2022-10-21 05:11:22',NULL),(10,'abc10','abc10@naver.com','1234',0,'2022-10-21 05:11:22',NULL),(11,'abc11','abc11@gmail.com','1234',0,'2022-10-21 05:11:22',NULL),(12,'abc12','abc12@gmail.com','1234',0,'2022-10-21 05:11:22',NULL),(13,'abc13','abc13@naver.com','1234',0,'2022-10-21 05:11:22',NULL),(14,'abc14','abc14@naver.com','1234',0,'2022-10-21 05:11:22',NULL),(15,'abc15','abc15@naver.com','1234',0,'2022-10-21 05:11:22',NULL),(16,'abc16','abc16@naver.com','1234',0,'2022-10-21 05:11:22',NULL),(17,'abc17','abc17@naver.com','1234',0,'2022-10-21 05:11:22',NULL),(18,'abc18','abc18@gamil.com','1234',0,'2022-10-21 05:11:22',NULL),(19,'abc19','abc19@naver.com','1234',0,'2022-10-21 05:11:22',NULL),(20,'abc20','abc20@naver.com','1234',0,'2022-10-21 05:11:22',NULL);
-/*!40000 ALTER TABLE `MEMBER` ENABLE KEYS */;
+LOCK TABLES `member` WRITE;
+/*!40000 ALTER TABLE `member` DISABLE KEYS */;
+INSERT INTO `member` VALUES (1,'abc1','abc1@naver.com','1234',0,'2022-10-21 05:11:22',NULL),(2,'abc2','abc2@naver.com','1234',0,'2022-10-21 05:11:22',NULL),(3,'abc3','abc3@gmail.com','1234',0,'2022-10-21 05:11:22',NULL),(4,'abc4','abc4@naver.com','1234',0,'2022-10-21 05:11:22',NULL),(5,'abc5','abc5@gmail.com','1234',0,'2022-10-21 05:11:22',NULL),(6,'abc6','abc6@hanmail.net','1234',0,'2022-10-21 05:11:22',NULL),(7,'abc7','abc7@naver.com','1234',0,'2022-10-21 05:11:22',NULL),(8,'abc8','abc8@naver.com','1234',0,'2022-10-21 05:11:22',NULL),(9,'abc9','abc9@gmail.com','1234',0,'2022-10-21 05:11:22',NULL),(10,'abc10','abc10@naver.com','1234',0,'2022-10-21 05:11:22',NULL),(11,'abc11','abc11@gmail.com','1234',0,'2022-10-21 05:11:22',NULL),(12,'abc12','abc12@gmail.com','1234',0,'2022-10-21 05:11:22',NULL),(13,'abc13','abc13@naver.com','1234',0,'2022-10-21 05:11:22',NULL),(14,'abc14','abc14@naver.com','1234',0,'2022-10-21 05:11:22',NULL),(15,'abc15','abc15@naver.com','1234',0,'2022-10-21 05:11:22',NULL),(16,'abc16','abc16@naver.com','1234',0,'2022-10-21 05:11:22',NULL),(17,'abc17','abc17@naver.com','1234',0,'2022-10-21 05:11:22',NULL),(18,'abc18','abc18@gamil.com','1234',0,'2022-10-21 05:11:22',NULL),(19,'abc19','abc19@naver.com','1234',0,'2022-10-21 05:11:22',NULL),(20,'abc20','abc20@naver.com','1234',0,'2022-10-21 05:11:22',NULL);
+/*!40000 ALTER TABLE `member` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-10-21 14:30:04
+-- Dump completed on 2022-10-21 14:40:08

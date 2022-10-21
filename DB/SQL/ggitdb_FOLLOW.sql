@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 8.0.31, for macos12 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.31, for Win64 (x86_64)
 --
 -- Host: localhost    Database: ggitdb
 -- ------------------------------------------------------
@@ -16,13 +16,13 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `FOLLOW`
+-- Table structure for table `follow`
 --
 
-DROP TABLE IF EXISTS `FOLLOW`;
+DROP TABLE IF EXISTS `follow`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `FOLLOW` (
+CREATE TABLE `follow` (
   `idx` int NOT NULL AUTO_INCREMENT COMMENT 'Idx',
   `member` int NOT NULL,
   `follow` int NOT NULL,
@@ -31,13 +31,13 @@ CREATE TABLE `FOLLOW` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `FOLLOW`
+-- Dumping data for table `follow`
 --
 
-LOCK TABLES `FOLLOW` WRITE;
-/*!40000 ALTER TABLE `FOLLOW` DISABLE KEYS */;
-INSERT INTO `FOLLOW` VALUES (1,5,19),(2,1,12),(3,7,6),(4,6,13),(5,19,15),(6,2,10),(7,3,11),(8,11,18),(9,17,2),(10,3,17),(11,5,13),(12,7,12),(13,10,19),(14,20,10),(15,1,20),(16,3,18),(17,19,2);
-/*!40000 ALTER TABLE `FOLLOW` ENABLE KEYS */;
+LOCK TABLES `follow` WRITE;
+/*!40000 ALTER TABLE `follow` DISABLE KEYS */;
+INSERT INTO `follow` VALUES (1,5,19),(2,1,12),(3,7,6),(4,6,13),(5,19,15),(6,2,10),(7,3,11),(8,11,18),(9,17,2),(10,3,17),(11,5,13),(12,7,12),(13,10,19),(14,20,10),(15,1,20),(16,3,18),(17,19,2);
+/*!40000 ALTER TABLE `follow` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -49,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-10-21 14:30:04
+-- Dump completed on 2022-10-21 14:40:08

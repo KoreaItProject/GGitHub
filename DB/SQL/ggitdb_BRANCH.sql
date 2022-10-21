@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 8.0.31, for macos12 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.31, for Win64 (x86_64)
 --
 -- Host: localhost    Database: ggitdb
 -- ------------------------------------------------------
@@ -16,27 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `BRANCH`
+-- Table structure for table `branch`
 --
 
-DROP TABLE IF EXISTS `BRANCH`;
+DROP TABLE IF EXISTS `branch`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `BRANCH` (
+CREATE TABLE `branch` (
   `idx` int NOT NULL AUTO_INCREMENT COMMENT '브랜치번호\n',
   `repo` int NOT NULL COMMENT '저장소 번호',
   `post` tinyint(1) NOT NULL DEFAULT '1' COMMENT '브랜치는 삭제가 되어도 파일은 삭제 되지 않는다.\npost가 0이면 브랜치 목록에서 보이지 않는다.',
+  `name` varchar(45) NOT NULL,
   PRIMARY KEY (`idx`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `BRANCH`
+-- Dumping data for table `branch`
 --
 
-LOCK TABLES `BRANCH` WRITE;
-/*!40000 ALTER TABLE `BRANCH` DISABLE KEYS */;
-/*!40000 ALTER TABLE `BRANCH` ENABLE KEYS */;
+LOCK TABLES `branch` WRITE;
+/*!40000 ALTER TABLE `branch` DISABLE KEYS */;
+INSERT INTO `branch` VALUES (1,1,1,'sub'),(2,2,1,'taehyeon'),(3,3,0,'jjj'),(4,3,0,'update'),(5,2,0,'frame'),(6,5,1,'jump');
+/*!40000 ALTER TABLE `branch` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -48,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-10-21 14:30:04
+-- Dump completed on 2022-10-21 14:40:08

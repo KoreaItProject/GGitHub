@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 8.0.31, for macos12 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.31, for Win64 (x86_64)
 --
 -- Host: localhost    Database: ggitdb
 -- ------------------------------------------------------
@@ -16,13 +16,13 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `PUSH`
+-- Table structure for table `push`
 --
 
-DROP TABLE IF EXISTS `PUSH`;
+DROP TABLE IF EXISTS `push`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `PUSH` (
+CREATE TABLE `push` (
   `token` varchar(45) NOT NULL COMMENT 'Ex) bx32sg3ko / push의 고유 토큰\n',
   `member` int NOT NULL,
   `repo` int NOT NULL,
@@ -35,13 +35,13 @@ CREATE TABLE `PUSH` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `PUSH`
+-- Dumping data for table `push`
 --
 
-LOCK TABLES `PUSH` WRITE;
-/*!40000 ALTER TABLE `PUSH` DISABLE KEYS */;
-INSERT INTO `PUSH` VALUES ('aj87hd8k9',4,11,NULL,'2022-10-21 05:21:19',0,NULL),('ap08bj1kq',1,5,NULL,'2022-10-21 05:21:19',0,NULL),('as81di82',8,9,NULL,'2022-10-21 05:21:19',0,NULL),('ba84xk9kj',1,1,NULL,'2022-10-21 05:21:19',0,NULL),('id99hj2ah',8,3,NULL,'2022-10-21 05:21:19',0,NULL),('kv87gi9kq',1,2,NULL,'2022-10-21 05:21:19',0,NULL),('ma98ko2i',6,7,NULL,'2022-10-21 05:21:19',0,NULL),('nj28yt7ot',9,8,NULL,'2022-10-21 05:21:19',0,NULL),('nv29ai2ka',6,6,NULL,'2022-10-21 05:21:19',0,NULL),('op76aa9bn',3,4,NULL,'2022-10-21 05:21:19',0,NULL),('sd8c7s6a5s',3,10,NULL,'2022-10-21 05:21:19',0,NULL),('si8w72ud6s',7,12,NULL,'2022-10-21 05:21:19',0,NULL);
-/*!40000 ALTER TABLE `PUSH` ENABLE KEYS */;
+LOCK TABLES `push` WRITE;
+/*!40000 ALTER TABLE `push` DISABLE KEYS */;
+INSERT INTO `push` VALUES ('aj87hd8k9',4,11,NULL,'2022-10-21 05:21:19',0,NULL),('ap08bj1kq',1,5,NULL,'2022-10-21 05:21:19',0,NULL),('as81di82',8,9,NULL,'2022-10-21 05:21:19',0,NULL),('ba84xk9kj',1,1,NULL,'2022-10-21 05:21:19',0,NULL),('id99hj2ah',8,3,NULL,'2022-10-21 05:21:19',0,NULL),('kv87gi9kq',1,2,NULL,'2022-10-21 05:21:19',0,NULL),('ma98ko2i',6,7,NULL,'2022-10-21 05:21:19',0,NULL),('nj28yt7ot',9,8,NULL,'2022-10-21 05:21:19',0,NULL),('nv29ai2ka',6,6,NULL,'2022-10-21 05:21:19',0,NULL),('op76aa9bn',3,4,NULL,'2022-10-21 05:21:19',0,NULL),('sd8c7s6a5s',3,10,NULL,'2022-10-21 05:21:19',0,NULL),('si8w72ud6s',7,12,NULL,'2022-10-21 05:21:19',0,NULL);
+/*!40000 ALTER TABLE `push` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-10-21 14:30:04
+-- Dump completed on 2022-10-21 14:40:08
