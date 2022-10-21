@@ -15,12 +15,21 @@ class F extends JFrame {
 
         JPanel backPanel = new JPanel();
         backPanel.setLayout(null);
+
+        String str[] = { "asdf", "fdas", "edsf", "acvsd", "fdas", "edsf", "acvsd", "fdas", "edsf", "acvsd", "fdas",
+                "edsf", "acvsd", "fdas", "edsf", "acvsd", "fdas", "edsf", "acvsd" };
+        JList scrollList = new JList(str);
+
+        scrollList.setVisible(true);
+        JScrollPane jp = new JScrollPane(scrollList);
+        jp.setVisible(true);
+        jp.setBounds(100, 100, 100, 300);
+        backPanel.add(jp);
+
         add(backPanel);
         setVisible(true);
-
-        JList scrollList = new JList(fruits);
-        backPanel.add(new JScrollPane(scrollList));
     }
+
 }
 
 public class Test extends JFrame {
