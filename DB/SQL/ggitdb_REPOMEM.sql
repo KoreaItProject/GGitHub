@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 8.0.31, for macos12 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.31, for Win64 (x86_64)
 --
 -- Host: localhost    Database: ggitdb
 -- ------------------------------------------------------
@@ -16,27 +16,28 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `REPOMEM`
+-- Table structure for table `repomem`
 --
 
-DROP TABLE IF EXISTS `REPOMEM`;
+DROP TABLE IF EXISTS `repomem`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `REPOMEM` (
+CREATE TABLE `repomem` (
   `idx` int NOT NULL AUTO_INCREMENT,
   `repo` int NOT NULL COMMENT '저장소 번호\n',
   `member` int NOT NULL COMMENT '회원번호',
   PRIMARY KEY (`idx`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `REPOMEM`
+-- Dumping data for table `repomem`
 --
 
-LOCK TABLES `REPOMEM` WRITE;
-/*!40000 ALTER TABLE `REPOMEM` DISABLE KEYS */;
-/*!40000 ALTER TABLE `REPOMEM` ENABLE KEYS */;
+LOCK TABLES `repomem` WRITE;
+/*!40000 ALTER TABLE `repomem` DISABLE KEYS */;
+INSERT INTO `repomem` VALUES (1,1,1),(2,2,1),(3,3,8),(4,4,3),(5,5,1),(6,6,6),(7,7,6),(8,8,9),(9,9,8),(10,10,3),(11,1,4),(12,2,4),(13,3,7),(14,4,10),(15,11,4),(16,12,7);
+/*!40000 ALTER TABLE `repomem` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -48,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-10-21 14:30:04
+-- Dump completed on 2022-10-21 14:32:01
