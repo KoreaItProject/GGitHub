@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.swing.Action;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -21,7 +22,7 @@ import java.awt.event.*;
 
 class c extends JFrame implements ActionListener {
 
-    JButton btn1, btn2;
+    JButton btn1, btn2, btn3;
     String serverPath = "C:\\Users\\harry\\OneDrive\\바탕 화면\\file1\\server";
     String clientPath = "C:\\Users\\harry\\OneDrive\\바탕 화면\\file1\\client";
     File folder1, folder2;
@@ -42,12 +43,16 @@ class c extends JFrame implements ActionListener {
 
         btn1 = new JButton("push");
         btn2 = new JButton("pull");
+        btn3 = new JButton("Path");
         btn1.addActionListener(this);
         btn2.addActionListener(this);
+        btn3.addActionListener(this);
         btn1.setBounds(450, 100, 100, 50);
         btn2.setBounds(450, 200, 100, 50);
+        btn3.setBounds(450, 300, 100, 50);
         backPanel.add(btn1);
         backPanel.add(btn2);
+        backPanel.add(btn3);
         add(backPanel);
         setVisible(true);
 
@@ -63,6 +68,14 @@ class c extends JFrame implements ActionListener {
             delete(serverPath, clientPath);
             copy(folder1, folder2);
 
+        } else if (e.getSource() == btn3) {
+
+            JFileChooser jfc = new JFileChooser();
+            jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            jfc.showDialog(this, null);
+            File dir = jfc.getSelectedFile();
+            clientPath = dir.getPath();
+            folder2 = new File(clientPath);
         }
 
     }
@@ -190,6 +203,7 @@ class c extends JFrame implements ActionListener {
 public class App extends JFrame {
 
     public static void main(String[] args) {
+
         new c();
     }
 
