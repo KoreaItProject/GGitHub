@@ -31,7 +31,7 @@ CREATE TABLE `MEMBER` (
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '가입일자',
   `img` varchar(45) DEFAULT NULL COMMENT '프로필 이미지 주소 / ''src/img/pro/img.jpg''',
   PRIMARY KEY (`idx`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,6 +40,7 @@ CREATE TABLE `MEMBER` (
 
 LOCK TABLES `MEMBER` WRITE;
 /*!40000 ALTER TABLE `MEMBER` DISABLE KEYS */;
+INSERT INTO `MEMBER` VALUES (1,'abc1','abc1@naver.com','1234',0,'2022-10-21 05:11:22',NULL),(2,'abc2','abc2@naver.com','1234',0,'2022-10-21 05:11:22',NULL),(3,'abc3','abc3@gmail.com','1234',0,'2022-10-21 05:11:22',NULL),(4,'abc4','abc4@naver.com','1234',0,'2022-10-21 05:11:22',NULL),(5,'abc5','abc5@gmail.com','1234',0,'2022-10-21 05:11:22',NULL),(6,'abc6','abc6@hanmail.net','1234',0,'2022-10-21 05:11:22',NULL),(7,'abc7','abc7@naver.com','1234',0,'2022-10-21 05:11:22',NULL),(8,'abc8','abc8@naver.com','1234',0,'2022-10-21 05:11:22',NULL),(9,'abc9','abc9@gmail.com','1234',0,'2022-10-21 05:11:22',NULL),(10,'abc10','abc10@naver.com','1234',0,'2022-10-21 05:11:22',NULL),(11,'abc11','abc11@gmail.com','1234',0,'2022-10-21 05:11:22',NULL),(12,'abc12','abc12@gmail.com','1234',0,'2022-10-21 05:11:22',NULL),(13,'abc13','abc13@naver.com','1234',0,'2022-10-21 05:11:22',NULL),(14,'abc14','abc14@naver.com','1234',0,'2022-10-21 05:11:22',NULL),(15,'abc15','abc15@naver.com','1234',0,'2022-10-21 05:11:22',NULL),(16,'abc16','abc16@naver.com','1234',0,'2022-10-21 05:11:22',NULL),(17,'abc17','abc17@naver.com','1234',0,'2022-10-21 05:11:22',NULL),(18,'abc18','abc18@gamil.com','1234',0,'2022-10-21 05:11:22',NULL),(19,'abc19','abc19@naver.com','1234',0,'2022-10-21 05:11:22',NULL),(20,'abc20','abc20@naver.com','1234',0,'2022-10-21 05:11:22',NULL);
 /*!40000 ALTER TABLE `MEMBER` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-10-20 10:00:19
+-- Dump completed on 2022-10-21 14:30:04
