@@ -14,7 +14,7 @@ module.exports = {
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
-    port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
+    port: 4520, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,
     notifyOnErrors: true,
@@ -34,21 +34,16 @@ module.exports = {
     cacheBusting: true,
 
     cssSourceMap: true
-
   },
 
   build: {
- // Template for index.html
-    // 기존 경로: index: path.resolve(__dirname, '../dist/index.html'),
-    //  SpringBoot Static Folder
-    index: path.resolve(__dirname, '../../../src/main/resources/static/view/index.html'),
+    // Template for index.html
+    index: path.resolve(__dirname, '../dist/index.html'),
 
     // Paths
-    // 기존 경로: assetsRoot: path.resolve(__dirname, '../dist'),
-    //  SpringBoot Static Folder
-    assetsRoot: path.resolve(__dirname, '../../../src/main/resources/static/'),
-    assetsSubDirectory: '',
-    assetsPublicPath: '',
+    assetsRoot: path.resolve(__dirname, '../dist'),
+    assetsSubDirectory: 'static',
+    assetsPublicPath: '/',
 
     /**
      * Source Maps
