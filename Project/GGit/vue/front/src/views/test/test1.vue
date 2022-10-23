@@ -6,9 +6,13 @@
     <h1>테스트중</h1>
     <v-btn @click="get" >버튼</v-btn>
         <table>
+            <tr >
+                <td>id</td>
+                <td>이름</td>
+            </tr>
             <tr v-for="index in lists">
                 <td>{{index.id}}</td>
-                <td>{{index.email}}</td>
+                <td>{{index.name}}</td>
             </tr>
         </table>
 
@@ -18,6 +22,7 @@
 <script>
 import { useListeners } from 'vue';
 import axios from 'axios';
+
 export default{
  
     
@@ -34,12 +39,12 @@ export default{
 
     methods:{
         get(){
-        axios.get('http://192.168.55.88:5555/api/twitter/')
+        axios.get('/api/')
         .then(response => {
             // handle success
            
-           
-            console.log(response);
+           this.lists=response.data
+           console.log(this.lists)
 
         })
         .catch(error => {

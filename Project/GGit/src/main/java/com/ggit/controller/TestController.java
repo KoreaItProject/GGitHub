@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ggit.vo.TestVo;
 
 @RestController
-@RequestMapping("/api/twitter")
+@RequestMapping("/")
 public class TestController {
     private List<TestVo> friends;
 
