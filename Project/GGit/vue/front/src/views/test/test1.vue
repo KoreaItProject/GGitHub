@@ -3,8 +3,14 @@
     <div >
 
     
-    <h1>테스트중</h1>
-    <v-btn @click="get" >버튼</v-btn>
+    <h1>테스트중{{$route.query}}</h1>
+
+
+    <input type="text" v-model="text"/>
+
+    <input type="button" value="페이지이동" @click="go">
+
+    <input type="button" @click="get" >
         <table>
             <tr >
                 <td>id</td>
@@ -22,6 +28,7 @@
 <script>
 import { useListeners } from 'vue';
 import axios from 'axios';
+import router from "../../router";
 
 export default{
  
@@ -30,7 +37,8 @@ export default{
         
         return{
           
-            lists:[]
+            lists:[],
+            text:null
            
         }
         
@@ -55,7 +63,15 @@ export default{
             // always executed
         });
 
-    }
+        },
+        go(){
+
+        //   router.push({path:'/test2',query:{
+        //     text:this.text}});
+            router.push({name:'test2',params:{
+            text:this.text}});
+        }
+        
     }
  
 }
