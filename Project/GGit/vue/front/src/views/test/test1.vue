@@ -8,9 +8,9 @@
 
     <input type="text" v-model="text"/>
 
-    <v-btn @click="go" >페이지이동</v-btn>
+    <input type="button" value="페이지이동" @click="go">
 
-    <v-btn @click="get" >버튼</v-btn>
+    <input type="button" @click="get" >
         <table>
             <tr >
                 <td>id</td>
@@ -66,7 +66,9 @@ export default{
         },
         go(){
 
-          router.push({path:'/test2',query:{
+        //   router.push({path:'/test2',query:{
+        //     text:this.text}});
+            router.push({name:'test2',params:{
             text:this.text}});
         }
         
