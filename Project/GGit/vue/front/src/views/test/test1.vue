@@ -3,7 +3,7 @@
     <div >
 
     
-    <h1>테스트중</h1>
+    <h1>테스트중{{$route.query}}</h1>
     <v-btn @click="get" >버튼</v-btn>
         <table>
             <tr >
