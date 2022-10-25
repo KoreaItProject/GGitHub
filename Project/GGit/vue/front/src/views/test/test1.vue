@@ -12,11 +12,11 @@
 
     <input type="button" @click="get" >
         <table>
-            <tr >
+            <tr>
                 <td>id</td>
                 <td>이름</td>
             </tr>
-            <tr v-for="index in lists">
+            <tr v-for="index in lists" v-bind:key="index">
                 <td>{{index.id}}</td>
                 <td>{{index.name}}</td>
             </tr>

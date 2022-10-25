@@ -5,7 +5,7 @@
         <h1>이동 완료</h1>
         <input type="button" @click="get" value="맴버 정보 가져오기"/>
         <table>
-            <tr >
+            <tr>
                 <td>idx</td>
                 <td>nick</td>
                 <td>email</td>
@@ -14,16 +14,16 @@
                 <td>date</td>
 
             </tr>
-            <tr v-for="data in members">
+            <tr v-for="data in members" v-bind:key="data">
+
                 <td>{{data.idx}}</td>
                 <td>{{data.nick}}</td>
                 <td>{{data.email}}</td>
                 <td>{{data.auth}}</td>
                 <td>{{data.pw}}</td>
                 <td>{{data.date}}</td>
-
-
             </tr>
+            
         </table>
     </div>
 </template>

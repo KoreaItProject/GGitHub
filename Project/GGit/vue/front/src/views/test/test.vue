@@ -6,7 +6,7 @@
     <h1>테스트중</h1>
     <v-btn @click="get" >버튼</v-btn>
         <table>
-            <tr v-for="index in lists">
+            <tr v-for="index in lists" v-bind:key="index">
                 <td>{{index.id}}</td>
                 <td>{{index.email}}</td>
             </tr>
