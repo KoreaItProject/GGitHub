@@ -31,6 +31,7 @@ export default new Router({
         component: () => import('@/views/test/test2')
     }
 
-  ]
+  ],
+  mode:"history"
 })
 
