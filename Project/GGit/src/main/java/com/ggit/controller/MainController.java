@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class MainController {
+
     @GetMapping("/jj")
     public String hello() {
         return "/view/index.html";

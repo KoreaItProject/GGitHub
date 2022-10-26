@@ -56,6 +56,15 @@
          <artifactId>spring-boot-starter-test</artifactId>
          <scope>test</scope>
       </dependency>
+      <!-- zip (
+         https://github.com/zeroturnaround/zt-zip
+      )-->
+      <dependency>
+         <groupId>org.zeroturnaround</groupId>
+         <artifactId>zt-zip</artifactId>
+         <version>1.15</version>
+         <type>jar</type>
+     </dependency>
 
    </dependencies>
 

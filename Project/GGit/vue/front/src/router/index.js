@@ -30,6 +30,11 @@ export default new Router({
         name: 'test2',
         component: () => import('@/views/test/test2')
     }
+    ,{
+      path: '/download',
+      name: 'download',
+      component: () => import('@/views/test/testfiledown')
+  }
 
   ],
   mode:"history"
