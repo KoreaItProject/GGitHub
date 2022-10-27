@@ -5,7 +5,6 @@ import java.io.*;
 public class InfoDTO implements Serializable {
 
   public enum Info {
-    MAKE,
     JOIN,
     EXIT,
     SEND,
