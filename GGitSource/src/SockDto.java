@@ -1,5 +1,4 @@
 
-
 import java.io.*;
 
 public class SockDto implements Serializable {
@@ -11,6 +10,7 @@ public class SockDto implements Serializable {
         SEND,
         STATE,
         STATELOSE,
+        PUSH
     }
 
     private String nickName;

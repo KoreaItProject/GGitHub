@@ -13,9 +13,12 @@ public class MemberService {
     @Autowired
     public MemberMapper mapper;
 
-    public List<MemberVo> member(){
+    public List<MemberVo> member() {
         return mapper.member();
     }
 
+    public MemberVo memberByemailPW(String email, String pw) {
+        return mapper.memberByemailPW(email, pw);
+    }
 
 }

@@ -1,4 +1,3 @@
-package com.ggit.socket;
 
 import java.io.*;
 

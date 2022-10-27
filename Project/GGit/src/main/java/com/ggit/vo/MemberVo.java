@@ -23,7 +23,11 @@ public class MemberVo {
 
     Timestamp date;
 
-    public MemberVo(int idx,String nick, String email, String pw, Integer auth, Timestamp date, String img) {
+    public MemberVo() {
+
+    }
+
+    public MemberVo(int idx, String nick, String email, String pw, Integer auth, Timestamp date, String img) {
         this.idx = idx;
         this.nick = nick;
         this.email = email;
@@ -33,5 +37,4 @@ public class MemberVo {
         this.img = img;
     }
 
-    
 }

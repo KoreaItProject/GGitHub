@@ -11,10 +11,12 @@ import com.ggit.vo.MemberVo;
  * MemberMapper
  */
 
- @Repository
- @Mapper
+@Repository
+@Mapper
 public interface MemberMapper {
 
         List<MemberVo> member();
+
+        MemberVo memberByemailPW(String email, String pw);
+
 }
-    

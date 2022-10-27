@@ -15,7 +15,7 @@ public class App1 {
 
         try {
             // 서버 연결
-            socket = new Socket(serverIp, 4440);
+            socket = new Socket(serverIp, 4445);
             System.out.println("서버에 연결되었습니다.");
 
             // 파일 전송용 클래스
@@ -61,9 +61,9 @@ class FileSender extends Thread {
 
         try {
             // 파일전송을 서버에 알린다.('file' 구분자 전송)
-            SockDto sockDto = new SockDto();
-            sockDto.setMessage("file");
-            dos.writeObject(sockDto);
+            InfoDTO InfoDTO = new InfoDTO();
+            InfoDTO.setMessage("file");
+            dos.writeObject(InfoDTO);
 
             dos.flush();
 

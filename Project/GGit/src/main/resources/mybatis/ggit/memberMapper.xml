@@ -4,4 +4,7 @@
     <select id="member"  resultType="com.ggit.vo.MemberVo">
         SELECT * FROM member;
     </select>
+    <select id="memberByemailPw"  resultType="com.ggit.vo.MemberVo">
+        SELECT * FROM member where email = ${email} and pw = ${pw};
+    </select>
 </mapper>

@@ -16,7 +16,7 @@ public class ServerMain {
 	public ServerMain() {
 		System.out.println("서버시작");
 		try {
-			serverSocket = new ServerSocket(9500);
+			serverSocket = new ServerSocket(4445);
 			serverSocket.setSoTimeout(0);
 			System.out.println("서버 준비 완료");
 			list = new ArrayList<ServerHandler>();
