@@ -1,36 +1,44 @@
 <template>
-  <footer>
-    <div class="position-relative d-flex flex-items-center pb-2 f6 color-fg-muted border-top color-border-muted flex-column-reverse flex-lg-row flex-wrap flex-lg-nowrap mt-6 pt-6">
+
+<footer class="footer width-full container-xl p-responsive">
+
+
+  <div class="position-relative d-flex flex-items-center pb-2 f6 color-fg-muted border-top color-border-muted flex-column-reverse flex-lg-row flex-wrap flex-lg-nowrap mt-6 pt-6">
     <div class="list-style-none d-flex flex-wrap col-0 col-lg-2 flex-justify-start flex-lg-justify-between mb-2 mb-lg-0">
       <div class="mt-2 mt-lg-0 d-flex flex-items-center">
-        <a aria-label="Homepage" title="GitHub" class="footer-octicon mr-2" href="https://github.com">
-          <svg aria-hidden="true" height="24" viewBox="0 0 16 16" version="1.1" width="24" data-view-component="true" class="octicon octicon-mark-github">
-    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
-</svg>
-</a>        <span>
-        © 2022 GitHub, Inc.
+        <a aria-label="Homepage" title="GitHub" class="footer-octicon mr-2" href="http://ggit.me" style="position:absolute;margin-top: 3px;margin-left: 3px;">
+          <img class="logo" src="static/imgs/logo/logoblack.png" />
+        </a> 
+     
+        <span style="margin-left: 40px;">
+        © 2022 GGIT, Inc.
         </span>
+        <h3 class="sr-only" id="sr-footer-heading" style="margin-left: 15px;">웹프로젝트</h3>
+  
       </div>
     </div>
-
     <nav aria-label="footer" class="col-12 col-lg-8">
-      <h3 class="sr-only" id="sr-footer-heading">Footer navigation</h3>
-      <ul class="list-style-none d-flex flex-wrap col-12 flex-justify-center flex-lg-justify-between mb-2 mb-lg-0" aria-labelledby="sr-footer-heading">
-          <li class="mr-3 mr-lg-0"><a href="https://docs.github.com/en/github/site-policy/github-terms-of-service" >Terms</a></li>
-          <li class="mr-3 mr-lg-0"><a href="https://docs.github.com/en/github/site-policy/github-privacy-statement" >Privacy</a></li>
-          <li class="mr-3 mr-lg-0"><a  href="https://github.com/security">Security</a></li>
-          <li class="mr-3 mr-lg-0"><a href="https://www.githubstatus.com/" >Status</a></li>
-          <li class="mr-3 mr-lg-0"><a data-ga-click="Footer, go to help, text:Docs" href="https://docs.github.com">Docs</a></li>
-          <li class="mr-3 mr-lg-0"><a href="https://support.github.com?tags=dotcom-footer" >Contact GitHub</a></li>
-          <li class="mr-3 mr-lg-0"><a href="https://github.com/pricing" >Pricing</a></li>
-        <li class="mr-3 mr-lg-0"><a href="https://docs.github.com" >API</a></li>
-        <li class="mr-3 mr-lg-0"><a href="https://services.github.com" >Training</a></li>
-          <li class="mr-3 mr-lg-0"><a href="https://github.blog">Blog</a></li>
-          <li><a data-ga-click="Footer, go to about, text:about" href="https://github.com/about">About</a></li>
+
+      
+      <ul class="list-style-none d-flex flex-wrap col-12 flex-justify-center flex-lg-justify-between mb-2 mb-lg-0" aria-labelledby="sr-footer-heading" style="color: blue;">
+          <li class="mr-3 mr-lg-0"><a href="https://github.com/eak00700" >민준성</a></li>
+          <li class="mr-3 mr-lg-0"><a href="https://github.com/leetaehyeon123" >이태현</a></li>
+          <li class="mr-3 mr-lg-0"><a  href="https://github.com/JIN-RYEOL">김진렬</a></li>
+          <li class="mr-3 mr-lg-0"></li>
       </ul>
+      본 웹페이지는 신촌 <a style="color:blue " href="https://koreaisacademy.com/">코리아IT아카데미</a> 팀프로젝로 학습용 사이트입니다.
     </nav>
+   
   </div>
-  </footer>
+
+  <div class="d-flex flex-justify-center pb-6">
+    <span class="f6 color-fg-muted"></span>
+  </div>
+</footer>
+
+
+
+  
 </template>
 
 <script>
@@ -41,53 +49,53 @@ export default {
 }
 </script>
 
-<style lang="">
-.d-flex {
-    display: flex !important;
-}
-.f6 {
-    font-size: 12px !important;
-}
-.pt-6 {
-    padding-top: 40px !important;
-}
+<style lang="scss">
 
-.pb-2 {
-    padding-bottom: 8px !important;
-}
-.mt-6 {
-    margin-top: 40px !important;
-}
-.position-relative {
-    position: relative !important;
-}
 
-.flex-items-center {
-    align-items: center !important;
+@media (min-width: 1012px){
+.p-responsive {
+    padding-right: 16px !important;
+    padding-left: 16px !important;
+}}
+@media (min-width: 544px){
+.p-responsive {
+    padding-right: 40px !important;
+    padding-left: 40px !important;
+}}
+.p-responsive {
+    padding-right: 16px !important;
+    padding-left: 16px !important;
 }
-.flex-wrap {
-    flex-wrap: wrap !important;
+.width-full {
+    width: 100% !important;
 }
-.flex-column-reverse {
-    flex-direction: column-reverse !important;
+.container-xl {
+    max-width: 1280px;
+    margin-right: auto;
+    margin-left: auto;
 }
-.color-border-muted {
-    border-color: var(--color-border-muted) !important;
+.list-style-none{
+  list-style: none;
 }
-.color-fg-muted {
-    color: var(--color-fg-muted) !important;
-}
-.border-top {
-    border-top: 1px solid var(--color-border-default) !important;
-}
-* {
-    box-sizing: border-box;
-}
-user agent stylesheet
-div {
-    display: block;
-}
+.mr-2{
 
+}
+.mr-3{
+
+  margin:10px;
+}
+.footer {
+
+  width:50%;
+  border-top: 2px solid rgb(219, 207, 207);
+  text-align: center;
+  word-wrap: break-word;
+  padding:20px;
+  margin: auto;
+  margin-top: 40px;
+
+
+}
 
 
 
