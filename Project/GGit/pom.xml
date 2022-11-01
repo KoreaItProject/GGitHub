@@ -65,11 +65,7 @@
          <version>1.15</version>
          <type>jar</type>
      </dependency>
-     <!-- 시큐리티 -->
-      <dependency>
-         <groupId>org.springframework.boot</groupId>
-         <artifactId>spring-boot-starter-security</artifactId>
-      </dependency>
+
 
    </dependencies>
 
