@@ -386,3 +386,6 @@ ol {
   list-style: none;
   padding: 0;
 }
+#app_content{
+  min-height: 700px;
+}
