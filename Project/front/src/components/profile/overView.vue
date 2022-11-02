@@ -26,8 +26,4 @@ export default {
 </script>
 <style lang="sass">
     @import 'src/assets/profile/profile_bar'
-
-        
-
-    
 </style>
