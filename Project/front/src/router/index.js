@@ -41,10 +41,11 @@ export default new Router({
       component: () => import('@/components/test/testSock')
   }
   ,{
-    path: '/profile_bar',
-    name: 'profile_bar',
-    component: () => import('@/components/profile/profile_bar')
+    path: '/overView',
+    name: 'overView',
+    component: () => import('@/components/profile/overView')
   }
+
 
   ],
   mode:"history"
