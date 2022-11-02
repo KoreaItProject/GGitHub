@@ -1,9 +1,9 @@
 <template>
 
-<footer class="footer width-full container-xl p-responsive">
+<div class="">
 
 
-  <div class="position-relative d-flex flex-items-center pb-2 f6 color-fg-muted border-top color-border-muted flex-column-reverse flex-lg-row flex-wrap flex-lg-nowrap mt-6 pt-6">
+  <div class="position-relative ">
     <div class="list-style-none d-flex flex-wrap col-0 col-lg-2 flex-justify-start flex-lg-justify-between mb-2 mb-lg-0">
       <div class="mt-2 mt-lg-0 d-flex flex-items-center">
         <a aria-label="Homepage" title="GitHub" class="footer-octicon mr-2" href="http://ggit.me" style="position:absolute;margin-top: 3px;margin-left: 3px;">
@@ -34,7 +34,7 @@
   <div class="d-flex flex-justify-center pb-6">
     <span class="f6 color-fg-muted"></span>
   </div>
-</footer>
+</div>
 
 
 
