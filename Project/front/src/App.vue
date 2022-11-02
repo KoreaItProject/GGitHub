@@ -7,8 +7,9 @@
 </template>
 
 <script>
-import Header from './Header.vue'
-import Footer from './Footer.vue'
+
+import Header from './components/Header.vue'
+import Footer from './components/Footer.vue'
 export default {
   name: 'App',
   components:{
@@ -18,7 +19,7 @@ export default {
 }
 </script>
 
-<style>
 
-@import '../src/styles/reset/reset';
+<style lang="scss">
+@import './assets/reset/reset.css';
 </style>

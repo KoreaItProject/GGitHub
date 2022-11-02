@@ -18,27 +18,32 @@ export default new Router({
     ,{
         path: '/test',
         name: 'test',
-        component: () => import('@/views/test/test')
+        component: () => import('@/components/test/test')
     }
     ,{
         path: '/test1',
         name: 'test1',
-        component: () => import('@/views/test/test1')
+        component: () => import('@/components/test/test1')
     }
     ,{
         path: '/test2',
         name: 'test2',
-        component: () => import('@/views/test/test2')
+        component: () => import('@/components/test/test2')
     }
     ,{
       path: '/download',
       name: 'download',
-      component: () => import('@/views/test/testfiledown')
+      component: () => import('@/components/test/testfiledown')
   }
     ,{
       path: '/testSock',
       name: 'testSock',
-      component: () => import('@/views/test/testSock')
+      component: () => import('@/components/test/testSock')
+  }
+  ,{
+    path: '/profile_bar',
+    name: 'profile_bar',
+    component: () => import('@/components/profile/profile_bar')
   }
 
   ],
