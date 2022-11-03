@@ -15,7 +15,7 @@ export default new Router({
       component: () => import('@/components/main/main')
     }
     , {
-      path: '/profile',
+      path: '/:nick',
       name: 'profile',
       component: () => import( '@/components/profile/profile_kit')
 
