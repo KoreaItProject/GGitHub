@@ -1,27 +1,26 @@
 <template>
-  <div id="app" >
-    <header-view/>
+  <div id="app">
+    <header-view />
     <div id="app_content">
-      <router-view/>
+      <router-view />
     </div>
-    <footer-view/>
+    <footer-view />
   </div>
 </template>
 
 <script>
-
-import Header from './components/Header.vue'
-import Footer from './components/Footer.vue'
+import Header from "./components/Header.vue";
+import Footer from "./components/Footer.vue";
 export default {
-  name: 'App',
-  components:{
-    "header-view":Header,
-    "footer-view":Footer,
-  }
-}
+  name: "App",
+  components: {
+    "header-view": Header,
+    "footer-view": Footer,
+  },
+};
 </script>
 
 
 <style lang="scss">
-@import './assets/reset/reset.css';
+@import "./assets/reset/reset.css";
 </style>

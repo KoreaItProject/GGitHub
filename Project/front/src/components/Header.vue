@@ -1,23 +1,18 @@
 <template>
   <header>
     <div id="header" class="header">
-        <a  href="/">
-          <img class="logo" src="static/imgs/logo/logo.png" />
-          <span class="project">GGIT</span>
-        </a>
+      <a href="/">
+        <img class="logo" src="static/imgs/logo/logo.png" />
+        <span class="project">GGIT</span>
+      </a>
     </div>
   </header>
 </template>
 
 <script>
-
-export default {
-
-
-}
+export default {};
 </script>
 
 <style lang="sass">
-
-   @import 'src/assets/header'
+@import 'src/assets/header'
 </style>

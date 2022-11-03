@@ -1,29 +1,11 @@
 <template lang="">
-    <div class="profile_container">
-        <profile_bar_top/>
-
-        <profile_bar_left/>
-
-       
-
-            <div id="main_div">
-                내용
-            </div>
-        
-
-    </div>
+   <div>
+        <h1>overview{{$route.query.tab}}</h1>
+        <h1>{{isOverview}}</h1>
+   </div>
 </template>
 <script>
-
-import profile_bar_left from './profile_bar_left.vue';
-import profile_bar_top from './profile_bar_top.vue';
-export default {
-    components:{
-        "profile_bar_left":profile_bar_left,
-        "profile_bar_top":profile_bar_top,
-    }
-}
+export default {};
 </script>
 <style lang="sass">
-    @import 'src/assets/profile/profile_bar'
 </style>
