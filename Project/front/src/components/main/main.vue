@@ -56,108 +56,132 @@
 
     <!-- gsap scrolltrigger view -->
     <div class="ttt">
-        <div class="div_test1">올겨울...</div>
-        <div class="div_test2">SI를 강타할 그들이 온다</div>
-        <div class="div_test3">그들은 바로...</div>
-        <div class="div_test4"><img style="width:450px; height:450px;" src="static/imgs/people/tae.jpg"/></div>
-        <div class="div_test5"><img style="width:450px; height:450px;" src="static/imgs/people/jin.jpg"/></div>
-        <div class="div_test6"><img style="width:450px; height:450px;" src="static/imgs/people/jun.jpg"/></div>  
+      <div class="div_test1">올겨울...</div>
+      <div class="div_test2">SI를 강타할 그들이 온다</div>
+      <div class="div_test3">그들은 바로...</div>
+      <div class="div_test4">
+        <img
+          style="width: 450px; height: 450px"
+          src="static/imgs/people/tae.jpg"
+        />
+      </div>
+      <div class="div_test5">
+        <img
+          style="width: 450px; height: 450px"
+          src="static/imgs/people/jin.jpg"
+        />
+      </div>
+      <div class="div_test6">
+        <img
+          style="width: 450px; height: 450px"
+          src="static/imgs/people/jun.jpg"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  mounted:function(){
+  mounted: function () {
     this.scrollAnimation();
   },
   methods: {
-    scrollAnimation(){
-      gsap.timeline({
-        scrollTrigger: {
-          trigger: ".div_test1",
-          start: "top 50%",
-          end: "bottom 20%",
-          markers: false,
-          scrub: true,
-          pin: true,
-          toggleActions: "start none none none"
-        }
-      })
-      .from(".div_test1", { x : innerWidth * 1, opacity: 0 })
+    scrollAnimation() {
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: ".div_test1",
+            start: "top 50%",
+            end: "bottom 20%",
+            markers: false,
+            scrub: true,
+            pin: true,
+            toggleActions: "start none none none",
+          },
+        })
+        .from(".div_test1", { x: innerWidth * 1, opacity: 0 });
 
-      gsap.timeline({
-        scrollTrigger: {
-          trigger: ".div_test2",
-          start: "top 50%",
-          end: "bottom 20%",
-          markers: false,
-          scrub: true,
-          pin: true,
-          toggleActions: "start none none none"
-        }
-      })
-      .from(".div_test2", { x : innerWidth * 1, opacity: 0 })
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: ".div_test2",
+            start: "top 50%",
+            end: "bottom 20%",
+            markers: false,
+            scrub: true,
+            pin: true,
+            toggleActions: "start none none none",
+          },
+        })
+        .from(".div_test2", { x: innerWidth * 1, opacity: 0 });
 
-      gsap.timeline({
-        scrollTrigger: {
-          trigger: ".div_test3",
-          start: "top 50%",
-          end: "bottom 20%",
-          markers: false,
-          scrub: true,
-          pin: true,
-          toggleActions: "start none none none"
-        }
-      })
-      .from(".div_test3", { x : innerWidth * 1, opacity: 0 })
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: ".div_test3",
+            start: "top 50%",
+            end: "bottom 20%",
+            markers: false,
+            scrub: true,
+            pin: true,
+            toggleActions: "start none none none",
+          },
+        })
+        .from(".div_test3", { x: innerWidth * 1, opacity: 0 });
 
-      gsap.timeline({
-        scrollTrigger: {
-          trigger: ".div_test4",
-          start: "top 50%",
-          end: "bottom 20%",
-          markers: false,
-          scrub: true,
-          pin: true,
-          toggleActions: "start none none none"
-        }
-      })
-      .from(".div_test4", { x : innerWidth * 1, opacity: 0 })
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: ".div_test4",
+            start: "top 50%",
+            end: "bottom 20%",
+            markers: false,
+            scrub: true,
+            pin: true,
+            toggleActions: "start none none none",
+          },
+        })
+        .from(".div_test4", { x: innerWidth * 1, opacity: 0 });
 
-      gsap.timeline({
-        scrollTrigger: {
-          trigger: ".div_test5",
-          start: "top 50%",
-          end: "bottom 20%",
-          markers: false,
-          scrub: true,
-          pin: true,
-          toggleActions: "start none none none"
-        }
-      })
-      .from(".div_test5", { x : innerWidth * 1, opacity: 0 })
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: ".div_test5",
+            start: "top 50%",
+            end: "bottom 20%",
+            markers: false,
+            scrub: true,
+            pin: true,
+            toggleActions: "start none none none",
+          },
+        })
+        .from(".div_test5", { x: innerWidth * 1, opacity: 0 });
 
-      gsap.timeline({
-        scrollTrigger: {
-          trigger: ".div_test6",
-          start: "top 50%",
-          end: "bottom 20%",
-          markers: false,
-          scrub: true,
-          pin: true,
-          toggleActions: "start none none none"
-        }
-      })
-      .from(".div_test6", { x : innerWidth * 1, opacity: 0 })
-    }
-  }
-
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: ".div_test6",
+            start: "top 50%",
+            end: "bottom 20%",
+            markers: false,
+            scrub: true,
+            pin: true,
+            toggleActions: "start none none none",
+          },
+        })
+        .from(".div_test6", { x: innerWidth * 1, opacity: 0 });
+    },
+  },
 };
 </script>
 
 <style lang="sass">
 ////// gsap scrolltrigger ///////
+$main_heght: 7500px //메인 div 크기 여기서 설정 -그 크기 만큼 footer가 내려감
+
+.footer_container
+  margin-top: 7500px
 .div_test1
   text-align: center
   //border: 1px solid red
@@ -210,8 +234,8 @@ export default {
   text-align: center
   font-size: 100px
 .ttt
-  height: 7500px
-  
+  height: $main_heght
+
 ////// gsap scrolltrigger ///////
 
 #hello
