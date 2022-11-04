@@ -39,7 +39,7 @@
                 <img class="profile_img" src='static/imgs/profile/profileImg.jpg'/>
             </div>
             <div class="profile_nick_div">
-              <span class="profile_nick" >JavaMaster이태현123</span>
+              <span class="profile_nick" >{{$route.params.nick}}</span>
             </div>
             <div class="profile_edit_btn_div">
               <button class="profile_edit_btn"  >프로필 편집</button>
@@ -94,7 +94,7 @@
 
 <script>
 import axios from "axios";
-import overview from "@/components/profile/overView.vue";
+import overview from "@/components/profile/overview.vue";
 import repositories from "@/components/profile/repositories.vue";
 import stars from "@/components/profile/stars.vue";
 import test2 from "@/components/test/test2.vue";

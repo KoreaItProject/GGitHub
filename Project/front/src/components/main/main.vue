@@ -181,7 +181,7 @@ export default {
 $main_heght: 7500px //메인 div 크기 여기서 설정 -그 크기 만큼 footer가 내려감
 
 .footer_container
-  margin-top: 7500px
+  margin-top: $main_heght+100px
 .div_test1
   text-align: center
   //border: 1px solid red
