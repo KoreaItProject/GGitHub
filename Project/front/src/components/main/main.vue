@@ -53,14 +53,167 @@
         privacy policy. We'll occasionally send you account related emails.
       </form>
     </div>
+
+    <!-- gsap scrolltrigger view -->
+    <div class="ttt">
+        <div class="div_test1">올겨울...</div>
+        <div class="div_test2">SI를 강타할 그들이 온다</div>
+        <div class="div_test3">그들은 바로...</div>
+        <div class="div_test4"><img style="width:450px; height:450px;" src="static/imgs/people/tae.jpg"/></div>
+        <div class="div_test5"><img style="width:450px; height:450px;" src="static/imgs/people/jin.jpg"/></div>
+        <div class="div_test6"><img style="width:450px; height:450px;" src="static/imgs/people/jun.jpg"/></div>  
+    </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  mounted:function(){
+    this.scrollAnimation();
+  },
+  methods: {
+    scrollAnimation(){
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: ".div_test1",
+          start: "top 50%",
+          end: "bottom 20%",
+          markers: false,
+          scrub: true,
+          pin: true,
+          toggleActions: "start none none none"
+        }
+      })
+      .from(".div_test1", { x : innerWidth * 1, opacity: 0 })
+
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: ".div_test2",
+          start: "top 50%",
+          end: "bottom 20%",
+          markers: false,
+          scrub: true,
+          pin: true,
+          toggleActions: "start none none none"
+        }
+      })
+      .from(".div_test2", { x : innerWidth * 1, opacity: 0 })
+
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: ".div_test3",
+          start: "top 50%",
+          end: "bottom 20%",
+          markers: false,
+          scrub: true,
+          pin: true,
+          toggleActions: "start none none none"
+        }
+      })
+      .from(".div_test3", { x : innerWidth * 1, opacity: 0 })
+
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: ".div_test4",
+          start: "top 50%",
+          end: "bottom 20%",
+          markers: false,
+          scrub: true,
+          pin: true,
+          toggleActions: "start none none none"
+        }
+      })
+      .from(".div_test4", { x : innerWidth * 1, opacity: 0 })
+
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: ".div_test5",
+          start: "top 50%",
+          end: "bottom 20%",
+          markers: false,
+          scrub: true,
+          pin: true,
+          toggleActions: "start none none none"
+        }
+      })
+      .from(".div_test5", { x : innerWidth * 1, opacity: 0 })
+
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: ".div_test6",
+          start: "top 50%",
+          end: "bottom 20%",
+          markers: false,
+          scrub: true,
+          pin: true,
+          toggleActions: "start none none none"
+        }
+      })
+      .from(".div_test6", { x : innerWidth * 1, opacity: 0 })
+    }
+  }
+
+};
 </script>
 
 <style lang="sass">
+////// gsap scrolltrigger ///////
+.div_test1
+  text-align: center
+  //border: 1px solid red
+  font-family: 'nanumsquare'
+  color: black
+  text-align: center
+  font-size: 100px
+  margin-top: 1300px
+  margin-bottom: 300px
+
+.div_test2
+  text-align: center
+  //border: 1px solid red
+  font-family: 'nanumsquare'
+  color: black
+  text-align: center
+  font-size: 100px
+  margin-bottom: 300px
+
+.div_test3
+  text-align: center
+  //border: 1px solid red
+  font-family: 'nanumsquare'
+  color: black
+  text-align: center
+  font-size: 100px
+  margin-bottom: 300px
+
+.div_test4
+  text-align: center
+  //border: 1px solid red
+  font-family: 'nanumsquare'
+  color: black
+  text-align: center
+  font-size: 100px
+
+.div_test5
+  text-align: center
+  //border: 1px solid red
+  font-family: 'nanumsquare'
+  color: black
+  text-align: center
+  font-size: 100px
+
+.div_test6
+  text-align: center
+  //border: 1px solid red
+  font-family: 'nanumsquare'
+  color: black
+  text-align: center
+  font-size: 100px
+.ttt
+  height: 7500px
+  
+////// gsap scrolltrigger ///////
+
 #hello
   border: 1px solid red
 
