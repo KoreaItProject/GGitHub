@@ -15,11 +15,18 @@ export default new Router({
       component: () => import('@/components/main/main')
     }
     , {
+      path: '/pagenotfound',
+      name: 'pagenotfound',
+      component: () => import( '@/components/main/pagenotfound')
+
+    }
+    , {
       path: '/:nick',
       name: 'profile',
       component: () => import( '@/components/profile/profile')
 
-  }
+    }
+    
   ],
   mode:"history"
 })
