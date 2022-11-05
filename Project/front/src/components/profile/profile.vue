@@ -36,7 +36,7 @@
 
         <div class="profile_bar_left">
             <div class="profile_img_div">
-                <img class="profile_img" src='static/imgs/profile/profileImg.jpg'/>
+                <img class="profile_img" src='@/assets/imgs/profile/profileImg.jpg'/>
             </div>
             <div class="profile_nick_div">
               <span class="profile_nick" >{{$route.params.nick}}</span>
@@ -153,5 +153,5 @@ export default {
 };
 </script>
 <style lang="sass">
-@import "@/assets/profile/profile_kit.sass"
+@import "src/assets/sass/profile/profile_kit"
 </style>

@@ -22,5 +22,5 @@ export default {
 
 
 <style lang="scss">
-@import "./assets/reset/reset.css";
+@import "src/assets/sass/reset/reset";
 </style>

@@ -62,19 +62,19 @@
       <div class="div_test4">
         <img
           style="width: 450px; height: 450px"
-          src="static/imgs/people/tae.jpg"
+          src="@/assets/imgs/people/tae.jpg"
         />
       </div>
       <div class="div_test5">
         <img
           style="width: 450px; height: 450px"
-          src="static/imgs/people/jin.jpg"
+          src="@/assets/imgs/people/jin.jpg"
         />
       </div>
       <div class="div_test6">
         <img
           style="width: 450px; height: 450px"
-          src="static/imgs/people/jun.jpg"
+          src="@/assets/imgs/people/jun.jpg"
         />
       </div>
     </div>
