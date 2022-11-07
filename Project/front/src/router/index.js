@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 import test_router from './test_router'
+
 
 Vue.use(Router)
 
@@ -19,14 +21,20 @@ export default new Router({
       name: 'pagenotfound',
       component: () => import( '@/components/main/pagenotfound')
 
+    }, {
+      path: '/login',
+      name: 'login',
+      component: () => import( '@/components/login/login')
     }
     , {
       path: '/:nick',
       name: 'profile',
       component: () => import( '@/components/profile/profile')
 
-    }
+    }   
     
+    
+   
   ],
   mode:"history"
 })
