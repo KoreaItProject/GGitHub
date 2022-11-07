@@ -1,16 +1,39 @@
 <template>
-  <div style="width: 100%">
-    <div></div>
-    <div
-      v-html="changeMarkdown"
-      style="
-        width: 100%;
-        border: 1px solid red;
-        text-align: center;
-        padding: 30px;
-        margin-top: 20px;
-      "
-    ></div>
+  <div class="overView_container">
+    <div class="overView_readme overView_div">
+      <div class="overView_readme_title">
+        <svg
+          aria-hidden="true"
+          height="16"
+          viewBox="0 0 16 16"
+          version="1.1"
+          width="16"
+          data-view-component="true"
+          class="overView_readme_pencil"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M11.013 1.427a1.75 1.75 0 012.474 0l1.086 1.086a1.75 1.75 0 010 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 01-.927-.928l.929-3.25a1.75 1.75 0 01.445-.758l8.61-8.61zm1.414 1.06a.25.25 0 00-.354 0L10.811 3.75l1.439 1.44 1.263-1.263a.25.25 0 000-.354l-1.086-1.086zM11.189 6.25L9.75 4.81l-6.286 6.287a.25.25 0 00-.064.108l-.558 1.953 1.953-.558a.249.249 0 00.108-.064l6.286-6.286z"
+          ></path>
+        </svg>
+      </div>
+      <div class="overView_readme_content" v-html="changeMarkdown"></div>
+    </div>
+    <div class="overView_pinned_div">
+      <div class="overView_pinned_top">
+        <span class="overView_pinned_top_left">Pinned</span>
+        <span class="overView_pinned_top_right"
+          ><a>Customize your pins</a></span
+        >
+      </div>
+      <div class="overView_pins_div">
+        <div
+          class="overView_pins overView_div"
+          v-for="pin in pins"
+          v-bind:key="pin"
+        ></div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -23,6 +46,7 @@ export default {
     return {
       mdText:
         "[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=ymiru0324&layout=compact&&theme=dark&&&langs_count=6)](https://github.com/ymiru0324)",
+      pins: ["", "", "", "", ""],
     };
   },
   computed: {
@@ -48,4 +72,5 @@ export default {
 };
 </script>
 <style lang="sass">
+@import "src/assets/sass/profile/overView"
 </style>

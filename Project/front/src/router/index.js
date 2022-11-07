@@ -21,6 +21,10 @@ export default new Router({
       name: 'pagenotfound',
       component: () => import( '@/components/main/pagenotfound')
 
+    }, {
+      path: '/login',
+      name: 'login',
+      component: () => import( '@/components/login/login')
     }
     , {
       path: '/:nick',

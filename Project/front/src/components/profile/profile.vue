@@ -153,5 +153,5 @@ export default {
 };
 </script>
 <style lang="sass">
-@import "src/assets/sass/profile/profile_kit"
+@import "src/assets/sass/profile/profile"
 </style>
