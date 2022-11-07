@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 import test_router from './test_router'
+
 
 Vue.use(Router)
 
@@ -29,8 +31,10 @@ export default new Router({
       name: 'profile',
       component: () => import( '@/components/profile/profile')
 
-    }
+    }   
     
+    
+   
   ],
   mode:"history"
 })
