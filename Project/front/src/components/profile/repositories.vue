@@ -3,20 +3,33 @@
 
        
 
-    <div>
-        <div class = " search">
-            <input type ="search" class = "repo-search" placeholder="Find a repository"></input>
-            <button type ="button" class = "new repository" href="#"></button> 
+    <div class="repo">
+        <div class = " repo_search_main">
+            <input type ="search" class = "repo_search" placeholder="Find a repository"></input>
+            <button type ="button" class = "new_repo" href="#">New</button> 
         </div>
 
-        <div class="repo-list">
+        <div class="repo_list">
             <ul>
                 <li v-for='name in Repo'>
-                    <a href="#"><h1>{{name}}</h1></a>
-                    <span>11</span>
-                    <span class="public">asdf</span>
-                
-                </li>
+                    <div class="repo_info">
+                                <div class="repo_name">
+                                    <a href="#">{{name}}</a>
+                                    
+                                    <span></span>
+                                    <span class="repo_public">공개여부</span>
+                                    <span><button type="button" class="repo_star">☆Star</button></span>
+                                    
+                                </div>
+
+                                <div class="repo_update">
+                                <span>Update 날짜</span>
+                                
+                            
+                            
+                                </div>
+                            </div>
+                        </li>
                 
             </ul>
 
@@ -58,4 +71,5 @@ export default{
 
 </script>
 <style lang="sass">
+@import "src/assets/sass/profile/repositories"
 </style>
