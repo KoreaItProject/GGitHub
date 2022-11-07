@@ -97,7 +97,6 @@ import axios from "axios";
 import overview from "@/components/profile/overview.vue";
 import repositories from "@/components/profile/repositories.vue";
 import stars from "@/components/profile/stars.vue";
-import test2 from "@/components/test/test2.vue";
 
 export default {
   computed: {
@@ -122,7 +121,7 @@ export default {
   components: {
     overview: overview,
     repositories: repositories,
-    stars: test2,
+    stars: stars,
   },
 
   mounted() {

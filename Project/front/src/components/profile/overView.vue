@@ -33,6 +33,7 @@
           v-bind:key="pin"
         ></div>
       </div>
+      <div class="overView_contribution_div" :style="cssVariable"></div>
     </div>
   </div>
 </template>
@@ -46,11 +47,20 @@ export default {
     return {
       mdText:
         "[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=ymiru0324&layout=compact&&theme=dark&&&langs_count=6)](https://github.com/ymiru0324)",
-      pins: ["", "", "", "", ""],
+      pins: ["", "", "", ""],
+      contribution_top: "0px",
     };
   },
   computed: {
+    cssVariable() {
+      return {
+        "--contribution-top": this.contribution_top,
+      };
+    },
     changeMarkdown() {
+      this.contribution_top =
+        Math.trunc((this.pins.length + 1) / 2) * 113 + "px";
+
       marked.setOptions({
         renderer: new marked.Renderer(),
         gfm: true,
