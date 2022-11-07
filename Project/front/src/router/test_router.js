@@ -1,8 +1,7 @@
 
 
 
-export default({
-  routes: [
+export default[
 
     {
         path: '/test',
@@ -33,7 +32,5 @@ export default({
  
 
 
-  ],
-  mode:"history"
-})
+]
 
