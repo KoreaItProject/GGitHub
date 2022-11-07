@@ -12,7 +12,8 @@
         <div class="repo-list">
             <ul>
                 <li v-for='name in Repo'>
-                    <h1>{{name}}</h1>
+                    <a href="#"><h1>{{name}}</h1></a>
+                    <span>11</span>
                     <span class="public">asdf</span>
                 
                 </li>
