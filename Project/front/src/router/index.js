@@ -26,12 +26,17 @@ export default new Router({
       name: 'login',
       component: () => import( '@/components/login/login')
     }
+    ,{
+      path: '/create',
+      name: 'create',
+      component: () => import('@/components/repository/create')
+    }   
     , {
       path: '/:nick',
       name: 'profile',
       component: () => import( '@/components/profile/profile')
 
-    }   
+    }
     
     
    
