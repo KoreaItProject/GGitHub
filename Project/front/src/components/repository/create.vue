@@ -30,11 +30,11 @@
 
 
                     <label class="select-menu-item  " role="menuitemradio" aria-checked="true" tabindex="0" data-is-user-or-org="true" data-permission="yes" data-default="public" data-default-new-repo-branch="main" data-user-show-trade-controls="false" data-owner-settings-link-prefix="your" data-owner-settings-url="/settings/repositories">
-                        <input class="js-repository-owner-choice js-repository-owner-is-viewer" name="owner" type="radio" value="eak00700" checked="">
+                        <input class="js-repository-owner-choice js-repository-owner-is-viewer" name="owner" type="radio" value="eak00700">
                         <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check select-menu-item-icon">
                         <path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
                     </svg>
-                        <template class="js-quick-install-list-template" hidden="">
+                        <template class="js-quick-install-list-template" >
                         <div data-login="eak00700">
                     </div>
 
@@ -51,7 +51,7 @@
                     <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check select-menu-item-icon">
                     <path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
                     </svg>
-                    <template class="js-quick-install-list-template" hidden="">
+                    <template class="js-quick-install-list-template">
                     <div data-login="KoreaItProject">
                     </div>
 
@@ -70,7 +70,7 @@
 
                 <div class="repository_name_input_div">
                 <span > / </span>
-                <input class="repository_name_input"></input>
+                <input class="repository_name_input"/>
                 </div>
             </div>    
                 <div class="repo_description">
@@ -81,7 +81,7 @@
                         (optional)
                     </span>
                     <div>
-                    <input class="description"></input>
+                    <input class="description"/>
                     </div>
                 </div>
                 <div class="public_check">
@@ -92,7 +92,7 @@
                         <div class="public_sub">
                             Anyone on the internet can see this repository. You choose who can commit.
                         </div>
-                    </input>
+                    
                 </div>
                 <div class="private_check">
                     <input class="private_check_input" type="checkbox"><svg height="24" aria-hidden="true" viewBox="0 0 24 24" version="1.1" width="24" data-view-component="true" class="octicon octicon-lock color-fg-muted float-left mt-1 mr-2">
@@ -102,12 +102,12 @@
                         <div class="private_sub">
                             You choose who can see and commit to this repository.
                         </div>
-                    </input>
+                    
                 </div>
                 
                 <div>
                     <div class="add_readme">
-                        <input class="readme_check" type="checkbox">Add a README file</input>
+                        <input class="readme_check" type="checkbox"/>Add a README file
 
                     </div>
                 </div>
@@ -120,7 +120,7 @@
                     
                 </div>
 
-                <button data-disable-with="Creating repository&amp;hellip;" type="submit" data-view-component="true" class="btn_primary_btn" disabled="">    
+                <button data-disable-with="Creating repository&amp;hellip;" type="submit" data-view-component="true" class="btn_primary_btn" >    
                     Create repository
                 </button>   
             </div>
