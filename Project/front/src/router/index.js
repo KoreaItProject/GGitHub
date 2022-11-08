@@ -21,6 +21,11 @@ export default new Router({
       name: 'login',
       component: () => import( '@/components/login/login')
     }
+    ,{
+      path: '/create',
+      name: 'create',
+      component: () => import('@/components/repository/create')
+    }   
     , {
       path: '/setting/:tab',
       name: 'setting',
@@ -31,6 +36,7 @@ export default new Router({
       name: 'profile',
       component: () => import( '@/components/profile/profile')
 
+
     }   
     , {
       path: '/*',
@@ -38,6 +44,7 @@ export default new Router({
       component: () => import( '@/components/main/pagenotfound')
 
     }
+
     
    
   ],
