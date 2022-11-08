@@ -12,11 +12,10 @@
           class="header_profile_img"
         />
         <div class="header_tab_div">
-          <a class="header_tab"><span>Sign out</span></a>
-          <a class="header_tab" href="/setting/profile"><span>Setting</span></a>
-          <a class="header_tab"><span>Help</span></a>
-          <a class="header_tab"><span>New repository</span></a>
-          <a class="header_tab" href="/진렬킴"><span>Your profile</span></a>
+          <a class="header_tab"><span>로그아웃</span></a>
+          <a class="header_tab" href="/setting/profile"><span>설정</span></a>
+          <a class="header_tab"><span>새 저장소</span></a>
+          <a class="header_tab" href="/진렬킴"><span>프로필</span></a>
         </div>
       </div>
     </div>
