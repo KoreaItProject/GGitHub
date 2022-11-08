@@ -21,9 +21,8 @@ export default new Router({
       name: 'login',
       component: () => import( '@/components/login/login')
     }
-    ,{
-      path: '/setting',
-      alias:['/setting/:tab'],
+    , {
+      path: '/setting/:tab',
       name: 'setting',
       component: () => import( '@/components/setting/setting')
     }

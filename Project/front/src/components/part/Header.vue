@@ -13,7 +13,7 @@
         />
         <div class="header_tab_div">
           <a class="header_tab"><span>Sign out</span></a>
-          <a class="header_tab"><span>Setting</span></a>
+          <a class="header_tab" href="/setting/profile"><span>Setting</span></a>
           <a class="header_tab"><span>Help</span></a>
           <a class="header_tab"><span>New repository</span></a>
           <a class="header_tab" href="/진렬킴"><span>Your profile</span></a>
