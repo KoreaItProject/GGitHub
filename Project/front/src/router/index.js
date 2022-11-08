@@ -17,22 +17,28 @@ export default new Router({
       component: () => import('@/components/main/main')
     }
     , {
-      path: '/pagenotfound',
-      name: 'pagenotfound',
-      component: () => import( '@/components/main/pagenotfound')
-
-    }, {
       path: '/login',
       name: 'login',
       component: () => import( '@/components/login/login')
     }
-    , {
+    ,{
+      path: '/setting',
+      alias:['/setting/:tab'],
+      name: 'setting',
+      component: () => import( '@/components/setting/setting')
+    }
+    ,{
       path: '/:nick',
       name: 'profile',
       component: () => import( '@/components/profile/profile')
 
     }   
-    
+    , {
+      path: '/*',
+      name: 'pagenotfound',
+      component: () => import( '@/components/main/pagenotfound')
+
+    }
     
    
   ],
