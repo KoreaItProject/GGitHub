@@ -20,8 +20,8 @@
             <ul>
                 <li v-for='name in Repo'>
                     <div class="repo_info">
-                                <div class="repo_name">
-                                    <a href="#">{{name}}</a>
+                                <div class="repo_name_div">
+                                    <a :href=name class="">{{name}}</a>
                                     
                                     <span></span>
                                     <span class="repo_public">public</span>
@@ -66,7 +66,12 @@
 export default {
   data() {
     return {
-      Repo: ["ddd", "aaa", "asd", "lkj213"],
+      Repo: [
+        "LeeTaeHyeon123/JavaProject123",
+        "진렬킴/EZ",
+        "LeeTaeHyeon123/ggitProject",
+        "eak00700/happyCSSHAHAHA",
+      ],
     };
   },
   methods: {},
