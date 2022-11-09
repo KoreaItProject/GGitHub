@@ -12,7 +12,7 @@
             </svg>
             New</button>
             
-            <input type ="search" class = "repo_search" placeholder="Find a repository"></input>
+            <input type ="search" class = "repo_search" placeholder="저장소 검색"></input>
             
         </div>
 
@@ -63,23 +63,14 @@
 
 </template>
 <script>
-
-export default{
-    data(){
-        
-        return{
-          
-            Repo: ['ddd','aaa','asd','lkj213'],
-           
-        }
-        
-    },
-    methods:{
-
-    }
-}
-
-
+export default {
+  data() {
+    return {
+      Repo: ["ddd", "aaa", "asd", "lkj213"],
+    };
+  },
+  methods: {},
+};
 </script>
 <style lang="sass">
 @import "src/assets/sass/profile/repositories"

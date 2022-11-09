@@ -9,8 +9,9 @@ public class InfoDTO implements Serializable {
     EXIT,
     SEND,
     STATE,
-    STATELOSE,
-    PUSH
+    PUSH,
+    PULL,
+    RUNNING
   }
 
   private String nickName;

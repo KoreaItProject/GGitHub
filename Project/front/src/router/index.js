@@ -38,6 +38,13 @@ export default new Router({
 
 
     }   
+     ,{
+      path: '/:nick/:repository',
+      name: 'reopsitory',
+      component: () => import( '@/components/repository/repository')
+
+
+    }  
     , {
       path: '/*',
       name: 'pagenotfound',
