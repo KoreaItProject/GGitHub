@@ -1,36 +1,31 @@
+package com.ggit.socket;
+
 import java.io.BufferedInputStream;
 import java.io.ObjectOutputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
-
-import com.ggit.socket.InfoDTO;
 import com.ggit.socket.InfoDTO.Info;
 
-public class App2 {
+public class SocketRunTime {
 
-    public static void main(String[] args) {
-
+    public SocketRunTime() {
         String serverIp = "localhost";
         Socket socket = null;
-
         try {
-            // 서버 연결
             socket = new Socket(serverIp, 4445);
             System.out.println("서버에 연결되었습니다.");
 
             Sender fs = new Sender(socket);
             fs.start();
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 }
 
-// 파일 전송용 클래스
 class Sender extends Thread {
 
     Socket socket;

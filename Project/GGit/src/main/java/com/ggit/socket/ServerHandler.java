@@ -2,12 +2,10 @@ package com.ggit.socket;
 
 import java.net.Socket;
 import java.util.List;
-import java.util.Random;
 
 import com.ggit.socket.InfoDTO.Info;
 
 import java.io.BufferedOutputStream;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -23,6 +21,7 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 	private List<ServerHandler> list;
 	FileOutputStream fos = null;
 	BufferedOutputStream bos = null;
+	int runTime = 0;
 
 	// 생성자
 	public ServerHandler(Socket socket, List<ServerHandler> list) throws IOException {
@@ -42,8 +41,12 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 
 			while (true) {
 				dto = (InfoDTO) reader.readObject();
-				System.out.println(dto.getMessage());
+				if (dto.getCommand() == Info.RUNNING) {
 
+					System.out.println(++runTime * 30 + "초");
+					writer.writeObject(dto);
+					broadcast(dto);
+				}
 			} // while
 
 		} catch (IOException e) {
