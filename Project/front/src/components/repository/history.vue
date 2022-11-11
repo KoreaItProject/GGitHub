@@ -2,19 +2,35 @@
     <div class="repository_history_container">
         <div class ="repository_history_div">
             <div class="repository_history_left">
-                <table class="repository_history_table">
-                    <tr>
-                        <th width="50%">내용</th>
-                        <th>날짜</th>
-                        <th>사용자</th>
-                        <th>토큰</th>
-                    </tr>
-                    <tr>
-                        <td>내용</td>
-                        <td>내용</td>
-                        <td>내용</td>
-                    </tr>
-                </table>
+                <div class="repository_history_table_div">
+                    <table class="repository_history_table">
+                      
+                        <tr>
+                            <td width="50%">내용</td>
+                            <td>날짜</td>
+                            <td>사용자</td>
+                            <td>토큰</td>
+                        </tr>
+                        <tr>
+                            <td width="50%">내용</td>
+                            <td>날짜</td>
+                            <td>사용자</td>
+                            <td>토큰</td>
+                        </tr>
+                        <tr>
+                            <td width="50%">내용</td>
+                            <td>날짜</td>
+                            <td>사용자</td>
+                            <td>토큰</td>
+                        </tr>
+                        <tr>
+                            <td width="50%">내용</td>
+                            <td>날짜</td>
+                            <td>사용자</td>
+                            <td>토큰</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
             <div class="repository_history_right">
 
