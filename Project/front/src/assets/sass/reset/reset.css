@@ -389,3 +389,7 @@ ol {
 #app_content{
   min-height: 800px;
 }
+table {
+border-spacing: 0px;
+  border-collapse: separate;
+}
