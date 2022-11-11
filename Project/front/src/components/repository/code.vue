@@ -16,27 +16,27 @@
 
                 </div>
             </div>
-
-            <div class="repo_information">
-                <a class="owner_href" href="#">owner</a> <!-- v-for문으로 레포 소유자 불러오기 -->
-                <a class="repo_last_commit_content" href="#">last commit content</a> <!-- v-for문으로 마지막 커밋 내용 불러오기  -->
-                <a class="repo_commit_count" href="#">
-                    <svg text="gray" aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-history">
-                        <path fill-rule="evenodd" d="M1.643 3.143L.427 1.927A.25.25 0 000 2.104V5.75c0 .138.112.25.25.25h3.646a.25.25 0 00.177-.427L2.715 4.215a6.5 6.5 0 11-1.18 4.458.75.75 0 10-1.493.154 8.001 8.001 0 101.6-5.684zM7.75 4a.75.75 0 01.75.75v2.992l2.028.812a.75.75 0 01-.557 1.392l-2.5-1A.75.75 0 017 8.25v-3.5A.75.75 0 017.75 4z"></path>
-                    </svg>
-                    <strong class="commit_count_strong">42</strong>
-                    <span class="commit_count_sapn">commits</span>
-                </a> <!-- 커밋횟수 불러오기 -->
-                <a class="repo_last_commit_time" href="#">19days ago</a> <!-- v-for 문으로 마지막으로 커밋한날 불러오기 -->
-                <a class="repo_last_commit_token" href="#">token</a> <!-- v-for 토큰값 불러오기 -->
-               
-
-            </div>
-            <div class="repo_list" v-for="name in file_list">
-                <a href="#">{{name}}</a>
+            <div class="repo_box">
+                <div class="repo_information">
+                    <a class="owner_href" href="#">owner</a> <!-- v-for문으로 레포 소유자 불러오기 -->
+                    <a class="repo_last_commit_content" href="#">last commit content</a> <!-- v-for문으로 마지막 커밋 내용 불러오기  -->
+                    <a class="repo_commit_count" href="#">
+                        <svg text="gray" aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-history">
+                            <path fill-rule="evenodd" d="M1.643 3.143L.427 1.927A.25.25 0 000 2.104V5.75c0 .138.112.25.25.25h3.646a.25.25 0 00.177-.427L2.715 4.215a6.5 6.5 0 11-1.18 4.458.75.75 0 10-1.493.154 8.001 8.001 0 101.6-5.684zM7.75 4a.75.75 0 01.75.75v2.992l2.028.812a.75.75 0 01-.557 1.392l-2.5-1A.75.75 0 017 8.25v-3.5A.75.75 0 017.75 4z"></path>
+                        </svg>
+                        <strong class="commit_count_strong">42</strong>
+                        <span class="commit_count_sapn">commits</span>
+                    </a> <!-- 커밋횟수 불러오기 -->
+                    <a class="repo_last_commit_time" href="#">19days ago</a> <!-- v-for 문으로 마지막으로 커밋한날 불러오기 -->
+                    <a class="repo_last_commit_token" href="#">token</a> <!-- v-for 토큰값 불러오기 -->
                 
-            </div>
 
+                </div>
+                <div class="repo_list" v-for="name in file_list">
+                    <a href="#">{{name}}</a>
+                    
+                </div>
+            </div>
             <div class="readme_container">
                 <div class="readme_title">
                     <a class="readme.md" href="#">Readme.md</a>
