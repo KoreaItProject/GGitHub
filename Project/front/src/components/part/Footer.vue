@@ -16,7 +16,7 @@
       </div>
     </div>
     <div>
-      <ul class="" style="color: blue">
+      <ul class="" style="color: #03a9fc">
         <li class="footer_members">
           <a href="https://github.com/eak00700">민준성</a>
         </li>
@@ -28,7 +28,7 @@
         </li>
       </ul>
       본 웹페이지는 신촌
-      <a style="color: blue" href="https://koreaisacademy.com/"
+      <a style="color: #03a9fc" href="https://koreaisacademy.com/"
         >코리아IT아카데미</a
       >
       팀프로젝로 학습용 사이트입니다.
