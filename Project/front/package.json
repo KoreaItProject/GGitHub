@@ -15,8 +15,11 @@
     "http-proxy-middleware": "^2.0.6",
     "local": "^0.3.3",
     "marked": "^3.0.8",
+    "secure-ls": "^1.2.6",
     "vue": "^2.5.2",
+    "vue-persistedstate": "^1.2.5",
     "vue-router": "^3.0.1",
+    "vuex": "2.0",
     "webstomp-client": "^1.2.6"
   },
   "devDependencies": {
@@ -54,7 +57,7 @@
     "vue-loader": "^13.3.0",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.5.2",
-    "webpack": "^3.6.0",
+    "webpack": "^3.12.0",
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.9.1",
     "webpack-merge": "^4.1.0"
