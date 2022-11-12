@@ -413,7 +413,7 @@ body::-webkit-scrollbar-thumb , .scrollBar::-webkit-scrollbar-thumb{
 }
 
 body::-webkit-scrollbar-track , .scrollBar::-webkit-scrollbar-track{
-  background: rgba(33, 122, 244, .1);
+  background: rgba(33, 122, 244, 0);
   /*스크롤바 뒷 배경 색상*/
 }
 /* 임의의 영역 생성 */

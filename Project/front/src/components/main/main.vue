@@ -23,7 +23,7 @@
               <input
                 class="input"
                 name="uid"
-                placeholder="Enter your ID"
+                placeholder="닉네임"
                 v-model="user_id"
               />
             </p>
@@ -32,7 +32,7 @@
               <input
                 class="input"
                 name="uemail"
-                placeholder="Enter your Email"
+                placeholder="이메일"
                 v-model="user_email"
               />
             </p>
@@ -41,7 +41,7 @@
               <input
                 name="password"
                 class="input"
-                placeholder="Enter your password"
+                placeholder="패스워드"
                 v-model="user_pw"
                 type="password"
               />
@@ -51,9 +51,7 @@
               Use at least one letter, one numeral, and seven characters.
             </h6>
             <p>
-              <button type="submit" class="btn--primary">
-                Sign up for GgitHub
-              </button>
+              <button type="submit" class="btn--primary">회원가입</button>
             </p>
 
             <p>
