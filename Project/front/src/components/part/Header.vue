@@ -6,7 +6,7 @@
         <span class="header_logo_text">GGIT</span>
       </a>
 
-      <div class="header_inlogin">
+      <div class="header_right_div" v-if="islogin">
         <img
           src="@/assets/imgs/profile/profileImg.jpg"
           class="header_profile_img"
@@ -18,12 +18,24 @@
           <a class="header_tab" href="/진렬킴"><span>프로필</span></a>
         </div>
       </div>
+      <div class="header_right_div" v-if="!islogin">
+        <div class="header_tab_div">
+          <a class="header_tab"><span>회원가입</span></a>
+          <a class="header_tab" href="/login"><span>로그인</span></a>
+        </div>
+      </div>
     </div>
   </header>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      islogin: false,
+    };
+  },
+};
 </script>
 
 <style lang="sass">
