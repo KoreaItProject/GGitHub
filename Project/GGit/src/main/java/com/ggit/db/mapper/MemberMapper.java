@@ -17,6 +17,6 @@ public interface MemberMapper {
 
         List<MemberVo> member();
 
-        MemberVo memberByemailPW(String email, String pw);
+        MemberVo memberByemailPw(MemberVo membervo);
 
 }
