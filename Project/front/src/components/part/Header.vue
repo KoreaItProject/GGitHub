@@ -34,9 +34,9 @@
 export default {
   data() {
     return {
-      islogin: false,
+      islogin: localStorage.getItem("isLogin")
     };
-  },
+  }
 };
 </script>
 

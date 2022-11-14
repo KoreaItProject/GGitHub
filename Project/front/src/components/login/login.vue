@@ -53,6 +53,7 @@ export default {
                 if (localStorage.getItem('idx') == null || localStorage.getItem('idx') == 'undefined' || localStorage.getItem('idx') == '') {
                     alert('로그인 실패');
                 } else {
+                    this.$router.go();
                     const u_idx = localStorage.getItem('idx');
                     axios.post("/api/overview",{idx : u_idx});
                     //alert('다음');
