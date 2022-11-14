@@ -2,12 +2,16 @@ package com.ggit.vo;
 
 import java.sql.Timestamp;
 
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 
+@Component
 public class MemberVo {
     String nick;
 

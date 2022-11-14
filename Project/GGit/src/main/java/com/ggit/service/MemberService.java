@@ -19,10 +19,6 @@ public class MemberService {
         return mapper.member();
     }
 
-    public MemberVo memberByemailPW(String email, String pw) {
-        return mapper.memberByemailPW(email, pw);
-    }
-
     public MemberVo memberByemailPw(MemberVo membervo) {
         return mapper.memberByemailPw(membervo);
     }

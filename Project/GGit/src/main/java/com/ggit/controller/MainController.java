@@ -1,21 +1,26 @@
 package com.ggit.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ggit.socket.SocketRunTime;
+import com.ggit.service.MemberService;
+import com.ggit.vo.MemberVo;
 
-@Controller
+@RestController
 public class MainController {
 
-    @GetMapping("/login")
-    public String login() {
-        return "/view/login.html";
+    @GetMapping(value = "/hello")
+    public String helloWorld() {
+        return "hello world!";
     }
 
     @GetMapping("/login.do")
@@ -23,11 +28,12 @@ public class MainController {
         return "/view/index.html";
     }
 
+    @PostMapping("/overview")
     @ResponseBody
-    @GetMapping("/999999999")
-    public String s() {
-        new SocketRunTime();
-        return "999999999";
+    public void overview(@RequestBody MemberVo membervo) {
+        System.out.println("asdasd");
+        System.out.println("========>" + membervo.getIdx());
+        // return memberVo = memberService.memberByemailPw(membervo);
     }
 
 }
