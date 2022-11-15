@@ -48,17 +48,7 @@
 
 
 
-
-
-
-
     </div>
-
-    
-
-
-
- 
 
 
 </template>
@@ -75,6 +65,9 @@ export default {
     };
   },
   methods: {},
+  mounted() {
+    alert(localStorage.getItem("idx"));
+  },
 };
 </script>
 <style lang="sass">

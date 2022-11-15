@@ -32,43 +32,43 @@
     </div>
 </template>
 <script>
-import {mapActions, mapGetters} from 'vuex'
-import axios from 'axios'
+import { mapActions, mapGetters } from "vuex";
+import axios from "axios";
 export default {
-    data() {
-        return {
-            email: '',
-            pw: '',
+  data() {
+    return {
+      email: "",
+      pw: "",
+    };
+  },
+  methods: {
+    ...mapActions(["login"]), //vuex/actions에 있는 login 함수
+    async onSubmitLogin() {
+      if (this.email === "") {
+        alert("이메일을 입력하세요");
+      } else if (this.pw === "") {
+        alert("비밀번호를 입력하세요");
+      } else {
+        await this.login({ user_email: this.email, user_pw: this.pw });
+        if (
+          localStorage.getItem("idx") == null ||
+          localStorage.getItem("idx") == "undefined" ||
+          localStorage.getItem("idx") == ""
+        ) {
+          alert("로그인 실패");
+        } else {
+          this.$router.push({ path: "/123" });
         }
+      }
     },
-    methods: {
-        ...mapActions(['login']),     //vuex/actions에 있는 login 함수
-        async onSubmitLogin(){
-            if(this.email === ''){
-                alert('이메일을 입력하세요');
-            }else if(this.pw === '') { 
-                alert('비밀번호를 입력하세요');
-            }else{
-                await this.login({ user_email: this.email, user_pw: this.pw })
-                if (localStorage.getItem('idx') == null || localStorage.getItem('idx') == 'undefined' || localStorage.getItem('idx') == '') {
-                    alert('로그인 실패');
-                } else {
-                    this.$router.go();
-                    const u_idx = localStorage.getItem('idx');
-                    axios.post("/api/overview",{idx : u_idx});
-                    //alert('다음');
-                }
-            }
-            
-        },
-        computed: {
-            ...mapGetters({
-                errorState: 'getErrorState'
-            }),
-        }
-    }
-}
+    computed: {
+      ...mapGetters({
+        errorState: "getErrorState",
+      }),
+    },
+  },
+};
 </script>
 <style lang="sass">
-    @import 'src/assets/sass/login/login.sass'
+@import 'src/assets/sass/login/login.sass'
 </style>
