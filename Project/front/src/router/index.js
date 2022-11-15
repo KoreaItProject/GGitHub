@@ -25,7 +25,12 @@ export default new Router({
       path: '/create',
       name: 'create',
       component: () => import('@/components/repository/create')
-    }   
+    }   , {
+      path: '/pagenotfound',
+      name: 'pagenotfound',
+      component: () => import( '@/components/main/pagenotfound')
+
+    }
     , {
       path: '/setting/:tab',
       name: 'setting',
@@ -44,13 +49,9 @@ export default new Router({
       component: () => import( '@/components/repository/repository')
 
 
-    }
-    , {
-      path: '/*',
-      name: 'pagenotfound',
-      component: () => import( '@/components/main/pagenotfound')
 
-    }
+    }  
+    
 
     
    

@@ -1,24 +1,15 @@
 package com.ggit.vo;
 
-import lombok.Getter;
-import lombok.Setter;
+import org.springframework.stereotype.Component;
 
-@Getter
-@Setter
+import lombok.Data;
 
+@Data
+@Component
 public class RepomemVo {
 
-        int idx;
+    int idx;
+    int repo;
+    int member;
 
-        int repo;
-
-        int member;
-
-        public RepomemVo(int idx, int repo, int member) {
-            this.idx = idx;
-            this.repo = repo;
-            this.member = member;
-        }
-
-        
 }

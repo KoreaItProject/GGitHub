@@ -2,37 +2,26 @@ package com.ggit.vo;
 
 import java.sql.Timestamp;
 
+import org.springframework.stereotype.Component;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
-
+@Data
+@Component
 public class RepoVo {
 
     int idx;
 
     String name;
 
-    Timestamp createDate;
+    String createDate;
 
-    Integer publ;
+    int publ;
 
     int owner;
 
-    Integer fork;
+    int fork;
 
-    public RepoVo(int idx, String name, Timestamp createDate, Integer publ, int owner, Integer fork) {
-        this.idx = idx;
-        this.name = name;
-        this.createDate = createDate;
-        this.publ = publ;
-        this.owner = owner;
-        this.fork = fork;
-    }
-   
-    
-    
-    
 }

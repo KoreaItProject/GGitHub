@@ -7,16 +7,21 @@ import org.springframework.stereotype.Service;
 
 import com.ggit.db.mapper.RepoMapper;
 import com.ggit.vo.RepoVo;
+import com.ggit.vo.RepositoriesVO;
 
 @Service
 public class RepoService {
-    
+
     @Autowired
 
     public RepoMapper mapper;
 
-    public List<RepoVo> repo(){
+    public List<RepoVo> repo() {
         return mapper.repo();
     }
-    
+
+    public List<RepositoriesVO> selectRepositories(String nick) {
+        return mapper.selectRepositories(nick);
+    }
+
 }

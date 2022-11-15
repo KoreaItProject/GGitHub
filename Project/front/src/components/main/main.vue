@@ -72,7 +72,37 @@
 </template>
 
 <script>
-export default {};
+import axios from "axios";
+export default {
+  data() {
+    return {
+      user_id: "",
+      user_email: "",
+      user_pw: "",
+    };
+  },
+  mounted() {
+    if (localStorage.getItem("isLogin")) {
+      axios
+        .get("/api/nickFromIdx", {
+          params: {
+            idx: localStorage.getItem("idx"),
+          },
+        })
+        .then((response) => {
+          // handle success
+          window.location.href = "/" + response.data;
+        })
+        .catch((error) => {
+          // handle error
+          console.log(error);
+        })
+        .finally(() => {
+          // always executed
+        });
+    }
+  },
+};
 </script>
 
 <style lang="sass">

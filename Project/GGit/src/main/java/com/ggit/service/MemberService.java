@@ -12,13 +12,29 @@ import com.ggit.vo.MemberVo;
 public class MemberService {
     @Autowired
     public MemberMapper mapper;
+    @Autowired
+    public MemberVo memberVo;
 
     public List<MemberVo> member() {
         return mapper.member();
     }
 
-    public MemberVo memberByemailPW(String email, String pw) {
-        return mapper.memberByemailPW(email, pw);
+    public MemberVo memberByemailPw(MemberVo membervo) {
+        return mapper.memberByemailPw(membervo);
+    }
+
+    public boolean hasNick(String nick) {
+        if (0 == mapper.hasNick(nick)) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
+    public String nickFromIdx(int idx) {
+        return mapper.nickFromIdx(idx);
+
     }
 
 }

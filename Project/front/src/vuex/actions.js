@@ -41,6 +41,7 @@ let processResponse = (store, loginResponse) => {
   } else {
     console.log(loginResponse.data);
     localStorage.setItem("idx", loginResponse.data.idx);
+    localStorage.setItem("isLogin", true);
     setUserEmail(store, loginResponse.data.email);
     setUserIdx(store, loginResponse.data.idx);
     setErrorState(store, "");
@@ -55,8 +56,7 @@ export default {
       email: user_email,
       pw: user_pw
     });
-    //console.log(loginResponse.data);
     processResponse(store, loginResponse);
-    return store.getters.getUserIdx; // 로그인 결과를 리턴한다
+    return loginResponse; // 로그인 결과를 리턴한다
   }
 };

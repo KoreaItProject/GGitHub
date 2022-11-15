@@ -130,6 +130,27 @@ export default {
   },
 
   mounted() {
+    axios
+      .get("/api/hasNick", {
+        params: {
+          nick: this.$route.params.nick,
+        },
+      })
+      .then((response) => {
+        // handle success
+
+        if (!response.data) {
+          window.location.href = "/pagenotfound";
+        }
+      })
+      .catch((error) => {
+        // handle error
+        console.log(error);
+      })
+      .finally(() => {
+        // always executed
+      });
+
     let tab = this.$route.query.tab;
     if (tab == "repositories") {
       this.isRepositories = true;
