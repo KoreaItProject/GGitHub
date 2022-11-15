@@ -83,7 +83,7 @@ import code from "@/components/repository/code.vue";
 import history from "@/components/repository/history/history.vue";
 import pullrequest from "@/components/repository/pullrequest.vue";
 
-import setting from "@/components/repository/setting.vue";
+import setting from "@/components/repository/setting/setting.vue";
 import axios from "axios";
 
 export default {
