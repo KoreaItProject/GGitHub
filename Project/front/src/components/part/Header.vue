@@ -35,19 +35,19 @@
 export default {
   data() {
     return {
-      islogin: ""
+      islogin: "",
     };
   },
   methods: {
-    Logout: function() {
+    Logout: function () {
       localStorage.removeItem("idx");
       localStorage.removeItem("isLogin");
       window.location.href = "";
-    }
+    },
   },
   mounted() {
     this.islogin = localStorage.getItem("isLogin");
-  }
+  },
 };
 </script>
 

@@ -13,5 +13,5 @@ import com.ggit.vo.RepositoriesVO;
 public interface RepoMapper {
     List<RepoVo> repo();
 
-    List<RepositoriesVO> myRepositories(int member);
+    List<RepositoriesVO> selectRepositories(String nick);
 }

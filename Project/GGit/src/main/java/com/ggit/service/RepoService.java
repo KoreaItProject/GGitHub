@@ -20,8 +20,8 @@ public class RepoService {
         return mapper.repo();
     }
 
-    public List<RepositoriesVO> myRepositories(int member) {
-        return mapper.myRepositories(member);
+    public List<RepositoriesVO> selectRepositories(String nick) {
+        return mapper.selectRepositories(nick);
     }
 
 }

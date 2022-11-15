@@ -11,11 +11,11 @@
             member.idx as member_idx,member.nick as member_nick,member.email as member_email,
             member.pw as member_pw, member.img as member_img,member.auth as member_auth,member.date as member_date
             FROM repo,repomem,member where repomem.repo=repo.idx and repo.owner=member.idx and repomem.member=${member}; -->
-    <select id="myRepositories" resultType="com.ggit.vo.RepositoriesVO">
+    <select id="selectRepositories" resultType="com.ggit.vo.RepositoriesVO">
         SELECT repo.idx as repo_idx,repo.name as repo_name,repo.createDate as repo_crateDate
             ,repo.public as repo_publ,repo.owner as repo_owner,repo.fork as repo_fork,
             repomem.idx as repomem_idx,repomem.repo as repomem_repo,repomem.member as repomem_member,
             member.idx as member_idx,member.nick as member_nick
-            FROM repo,repomem,member where repomem.repo=repo.idx and repo.owner=member.idx and repomem.member=${member};
+            FROM repo,repomem,member where repomem.repo=repo.idx and repo.owner=member.idx and repomem.member=(select idx from member where nick = #{nick});
     </select>
 </mapper>

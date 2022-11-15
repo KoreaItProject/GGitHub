@@ -23,4 +23,13 @@ public class MemberService {
         return mapper.memberByemailPw(membervo);
     }
 
+    public boolean hasNick(String nick) {
+        if (0 == mapper.hasNick(nick)) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
 }

@@ -18,6 +18,8 @@ import com.ggit.vo.RepositoriesVO;
 
 @RestController
 public class MainController {
+    @Autowired
+    MemberService memberService;
 
     @GetMapping(value = "/hello")
     public String helloWorld() {
@@ -37,4 +39,8 @@ public class MainController {
         // return memberVo = memberService.memberByemailPw(membervo);
     }
 
+    @RequestMapping("/hasNick")
+    public boolean hasNick(String nick) {
+        return memberService.hasNick(nick);
+    }
 }

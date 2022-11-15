@@ -16,8 +16,10 @@ import com.ggit.vo.MemberVo;
 @Mapper
 public interface MemberMapper {
 
-
         List<MemberVo> member();
+
         MemberVo memberByemailPw(MemberVo membervo);
+
+        int hasNick(String nick);
 
 }
