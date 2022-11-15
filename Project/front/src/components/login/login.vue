@@ -15,7 +15,7 @@
             <div class="auth-form">
                 <div class="auth-form-header"><h1>Sign into GGit</h1></div>
                 <div class="auth-form-body">
-                    <form @submit.prevent="onSubmitLogin">
+                    <form @submit.prevent="onSubmitLogin" >
                         <label class="body-label" for="login_field">email address</label>
                         <input type="text" name="login" id="login_field" class="form-control input-block" v-model="email"></input>
 
@@ -27,6 +27,7 @@
                         </div>
                     </form>
                 </div>
+                <router-view :key="$route.fullPath"/>
             </div>
         </main>
     </div>
@@ -61,10 +62,35 @@ export default {
         }
       }
     },
-    computed: {
-      ...mapGetters({
-        errorState: "getErrorState",
-      }),
+
+    methods: {
+      ...mapActions(["login"]), //vuex/actions에 있는 login 함수
+      async onSubmitLogin() {
+        if (this.email === "") {
+          alert("이메일을 입력하세요");
+        } else if (this.pw === "") {
+          alert("비밀번호를 입력하세요");
+        } else {
+          const u_data = await this.login({
+            user_email: this.email,
+            user_pw: this.pw,
+          });
+          if (
+            localStorage.getItem("idx") == null ||
+            localStorage.getItem("idx") == "undefined" ||
+            localStorage.getItem("idx") == ""
+          ) {
+            alert("로그인 실패");
+          } else {
+            window.location.href = "/" + u_data.data.nick;
+          }
+        }
+      },
+      computed: {
+        ...mapGetters({
+          errorState: "getErrorState",
+        }),
+      },
     },
   },
 };
