@@ -42,6 +42,7 @@ export default {
       pw: "",
     };
   },
+
   methods: {
     ...mapActions(["login"]), //vuex/actions에 있는 login 함수
     async onSubmitLogin() {
@@ -69,7 +70,7 @@ export default {
       ...mapGetters({
         errorState: "getErrorState",
       }),
-    },
+    }, // computed
   },
 };
 </script>
