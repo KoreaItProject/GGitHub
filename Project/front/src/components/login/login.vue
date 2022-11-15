@@ -42,44 +42,17 @@ export default {
       pw: "",
     };
   },
-  methods: {
-    ...mapActions(["login"]), //vuex/actions에 있는 login 함수
-    async onSubmitLogin() {
-      if (this.email === "") {
-        alert("이메일을 입력하세요");
-      } else if (this.pw === "") {
-        alert("비밀번호를 입력하세요");
-      } else {
-        await this.login({ user_email: this.email, user_pw: this.pw });
-        if (
-          localStorage.getItem("idx") == null ||
-          localStorage.getItem("idx") == "undefined" ||
-          localStorage.getItem("idx") == ""
-        ) {
-          alert("로그인 실패");
-        } else {
-          this.$router.push({ path: "/123" });
-        }
-      }
-    },
-
     methods: {
       ...mapActions(["login"]), //vuex/actions에 있는 login 함수
       async onSubmitLogin() {
+        
         if (this.email === "") {
           alert("이메일을 입력하세요");
         } else if (this.pw === "") {
           alert("비밀번호를 입력하세요");
         } else {
-          const u_data = await this.login({
-            user_email: this.email,
-            user_pw: this.pw,
-          });
-          if (
-            localStorage.getItem("idx") == null ||
-            localStorage.getItem("idx") == "undefined" ||
-            localStorage.getItem("idx") == ""
-          ) {
+          const u_data = await this.login({ user_email: this.email, user_pw: this.pw});
+          if ( localStorage.getItem("idx") == null || localStorage.getItem("idx") == "undefined" || localStorage.getItem("idx") == "") {
             alert("로그인 실패");
           } else {
             window.location.href = "/" + u_data.data.nick;
@@ -90,9 +63,8 @@ export default {
         ...mapGetters({
           errorState: "getErrorState",
         }),
-      },
+      }, // computed
     },
-  },
 };
 </script>
 <style lang="sass">
