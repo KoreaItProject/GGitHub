@@ -22,4 +22,6 @@ public interface MemberMapper {
 
         int hasNick(String nick);
 
+        String nickFromIdx(int idx);
+
 }

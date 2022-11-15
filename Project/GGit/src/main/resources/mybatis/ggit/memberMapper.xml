@@ -10,5 +10,9 @@
     <select id="hasNick" resultType="int">
         select count(idx) from member where nick = #{nick}
     </select>
+    <select id="nickFromIdx" resultType="string">
+        select nick from member where idx = ${idx}
+    </select>
+
 
 </mapper>

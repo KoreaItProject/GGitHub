@@ -15,8 +15,14 @@
         <div class="header_tab_div">
           <a class="header_tab" @click="Logout"><span>로그아웃</span></a>
           <a class="header_tab" href="/setting/profile"><span>설정</span></a>
-          <a class="header_tab"><span>새 저장소</span></a>
-          <a class="header_tab" href="/진렬킴"><span>프로필</span></a>
+          <a class="header_tab" :href="'/' + nick + '?tab=stars'"
+            ><span>즐겨찾기</span></a
+          >
+          <a class="header_tab" href="/create"><span>새 저장소</span></a>
+          <a class="header_tab" :href="'/' + nick + '?tab=repositories'"
+            ><span>내 저장소</span></a
+          >
+          <a class="header_tab" :href="'/' + nick"><span>프로필</span></a>
         </div>
       </div>
 
@@ -32,10 +38,12 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
-      islogin: "",
+      islogin: false,
+      nick: "박똥규",
     };
   },
   methods: {
@@ -47,6 +55,26 @@ export default {
   },
   mounted() {
     this.islogin = localStorage.getItem("isLogin");
+    if (this.islogin) {
+      axios
+        .get("/api/nickFromIdx", {
+          params: {
+            idx: localStorage.getItem("idx"),
+          },
+        })
+        .then((response) => {
+          // handle success
+
+          this.nick = response.data;
+        })
+        .catch((error) => {
+          // handle error
+          console.log(error);
+        })
+        .finally(() => {
+          // always executed
+        });
+    }
   },
 };
 </script>

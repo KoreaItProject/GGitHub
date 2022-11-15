@@ -32,4 +32,9 @@ public class MemberService {
 
     }
 
+    public String nickFromIdx(int idx) {
+        return mapper.nickFromIdx(idx);
+
+    }
+
 }
