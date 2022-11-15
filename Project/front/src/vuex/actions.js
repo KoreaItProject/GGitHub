@@ -57,6 +57,6 @@ export default {
       pw: user_pw
     });
     processResponse(store, loginResponse);
-    return store.getters.getUserIdx; // 로그인 결과를 리턴한다
+    return loginResponse; // 로그인 결과를 리턴한다
   }
 };
