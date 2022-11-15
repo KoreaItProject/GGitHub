@@ -64,6 +64,7 @@
         </div>
         <div class="code_middle_container_left">
             <div class="about_box">
+                <h2 class="about_string">About</h2>
                 <p class="about_setting_message">협업, 형상 관리 프로그램</p>
                 <div class="readme_link">
                     <a href="#" class="readme_link_href">

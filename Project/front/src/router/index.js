@@ -44,7 +44,7 @@ export default new Router({
       component: () => import( '@/components/repository/repository')
 
 
-    }  
+    }
     , {
       path: '/*',
       name: 'pagenotfound',
