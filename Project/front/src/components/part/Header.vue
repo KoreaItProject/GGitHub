@@ -1,7 +1,7 @@
 <template>
   <header>
     <div class="header_container">
-      <a href="/">
+      <a href="/" class="header_logo">
         <img class="logo" src="@/assets/imgs/logo/logo.png" />
         <span class="header_logo_text">GGIT</span>
       </a>
@@ -15,9 +15,6 @@
         <div class="header_tab_div">
           <a class="header_tab" @click="Logout"><span>로그아웃</span></a>
           <a class="header_tab" href="/setting/profile"><span>설정</span></a>
-          <a class="header_tab" :href="'/' + nick + '?tab=stars'"
-            ><span>즐겨찾기</span></a
-          >
           <a class="header_tab" href="/create"><span>새 저장소</span></a>
           <a class="header_tab" :href="'/' + nick + '?tab=repositories'"
             ><span>내 저장소</span></a
