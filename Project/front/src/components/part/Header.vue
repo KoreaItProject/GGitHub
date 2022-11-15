@@ -13,12 +13,13 @@
           class="header_profile_img"
         />
         <div class="header_tab_div">
-          <a class="header_tab"><span>로그아웃</span></a>
+          <a class="header_tab" @click="Logout"><span>로그아웃</span></a>
           <a class="header_tab" href="/setting/profile"><span>설정</span></a>
           <a class="header_tab"><span>새 저장소</span></a>
           <a class="header_tab" href="/진렬킴"><span>프로필</span></a>
         </div>
       </div>
+
       <!-- 로그인 안됐을 때 -->
       <div class="header_right_div" v-if="!islogin">
         <div class="header_tab_div">
@@ -34,8 +35,18 @@
 export default {
   data() {
     return {
-      islogin: localStorage.getItem("isLogin")
+      islogin: ""
     };
+  },
+  methods: {
+    Logout: function() {
+      localStorage.removeItem("idx");
+      localStorage.removeItem("isLogin");
+      window.location.href = "";
+    }
+  },
+  mounted() {
+    this.islogin = localStorage.getItem("isLogin");
   }
 };
 </script>

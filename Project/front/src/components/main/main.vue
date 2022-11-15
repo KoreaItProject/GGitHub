@@ -72,7 +72,15 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      user_id: "",
+      user_email: "",
+      user_pw: ""
+    };
+  }
+};
 </script>
 
 <style lang="sass">
