@@ -6,8 +6,7 @@
         background: url('./static/imgs/main/bg.jpg');
         background-repeat: no-repeat, round;
         background-size: cover;
-        background-position: center;
-      "
+        background-position: center;"
     >
       <div class="main_img_div_left">
         <h1 id="title">How people build software</h1>
@@ -81,27 +80,31 @@ export default {
     return {
       nick: "",
       email: "",
-      pw: "",
+      pw: ""
     };
   },
   methods: {
     async signup() {
-      const test = await axios.post("/api/signup", {
-        nick: this.nick,
-        email: this.email,
-        pw: this.pw,
-      });
-      if (test.data > 0) {
-        alert("회원가입 성공");
-        this.$refs.ref_nick.value = "";
-        this.$refs.ref_email.value = "";
-        this.$refs.ref_pw.value = "";
-        window.location.href = "/login";
-      } else if (test.data < 1) {
-        alert("실패! 다시 시도해주세요~");
+      if (this.nick == "" || this.email == "" || this.pw == "") {
+        alert("빈 곳을 채워주세요");
+      } else {
+        const test = await axios.post("/api/signup", {
+          nick: this.nick,
+          email: this.email,
+          pw: this.pw
+        });
+        if (test.data > 0) {
+          alert("회원가입 성공");
+          this.$refs.ref_nick.value = "";
+          this.$refs.ref_email.value = "";
+          this.$refs.ref_pw.value = "";
+          window.location.href = "/login";
+        } else if (test.data < 1) {
+          alert("실패! 다시 시도해주세요~");
+        }
       }
-    }, // signup()
-  },
+    } // signup()
+  }
 };
 </script>
 
