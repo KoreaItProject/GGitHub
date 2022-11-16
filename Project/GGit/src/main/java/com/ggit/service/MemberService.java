@@ -27,6 +27,7 @@ public class MemberService {
         MemberVo memberVo = mapper.memberByNick(nick);
         if (memberVo.getImg() == null)
             memberVo.setImg("profile/profileImg.jpg");
+
         return memberVo;
     }
 

@@ -2,13 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ggit.db.mapper.MemberMapper">
     <select id="member" resultType="com.ggit.vo.MemberVo">
-        SELECT * FROM member;
+        SELECT member.idx, member.nick,member.email,member.pw,member.auth,member.date,
+        member.img,member.con,member.url,member.company,member.location  
+        FROM member;
     </select>
     <select id="memberByemailPw" resultType="com.ggit.vo.MemberVo">
-        SELECT * FROM member where email = #{email} and pw = #{pw};
+        SELECT member.idx, member.nick,member.email,member.pw,member.auth,member.date,
+        member.img,member.con,member.url,member.company,member.location 
+        FROM member where email = #{email} and pw = #{pw};
     </select>
     <select id="memberByNick" resultType="com.ggit.vo.MemberVo">
-        SELECT * FROM member where nick = #{nick};
+        SELECT member.idx, member.nick,member.email,member.pw,member.auth,member.date,
+        member.img,member.con,member.url,member.company,member.location,
+        (select count(idx) from follow where member=member.idx) as followers,
+        (select count(idx) from follow where follower=member.idx) as following
+        FROM member where nick = #{nick};
     </select>
 
     <select id="hasNick" resultType="int">
