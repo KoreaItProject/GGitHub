@@ -22,4 +22,10 @@ public class LoginController {
     public MemberVo login(@RequestBody MemberVo membervo) {
         return memberVo = memberService.memberByemailPw(membervo);
     }
+
+    @PostMapping("/signup")
+    @ResponseBody
+    public int signup(@RequestBody MemberVo membervo) {
+        return memberService.signupMember(membervo);
+    }
 }

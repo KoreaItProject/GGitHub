@@ -53,4 +53,9 @@ public class MemberService {
         return img;
     }
 
+    public int signupMember(MemberVo membervo) {
+        return mapper.signupMember(membervo);
+
+    }
+
 }

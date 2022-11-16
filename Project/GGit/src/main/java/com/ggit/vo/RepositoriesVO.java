@@ -33,4 +33,12 @@ public class RepositoriesVO {
     String member_img;
     int member_auth;
     String member_date;
+
+    //push
+    String push_message;
+    String push_token;
+    String push_date;
+
+    
+
 }

@@ -11,7 +11,9 @@
                 <div class="repo_about">
                     저장소 소개글 변경
                 </div>
-                <span><textarea class="repo_about_textarea" placeholder="about-message" ></textarea></span>
+                <div>
+                <textarea class="repo_about_textarea" placeholder="about-message" ></textarea>
+                </div>
                 <button class="repo_about_btn">적용하기</button>
             </div>
 

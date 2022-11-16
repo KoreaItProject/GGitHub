@@ -1,6 +1,7 @@
 package com.ggit.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,11 @@ public class RepoService {
 
     public List<RepositoriesVO> selectRepositories(String nick) {
         return mapper.selectRepositories(nick);
+    }
+
+    public RepositoriesVO selectRepositorycode(Map map){
+
+        return mapper.selectRepositorycode(map);
     }
 
 }

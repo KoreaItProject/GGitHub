@@ -28,4 +28,7 @@ public interface MemberMapper {
 
         String imgFromNick(String nick);
 
+        // 회원 가입
+        int signupMember(MemberVo membervo);
+
 }
