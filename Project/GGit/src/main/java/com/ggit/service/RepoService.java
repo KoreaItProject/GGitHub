@@ -25,9 +25,18 @@ public class RepoService {
         return mapper.selectRepositories(nick);
     }
 
-    public RepositoriesVO selectRepositorycode(Map map){
-
-        return mapper.selectRepositorycode(map);
+    public int repoIdxByNickName(Map map){
+        
+        return mapper.repoIdxByNickName(map);
     }
+    public RepositoriesVO selectRepositorycode(int repoIdx){
+        return mapper.selectRepositorycode(repoIdx);
+    }
+    // public RepositoriesVO selectRepositorycontributors(int repoIdx){
+    //     return mapper.selectRepositorycontributors(repoIdx);
+    // }
+
+    
+    
 
 }
