@@ -37,8 +37,25 @@ public class MemberService {
 
     }
 
+    public String imgFromIdx(int idx) {
+        String img;
+        img = mapper.imgFromIdx(idx);
+        if (img == null)
+            img = "profile/profileImg.jpg";
+        return img;
+    }
+
+    public String imgFromNick(String nick) {
+        String img;
+        img = mapper.imgFromNick(nick);
+        if (img == null)
+            img = "profile/profileImg.jpg";
+        return img;
+    }
+
     public int signupMember(MemberVo membervo) {
         return mapper.signupMember(membervo);
+
     }
 
 }

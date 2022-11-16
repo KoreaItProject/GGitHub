@@ -24,6 +24,10 @@ public interface MemberMapper {
 
         String nickFromIdx(int idx);
 
+        String imgFromIdx(int idx);
+
+        String imgFromNick(String nick);
+
         // 회원 가입
         int signupMember(MemberVo membervo);
 

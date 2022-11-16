@@ -37,7 +37,7 @@
 
         <div class="profile_bar_left">
             <div class="profile_img_div">
-                <img class="profile_img" src='@/assets/imgs/profile/profileImg.jpg'/>
+                <img class="profile_img" :src='img'/>
             </div>
             <div class="profile_nick_div">
               <span class="profile_nick" >{{$route.params.nick}}</span>
@@ -120,6 +120,7 @@ export default {
       tab1_color: "0px",
       tab2_color: "0px",
       tab3_color: "0px",
+      img: null,
     };
   },
   components: {
@@ -128,12 +129,36 @@ export default {
     stars: stars,
     setting: setting,
   },
+  methods: {
+    getImg() {
+      axios
+        .get("/api/imgFromNick", {
+          params: {
+            nick: this.$route.params.nick,
+          },
+        })
+        .then((response) => {
+          // handle success
+          let imgPath = response.data;
+          this.img = require("@/assets/imgs/" + imgPath);
+        })
+        .catch((error) => {
+          // handle error
+          console.log(error);
+        })
+        .finally(() => {
+          // always executed
+        });
+    },
+  },
 
   mounted() {
+    this.getImg();
     axios
       .get("/api/hasNick", {
         params: {
           nick: this.$route.params.nick,
+          img: null,
         },
       })
       .then((response) => {
@@ -165,44 +190,6 @@ export default {
       this.tab1_color = "4px";
     }
   },
-  // methods: {
-  //   overview() {
-  //     this.isOverview = true;
-  //     this.isRepositories = false;
-  //     this.isStars = false;
-  //     this.isSetting = false;
-  //     this.tab1_color = "4px";
-  //     this.tab2_color = "0";
-  //     this.tab3_color = "0";
-  //   },
-  //   repositories() {
-  //     this.isOverview = false;
-  //     this.isRepositories = true;
-  //     this.isStars = false;
-  //     this.isSetting = false;
-  //     this.tab1_color = "0";
-  //     this.tab2_color = "4px";
-  //     this.tab3_color = "0";
-  //   },
-  //   stars() {
-  //     this.isOverview = false;
-  //     this.isRepositories = false;
-  //     this.isStars = true;
-  //     this.isSetting = false;
-  //     this.tab1_color = "0";
-  //     this.tab2_color = "0";
-  //     this.tab3_color = "4px";
-  //   },
-  //   setting() {
-  //     this.isOverview = false;
-  //     this.isRepositories = false;
-  //     this.isStars = false;
-  //     this.isSetting = true;
-  //     this.tab1_color = "0";
-  //     this.tab2_color = "0";
-  //     this.tab3_color = "0";
-  //   },
-  // },
 };
 </script>
 <style lang="sass">

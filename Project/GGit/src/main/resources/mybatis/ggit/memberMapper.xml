@@ -13,9 +13,16 @@
     <select id="nickFromIdx" resultType="string">
         select nick from member where idx = ${idx}
     </select>
+
+    <select id="imgFromIdx" resultType="string">
+        select img from member where idx =  ${idx}
+    </select>
+    <select id="imgFromNick" resultType="string">
+        select img from member where nick =  #{nick}
+    </select>
+
     <insert id="signupMember">
         insert into member(idx, nick, email, pw, auth, date) values(idx, #{nick}, #{email}, #{pw}, 0 , sysdate());
     </insert>
-
 
 </mapper>
