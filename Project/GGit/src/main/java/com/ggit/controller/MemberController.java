@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ggit.service.MemberService;
+import com.ggit.vo.MemberVo;
 
 @RestController
 public class MemberController {
@@ -20,6 +21,12 @@ public class MemberController {
     public String nickFromIdx(int idx) {
 
         return memberService.nickFromIdx(idx);
+    }
+
+    @RequestMapping("/memberByNick")
+    public MemberVo memberByNick(String nick) {
+
+        return memberService.memberByNick(nick);
     }
 
     @RequestMapping("/imgFromIdx")

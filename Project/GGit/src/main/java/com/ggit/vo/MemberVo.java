@@ -25,5 +25,8 @@ public class MemberVo {
     int auth;
 
     String date;
-
+    String con;
+    String url;
+    String company;
+    String location;
 }

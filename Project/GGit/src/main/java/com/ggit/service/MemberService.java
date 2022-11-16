@@ -23,6 +23,13 @@ public class MemberService {
         return mapper.memberByemailPw(membervo);
     }
 
+    public MemberVo memberByNick(String nick) {
+        MemberVo memberVo = mapper.memberByNick(nick);
+        if (memberVo.getImg() == null)
+            memberVo.setImg("profile/profileImg.jpg");
+        return memberVo;
+    }
+
     public boolean hasNick(String nick) {
         if (0 == mapper.hasNick(nick)) {
             return false;

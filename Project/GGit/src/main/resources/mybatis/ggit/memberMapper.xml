@@ -7,6 +7,10 @@
     <select id="memberByemailPw" resultType="com.ggit.vo.MemberVo">
         SELECT * FROM member where email = #{email} and pw = #{pw};
     </select>
+    <select id="memberByNick" resultType="com.ggit.vo.MemberVo">
+        SELECT * FROM member where nick = #{nick};
+    </select>
+
     <select id="hasNick" resultType="int">
         select count(idx) from member where nick = #{nick}
     </select>

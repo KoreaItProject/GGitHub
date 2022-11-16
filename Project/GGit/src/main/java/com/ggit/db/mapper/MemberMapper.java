@@ -20,6 +20,8 @@ public interface MemberMapper {
 
         MemberVo memberByemailPw(MemberVo membervo);
 
+        MemberVo memberByNick(String nick);
+
         int hasNick(String nick);
 
         String nickFromIdx(int idx);
