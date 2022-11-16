@@ -16,9 +16,21 @@ public class MemberController {
         return memberService.hasNick(nick);
     }
 
-    @RequestMapping("nickFromIdx")
+    @RequestMapping("/nickFromIdx")
     public String nickFromIdx(int idx) {
 
         return memberService.nickFromIdx(idx);
+    }
+
+    @RequestMapping("/imgFromIdx")
+    public String imgFromIdx(int idx) {
+
+        return memberService.imgFromIdx(idx);
+    }
+
+    @RequestMapping("/imgFromNick")
+    public String imgFromNick(String nick) {
+
+        return memberService.imgFromNick(nick);
     }
 }

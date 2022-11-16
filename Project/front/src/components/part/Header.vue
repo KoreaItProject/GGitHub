@@ -8,10 +8,7 @@
 
       <!-- 로그인 됐을때 -->
       <div class="header_right_div" v-if="islogin">
-        <img
-          src="@/assets/imgs/profile/profileImg.jpg"
-          class="header_profile_img"
-        />
+        <img :src="img" class="header_profile_img" />
         <div class="header_tab_div">
           <a class="header_tab" @click="Logout"><span>로그아웃</span></a>
           <a class="header_tab" href="/setting/profile"><span>설정</span></a>
@@ -40,7 +37,8 @@ export default {
   data() {
     return {
       islogin: false,
-      nick: "박똥규",
+      nick: "",
+      img: null,
     };
   },
   methods: {
@@ -49,10 +47,7 @@ export default {
       localStorage.removeItem("isLogin");
       window.location.href = "";
     },
-  },
-  mounted() {
-    this.islogin = localStorage.getItem("isLogin");
-    if (this.islogin) {
+    getNick() {
       axios
         .get("/api/nickFromIdx", {
           params: {
@@ -71,6 +66,33 @@ export default {
         .finally(() => {
           // always executed
         });
+    },
+    getImg() {
+      axios
+        .get("/api/imgFromIdx", {
+          params: {
+            idx: localStorage.getItem("idx"),
+          },
+        })
+        .then((response) => {
+          // handle success
+          let imgPath = response.data;
+          this.img = require("@/assets/imgs/" + imgPath);
+        })
+        .catch((error) => {
+          // handle error
+          console.log(error);
+        })
+        .finally(() => {
+          // always executed
+        });
+    },
+  },
+  mounted() {
+    this.islogin = localStorage.getItem("isLogin");
+    if (this.islogin) {
+      this.getNick();
+      this.getImg();
     }
   },
 };
