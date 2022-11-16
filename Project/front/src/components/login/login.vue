@@ -17,7 +17,7 @@
                 <div class="auth-form-body">
                     <form @submit.prevent="onSubmitLogin" >
                         <label class="body-label" for="login_field">email address</label>
-                        <input type="text" name="login" id="login_field" class="form-control input-block" v-model="email"></input>
+                        <input ref="ref_email" type="text" name="login" id="login_field" class="form-control input-block" v-model="email"></input>
 
                         <div>
                             <label for="password">Password</label>
@@ -60,7 +60,8 @@ export default {
           localStorage.getItem("idx") == "undefined" ||
           localStorage.getItem("idx") == ""
         ) {
-          alert("로그인 실패");
+          alert("로그인 실패 아이디 및 비밀번호를 확인해주세요");
+          this.$refs.ref_email.focus();
         } else {
           window.location.href = "/" + u_data.data.nick;
         }
