@@ -16,6 +16,11 @@ public interface RepoMapper {
 
     List<RepositoriesVO> selectRepositories(String nick);
 
-    RepositoriesVO selectRepositorycode(Map map);
+   int repoIdxByNickName(Map map);
+
+   RepositoriesVO selectRepositorycode(int repoIdx);
+    
+    // RepositoriesVO selectRepositorycontributors(int repoIdx);
+    
 
 }

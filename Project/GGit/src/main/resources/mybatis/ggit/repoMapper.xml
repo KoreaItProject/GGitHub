@@ -19,17 +19,23 @@
             FROM repo,repomem,member where repomem.repo=repo.idx and repo.owner=member.idx and repomem.member=(select idx from member where nick = #{nick});
     </select>
 
+    <select id="repoIdxByNickName" resultType="int">
+     select repo.idx from repo where repo.name=#{reponame} and owner=(select member.idx from member where member.nick =#{nick})
+    </select>
     <select id="selectRepositorycode" resultType="com.ggit.vo.RepositoriesVO">
         SELECT push.member as push_member, push.message as push_message,
         push.token as push_token, push.date as push_date, push.repo as push_repo,
         member.nick as member_nick
         FROM push, member
-        WHERE member.idx = push.member and push.repo = (select repo.idx from repo where repo.name=#{reponame} and owner=(select member.idx from member where member.nick =#{nick}))
+        WHERE member.idx = push.member and push.repo = ${repoIdx}
 
     </select>
+    <!-- <select id="selectRepositorycontributors" resultType="com.ggit.vo.RepositoriesVO">
+        SELECT member.img as member_img, member.nick as member_nick
+        FROM member
+        WHERE member.idx = push.member and push.repo =  ${repoIdx}
+    </select> -->
 
-    <select id="selectRepositorycodeabout" resultType="com.ggit.vo.RepositoriesVO">
-        SELECT star.repo as star_repo, 
-    </select>
+    
 
 </mapper>

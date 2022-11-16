@@ -97,7 +97,7 @@
                 </h2>
                 
                 <ul>
-                    <li class="contributor_member_list" v-for="name in member">{{name}}</li>
+                    <li class="contributor_member_list">gddd</li>
                 </ul>
             </div>
 
@@ -112,13 +112,14 @@ export default {
   data() {
     return {
      file_list: ["ddd", "aaa", "asd", "lkj213"],member: ["leetahhyeon123", "eak00700", "JIN-RYEOL"],
-     push: []
+     push: [],
+     repoIdx:0,
     };
   },
   methods: {},
   mounted() {
     axios
-    .get("/api/selectRepositorycode",{
+    .get("/api/repoIdxByNickName",{
         params: {
             nick: this.$route.params.nick,
             reponame: this.$route.params.repository
@@ -126,8 +127,54 @@ export default {
         },
     })
     .then((response) => {
-        console.log(response.data)
-        this.push = response.data;
+        this.repoIdx = response.data;
+        
+                axios
+            .get("/api/selectRepositorycode",{
+                params: {
+                    repoIdx: this.repoIdx
+                
+
+                },
+            })
+            .then((response) => {
+                
+                this.push = response.data;
+                // console.log(this.push)
+                
+            }) 
+            .catch((error) => {
+                // handle error
+                
+                console.log(error);
+            })
+            .finally(() => {
+                // always executed
+            });
+
+            // axios
+            // .get("/api/selectRepositorycontributors",{
+            //     params: {
+            //         repoIdx: this.repoIdx
+                
+
+            //     },
+            // })
+            // .then((response) => {
+                
+            //     this.contri = response.data;
+            //     // console.log(this.push)
+            //     alert(this.contri)
+            // }) 
+            // .catch((error) => {
+            //     // handle error
+                
+            //     console.log(error);
+            // })
+            // .finally(() => {
+            //     // always executed
+            // });
+        
     }) 
     .catch((error) => {
         // handle error
@@ -137,6 +184,8 @@ export default {
       .finally(() => {
         // always executed
       });
+      //
+  
     
   },
 };
