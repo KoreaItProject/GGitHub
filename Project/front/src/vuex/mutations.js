@@ -18,5 +18,8 @@ export default {
   },
   [types.IS_LOGIN](state, isLogin) {
     state.isLogin = isLogin;
+  },
+  [types.IS_NICK](state, isNick) {
+    state.isNick = isNick;
   }
 };

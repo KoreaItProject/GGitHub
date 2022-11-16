@@ -20,7 +20,8 @@ export default new Vuex.Store({
   state: {
     email: null,
     idx: null,
-    isLogin: false
+    isLogin: false,
+    isNick: null
   },
   mutations,
   getters,

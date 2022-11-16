@@ -13,6 +13,9 @@
     <select id="nickFromIdx" resultType="string">
         select nick from member where idx = ${idx}
     </select>
+    <insert id="signupMember">
+        insert into member(idx, nick, email, pw, auth, date) values(idx, #{nick}, #{email}, #{pw}, 0 , sysdate());
+    </insert>
 
 
 </mapper>

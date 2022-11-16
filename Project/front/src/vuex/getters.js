@@ -5,6 +5,7 @@ export default {
   getErrorState: state => state.errorState,
   getIsAuth: state => state.isAuth,
   getIsLogin: state => state.isLogin,
+  getIsNick: state => state.isNick,
   loggedIn(state) {
     return !!state.user;
   }

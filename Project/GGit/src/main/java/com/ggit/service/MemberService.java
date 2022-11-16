@@ -37,4 +37,8 @@ public class MemberService {
 
     }
 
+    public int signupMember(MemberVo membervo) {
+        return mapper.signupMember(membervo);
+    }
+
 }

@@ -3,7 +3,8 @@ import {
   USER_IDX,
   IS_AUTH,
   ERROR_STATE,
-  IS_LOGIN
+  IS_LOGIN,
+  IS_NICK
 } from "./mutation_types";
 
 import SecureLS from "secure-ls";
@@ -32,6 +33,9 @@ let setIsAuth = ({ commit }, data) => {
 let setIsLogin = ({ commit }, data) => {
   commit(IS_LOGIN, data);
 };
+let setIsNick = ({ commit }, data) => {
+  commit(IS_NICK, data);
+};
 
 // 백엔드에서 반환한 결과값을 가지고 로그인 성공 실패 여부를 vuex에 넣어줌
 let processResponse = (store, loginResponse) => {
@@ -39,13 +43,15 @@ let processResponse = (store, loginResponse) => {
     setErrorState(store, "Wrong ID or Password");
     setIsAuth(store, false);
   } else {
-    console.log(loginResponse.data);
+    //alert("-->" + loginResponse.data.nick);
     localStorage.setItem("idx", loginResponse.data.idx);
     localStorage.setItem("isLogin", true);
+    localStorage.setItem("nick", loginResponse.data.nick);
     setUserEmail(store, loginResponse.data.email);
     setUserIdx(store, loginResponse.data.idx);
     setErrorState(store, "");
     setIsLogin(store, true);
+    setIsNick(store, loginResponse.data.nick);
     setIsAuth(store, true);
   }
 };
