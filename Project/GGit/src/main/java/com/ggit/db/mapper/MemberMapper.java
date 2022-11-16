@@ -24,4 +24,7 @@ public interface MemberMapper {
 
         String nickFromIdx(int idx);
 
+        // 회원 가입
+        int signupMember(MemberVo membervo);
+
 }

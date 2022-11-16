@@ -18,31 +18,34 @@
       </div>
       <div class="main_img_div_right">
         <div id="signupForm">
-          <form @submit.prevent="singup">
+          <form @submit.prevent="signup">
             <p>
               <input
+                ref="ref_nick"
                 class="input"
-                name="uid"
+                name="id"
                 placeholder="닉네임"
-                v-model="user_id"
+                v-model="nick"
               />
             </p>
 
             <p>
               <input
+                ref="ref_email"
                 class="input"
-                name="uemail"
+                name="email"
                 placeholder="이메일"
-                v-model="user_email"
+                v-model="email"
               />
             </p>
 
             <p>
               <input
+                ref="ref_pw"
                 name="password"
                 class="input"
                 placeholder="패스워드"
-                v-model="user_pw"
+                v-model="pw"
                 type="password"
               />
             </p>
@@ -76,31 +79,28 @@ import axios from "axios";
 export default {
   data() {
     return {
-      user_id: "",
-      user_email: "",
-      user_pw: "",
+      nick: "",
+      email: "",
+      pw: "",
     };
   },
-  mounted() {
-    if (localStorage.getItem("isLogin")) {
-      axios
-        .get("/api/nickFromIdx", {
-          params: {
-            idx: localStorage.getItem("idx"),
-          },
-        })
-        .then((response) => {
-          // handle success
-          window.location.href = "/" + response.data;
-        })
-        .catch((error) => {
-          // handle error
-          console.log(error);
-        })
-        .finally(() => {
-          // always executed
-        });
-    }
+  methods: {
+    async signup() {
+      const test = await axios.post("/api/signup", {
+        nick: this.nick,
+        email: this.email,
+        pw: this.pw,
+      });
+      if (test.data > 0) {
+        alert("회원가입 성공");
+        this.$refs.ref_nick.value = "";
+        this.$refs.ref_email.value = "";
+        this.$refs.ref_pw.value = "";
+        window.location.href = "/login";
+      } else if (test.data < 1) {
+        alert("실패! 다시 시도해주세요~");
+      }
+    }, // signup()
   },
 };
 </script>
