@@ -5,7 +5,7 @@
             <div class="code_navigator">
                 <div class="branch_btn">
                     <select name="barnch_select" class="branch_select_btn">
-                        <option value="main" selected>main</option> <!--나중에 v-for문 으로 브랜치 목록 불러오기-->
+                        <option value="main" selected>main</option> 
 
                     </select>
                 </div>
@@ -18,17 +18,17 @@
             </div>
             <div class="repo_box">
                 <div class="repo_information" >
-                    <a class="owner_href" href="#">{{push.member_nick}}</a> <!-- v-for문으로 레포 소유자 불러오기 -->
-                    <a class="repo_last_commit_content" href="#">{{push.push_message}}</a> <!-- v-for문으로 마지막 커밋 내용 불러오기  -->
+                    <a class="owner_href" href="#">{{push.member_nick}}</a> 
+                    <a class="repo_last_commit_content" href="#">{{push.push_message}}</a> 
                     <a class="repo_commit_count" href="#">
                         <svg text="gray" aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-history">
                             <path fill-rule="evenodd" d="M1.643 3.143L.427 1.927A.25.25 0 000 2.104V5.75c0 .138.112.25.25.25h3.646a.25.25 0 00.177-.427L2.715 4.215a6.5 6.5 0 11-1.18 4.458.75.75 0 10-1.493.154 8.001 8.001 0 101.6-5.684zM7.75 4a.75.75 0 01.75.75v2.992l2.028.812a.75.75 0 01-.557 1.392l-2.5-1A.75.75 0 017 8.25v-3.5A.75.75 0 017.75 4z"></path>
                         </svg>
-                        <strong class="commit_count_strong">42</strong>
+                        <strong class="commit_count_strong">{{count}}</strong>
                         <span class="commit_count_sapn">commits</span>
                     </a> <!-- 커밋횟수 불러오기 -->
-                    <a class="repo_last_commit_time" href="#">{{push.push_date}}</a> <!-- v-for 문으로 마지막으로 커밋한날 불러오기 -->
-                    <a class="repo_last_commit_token" href="#">{{push.push_token}}</a> <!-- v-for 토큰값 불러오기 -->
+                    <a class="repo_last_commit_time" href="#">{{push.push_date}}</a>
+                    <a class="repo_last_commit_token" href="#">{{push.push_token}}</a>
                 
 
                 </div>
@@ -93,11 +93,14 @@
             <div class="contributors_box">
                 <h2 class="contributor_h2">
                     Contributor
-                    <span class="contributor_member_count"> 3 </span>
+                    <span class="contributor_member_count"> 0 </span>
                 </h2>
                 
                 <ul>
-                    <li class="contributor_member_list">gddd</li>
+                    <div v-for="contributor in contributors">
+                    <span><li class="contributor_member_img">{{contributor.member_img}}</li></span>
+                    <span><li class="contributor_member_list">{{contributor.member_nick}}</li></span>
+                    </div>
                 </ul>
             </div>
 
@@ -113,11 +116,22 @@ export default {
     return {
      file_list: ["ddd", "aaa", "asd", "lkj213"],member: ["leetahhyeon123", "eak00700", "JIN-RYEOL"],
      push: [],
-     repoIdx:0,
+     contributors:[],
+     repoIdx:0, 
+     count:0
     };
   },
-  methods: {},
-  mounted() {
+  methods:{
+},
+
+methods: {},
+mounted() {
+      for(let i=0; i < push.length; i++ ){
+          if(this.push.repo=$reppIdx){
+
+              count++
+          }
+      }
     axios
     .get("/api/repoIdxByNickName",{
         params: {
@@ -152,28 +166,28 @@ export default {
                 // always executed
             });
 
-            // axios
-            // .get("/api/selectRepositorycontributors",{
-            //     params: {
-            //         repoIdx: this.repoIdx
+            axios
+            .get("/api/selectRepositorycontributors",{
+                params: {
+                    repoIdx: this.repoIdx
                 
 
-            //     },
-            // })
-            // .then((response) => {
+                },
+            })
+            .then((response) => {
                 
-            //     this.contri = response.data;
-            //     // console.log(this.push)
-            //     alert(this.contri)
-            // }) 
-            // .catch((error) => {
-            //     // handle error
+                this.contributors = response.data;
+                //  console.log(this.contributors)
+                // alert(this.contributors)
+            }) 
+            .catch((error) => {
+                // handle error
                 
-            //     console.log(error);
-            // })
-            // .finally(() => {
-            //     // always executed
-            // });
+                console.log(error);
+            })
+            .finally(() => {
+                // always executed
+            });
         
     }) 
     .catch((error) => {
@@ -188,7 +202,8 @@ export default {
   
     
   },
-};
+ 
+}
 
 </script>
 <style lang="sass">

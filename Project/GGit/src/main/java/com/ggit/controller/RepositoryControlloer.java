@@ -51,12 +51,12 @@ public class RepositoryControlloer {
         return Repositorycode;
     }
 
-    // @RequestMapping("selectRepositorycontributors")
-    // public RepositoriesVO selectRepositorycontributors(int repoIdx){
-    //     System.out.println(repoIdx);
-    //     RepositoriesVO Repositorycontributors = repoService.selectRepositorycontributors(repoIdx);
-    //     return Repositorycontributors;
-    // }
+    @RequestMapping("selectRepositorycontributors")
+    public List<RepositoriesVO> selectRepositorycontributors(int repoIdx){
+        System.out.println(repoIdx);
+        List<RepositoriesVO> Repositorycontributors = repoService.selectRepositorycontributors(repoIdx);
+        return Repositorycontributors;
+    }
 
     
 
