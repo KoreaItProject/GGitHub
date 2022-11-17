@@ -25,9 +25,9 @@ DROP TABLE IF EXISTS `follow`;
 CREATE TABLE `follow` (
   `idx` int NOT NULL AUTO_INCREMENT COMMENT 'Idx',
   `member` int NOT NULL,
-  `follow` int NOT NULL,
+  `follower` int NOT NULL,
   PRIMARY KEY (`idx`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,7 +36,7 @@ CREATE TABLE `follow` (
 
 LOCK TABLES `follow` WRITE;
 /*!40000 ALTER TABLE `follow` DISABLE KEYS */;
-INSERT INTO `follow` VALUES (1,5,19),(2,1,12),(3,7,6),(4,6,13),(5,19,15),(6,2,10),(7,3,11),(8,11,18),(9,17,2),(10,3,17),(11,5,13),(12,7,12),(13,10,19),(14,20,10),(15,1,20),(16,3,18),(17,19,2);
+INSERT INTO `follow` VALUES (1,5,19),(2,1,12),(3,7,6),(4,6,13),(5,19,15),(6,2,10),(7,3,11),(8,11,18),(9,17,2),(10,3,17),(11,5,13),(12,7,12),(13,10,19),(14,20,10),(15,1,20),(16,3,18),(17,19,2),(18,15,2),(19,2,15),(20,2,14),(21,1,14),(22,1,15),(23,13,1),(24,13,3),(25,14,3),(26,3,14);
 /*!40000 ALTER TABLE `follow` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-10-21 14:40:08
+-- Dump completed on 2022-11-17 13:15:35

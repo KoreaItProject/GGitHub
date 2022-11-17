@@ -1,6 +1,7 @@
 package com.ggit.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -64,6 +65,10 @@ public class MemberService {
     public int signupMember(MemberVo membervo) {
         return mapper.signupMember(membervo);
 
+    }
+
+    public void saveProfile(MemberVo memberVo) {
+        mapper.saveProfile(memberVo);
     }
 
 }
