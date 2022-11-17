@@ -115,7 +115,6 @@ export default {
   data() {
     return {
       file_list: ["ddd", "aaa", "asd", "lkj213"],
-      member: ["leetahhyeon123", "eak00700", "JIN-RYEOL"],
       push: [],
       contributors: [],
       repoIdx: 0,
@@ -123,61 +122,54 @@ export default {
   },
   methods: {},
 
-  methods: {},
+  methods: {
+    selectRepositorycontributors() {
+      axios
+        .get("/api/selectRepositorycontributors", {
+          params: {
+            repoIdx: this.repoIdx,
+          },
+        })
+        .then((response) => {
+          this.contributors = response.data;
+          //  console.log(this.contributors)
+          // alert(this.contributors)
+        });
+    },
+    selectRepositorycode() {
+      axios
+        .get("/api/selectRepositorycode", {
+          params: {
+            repoIdx: this.repoIdx,
+          },
+        })
+        .then((response) => {
+          this.push = response.data;
+          // console.log(this.push)
+          this.selectRepositorycontributors();
+        });
+    },
+    repoIdxByNickName() {
+      axios
+        .get("/api/repoIdxByNickName", {
+          params: {
+            nick: this.$route.params.nick,
+            reponame: this.$route.params.repository,
+          },
+        })
+        .then((response) => {
+          this.repoIdx = response.data;
+          if (this.repoIdx == 0) {
+            window.location.href = "/pagenotfound";
+          }
+          this.selectRepositorycode();
+
+          //
+        });
+    },
+  },
   mounted() {
-    axios
-      .get("/api/repoIdxByNickName", {
-        params: {
-          nick: this.$route.params.nick,
-          reponame: this.$route.params.repository,
-        },
-      })
-      .then((response) => {
-        this.repoIdx = response.data;
-        if (this.repoIdx == 0) {
-          window.location.href = "/pagenotfound";
-        }
-
-        axios
-          .get("/api/selectRepositorycode", {
-            params: {
-              repoIdx: this.repoIdx,
-            },
-          })
-          .then((response) => {
-            this.push = response.data;
-            // console.log(this.push)
-
-            axios
-              .get("/api/selectRepositorycontributors", {
-                params: {
-                  repoIdx: this.repoIdx,
-                },
-              })
-              .then((response) => {
-                this.contributors = response.data;
-                //  console.log(this.contributors)
-                // alert(this.contributors)
-              })
-              .catch((error) => {
-                // handle error
-
-                console.log(error);
-              })
-              .finally(() => {
-                // always executed
-              });
-          })
-          .catch((error) => {
-            // handle error
-
-            console.log(error);
-          })
-          .finally(() => {
-            // always executed
-          });
-        //
-      });
+    this.repoIdxByNickName();
   },
 };
 </script>
