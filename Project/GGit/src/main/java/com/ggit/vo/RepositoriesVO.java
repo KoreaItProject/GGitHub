@@ -34,13 +34,13 @@ public class RepositoriesVO {
     int member_auth;
     String member_date;
 
-    //push
+    // push
     String push_message;
     String push_token;
     String push_date;
+    // 커밋수
+    int commits;
 
     //
-
-    
 
 }

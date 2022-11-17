@@ -119,7 +119,6 @@ export default {
       push: [],
       contributors: [],
       repoIdx: 0,
-      count: 0,
     };
   },
   methods: {},
