@@ -32,9 +32,9 @@ public class RepoService {
     public RepositoriesVO selectRepositorycode(int repoIdx){
         return mapper.selectRepositorycode(repoIdx);
     }
-    // public RepositoriesVO selectRepositorycontributors(int repoIdx){
-    //     return mapper.selectRepositorycontributors(repoIdx);
-    // }
+    public List<RepositoriesVO> selectRepositorycontributors(int repoIdx){
+        return mapper.selectRepositorycontributors(repoIdx);
+    }
 
     
     

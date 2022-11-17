@@ -20,7 +20,7 @@ public interface RepoMapper {
 
    RepositoriesVO selectRepositorycode(int repoIdx);
     
-    // RepositoriesVO selectRepositorycontributors(int repoIdx);
+    List<RepositoriesVO> selectRepositorycontributors(int repoIdx);
     
 
 }
