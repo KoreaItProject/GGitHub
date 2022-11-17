@@ -65,7 +65,7 @@ export default {
       axios
         .get("/api/memberByNick", {
           params: {
-            nick: this.$route.params.nick,
+            nick: localStorage.getItem("nick"),
           },
         })
         .then((response) => {

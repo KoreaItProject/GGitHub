@@ -107,89 +107,83 @@
     
 </template>
 <script>
-import axios from 'axios';
+import axios from "axios";
 export default {
   data() {
     return {
-     file_list: ["ddd", "aaa", "asd", "lkj213"],member: ["leetahhyeon123", "eak00700", "JIN-RYEOL"],
-     push: [],
-     repoIdx:0,
+      file_list: ["ddd", "aaa", "asd", "lkj213"],
+      member: ["leetahhyeon123", "eak00700", "JIN-RYEOL"],
+      push: [],
+      repoIdx: 0,
     };
   },
   methods: {},
   mounted() {
     axios
-    .get("/api/repoIdxByNickName",{
+      .get("/api/repoIdxByNickName", {
         params: {
-            nick: this.$route.params.nick,
-            reponame: this.$route.params.repository
-
+          nick: this.$route.params.nick,
+          reponame: this.$route.params.repository,
         },
-    })
-    .then((response) => {
+      })
+      .then((response) => {
         this.repoIdx = response.data;
-        
-                axios
-            .get("/api/selectRepositorycode",{
-                params: {
-                    repoIdx: this.repoIdx
-                
+        if (this.repoIdx == 0) {
+          window.location.href = "/pagenotfound";
+        }
 
-                },
-            })
-            .then((response) => {
-                
-                this.push = response.data;
-                // console.log(this.push)
-                
-            }) 
-            .catch((error) => {
-                // handle error
-                
-                console.log(error);
-            })
-            .finally(() => {
-                // always executed
-            });
+        axios
+          .get("/api/selectRepositorycode", {
+            params: {
+              repoIdx: this.repoIdx,
+            },
+          })
+          .then((response) => {
+            this.push = response.data;
+            // console.log(this.push)
+          })
+          .catch((error) => {
+            // handle error
 
-            // axios
-            // .get("/api/selectRepositorycontributors",{
-            //     params: {
-            //         repoIdx: this.repoIdx
-                
+            console.log(error);
+          })
+          .finally(() => {
+            // always executed
+          });
 
-            //     },
-            // })
-            // .then((response) => {
-                
-            //     this.contri = response.data;
-            //     // console.log(this.push)
-            //     alert(this.contri)
-            // }) 
-            // .catch((error) => {
-            //     // handle error
-                
-            //     console.log(error);
-            // })
-            // .finally(() => {
-            //     // always executed
-            // });
-        
-    }) 
-    .catch((error) => {
+        // axios
+        // .get("/api/selectRepositorycontributors",{
+        //     params: {
+        //         repoIdx: this.repoIdx
+
+        //     },
+        // })
+        // .then((response) => {
+
+        //     this.contri = response.data;
+        //     // console.log(this.push)
+        //     alert(this.contri)
+        // })
+        // .catch((error) => {
+        //     // handle error
+
+        //     console.log(error);
+        // })
+        // .finally(() => {
+        //     // always executed
+        // });
+      })
+      .catch((error) => {
         // handle error
-        
+
         console.log(error);
       })
       .finally(() => {
         // always executed
       });
-      //
-  
-    
+    //
   },
 };
-
 </script>
 <style lang="sass">
 @import "src/assets/sass/repository/code"

@@ -51,7 +51,7 @@ export default new Router({
       component: () => import("@/components/profile/profile"),
     },
     {
-      path: "/:nick/:repository",
+      path: "/:nick/:repository/:path*",
       name: "reopsitory",
       component: () => import("@/components/repository/repository"),
     },

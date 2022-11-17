@@ -33,19 +33,23 @@ public class RepositoryControlloer {
     }
 
     @RequestMapping("repoIdxByNickName")
-    public int repoIdxByNickName(String nick, String reponame){
-        System.out.println(nick);
-        System.out.println(reponame);
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("nick",nick);
-        map.put("reponame",reponame);
-        int repoIdxByNickName = repoService.repoIdxByNickName(map);
+    public int repoIdxByNickName(String nick, String reponame) {
+        int repoIdxByNickName;
+        try {
+            Map<String, String> map = new HashMap<String, String>();
+            map.put("nick", nick);
+            map.put("reponame", reponame);
+            repoIdxByNickName = repoService.repoIdxByNickName(map);
+
+        } catch (Exception e) {
+            return 0;
+        }
         return repoIdxByNickName;
 
-
     }
+
     @RequestMapping("selectRepositorycode")
-    public RepositoriesVO selectRepositorycode(int repoIdx){
+    public RepositoriesVO selectRepositorycode(int repoIdx) {
         System.out.println(repoIdx);
         RepositoriesVO Repositorycode = repoService.selectRepositorycode(repoIdx);
         return Repositorycode;
@@ -53,12 +57,10 @@ public class RepositoryControlloer {
 
     // @RequestMapping("selectRepositorycontributors")
     // public RepositoriesVO selectRepositorycontributors(int repoIdx){
-    //     System.out.println(repoIdx);
-    //     RepositoriesVO Repositorycontributors = repoService.selectRepositorycontributors(repoIdx);
-    //     return Repositorycontributors;
+    // System.out.println(repoIdx);
+    // RepositoriesVO Repositorycontributors =
+    // repoService.selectRepositorycontributors(repoIdx);
+    // return Repositorycontributors;
     // }
 
-    
-
-   
 }
