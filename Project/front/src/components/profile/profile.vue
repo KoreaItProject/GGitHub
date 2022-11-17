@@ -42,6 +42,8 @@
             <div class="profile_nick_div">
               <span class="profile_nick" >{{$route.params.nick}}</span>
             </div>
+            <div class="profile_info_con" v-html="userInfo.con">
+            </div>
             <div class="profile_edit_btn_div">
               <a href="?tab=setting"><button class="profile_edit_btn"  >내 정보 변경</button></a>
               
@@ -52,21 +54,18 @@
                 <svg text="muted" aria-hidden="true" height="16" viewBox="0 -1 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-people">
                   <path fill-rule="evenodd" d="M5.5 3.5a2 2 0 100 4 2 2 0 000-4zM2 5.5a3.5 3.5 0 115.898 2.549 5.507 5.507 0 013.034 4.084.75.75 0 11-1.482.235 4.001 4.001 0 00-7.9 0 .75.75 0 01-1.482-.236A5.507 5.507 0 013.102 8.05 3.49 3.49 0 012 5.5zM11 4a.75.75 0 100 1.5 1.5 1.5 0 01.666 2.844.75.75 0 00-.416.672v.352a.75.75 0 00.574.73c1.2.289 2.162 1.2 2.522 2.372a.75.75 0 101.434-.44 5.01 5.01 0 00-2.56-3.012A3 3 0 0011 4z"></path>
                 </svg> 
-                <span class="text-bold color-fg-default">6</span>
+                <span class="text-bold color-fg-default">{{userInfo.followers}}</span>
                 followers
               </a>        
               · 
               <a class="" href="?tap=following">
-                <span class="text-bold color-fg-default">15</span>
+                <span class="text-bold color-fg-default">{{userInfo.following}}</span>
                 following
               </a>     
             </div>
 
             <div class="profile_post_info_div">
               <ul class="profile_post_info_ul">
-                <li class="profile_post_info_con" v-if="userInfo.location">
-                  <span class="p-label">{{userInfo.con}}</span>
-                </li>
                 <li class="profile_post_info_li" v-if="userInfo.location">
                   <svg class="octicon octicon-location" viewBox="0 -1 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M11.536 3.464a5 5 0 010 7.072L8 14.07l-3.536-3.535a5 5 0 117.072-7.072v.001zm1.06 8.132a6.5 6.5 0 10-9.192 0l3.535 3.536a1.5 1.5 0 002.122 0l3.535-3.536zM8 9a2 2 0 100-4 2 2 0 000 4z"></path></svg>
                   <span class="p-label">{{userInfo.location}}</span>
@@ -195,6 +194,10 @@ export default {
           let imgPath = response.data.img;
           this.img = require("@/assets/imgs/" + imgPath);
           this.userInfo = response.data;
+          this.userInfo.con = this.userInfo.con.replace(
+            /(?:\r\n|\r|\n)/g,
+            "<br />"
+          );
         })
         .catch((error) => {
           // handle error

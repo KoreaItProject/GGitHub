@@ -1,25 +1,17 @@
 package com.ggit.vo;
 
-import lombok.Getter;
-import lombok.Setter;
+import org.springframework.stereotype.Component;
 
-@Setter
-@Getter
+import lombok.Data;
 
+@Data
+@Component
 public class FollowVo {
 
     int idx;
 
     int member;
 
-    int follow;
+    int follower;
 
-    public FollowVo(int idx, int member, int follow) {
-        this.idx = idx;
-        this.member = member;
-        this.follow = follow;
-    }
-
-    
-    
 }

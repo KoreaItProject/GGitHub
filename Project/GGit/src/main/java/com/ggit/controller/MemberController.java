@@ -40,4 +40,9 @@ public class MemberController {
 
         return memberService.imgFromNick(nick);
     }
+
+    @RequestMapping("/saveProfile")
+    public void saveProfile(MemberVo memberVo) {
+        memberService.saveProfile(memberVo);
+    }
 }

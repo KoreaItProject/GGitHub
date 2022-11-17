@@ -33,4 +33,6 @@ public interface MemberMapper {
         // 회원 가입
         int signupMember(MemberVo membervo);
 
+        void saveProfile(MemberVo memberVo);
+
 }
