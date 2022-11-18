@@ -16,4 +16,10 @@ public class StarService {
     public List<StarVo> star(){
         return mapper.star();
     }
+
+    public List<StarVo> selectStarlist(String nick){
+        return mapper.selectStarlist(nick);
+    }
+    
+   
 }

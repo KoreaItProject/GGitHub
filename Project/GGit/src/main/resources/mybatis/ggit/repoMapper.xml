@@ -29,7 +29,7 @@
         member.nick as member_nick,(select count(push.token) from push where repo = ${repoIdx}) as commits
         FROM push, member
         WHERE member.idx = push.member and push.repo = ${repoIdx}
-		ORDER BY push.date ASC
+		ORDER BY push.date DESC
         LIMIT 1;
         <!-- 최근 한 값만 -->
 
@@ -42,5 +42,12 @@
         WHERE member.idx = repomem.member and repomem.repo =  ${repoIdx};
     </select>
 
+     <select id="selectRepositorystar" resultType="com.ggit.vo.RepositoriesVO">
+        SELECT star.repo as star_repo, star.member as star_member
+        FROM star
+        WHERE star.repo = ${repoIdx};        
+    </select>
 
+    
+  
 </mapper>

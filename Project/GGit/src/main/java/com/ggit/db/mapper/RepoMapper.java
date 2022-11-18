@@ -22,5 +22,10 @@ public interface RepoMapper {
     
     List<RepositoriesVO> selectRepositorycontributors(int repoIdx);
     
+    List<RepositoriesVO> selectRepositorystar(int repoIdx);
+
+   
+
+    
 
 }

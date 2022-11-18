@@ -7,8 +7,18 @@ import org.springframework.stereotype.Repository;
 
 import com.ggit.vo.StarVo;
 
+
 @Repository
 @Mapper
 public interface StarMapper {
     public List<StarVo> star();
+    
+    public List<StarVo> selectStarlist(String nick);
+
+    
+    
+   
+
 }
+
+

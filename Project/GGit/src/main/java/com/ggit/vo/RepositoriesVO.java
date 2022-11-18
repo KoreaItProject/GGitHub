@@ -24,6 +24,7 @@ public class RepositoriesVO {
     int repomem_idx;
     int repomem_repo;
     int repomem_member;
+    
 
     // member
     int member_idx;
@@ -41,6 +42,10 @@ public class RepositoriesVO {
     // 커밋수
     int commits;
 
-    //
+    //star
+
+    int star_idx;
+    int star_repo;
+    int star_member;
 
 }

@@ -36,6 +36,11 @@ public class RepoService {
         return mapper.selectRepositorycontributors(repoIdx);
     }
 
+    public List<RepositoriesVO> selectRepositorystar(int repoIdx){
+        return mapper.selectRepositorystar(repoIdx);
+    }
+
+   
     
     
 
