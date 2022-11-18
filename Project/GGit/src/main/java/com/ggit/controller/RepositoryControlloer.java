@@ -27,7 +27,7 @@ public class RepositoryControlloer {
 
     @RequestMapping("myRepositories")
     public List<RepositoriesVO> myRepositories(String nick) {
-        System.out.println(nick);
+        
         List<RepositoriesVO> repositories = repoService.selectRepositories(nick);
         return repositories;
     }
@@ -50,16 +50,25 @@ public class RepositoryControlloer {
 
     @RequestMapping("selectRepositorycode")
     public RepositoriesVO selectRepositorycode(int repoIdx) {
-        System.out.println(repoIdx);
+         
         RepositoriesVO Repositorycode = repoService.selectRepositorycode(repoIdx);
         return Repositorycode;
     }
 
     @RequestMapping("selectRepositorycontributors")
     public List<RepositoriesVO> selectRepositorycontributors(int repoIdx) {
-        System.out.println(repoIdx);
+        
         List<RepositoriesVO> Repositorycontributors = repoService.selectRepositorycontributors(repoIdx);
         return Repositorycontributors;
     }
 
+    @RequestMapping("selectRepositorystar")
+    public List<RepositoriesVO> selectRepositorystar(int repoIdx) {
+        
+        List<RepositoriesVO> Repositorystar = repoService.selectRepositorystar(repoIdx);
+        return Repositorystar;
+    } 
+
+    
+    
 }

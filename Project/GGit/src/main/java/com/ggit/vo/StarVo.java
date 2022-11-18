@@ -1,22 +1,29 @@
 package com.ggit.vo;
 
-import lombok.Getter;
-import lombok.Setter;
+import org.springframework.stereotype.Component;
 
-@Getter
-@Setter
+import lombok.Data;
 
+
+@Data
+@Component
 public class StarVo {
     
-    int idx;
+    //star
+    int star_idx;
+    int star_repo;
+    int star_member;
 
-    int repo;
+    //member
+    String member_nick;
+    
+    //repo
+    String repo_name;
 
-    int member;
-
-    public StarVo(int idx, int repo, int member) {
-        this.idx = idx;
-        this.repo = repo;
-        this.member = member;
-    }
+    //push
+    String push_date;
+    
+    
+    
 }
+    

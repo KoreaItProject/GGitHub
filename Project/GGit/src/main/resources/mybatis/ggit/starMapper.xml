@@ -4,4 +4,15 @@
     <select id="star"  resultType="com.ggit.vo.StarVo">
         SELECT * FROM star;
     </select>
+
+    <select id="selectStarlist"  resultType="com.ggit.vo.StarVo">
+        SELECT member.nick as member_nick,repo.name as repo_name,push.date as push_date
+        FROM member,repo, star, push
+        WHERE member.idx = repo.owner and star.member = member.idx and star.repo = repo.idx and  push.repo = repo.idx and member.nick=#{nick}
+        ORDER BY push.date DESC
+        LIMIT 1;
+    </select>
+    
+    
+   
 </mapper>

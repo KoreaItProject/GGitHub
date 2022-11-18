@@ -17,7 +17,7 @@
         SELECT member.idx, member.nick,member.email,member.pw,member.auth,member.date,
         member.img,member.con,member.url,member.company,member.location,
         (select count(idx) from follow where member=member.idx) as followers,
-        (select count(idx) from follow where follower=member.idx) as following
+        (select count(idx) from follow where followers=member.idx) as following
         FROM member where nick = #{nick};
     </select>
 
@@ -40,11 +40,14 @@
     </insert>
 
     <update id="saveProfile">
+
         <!-- 프로필 성정 저장 -->
         update member set nick = #{nick},con= #{con},url= #{url},company= #{company},location = #{location} where idx= ${idx}
     </update>
     <update id="saveProfileImg">
-        update member set img = #{img} where idx= ${idx}
+
+        <!-- 프로필 설정 저장 -->
+        update member set nick = #{nick},con= #{con},url= #{url},company= #{company},location = #{location} where idx= #{idx}
     </update>
 
 </mapper>
