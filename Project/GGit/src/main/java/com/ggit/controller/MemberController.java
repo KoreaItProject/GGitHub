@@ -2,7 +2,10 @@ package com.ggit.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -86,9 +89,27 @@ public class MemberController {
     }
 
     @RequestMapping(value = "/saveImg", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
-    public Object saveImg(@RequestParam("saveImg") MultipartFile img) {
-        System.out.println(img.getOriginalFilename());
-        System.out.println(img);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public void saveImg(@RequestParam("saveImg") MultipartFile img, @RequestParam("idx") int idx) {
+
+        String ext = img.getOriginalFilename().substring(img.getOriginalFilename().lastIndexOf(".") + 1);
+        String fileName = +idx + "." + ext;
+        String path = "C:/gitdata/GGitHub/Project/GGit/STORAGE/profile/img/" + fileName;
+
+        Map map = new HashMap<>();
+        map.put("idx", idx);
+        map.put("img", fileName);
+        memberService.saveProfileImg(map);
+        System.out.println(idx + fileName);
+
+        try {
+            img.transferTo(new File(path));
+        } catch (IllegalStateException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
     }
 }

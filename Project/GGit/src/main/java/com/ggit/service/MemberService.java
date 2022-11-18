@@ -71,4 +71,8 @@ public class MemberService {
         mapper.saveProfile(memberVo);
     }
 
+    public void saveProfileImg(Map map) {
+        mapper.saveProfileImg(map);
+    }
+
 }

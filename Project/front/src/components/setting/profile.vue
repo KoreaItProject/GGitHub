@@ -29,7 +29,7 @@
                     <input class="setting_input" type="text"  v-model="userInfo.location" />
                 </div>
                 <div class="setting_save_btn_div">
-                    <button class="setting_save_btn" @click="saveImg">저장</button>
+                    <button class="setting_save_btn" @click="save">저장</button>
                 </div>
             </div>
             <div class="setting_profile_right">
@@ -58,6 +58,7 @@ export default {
       profileImg: "",
       nickCheck: true,
       nick: "",
+      imgch: 0,
     };
   },
   methods: {
@@ -140,23 +141,26 @@ export default {
         this.profileImg = e.target.result;
       };
       reader.readAsDataURL(files[0]);
+      this.imgChanged = 1;
     },
     saveImg() {
-      var frm = new FormData();
-      var photoFile = this.$refs.edit_img;
-      console.log(photoFile.files[0]);
-      frm.append("saveImg", photoFile.files[0]);
-      console.log(frm);
-      axios
-        .post("/api/saveImg", frm, {
-          headers: {
-            "Content-Type": "multipart/from-data",
-          },
-        })
-        .then((response) => {
-          // handle success
-          alert(123);
-        });
+      if (this.imgChanged == 1) {
+        var frm = new FormData();
+        var photoFile = this.$refs.edit_img;
+        console.log(photoFile.files[0]);
+        frm.append("saveImg", photoFile.files[0]);
+        frm.append("idx", localStorage.getItem("idx"));
+        console.log(frm);
+        axios
+          .post("/api/saveImg", frm, {
+            headers: {
+              "Content-Type": "multipart/from-data",
+            },
+          })
+          .then((response) => {
+            // handle success
+          });
+      }
     },
 
     save() {
@@ -177,8 +181,9 @@ export default {
         })
         .then((response) => {
           // handle success
-          alert("저장 되었습니다.");
+          this.saveImg();
           localStorage.setItem("nick", this.userInfo.nick);
+          alert("저장 되었습니다.");
           window.location.href = "" + this.userInfo.nick + "?tab=setting";
         })
         .catch((error) => {

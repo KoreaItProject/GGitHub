@@ -41,7 +41,10 @@
 
     <update id="saveProfile">
         <!-- 프로필 성정 저장 -->
-        update member set nick = #{nick},con= #{con},url= #{url},company= #{company},location = #{location} where idx= #{idx}
+        update member set nick = #{nick},con= #{con},url= #{url},company= #{company},location = #{location} where idx= ${idx}
+    </update>
+    <update id="saveProfileImg">
+        update member set img = #{img} where idx= ${idx}
     </update>
 
 </mapper>
