@@ -27,7 +27,7 @@ public class MemberService {
     public MemberVo memberByNick(String nick) {
         MemberVo memberVo = mapper.memberByNick(nick);
         if (memberVo.getImg() == null)
-            memberVo.setImg("profile/profileImg.jpg");
+            memberVo.setImg("profileDef.png");
 
         return memberVo;
     }
@@ -50,7 +50,7 @@ public class MemberService {
         String img;
         img = mapper.imgFromIdx(idx);
         if (img == null)
-            img = "profile/profileImg.jpg";
+            img = "profileDef.png";
         return img;
     }
 
@@ -58,7 +58,7 @@ public class MemberService {
         String img;
         img = mapper.imgFromNick(nick);
         if (img == null)
-            img = "profile/profileImg.jpg";
+            img = "profileDef.png";
         return img;
     }
 

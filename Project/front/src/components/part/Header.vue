@@ -8,7 +8,7 @@
 
       <!-- 로그인 됐을때 -->
       <div class="header_right_div" v-if="islogin">
-        <img :src="img" class="header_profile_img" />
+        <img :src="profileImg" class="header_profile_img" />
         <div class="header_tab_div">
           <a class="header_tab" @click="Logout"><span>로그아웃</span></a>
           <a class="header_tab" href="/setting/profile"><span>설정</span></a>
@@ -38,7 +38,7 @@ export default {
     return {
       islogin: false,
       nick: "",
-      img: null,
+      profileImg: null,
     };
   },
   methods: {
@@ -47,6 +47,7 @@ export default {
       localStorage.removeItem("isLogin");
       window.location.href = "";
     },
+
     getNick() {
       axios
         .get("/api/nickFromIdx", {
@@ -76,8 +77,19 @@ export default {
         })
         .then((response) => {
           // handle success
-          let imgPath = response.data;
-          this.img = require("@/assets/imgs/" + imgPath);
+          axios
+            .get("/api/getProfileImg", {
+              responseType: "blob",
+              params: {
+                img: response.data,
+              },
+            })
+            .then((response) => {
+              // handle success
+              this.profileImg = window.URL.createObjectURL(
+                new Blob([response.data])
+              );
+            });
         })
         .catch((error) => {
           // handle error
