@@ -37,7 +37,7 @@
 
         <div class="profile_bar_left">
             <div class="profile_img_div">
-                <img class="profile_img" :src='img'/>
+                <img class="profile_img" :src='profileImg'/>
             </div>
             <div class="profile_nick_div">
               <span class="profile_nick" >{{$route.params.nick}}</span>
@@ -129,7 +129,7 @@ export default {
       tab1_color: "0px",
       tab2_color: "0px",
       tab3_color: "0px",
-      img: null,
+      profileImg: "",
       userInfo: [],
     };
   },
@@ -140,17 +140,20 @@ export default {
     setting: setting,
   },
   methods: {
-    getImg() {
+    getProfileImg() {
       axios
-        .get("/api/imgFromNick", {
+        .get("/api/getProfileImg", {
+          responseType: "blob",
           params: {
-            nick: this.$route.params.nick,
+            img: this.userInfo.img,
           },
         })
         .then((response) => {
           // handle success
-          let imgPath = response.data;
-          this.img = require("@/assets/imgs/" + imgPath);
+          this.profileImg = window.URL.createObjectURL(
+            new Blob([response.data])
+          );
+          console.log(response.data);
         })
         .catch((error) => {
           // handle error
@@ -191,13 +194,15 @@ export default {
         })
         .then((response) => {
           // handle success
-          let imgPath = response.data.img;
-          this.img = require("@/assets/imgs/" + imgPath);
           this.userInfo = response.data;
-          this.userInfo.con = this.userInfo.con.replace(
-            /(?:\r\n|\r|\n)/g,
-            "<br />"
-          );
+          if (this.userInfo.con != null && this.userInfo.con != "") {
+            this.userInfo.con = this.userInfo.con.replace(
+              /(?:\r\n|\r|\n)/g,
+              "<br />"
+            );
+          }
+
+          this.getProfileImg();
         })
         .catch((error) => {
           // handle error
