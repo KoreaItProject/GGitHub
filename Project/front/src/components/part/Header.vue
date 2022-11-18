@@ -89,6 +89,7 @@ export default {
               this.profileImg = window.URL.createObjectURL(
                 new Blob([response.data])
               );
+              console.log(response.data);
             });
         })
         .catch((error) => {

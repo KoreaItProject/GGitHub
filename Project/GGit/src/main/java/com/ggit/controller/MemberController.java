@@ -61,12 +61,11 @@ public class MemberController {
     @RequestMapping("/getProfileImg")
     public void getProfileImg(HttpServletResponse response, HttpServletRequest req, String img) {
         try {
-            String path = ".\\STORAGE\\profile\\img\\" + img;
+            System.out.println(img);
+            String path = "C:/gitdata/GGitHub/Project/GGit/STORAGE/profile/img/" + img;
 
             File file = new File(path);
             response.setHeader("Content-Disposition", "attachment;filename=" + file.getName()); // 다운로드 되거나 로컬에 저장되는 용도로
-                                                                                                // 쓰이는지를 알려주는 헤더
-
             response.setHeader("filename", file.getName());
             FileInputStream fileInputStream = new FileInputStream(path); // 파일 읽어오기
             OutputStream out = response.getOutputStream();
@@ -81,7 +80,7 @@ public class MemberController {
             fileInputStream.close();
             out.close();
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
 
     }
