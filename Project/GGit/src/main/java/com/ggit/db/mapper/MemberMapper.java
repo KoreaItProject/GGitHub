@@ -38,4 +38,6 @@ public interface MemberMapper {
 
         void saveProfileImg(Map map);
 
+        void delectProfileImg(int idx);
+
 }

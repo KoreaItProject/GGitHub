@@ -75,4 +75,8 @@ public class MemberService {
         mapper.saveProfileImg(map);
     }
 
+    public void delectProfileImg(int idx) {
+        mapper.delectProfileImg(idx);
+    }
+
 }

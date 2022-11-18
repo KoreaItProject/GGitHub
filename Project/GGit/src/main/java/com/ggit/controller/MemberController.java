@@ -112,4 +112,11 @@ public class MemberController {
         }
 
     }
+
+    @RequestMapping("/delectImg")
+    public void delectImg(int idx) {
+        System.out.println(idx + "-11111111111111111111111111111111111111111");
+        memberService.delectProfileImg(idx);
+
+    }
 }

@@ -40,7 +40,7 @@
                     </svg>
                     변경<input type="file" style='display:none' ref="edit_img" accept="image/*" v-on:change="imgChanged" />
                 </div>
-                <div class="setting_profile_img_delete">
+                <div class="setting_profile_img_delete" @click="delectImg">
                     <svg  width="16" height="16" version="1.1"  viewBox="0 -3 96 96" enable-background="new 0 0 96 96" xml:space="preserve">
                     <polygon fill="white" points="96,14 82,0 48,34 14,0 0,14 34,48 0,82 14,96 48,62 82,96 96,82 62,48 "/>
                     </svg>
@@ -133,6 +133,10 @@ export default {
     editImg() {
       this.$refs.edit_img.click();
     },
+    delectImg() {
+      this.imgch = 2;
+      this.profileImg = require("@/assets/imgs/main/profileDef.png");
+    },
     imgChanged(e) {
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
@@ -141,10 +145,10 @@ export default {
         this.profileImg = e.target.result;
       };
       reader.readAsDataURL(files[0]);
-      this.imgChanged = 1;
+      this.imgch = 1;
     },
     saveImg() {
-      if (this.imgChanged == 1) {
+      if (this.imgch == 1) {
         var frm = new FormData();
         var photoFile = this.$refs.edit_img;
         console.log(photoFile.files[0]);
@@ -155,6 +159,16 @@ export default {
           .post("/api/saveImg", frm, {
             headers: {
               "Content-Type": "multipart/from-data",
+            },
+          })
+          .then((response) => {
+            // handle success
+          });
+      } else if (this.imgch == 2) {
+        axios
+          .get("/api/delectImg", {
+            params: {
+              idx: localStorage.getItem("idx"),
             },
           })
           .then((response) => {
