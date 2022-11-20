@@ -33,7 +33,18 @@
 
                 </div>
                 <div class="repo_list" v-for="data in file_list">
-                    <a :href="thisURL+'/'+data.name">{{data.name}}</a>
+                    <a :href="thisURL+'/'+data.name" v-if="data.state!='file'">
+                     <svg v-show="data.directory"  height="16" viewBox="0 0 16 16" version="1.1" width="16"  class="" style="fill:#3db9db">
+                        <path d="M1.75 1A1.75 1.75 0 000 2.75v10.5C0 14.216.784 15 1.75 15h12.5A1.75 1.75 0 0016 13.25v-8.5A1.75 1.75 0 0014.25 3H7.5a.25.25 0 01-.2-.1l-.9-1.2C6.07 1.26 5.55 1 5 1H1.75z"></path>
+                      </svg>
+                      <svg v-show="!data.directory" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" >
+                        <path fill-rule="evenodd" d="M3.75 1.5a.25.25 0 00-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 00.25-.25V6h-2.75A1.75 1.75 0 019 4.25V1.5H3.75zm6.75.062V4.25c0 .138.112.25.25.25h2.688a.252.252 0 00-.011-.013l-2.914-2.914a.272.272 0 00-.013-.011zM2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0113.25 16h-9.5A1.75 1.75 0 012 14.25V1.75z"></path>
+                      </svg>
+                      {{data.name}}
+                    </a>
+                    <div v-if="data.state=='file'" v-html="data.content">
+                    
+                    </div>
                     
                 </div>
             </div>
@@ -41,7 +52,7 @@
                 <div class="readme_title">
                     <a class="readme.md" href="#">Readme.md</a>
                     <a class="readme edit" href="#">
-                        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-pencil">
+                        <svg v-show="" aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-pencil">
                             <path fill-rule="evenodd" d="M11.013 1.427a1.75 1.75 0 012.474 0l1.086 1.086a1.75 1.75 0 010 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 01-.927-.928l.929-3.25a1.75 1.75 0 01.445-.758l8.61-8.61zm1.414 1.06a.25.25 0 00-.354 0L10.811 3.75l1.439 1.44 1.263-1.263a.25.25 0 000-.354l-1.086-1.086zM11.189 6.25L9.75 4.81l-6.286 6.287a.25.25 0 00-.064.108l-.558 1.953 1.953-.558a.249.249 0 00.108-.064l6.286-6.286z"></path>
                         </svg>
                     </a>
@@ -118,7 +129,7 @@ export default {
       push: [],
       contributors: [],
       star: [],
-      thisURL: window.location.href,
+      thisURL: window.location.href.split("?")[0],
       repoIdx: 0,
     };
   },
@@ -126,7 +137,7 @@ export default {
   methods: {
     getFile() {
       axios
-        .get("/api/getFileNames", {
+        .get("/api/getFile", {
           params: {
             repoIdx: this.repoIdx,
             token: "asda231",
@@ -135,7 +146,14 @@ export default {
         })
         .then((response) => {
           this.file_list = response.data;
+          if (response.data[0].state == "file") {
+            this.file_list[0].content = this.file_list[0].content.replace(
+              /(?:\r\n|\r|\n)/g,
+              "<br />"
+            );
+          }
           console.log(this.file_list);
+
           // alert(this.star)
         });
     },

@@ -10,5 +10,7 @@ public class StorageVo {
     String name;
     boolean isDirectory;
     String commit;
+    String state;
     String date;
+    String content;
 }

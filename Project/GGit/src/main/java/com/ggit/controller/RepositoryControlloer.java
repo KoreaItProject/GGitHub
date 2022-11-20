@@ -1,6 +1,11 @@
 package com.ggit.controller;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -79,8 +84,8 @@ public class RepositoryControlloer {
         return Repositorystar;
     }
 
-    @RequestMapping("/getFileNames")
-    public List<StorageVo> getFileNames(int repoIdx, String token, String path) {
+    @RequestMapping("/getFile")
+    public List<StorageVo> getFile(int repoIdx, String token, String path) {
 
         if (path == null) {
             path = "";
@@ -88,6 +93,31 @@ public class RepositoryControlloer {
         List list = new ArrayList<StorageVo>();
         File folder = new File(storage_dir + "/repositorys/" + repoIdx + "/" + token + "/" + path);
         File files[] = folder.listFiles();
+        BufferedReader reader;
+        String content = "";
+        if (folder.isFile()) {
+            StorageVo file = new StorageVo();
+            try {
+                reader = new BufferedReader(
+                        new InputStreamReader(new FileInputStream(
+                                storage_dir + "/repositorys/" + repoIdx + "/" + token + "/" + path), "UTF-8"));
+                String str;
+
+                while ((str = reader.readLine()) != null) {
+                    content += str + "\n";
+                }
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            System.out.println(content);
+            file.setState("file");
+            file.setContent(content);
+            file.setName(folder.getName());
+            list.add(file);
+
+            return list;
+        }
 
         for (int i = 0; i < files.length; i++) {
             StorageVo file = new StorageVo();
