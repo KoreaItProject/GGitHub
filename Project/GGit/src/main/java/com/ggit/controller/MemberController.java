@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,9 @@ import com.ggit.vo.MemberVo;
 public class MemberController {
     @Autowired
     MemberService memberService;
+
+    @Value("${storage_dir}")
+    String storage_dir;
 
     @RequestMapping("/hasNick")
     public boolean hasNick(String nick) {
@@ -64,8 +68,7 @@ public class MemberController {
     @RequestMapping("/getProfileImg")
     public void getProfileImg(HttpServletResponse response, HttpServletRequest req, String img) {
         try {
-            System.out.println(img);
-            String path = "C:/gitdata/GGitHub/Project/GGit/STORAGE/profile/img/" + img;
+            String path = storage_dir + "profile/img/" + img;
 
             File file = new File(path);
             response.setHeader("Content-Disposition", "attachment;filename=" + file.getName()); // 다운로드 되거나 로컬에 저장되는 용도로
@@ -99,7 +102,6 @@ public class MemberController {
         map.put("idx", idx);
         map.put("img", fileName);
         memberService.saveProfileImg(map);
-        System.out.println(idx + fileName);
 
         try {
             img.transferTo(new File(path));
