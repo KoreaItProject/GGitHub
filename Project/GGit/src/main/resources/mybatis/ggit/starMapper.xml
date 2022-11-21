@@ -6,13 +6,13 @@
     </select>
 
     <select id="selectStarlist"  resultType="com.ggit.vo.StarVo">
-        SELECT member.nick as member_nick,repo.name as repo_name,push.date as push_date
-        FROM member,repo, star, push
-        WHERE member.idx = repo.owner and star.member = member.idx and star.repo = repo.idx and  push.repo = repo.idx and member.nick=#{nick}
-        ORDER BY push.date DESC
-        LIMIT 1;
+        SELECT (select member.nick as repo_owner from member where repo.owner=member.idx ) as repo_owner,
+        member.nick as member_nick,repo.name as repo_name,(SELECT TIMESTAMPDIFF(DAY, push.date, CURDATE()) from push where push.repo = repo.idx limit 1) as push_date,
+        (select count(star.repo)from star where star.repo=repo.idx) as star_count
+        FROM member,repo, star
+        WHERE member.idx = star.member and star.repo = repo.idx and  member.nick=#{nick};
     </select>
-    
+   
     
    
 </mapper>

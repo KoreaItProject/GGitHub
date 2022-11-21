@@ -18,7 +18,7 @@
             </div>
             <div class="repo_box">
                 <div class="repo_information" >
-                    <a class="owner_href" href="#">{{push.member_nick}}</a> 
+                    <a class="owner_href" :href='hrefNick'>{{push.member_nick}}</a> 
                     <a class="repo_last_commit_content" href="#">{{push.push_message}}</a> 
                     <a class="repo_commit_count" href="#">
                         <svg text="gray" aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-history">
