@@ -18,7 +18,7 @@
             </div>
             <div class="repo_box">
                 <div class="repo_information" >
-                    <a class="owner_href" href="#">{{push.member_nick}}</a> 
+                    <a class="owner_href" :href='hrefNick'>{{push.member_nick}}</a> 
                     <a class="repo_last_commit_content" href="#">{{push.push_message}}</a> 
                     <a class="repo_commit_count" href="#">
                         <svg text="gray" aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-history">
@@ -32,7 +32,9 @@
                 
 
                 </div>
+                <div class="repo_list" v-show="loading">데이터 불러오는 중...</div>
                 <div class="repo_list" v-for="data in file_list"  >
+                  
                     <a :href="thisURL+'/'+data.name" v-if="data.state!='file'">
                      <svg v-show="data.directory"  height="16" viewBox="0 0 16 16" version="1.1" width="16"  class="" style="fill:#3db9db">
                         <path d="M1.75 1A1.75 1.75 0 000 2.75v10.5C0 14.216.784 15 1.75 15h12.5A1.75 1.75 0 0016 13.25v-8.5A1.75 1.75 0 0014.25 3H7.5a.25.25 0 01-.2-.1l-.9-1.2C6.07 1.26 5.55 1 5 1H1.75z"></path>
@@ -46,20 +48,15 @@
                        <svg v-show="!data.directory" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" >
                         <path fill-rule="evenodd" d="M3.75 1.5a.25.25 0 00-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 00.25-.25V6h-2.75A1.75 1.75 0 019 4.25V1.5H3.75zm6.75.062V4.25c0 .138.112.25.25.25h2.688a.252.252 0 00-.011-.013l-2.914-2.914a.272.272 0 00-.013-.011zM2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0113.25 16h-9.5A1.75 1.75 0 012 14.25V1.75z"></path>
                       </svg>
-                      {{data.name}}
+                      {{data.name}} / {{data.totalLine}}줄
                     </div>
                     <textarea v-if="data.state=='file'"  class="repo_file_content scrollBar" readonly="true">{{data.content}}</textarea>
                     
                 </div>
             </div>
-            <div class="readme_container"  v-for="data in file_list" v-if="data.state=='readme'" >
+            <div class="readme_container"  v-for="data in file_list" v-if="data.state=='readme'||(data.state=='file'&&data.name=='README.md')" >
                 <div class="readme_title">
-                    <a class="readme.md" href="#">README.md</a>
-                    <a class="readme edit" href="#">
-                        <svg v-show="" aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-pencil">
-                            <path fill-rule="evenodd" d="M11.013 1.427a1.75 1.75 0 012.474 0l1.086 1.086a1.75 1.75 0 010 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 01-.927-.928l.929-3.25a1.75 1.75 0 01.445-.758l8.61-8.61zm1.414 1.06a.25.25 0 00-.354 0L10.811 3.75l1.439 1.44 1.263-1.263a.25.25 0 000-.354l-1.086-1.086zM11.189 6.25L9.75 4.81l-6.286 6.287a.25.25 0 00-.064.108l-.558 1.953 1.953-.558a.249.249 0 00.108-.064l6.286-6.286z"></path>
-                        </svg>
-                    </a>
+                    <a class="readme.md">README.md</a>
                 </div>
 
                 <div class="readme_content markdown-body"  v-html="readmeContent">
@@ -129,10 +126,29 @@ export default {
       thisURL: window.location.href.split("?")[0],
       repoIdx: 0,
       readmeContent: "",
+      loading: true,
     };
   },
 
   methods: {
+    changeMD(content) {
+      marked.setOptions({
+        renderer: new marked.Renderer(),
+        gfm: true,
+        headerIds: false,
+        tables: true,
+        breaks: true,
+        pedantic: false,
+        sanitize: true,
+        smartLists: true,
+        smartypants: false,
+      });
+      let changedText = marked(content);
+      changedText = changedText.replaceAll("&lt;", "<");
+      changedText = changedText.replaceAll("&gt;", ">");
+      changedText = changedText.replaceAll("&quot;", '"');
+      this.readmeContent = changedText;
+    },
     getFile() {
       axios
         .get("/api/getFile", {
@@ -148,31 +164,19 @@ export default {
 
           if (this.file_list[0].state == "file") {
             //현재 위치가 파일인경우
+            if (this.file_list[0].name == "README.md") {
+              this.changeMD(this.file_list[0].content);
+            }
           } else {
             //현재 위치가 폴더인경우
             for (var i = 0; i < this.file_list.length; i++) {
               if (this.file_list[i].state == "readme") {
                 //리드미가 있을경우 리드미를 md파일 형태로 화면에 출력한다
-                marked.setOptions({
-                  renderer: new marked.Renderer(),
-                  gfm: true,
-                  headerIds: false,
-                  tables: true,
-                  breaks: true,
-                  pedantic: false,
-                  sanitize: true,
-                  smartLists: true,
-                  smartypants: false,
-                });
-                let changedText = marked(this.file_list[i].content);
-                changedText = changedText.replaceAll("&lt;", "<");
-                changedText = changedText.replaceAll("&gt;", ">");
-                changedText = changedText.replaceAll("&quot;", '"');
-                this.readmeContent = changedText;
+                this.changeMD(this.file_list[i].content);
               }
             }
           }
-
+          this.loading = false;
           // alert(this.star)
         });
     },

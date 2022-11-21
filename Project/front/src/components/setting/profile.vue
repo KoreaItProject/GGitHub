@@ -256,6 +256,7 @@ export default {
 
           this.$cookies.set("nick", this.enCrypt({ nick }));
           //localStorage.setItem("nick", this.userInfo.nick);
+
           alert("저장 되었습니다.");
           window.location.href = "" + this.userInfo.nick + "?tab=setting";
         })

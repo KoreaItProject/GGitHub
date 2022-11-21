@@ -98,7 +98,7 @@ public class RepositoryControlloer {
         if (folder.isFile()) {
             StorageVo file = new StorageVo();
             String content = "";
-            content = fileLeader(filePath);
+            content = fileLeader(filePath, file);
             file.setState("file");
             file.setContent(content);
             file.setName(folder.getName());
@@ -112,7 +112,7 @@ public class RepositoryControlloer {
             if (files[i].getName().equals("README.md")) {
                 file.setState("readme");
                 String content = "";
-                content = fileLeader(filePath + "/README.md");
+                content = fileLeader(filePath + "/README.md", file);
                 file.setContent(content);
             }
             file.setName(files[i].getName());
@@ -123,10 +123,10 @@ public class RepositoryControlloer {
         return list;
     }
 
-    public String fileLeader(String filePath) {
+    public String fileLeader(String filePath, StorageVo file) {
         String content = "";
         BufferedReader reader;
-
+        int count = 0;
         try {
             reader = new BufferedReader(
                     new InputStreamReader(new FileInputStream(
@@ -135,12 +135,14 @@ public class RepositoryControlloer {
 
             while ((str = reader.readLine()) != null) {
                 content += str + "\n";
+                count++;
             }
             reader.close();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        file.setTotalLine(count);
 
         return content;
     }

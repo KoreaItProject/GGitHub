@@ -13,4 +13,5 @@ public class StorageVo {
     String state;
     String date;
     String content;
+    int totalLine;
 }

@@ -206,9 +206,9 @@ export default {
       return {
         "--tab1_color": this.tab1_color,
         "--tab2_color": this.tab2_color,
-        "--tab3_color": this.tab3_color
+        "--tab3_color": this.tab3_color,
       };
-    }
+    },
   },
   data() {
     return {
@@ -220,14 +220,14 @@ export default {
       tab2_color: "0px",
       tab3_color: "0px",
       profileImg: "",
-      userInfo: []
+      userInfo: [],
     };
   },
   components: {
     overview: overview,
     repositories: repositories,
     stars: stars,
-    setting: setting
+    setting: setting,
   },
   methods: {
     getProfileImg() {
@@ -235,17 +235,17 @@ export default {
         .get("/api/getProfileImg", {
           responseType: "blob",
           params: {
-            img: this.userInfo.img
-          }
+            img: this.userInfo.img,
+          },
         })
-        .then(response => {
+        .then((response) => {
           // handle success
           this.profileImg = window.URL.createObjectURL(
             new Blob([response.data])
           );
           console.log(response.data);
         })
-        .catch(error => {
+        .catch((error) => {
           // handle error
           console.log(error);
         })
@@ -257,17 +257,17 @@ export default {
       axios
         .get("/api/hasNick", {
           params: {
-            nick: this.$route.params.nick
-          }
+            nick: this.$route.params.nick,
+          },
         })
-        .then(response => {
+        .then((response) => {
           // handle success
 
           if (!response.data) {
             window.location.href = "/pagenotfound";
           }
         })
-        .catch(error => {
+        .catch((error) => {
           // handle error
           console.log(error);
         })
@@ -279,10 +279,10 @@ export default {
       axios
         .get("/api/memberByNick", {
           params: {
-            nick: this.$route.params.nick
-          }
+            nick: this.$route.params.nick,
+          },
         })
-        .then(response => {
+        .then((response) => {
           // handle success
           this.userInfo = response.data;
           if (this.userInfo.con != null && this.userInfo.con != "") {
@@ -294,14 +294,14 @@ export default {
 
           this.getProfileImg();
         })
-        .catch(error => {
+        .catch((error) => {
           // handle error
           console.log(error);
         })
         .finally(() => {
           // always executed
         });
-    }
+    },
   },
 
   mounted() {
@@ -321,7 +321,7 @@ export default {
       this.isOverview = true;
       this.tab1_color = "4px";
     }
-  }
+  },
 };
 </script>
 <style lang="sass">
