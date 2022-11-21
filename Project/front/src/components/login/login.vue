@@ -35,6 +35,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import axios from "axios";
+import store from "../../vuex/store";
 export default {
   data() {
     return {
@@ -48,17 +49,21 @@ export default {
     async onSubmitLogin() {
       if (this.email === "") {
         alert("이메일을 입력하세요");
+
       } else if (this.pw === "") {
         alert("비밀번호를 입력하세요");
+
       } else {
+       
         const u_data = await this.login({
           user_email: this.email,
           user_pw: this.pw,
         });
+        
         if (
-          localStorage.getItem("idx") == null ||
-          localStorage.getItem("idx") == "undefined" ||
-          localStorage.getItem("idx") == ""
+          store.getters.getUserIdx == null ||
+          store.getters.getUserIdx == "undefined" ||
+          store.getters.getUserIdx == ""
         ) {
           alert("로그인 실패 아이디 및 비밀번호를 확인해주세요");
           this.$refs.ref_email.focus();
