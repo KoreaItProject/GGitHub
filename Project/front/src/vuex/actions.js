@@ -102,13 +102,16 @@ export default {
     return loginResponse; // 로그인 결과를 리턴한다
   },
 
-  enCrypt(store, { plainText }) {
-    console.log("!@!@!@@!@!@!@!@");
-    console.log("타입" + typeof plainText);
-    console.log("-->" + JSON.stringify(plainText));
+  nick_cookie_update(store, plainText) {
     plainText = Buffer.from(plainText);
     let cipher = Crypto.createCipheriv("AES-128-ECB", s_key, "");
     let encrypted = cipher.update(plainText, "", "");
-    return Buffer.concat([encrypted, cipher.final()]).toString("base64");
+
+    Cookies.set(
+      "nick",
+      Buffer.concat([encrypted, cipher.final()]).toString("base64")
+    );
+    return;
+    // return Buffer.concat([encrypted, cipher.final()]).toString("base64");
   }
 };
