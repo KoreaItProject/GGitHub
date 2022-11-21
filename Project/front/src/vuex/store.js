@@ -25,6 +25,7 @@ var idx = Cookies.get("idx");
 // }
 
 // 암호화
+
 function enCrypt(plainText) {
   plainText = Buffer.from(plainText);
   let cipher = Crypto.createCipheriv("AES-128-ECB", s_key, "");
@@ -56,9 +57,9 @@ export default new Vuex.Store({
     email: null,
     idx: deCrypt(idx + "", s_key),
     isLogin: deCrypt(isLogin + "", s_key),
-    nick: deCrypt(nick + "", s_key),
+    nick: deCrypt(nick + "", s_key)
   },
   mutations,
   getters,
-  actions,
+  actions
 });
