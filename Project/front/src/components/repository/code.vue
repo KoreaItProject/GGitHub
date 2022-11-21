@@ -62,14 +62,14 @@
                     </a>
                 </div>
 
-                <div class="readme_content"  v-html="data.content" >
+                <div class="readme_content markdown-body"  v-html="readmeContent">
                     
                 </div>
 
             </div>
 
         </div>
-        <div class="code_middle_container_left" >
+        <div class="code_middle_container_left"  >
             <div class="about_box">
                 <h2 class="about_string">About</h2>
                 <p class="about_setting_message">협업, 형상 관리 프로그램</p>
@@ -128,6 +128,7 @@ export default {
       star: [],
       thisURL: window.location.href.split("?")[0],
       repoIdx: 0,
+      readmeContent: "",
     };
   },
 
@@ -143,10 +144,34 @@ export default {
         })
         .then((response) => {
           this.file_list = response.data;
+          console.log(this.file_list);
 
           if (this.file_list[0].state == "file") {
+            //현재 위치가 파일인경우
+          } else {
+            //현재 위치가 폴더인경우
+            for (var i = 0; i < this.file_list.length; i++) {
+              if (this.file_list[i].state == "readme") {
+                //리드미가 있을경우 리드미를 md파일 형태로 화면에 출력한다
+                marked.setOptions({
+                  renderer: new marked.Renderer(),
+                  gfm: true,
+                  headerIds: false,
+                  tables: true,
+                  breaks: true,
+                  pedantic: false,
+                  sanitize: true,
+                  smartLists: true,
+                  smartypants: false,
+                });
+                let changedText = marked(this.file_list[i].content);
+                changedText = changedText.replaceAll("&lt;", "<");
+                changedText = changedText.replaceAll("&gt;", ">");
+                changedText = changedText.replaceAll("&quot;", '"');
+                this.readmeContent = changedText;
+              }
+            }
           }
-          console.log(this.file_list);
 
           // alert(this.star)
         });
@@ -214,20 +239,10 @@ export default {
   },
   mounted() {
     this.repoIdxByNickName();
-    marked.setOptions({
-      renderer: new marked.Renderer(),
-      gfm: true,
-      headerIds: false,
-      tables: true,
-      breaks: true,
-      pedantic: false,
-      sanitize: true,
-      smartLists: true,
-      smartypants: false,
-    });
   },
 };
 </script>
 <style lang="sass">
 @import "src/assets/sass/repository/code"
+@import "src/assets/sass/reset/markdown"
 </style>
