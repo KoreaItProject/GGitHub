@@ -102,6 +102,7 @@
   </div>
 </template>
 <script>
+import { mapActions, mapGetters } from "vuex";
 import axios from "axios";
 import store from "../../vuex/store";
 
@@ -112,25 +113,26 @@ export default {
       profileImg: "",
       nickCheck: true,
       nick: "",
-      imgch: 0,
+      imgch: 0
     };
   },
   methods: {
+    ...mapActions(["enCrypt"]),
     getProfileImg() {
       axios
         .get("/api/getProfileImg", {
           responseType: "blob",
           params: {
-            img: this.userInfo.img,
-          },
+            img: this.userInfo.img
+          }
         })
-        .then((response) => {
+        .then(response => {
           // handle success
           this.profileImg = window.URL.createObjectURL(
             new Blob([response.data])
           );
         })
-        .catch((error) => {
+        .catch(error => {
           // handle error
           console.log(error);
         })
@@ -142,10 +144,10 @@ export default {
       axios
         .get("/api/memberByNick", {
           params: {
-            nick: store.getters.getUserNick,
-          },
+            nick: store.getters.getUserNick
+          }
         })
-        .then((response) => {
+        .then(response => {
           // handle success
           this.userInfo = response.data;
           if (this.userInfo.con != null && this.userInfo.con != "") {
@@ -154,7 +156,7 @@ export default {
 
           this.getProfileImg();
         })
-        .catch((error) => {
+        .catch(error => {
           // handle error
           console.log(error);
         })
@@ -167,14 +169,14 @@ export default {
         axios
           .get("/api/hasNick", {
             params: {
-              nick: this.nick,
-            },
+              nick: this.nick
+            }
           })
-          .then((response) => {
+          .then(response => {
             // handle success
             this.nickCheck = !response.data;
           })
-          .catch((error) => {
+          .catch(error => {
             // handle error
             console.log(error);
           })
@@ -195,7 +197,7 @@ export default {
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
       var reader = new FileReader();
-      reader.onload = (e) => {
+      reader.onload = e => {
         this.profileImg = e.target.result;
       };
       reader.readAsDataURL(files[0]);
@@ -212,20 +214,20 @@ export default {
         axios
           .post("/api/saveImg", frm, {
             headers: {
-              "Content-Type": "multipart/from-data",
-            },
+              "Content-Type": "multipart/from-data"
+            }
           })
-          .then((response) => {
+          .then(response => {
             // handle success
           });
       } else if (this.imgch == 2) {
         axios
           .get("/api/delectImg", {
             params: {
-              idx: store.getters.getUserIdx,
-            },
+              idx: store.getters.getUserIdx
+            }
           })
-          .then((response) => {
+          .then(response => {
             // handle success
           });
       }
@@ -244,28 +246,31 @@ export default {
             con: this.userInfo.con,
             url: this.userInfo.url,
             company: this.userInfo.company,
-            location: this.userInfo.location,
-          },
+            location: this.userInfo.location
+          }
         })
-        .then((response) => {
+        .then(response => {
           // handle success
-          this.$cookie.set("nick", store.enCrypt(this.userInfo.nick));
-          localStorage.setItem("nick", this.userInfo.nick);
+          alert(this.userInfo.nick + "");
+          const nick = this.userInfo.nick + "";
+
+          this.$cookies.set("nick", this.enCrypt({ nick }));
+          //localStorage.setItem("nick", this.userInfo.nick);
           alert("저장 되었습니다.");
           window.location.href = "" + this.userInfo.nick + "?tab=setting";
         })
-        .catch((error) => {
+        .catch(error => {
           // handle error
           console.log(error);
         })
         .finally(() => {
           // always executed
         });
-    },
+    }
   },
   mounted() {
     this.getMemberInfo();
-  },
+  }
 };
 </script>
 <style lang="sass">

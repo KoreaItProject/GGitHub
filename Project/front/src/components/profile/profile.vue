@@ -305,10 +305,6 @@ export default {
   },
 
   mounted() {
-    alert("=++==>" + store.getters.getUserNick);
-    alert("=++==>" + store.getters.getUserIdx);
-    alert("=++==>" + store.getters.getIsLogin);
-
     this.hasNick();
     this.getMemberInfo();
 
