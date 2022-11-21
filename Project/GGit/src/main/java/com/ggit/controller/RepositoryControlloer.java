@@ -90,27 +90,15 @@ public class RepositoryControlloer {
         if (path == null) {
             path = "";
         }
+        String filePath = storage_dir + "/repositorys/" + repoIdx + "/" + token + "/" + path;
         List list = new ArrayList<StorageVo>();
-        File folder = new File(storage_dir + "/repositorys/" + repoIdx + "/" + token + "/" + path);
+        File folder = new File(filePath);
         File files[] = folder.listFiles();
-        BufferedReader reader;
-        String content = "";
+
         if (folder.isFile()) {
             StorageVo file = new StorageVo();
-            try {
-                reader = new BufferedReader(
-                        new InputStreamReader(new FileInputStream(
-                                storage_dir + "/repositorys/" + repoIdx + "/" + token + "/" + path), "UTF-8"));
-                String str;
-
-                while ((str = reader.readLine()) != null) {
-                    content += str + "\n";
-                }
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            System.out.println(content);
+            String content = "";
+            content = fileLeader(filePath);
             file.setState("file");
             file.setContent(content);
             file.setName(folder.getName());
@@ -121,13 +109,40 @@ public class RepositoryControlloer {
 
         for (int i = 0; i < files.length; i++) {
             StorageVo file = new StorageVo();
+            if (files[i].getName().equals("README.md")) {
+                file.setState("readme");
+                String content = "";
+                content = fileLeader(filePath + "/README.md");
+                file.setContent(content);
+            }
             file.setName(files[i].getName());
-
             file.setDirectory(files[i].isDirectory());
             list.add(file);
 
         }
         return list;
+    }
+
+    public String fileLeader(String filePath) {
+        String content = "";
+        BufferedReader reader;
+
+        try {
+            reader = new BufferedReader(
+                    new InputStreamReader(new FileInputStream(
+                            filePath), "UTF-8"));
+            String str;
+
+            while ((str = reader.readLine()) != null) {
+                content += str + "\n";
+            }
+            reader.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return content;
     }
 
 }

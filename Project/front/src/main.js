@@ -4,7 +4,10 @@ import Vue from "vue";
 import App from "./App";
 import router from "./router";
 import axios from "axios";
+import VueCookies from "vue-cookies"; // npm install --save js-cookie
 import store from "./vuex/store"; //1. store 추가
+
+Vue.use(VueCookies);
 
 Vue.prototype.$store = store;
 Vue.prototype.$axios = axios;
