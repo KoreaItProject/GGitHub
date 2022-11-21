@@ -13,7 +13,7 @@ public class StarVo {
     int star_idx;
     int star_repo;
     int star_member;
-
+    int star_count;
     //member
     String member_nick;
     
