@@ -48,13 +48,13 @@ export default {
       mdText:
         "[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=ymiru0324&layout=compact&&theme=dark&&&langs_count=6)](https://github.com/ymiru0324)",
       pins: ["", "", "", ""],
-      contribution_top: "0px",
+      contribution_top: "0px"
     };
   },
   computed: {
     cssVariable() {
       return {
-        "--contribution-top": this.contribution_top,
+        "--contribution-top": this.contribution_top
       };
     },
     changeMarkdown() {
@@ -70,15 +70,15 @@ export default {
         pedantic: false,
         sanitize: true,
         smartLists: true,
-        smartypants: false,
+        smartypants: false
       });
       let changedText = marked(this.mdText);
       changedText = changedText.replaceAll("&lt;", "<");
       changedText = changedText.replaceAll("&gt;", ">");
       changedText = changedText.replaceAll("&quot;", '"');
       return changedText;
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="sass">

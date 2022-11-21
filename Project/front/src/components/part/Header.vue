@@ -33,18 +33,21 @@
 
 <script>
 import axios from "axios";
+import store from "../../vuex/store";
+
 export default {
   data() {
     return {
       islogin: false,
       nick: "",
-      profileImg: null,
+      profileImg: null
     };
   },
   methods: {
-    Logout: function () {
-      localStorage.removeItem("idx");
-      localStorage.removeItem("isLogin");
+    Logout: function() {
+      this.$cookies.remove("idx");
+      this.$cookies.remove("isLogin");
+      this.$cookies.remove("nick");
       window.location.href = "";
     },
 
@@ -52,15 +55,15 @@ export default {
       axios
         .get("/api/nickFromIdx", {
           params: {
-            idx: localStorage.getItem("idx"),
-          },
+            idx: store.getters.getUserIdx
+          }
         })
-        .then((response) => {
+        .then(response => {
           // handle success
 
           this.nick = response.data;
         })
-        .catch((error) => {
+        .catch(error => {
           // handle error
           console.log(error);
         })
@@ -72,19 +75,19 @@ export default {
       axios
         .get("/api/imgFromIdx", {
           params: {
-            idx: localStorage.getItem("idx"),
-          },
+            idx: store.getters.getUserIdx
+          }
         })
-        .then((response) => {
+        .then(response => {
           // handle success
           axios
             .get("/api/getProfileImg", {
               responseType: "blob",
               params: {
-                img: response.data,
-              },
+                img: response.data
+              }
             })
-            .then((response) => {
+            .then(response => {
               // handle success
               this.profileImg = window.URL.createObjectURL(
                 new Blob([response.data])
@@ -92,22 +95,22 @@ export default {
               console.log(response.data);
             });
         })
-        .catch((error) => {
+        .catch(error => {
           // handle error
           console.log(error);
         })
         .finally(() => {
           // always executed
         });
-    },
+    }
   },
   mounted() {
-    this.islogin = localStorage.getItem("isLogin");
+    this.islogin = store.getters.getIsLogin;
     if (this.islogin) {
       this.getNick();
       this.getImg();
     }
-  },
+  }
 };
 </script>
 

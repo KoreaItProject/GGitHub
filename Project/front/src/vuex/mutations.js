@@ -20,6 +20,6 @@ export default {
     state.isLogin = isLogin;
   },
   [types.IS_NICK](state, isNick) {
-    state.isNick = isNick;
+    state.nick = isNick;
   }
 };
