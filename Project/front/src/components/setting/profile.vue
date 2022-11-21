@@ -250,7 +250,6 @@ export default {
         .then((response) => {
           // handle success
           this.$cookie.set("nick", store.enCrypt(this.userInfo.nick));
-          localStorage.setItem("nick", this.userInfo.nick);
           alert("저장 되었습니다.");
           window.location.href = "" + this.userInfo.nick + "?tab=setting";
         })
