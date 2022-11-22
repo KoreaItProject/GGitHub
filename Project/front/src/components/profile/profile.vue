@@ -37,7 +37,7 @@
             ></path>
           </svg>
           저장소
-          <span title="13" data-view-component="true" class="Counter">13</span>
+          <span title="13" data-view-component="true" class="Counter">{{repocount}}</span>
         </a>
         <a id="profile_tab3" class="profile_tab" href="?tab=stars">
           <svg
@@ -55,7 +55,7 @@
             ></path>
           </svg>
           즐겨찾기
-          <span title="5" data-view-component="true" class="Counter">5</span>
+          <span title="5" data-view-component="true" class="Counter">{{starcount}}</span>
         </a>
       </div>
     </div>
@@ -221,6 +221,8 @@ export default {
       tab3_color: "0px",
       profileImg: "",
       userInfo: [],
+      repocount:[],
+      starcount:[],
     };
   },
   components: {
@@ -302,11 +304,57 @@ export default {
           // always executed
         });
     },
+    selectRepositorycount() {
+      axios
+        .get("/api/selectRepositorycount", {
+          params: {
+            nick: this.$route.params.nick,
+          },
+        })
+        .then((response) => {
+          // handle success
+          this.repocount = response.data;
+         
+        })
+        .catch((error) => {
+          // handle error
+          console.log(error);
+        })
+        .finally(() => {
+          // always executed
+        });
+    },
+    selectRepositorystarcount() {
+      axios
+        .get("/api/selectRepositorystarcount", {
+          params: {
+            nick: this.$route.params.nick,
+          },
+        })
+        .then((response) => {
+          // handle success
+          this.starcount = response.data;
+         
+        })
+        .catch((error) => {
+          // handle error
+          console.log(error);
+        })
+        .finally(() => {
+          // always executed
+        });
+    },
+    
+    
+    
   },
 
   mounted() {
     this.hasNick();
     this.getMemberInfo();
+    this.selectRepositorycount();
+    this.selectRepositorystarcount();
+    
 
     let tab = this.$route.query.tab;
     if (tab == "repositories") {

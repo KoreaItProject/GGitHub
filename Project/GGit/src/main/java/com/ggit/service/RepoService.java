@@ -40,6 +40,15 @@ public class RepoService {
         return mapper.selectRepositorystar(repoIdx);
     }
 
+    public int selectRepositorycount(String nick){
+        return mapper.selectRepositorycount(nick);
+    }
+    public int selectRepositorystarcount(String nick){
+        System.out.println(nick);
+        return mapper.selectRepositorystarcount(nick);
+    }
+   
+
    
     
     

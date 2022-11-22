@@ -64,4 +64,4 @@ export default {
 
 <style lang="sass">
 @import 'src/assets/sass/profile/stars'
-</style>
+</style>       

@@ -19,6 +19,7 @@ public class RepositoriesVO {
     int repo_publ;
     int repo_owner;
     int repo_fork;
+    int repo_count;
 
     // repomem
     int repomem_idx;

@@ -24,7 +24,9 @@ public interface RepoMapper {
     
     List<RepositoriesVO> selectRepositorystar(int repoIdx);
 
-   
+    int selectRepositorycount(String nick);
+
+    int selectRepositorystarcount(String nick);
 
     
 

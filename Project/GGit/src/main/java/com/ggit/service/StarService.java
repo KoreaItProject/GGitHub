@@ -21,5 +21,4 @@ public class StarService {
         return mapper.selectStarlist(nick);
     }
     
-   
 }
