@@ -221,8 +221,8 @@ export default {
       tab3_color: "0px",
       profileImg: "",
       userInfo: [],
-      repocount:[],
-      starcount:[],
+      repocount:'',
+      starcount:'',
     };
   },
   components: {
@@ -350,10 +350,11 @@ export default {
   },
 
   mounted() {
-    this.hasNick();
-    this.getMemberInfo();
+    this.hasNick(); 
     this.selectRepositorycount();
     this.selectRepositorystarcount();
+    this.getMemberInfo();
+   
     
 
     let tab = this.$route.query.tab;
