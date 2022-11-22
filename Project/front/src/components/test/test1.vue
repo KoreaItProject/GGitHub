@@ -18,9 +18,11 @@
             </tr>
             <tr v-for="index in lists" v-bind:key="index">
                 <td>{{index.id}}</td>
+                
                 <td>{{index.name}}</td>
             </tr>
         </table>
+        
 
     </div>
 </template>

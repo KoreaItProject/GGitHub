@@ -13,11 +13,25 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ggit.service.MemberService;
+import com.ggit.socket.ServerMain;
+import com.ggit.socket.SocketRunTime;
 import com.ggit.vo.MemberVo;
 import com.ggit.vo.RepositoriesVO;
 
 @RestController
 public class MainController {
+
+    @GetMapping(value = "/sock1")
+    public String sock() {
+        new ServerMain();
+        return "";
+    }
+
+    @GetMapping(value = "/sock2")
+    public String socketruntime() {
+        new SocketRunTime();
+        return "소케서버오픈";
+    }
 
     @GetMapping(value = "/hello")
     public String helloWorld() {
