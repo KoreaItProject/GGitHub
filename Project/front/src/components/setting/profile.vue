@@ -117,7 +117,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["enCrypt"]),
+    ...mapActions(["nick_cookie_update"]),
     getProfileImg() {
       axios
         .get("/api/getProfileImg", {
@@ -251,12 +251,9 @@ export default {
         })
         .then(response => {
           // handle success
-          alert(this.userInfo.nick + "");
           const nick = this.userInfo.nick + "";
-
-          this.$cookies.set("nick", this.enCrypt({ nick }));
-          //localStorage.setItem("nick", this.userInfo.nick);
-
+          this.nick_cookie_update(nick);
+          this.saveImg();
           alert("저장 되었습니다.");
           window.location.href = "" + this.userInfo.nick + "?tab=setting";
         })

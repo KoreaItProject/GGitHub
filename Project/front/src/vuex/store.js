@@ -15,10 +15,6 @@ const ls = new SecureLS({ isCompression: false });
 
 var s_key = "aksjdhfusjdmfksj"; // 시크릿 키
 
-var nick = Cookies.get("nick");
-var isLogin = Cookies.get("isLogin");
-var idx = Cookies.get("idx");
-
 // 닉네임 수정 메소드
 // function nick_update_cookie(String nick) {
 //   Cookies.set
@@ -44,6 +40,10 @@ function deCrypt(encryptText) {
 
   return Buffer.concat([decrypted, cipher.final()]).toString("utf-8");
 }
+
+var nick = Cookies.get("nick");
+var isLogin = Cookies.get("isLogin");
+var idx = Cookies.get("idx");
 
 export default new Vuex.Store({
   //   modules: {},

@@ -96,7 +96,7 @@ public class MemberController {
 
         String ext = img.getOriginalFilename().substring(img.getOriginalFilename().lastIndexOf(".") + 1);
         String fileName = +idx + "." + ext;
-        String path = "C:/gitdata/GGitHub/Project/GGit/STORAGE/profile/img/" + fileName;
+        String path = storage_dir + "profile/img/" + fileName;
 
         Map map = new HashMap<>();
         map.put("idx", idx);
