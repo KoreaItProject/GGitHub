@@ -31,8 +31,11 @@ public class ServerMain {
 				list.add(handler); // 핸들러를 담음( 이 리스트의 개수가 클라이언트의 갯수!!)
 
 			} // while
+
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+
 		}
 	}
 

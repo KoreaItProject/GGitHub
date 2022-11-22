@@ -42,9 +42,15 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 
 			while (true) {
 				dto = (InfoDTO) reader.readObject();
-				if (dto.getCommand() == Info.PUSH) {
+
+				if (dto.getCommand() == Info.STATE && dto.getMessage().equals("running")) {
+
+					broadcast(dto);
+				} else if (dto.getCommand() == Info.PUSH) {
 
 					String result = fileWrite(reader);
+				} else {
+
 				}
 
 			} // while
