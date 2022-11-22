@@ -147,4 +147,17 @@ public class RepositoryControlloer {
         return content;
     }
 
+    @RequestMapping("selectRepositorycount")
+    public int selectRepositorycount(String nick){
+        int Repositorycount = repoService.selectRepositorycount(nick);
+        return Repositorycount;
+
+    }
+
+    @RequestMapping("selectRepositorystarcount")
+    public int selectRepositorystarcount(String nick){
+        int Repositorystarcount = repoService.selectRepositorystarcount(nick);
+        return Repositorystarcount;
+    }
+
 }
