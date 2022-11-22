@@ -21,6 +21,7 @@
                 <td>{{index.name}}</td>
             </tr>
         </table>
+        
 
     </div>
 </template>
