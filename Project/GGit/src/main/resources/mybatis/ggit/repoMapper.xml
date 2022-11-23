@@ -49,9 +49,9 @@
     </select>
 
     <select id="selectRepositorycount" resultType="int">
-        SELECT count(repo.name) 
-        FROM repo 
-        WHERE repo.owner=(select member.idx from member where member.nick =#{nick});
+        SELECT count(repomem.idx)
+        FROM repomem 
+        WHERE repomem.member=(select member.idx from member where member.nick =#{nick});
        
     </select>
 
