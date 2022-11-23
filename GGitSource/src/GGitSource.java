@@ -30,9 +30,14 @@ class GGitSource extends JFrame implements ActionListener {
         mainPanel.setBackground(new Color(36, 41, 47));
         mainPanel.setVisible(true);
 
-        JScrollPane scrollPan = new ScrollPan().getScrollPan();
+        JPanel loginPan = new LoginPan().getLoginPan();
+        loginPan.setBounds(-2, 50, 248, 272);
+        loginPan.setVisible(true);
+        mainPanel.add(loginPan);
+
+        JScrollPane scrollPan = new ScrollPan().getScrollPan();// 변경된 파일 패널
         scrollPan.setBounds(-2, 50, 248, 272);
-        scrollPan.setVisible(true);
+        scrollPan.setVisible(false);
         mainPanel.add(scrollPan);
 
         JLabel toptxt = new JLabel("로그인 후 이용해주세요");
