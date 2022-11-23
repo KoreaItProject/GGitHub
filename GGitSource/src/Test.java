@@ -1,9 +1,7 @@
 import java.beans.Visibility;
 
-import javax.swing.JFrame;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.*;
+import java.awt.*;
 
 class F extends JFrame {
     F() {
@@ -16,14 +14,15 @@ class F extends JFrame {
         JPanel backPanel = new JPanel();
         backPanel.setLayout(null);
 
-        String str[] = { "asdf", "fdas", "edsf", "acvsd", "fdas", "edsf", "acvsd", "fdas", "edsf", "acvsd", "fdas",
-                "edsf", "acvsd", "fdas", "edsf", "acvsd", "fdas", "edsf", "acvsd" };
+        String str[];
+
+        String str1[] = { "asdf999999999999999999999999999999", "fdas" };
+        str = str1;
+
         JList scrollList = new JList(str);
 
-        scrollList.setVisible(true);
         JScrollPane jp = new JScrollPane(scrollList);
-        jp.setVisible(true);
-        jp.setBounds(100, 100, 100, 300);
+        jp.setBounds(100, 100, 100, 200);
         backPanel.add(jp);
 
         add(backPanel);

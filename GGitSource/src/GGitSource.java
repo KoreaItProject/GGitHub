@@ -3,7 +3,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
 import java.awt.*;
 
 import java.awt.event.*;
@@ -25,6 +28,12 @@ class GGitSource extends JFrame implements ActionListener {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(null);
         mainPanel.setBackground(new Color(36, 41, 47));
+        mainPanel.setVisible(true);
+
+        JScrollPane scrollPan = new ScrollPan().getScrollPan();
+        scrollPan.setBounds(-2, 50, 248, 272);
+        scrollPan.setVisible(true);
+        mainPanel.add(scrollPan);
 
         JLabel toptxt = new JLabel("로그인 후 이용해주세요");
         toptxt.setBounds(55, 0, 300, 50);
