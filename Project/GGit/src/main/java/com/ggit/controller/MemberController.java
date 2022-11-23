@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ggit.service.FollowService;
 import com.ggit.service.MemberService;
 import com.ggit.vo.MemberVo;
 
@@ -27,6 +29,8 @@ import com.ggit.vo.MemberVo;
 public class MemberController {
     @Autowired
     MemberService memberService;
+    @Autowired
+    FollowService followService;
 
     @Value("${storage_dir}")
     String storage_dir;
@@ -121,4 +125,16 @@ public class MemberController {
         memberService.delectProfileImg(idx);
 
     }
+    @RequestMapping("selectfollowlist")
+    public List<MemberVo> selectfollowlist(String nick){
+        List<MemberVo> followlist = followService.selectfollowlist(nick);
+        
+        return followlist;
+    }
+    @RequestMapping("selectfollowinglist")
+    public List<MemberVo> selectfollowinglist(String nick){
+        List<MemberVo> followinglist = followService.selectfollowinglist(nick);
+        return followinglist;
+    }
+    
 }

@@ -40,4 +40,8 @@ public interface MemberMapper {
 
         void delectProfileImg(int idx);
 
+        //팔로워 목록
+    
+        
+
 }

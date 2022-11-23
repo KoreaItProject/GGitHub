@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ggit.db.mapper.FollowMapper;
 import com.ggit.vo.FollowVo;
+import com.ggit.vo.MemberVo;
 
 @Service
 public class FollowService {
@@ -15,5 +16,12 @@ public class FollowService {
 
     public List<FollowVo> follow(){
         return mapper.follow();
+    }
+
+    public List<MemberVo> selectfollowlist(String nick){
+        return mapper.selectfollowlist(nick);
+    }
+    public List<MemberVo> selectfollowinglist(String nick){
+        return mapper.selectfollowinglist(nick);
     }
 }

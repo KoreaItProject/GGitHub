@@ -4,4 +4,16 @@
     <select id="follow"  resultType="com.ggit.vo.FollowVo">
         SELECT * FROM follow;
     </select>
+
+    <select id="selectfollowlist" resultType="com.ggit.vo.MemberVo">
+        SELECT member.nick as nick
+        FROM member,follow
+        WHERE member.idx = follow.follower and follow.member=(select member.idx from member where member.nick=#{nick})
+    </select>
+
+    <select id="selectfollowinglist" resultType="com.ggit.vo.MemberVo">
+        SELECT member.nick as nick 
+        FROM member,follow 
+        WHERE follow.member = member.idx and follow.follower=(SELECT member.idx from member where member.nick=#{nick})
+    </select>
 </mapper>

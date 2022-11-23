@@ -78,5 +78,8 @@ public class MemberService {
     public void delectProfileImg(int idx) {
         mapper.delectProfileImg(idx);
     }
+    
+    
+    
 
 }
