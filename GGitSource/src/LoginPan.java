@@ -2,9 +2,13 @@
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 
+import com.ggit.socket.InfoDTO;
+import com.ggit.socket.InfoDTO.Info;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -15,9 +19,17 @@ public class LoginPan implements MouseInputListener {
     JButton loginbtn;
     JTextField id;
     JPasswordField pw;
+    ObjectOutputStream writer;
+    InfoDTO infoDTO;
+
+    LoginPan(ObjectOutputStream writer) {
+        this.writer = writer;
+        infoDTO = new InfoDTO();
+        imgPath = new Setting().getImgPath();
+    }
 
     public JPanel getLoginPan() {
-        imgPath = new Setting().getImgPath();
+
         JPanel loginPanel = new JPanel();
         loginPanel.setLayout(null);
 
@@ -38,6 +50,7 @@ public class LoginPan implements MouseInputListener {
         loginbtn.setBackground(new Color(45, 164, 78));
         loginbtn.setForeground(new Color(252, 241, 234));
         loginbtn.addMouseListener(this);
+        loginbtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         ImageIcon topIcon1 = imgMk("loginLogo.png", 108, 60);
         top1lbl = new JLabel();
@@ -45,6 +58,7 @@ public class LoginPan implements MouseInputListener {
         loginPanel.add(top1lbl);
         top1lbl.setIcon(topIcon1);
         top1lbl.addMouseListener(this);
+        top1lbl.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         topIcon = imgMk("login.png", 248, 272);
         JLabel toplbl = new JLabel();
@@ -74,8 +88,18 @@ public class LoginPan implements MouseInputListener {
                 e1.printStackTrace();
             }
         } else if (e.getSource() == loginbtn) {
-            System.out.println(id.getText());
-            System.out.println(pw.getText());
+            try {
+                infoDTO.setCommand(Info.LOGIN);
+                infoDTO.setId(id.getText());
+                infoDTO.setPw(pw.getText());
+
+                writer.writeObject(infoDTO);
+                writer.flush();
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+
         }
 
     }

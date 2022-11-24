@@ -9,6 +9,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.event.MouseInputListener;
 
+import com.ggit.socket.InfoDTO;
+import com.ggit.socket.InfoDTO.Info;
+
 import java.awt.*;
 
 import java.awt.event.*;
@@ -17,10 +20,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.UnknownHostException;
 
-class GGitSource extends JFrame implements MouseInputListener {
+public class GGitSource extends JFrame implements MouseInputListener, Runnable {
 
     RoundedButton pushBtn, pullBtn;
     String imgPath;
@@ -33,7 +40,39 @@ class GGitSource extends JFrame implements MouseInputListener {
     boolean hasLogin = true;
     boolean hasClone = false;
 
-    GGitSource() {
+    Socket socket;
+    ObjectOutputStream writer;
+    ObjectInputStream reader;
+    InfoDTO infoDTO;
+    boolean running = true;
+
+    public GGitSource() {
+        String serverIp = "localhost";
+        Socket socket = null;
+        try {
+            socket = new Socket(serverIp, 4445);
+
+            writer = new ObjectOutputStream(socket.getOutputStream());
+            reader = new ObjectInputStream(socket.getInputStream());
+            System.out.println("서버에 연결되었습니다.");
+            infoDTO = new InfoDTO();
+
+            // 파일전송을 서버에 알린다.('file' 구분자 전송)
+
+            infoDTO.setCommand(Info.STATE);
+            infoDTO.setMessage("running");
+            writer.writeObject(infoDTO);
+            writer.flush();
+
+            Thread sockThread = new Thread(this);
+            sockThread.start();
+        } catch (UnknownHostException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         setting();
         setSize(250, 350); // 컨테이너 크기 지정
@@ -48,7 +87,7 @@ class GGitSource extends JFrame implements MouseInputListener {
         mainPanel.setBackground(new Color(36, 41, 47));
         mainPanel.setVisible(true);
 
-        JPanel loginPan = new LoginPan().getLoginPan();
+        JPanel loginPan = new LoginPan(writer).getLoginPan();
         loginPan.setBounds(-2, 50, 248, 272);
         loginPan.setVisible(!hasLogin);
         mainPanel.add(loginPan);
@@ -77,10 +116,13 @@ class GGitSource extends JFrame implements MouseInputListener {
         pullBtn = new RoundedButton("pull");
         pushBtn.addMouseListener(this);
         pullBtn.addMouseListener(this);
+        pushBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        pullBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         pushBtn.setBounds(55, 8, 85, 35);
         pullBtn.setBounds(150, 8, 85, 35);
         mainPanel.add(pushBtn);
         mainPanel.add(pullBtn);
+
         ImageIcon logoIcon;
         logoIcon = imgMk("logo.png", 35, 35);
         logolbl = new JLabel();
@@ -88,6 +130,7 @@ class GGitSource extends JFrame implements MouseInputListener {
         mainPanel.add(logolbl);
         logolbl.setIcon(logoIcon);
         logolbl.addMouseListener(this);
+        logolbl.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         ImageIcon whiteIcon;
         whiteIcon = imgMk("white.jpg", 300, 400);
@@ -97,6 +140,24 @@ class GGitSource extends JFrame implements MouseInputListener {
         whitelbl.setIcon(whiteIcon);
 
         add(mainPanel);
+
+        // 창닫을 경우
+        this.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                // System.exit(0);
+                try {
+                    // InfoDTO dto = new InfoDTO(nickName,Info.EXIT);
+                    infoDTO.setCommand(Info.EXIT);
+                    infoDTO.setUser("a");
+                    writer.writeObject(infoDTO);
+                    writer.flush();
+                    running = false;
+
+                } catch (IOException io) {
+                    io.printStackTrace();
+                }
+            }
+        });
     }
 
     public ImageIcon imgMk(String img, int w, int h) {
@@ -117,10 +178,33 @@ class GGitSource extends JFrame implements MouseInputListener {
 
         if (info.isFile()) {
             InfoLeader infoLeader = new InfoLeader(info.getPath());
+            this.hasLogin = true;
 
         } else {
             System.out.println("파일이 없습니다.");
+            this.hasLogin = false;
         }
+    }
+
+    @Override
+    public void run() {
+        int i = 0;
+        try {
+            while (running) {
+                infoDTO = (InfoDTO) reader.readObject();
+                if (infoDTO.getCommand() == Info.STATE && infoDTO.getMessage().equals("running")) {
+
+                    // Thread.sleep(30000);
+                    // System.out.println(++i * 30 + "초");
+                    // writer.writeObject(infoDTO);
+                    // writer.flush();
+                }
+            }
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -133,9 +217,9 @@ class GGitSource extends JFrame implements MouseInputListener {
         } else if (e.getSource() == logolbl) {
             try {
                 Desktop.getDesktop().browse(new URI("http://localhost/"));
-            } catch (IOException | URISyntaxException e1) {
+            } catch (Exception e1) {
                 // TODO Auto-generated catch block
-                e1.printStackTrace();
+                System.out.println("안에 내용이 올바르지 않음");
             }
         }
 
@@ -143,38 +227,26 @@ class GGitSource extends JFrame implements MouseInputListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        // TODO Auto-generated method stub
-
     }
 
 }

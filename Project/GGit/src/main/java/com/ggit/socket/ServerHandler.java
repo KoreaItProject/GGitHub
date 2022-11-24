@@ -1,6 +1,7 @@
 package com.ggit.socket;
 
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.List;
 import java.util.Random;
 
@@ -46,17 +47,31 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 				if (dto.getCommand() == Info.STATE && dto.getMessage().equals("running")) {
 
 					broadcast(dto);
+				} else if (dto.getCommand() == Info.EXIT) {
+					System.out.println("종료");
+					writer.writeObject(dto);
+					broadcast(dto);
+					// reader.close();
+					// writer.close();
+					// socket.close();
+					list.remove(this);
+					this.stop();
+
+					break;
 				} else if (dto.getCommand() == Info.PUSH) {
 
 					String result = fileWrite(reader);
-				} else {
-
+				} else if (dto.getCommand() == Info.LOGIN) {
+					System.out.println("id:" + dto.getId());
+					System.out.println("pw:" + dto.getPw());
+					broadcast(dto);
 				}
 
 			} // while
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			list.remove(this);
+			this.stop();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}

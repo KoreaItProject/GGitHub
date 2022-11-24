@@ -14,6 +14,21 @@ public class InfoLeader {
 
             BufferedReader reader;
 
+            // try {
+            // reader = new BufferedReader(
+            // new InputStreamReader(new FileInputStream(
+            // path), "UTF-8"));
+            // int c = 0;
+
+            // while ((c = reader.read()) != -1) {
+            // content += c + "\n";
+            // }
+            // System.out.println(content);
+
+            // } catch (Exception e) {
+            // // TODO Auto-generated catch block
+            // e.printStackTrace();
+            // }
             try {
                   reader = new BufferedReader(
                               new InputStreamReader(new FileInputStream(
@@ -21,14 +36,16 @@ public class InfoLeader {
                   String str;
 
                   while ((str = reader.readLine()) != null) {
-                        content += str + "\n";
+                        System.out.println(str);
 
+                        content += (char) (Integer.parseInt(str));
                   }
                   reader.close();
-            } catch (IOException e) {
+            } catch (Exception e) {
                   // TODO Auto-generated catch block
                   e.printStackTrace();
             }
+
             System.out.println(content);
             JSONParser jsonParser = new JSONParser();
             Object obj;
@@ -36,16 +53,14 @@ public class InfoLeader {
                   obj = jsonParser.parse(content);
                   JSONObject jsonObj = (JSONObject) obj;
                   // print
-                  System.out.println(jsonObj.get("member")); // sim
-                  System.out.println(jsonObj.get("repo")); // simpw
-                  System.out.println(jsonObj.get("token")); // {"sex":"male","age":50}
+                  System.out.println(jsonObj.get("member"));
+                  System.out.println(jsonObj.get("repo"));
+                  System.out.println(jsonObj.get("token"));
 
             } catch (ParseException e) {
                   // TODO Auto-generated catch block
                   e.printStackTrace();
             }
-
-            // 4. To JsonObject
 
       }
 
