@@ -89,6 +89,7 @@ public class LoginPan implements MouseInputListener {
             }
         } else if (e.getSource() == loginbtn) {
             try {
+                infoDTO = new InfoDTO();
                 infoDTO.setCommand(Info.LOGIN);
                 infoDTO.setId(id.getText());
                 infoDTO.setPw(pw.getText());
