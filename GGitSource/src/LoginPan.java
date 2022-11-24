@@ -1,30 +1,54 @@
 
 import javax.swing.*;
+import javax.swing.event.MouseInputListener;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
-public class LoginPan {
+public class LoginPan implements MouseInputListener {
     String imgPath;
+    ImageIcon topIcon;
+    JLabel top1lbl;
+    JButton loginbtn;
+    JTextField id;
+    JPasswordField pw;
 
     public JPanel getLoginPan() {
         imgPath = new Setting().getImgPath();
         JPanel loginPanel = new JPanel();
         loginPanel.setLayout(null);
 
-        JTextField id = new MyField();
-        id.setBounds(11, 149, 226, 22);
+        id = new MyField();
+        id.setBounds(11, 131, 226, 22);
         id.setFont(new Font("Gothic", Font.BOLD, id.getFont().getSize() + 3));
         loginPanel.add(id);
 
-        JPasswordField pw = new MyPwField();
-        pw.setBounds(11, 201, 226, 22);
-        pw.setFont(new Font("Gothic", Font.BOLD, id.getFont().getSize() + 3));
+        pw = new MyPwField();
+        pw.setBounds(11, 187, 226, 22);
+        pw.setFont(new Font("Gothic", Font.BOLD, pw.getFont().getSize() + 3));
         loginPanel.add(pw);
 
-        ImageIcon topIcon;
+        loginbtn = new JButton("로그인");
+        loginbtn.setBounds(-1, 234, 250, 38);
+        loginbtn.setFont(new Font("Gothic", Font.BOLD, loginbtn.getFont().getSize() + 5));
+        loginPanel.add(loginbtn);
+        loginbtn.setBackground(new Color(45, 164, 78));
+        loginbtn.setForeground(new Color(252, 241, 234));
+        loginbtn.addMouseListener(this);
+
+        ImageIcon topIcon1 = imgMk("loginLogo.png", 108, 60);
+        top1lbl = new JLabel();
+        top1lbl.setBounds(67, 9, 108, 60);
+        loginPanel.add(top1lbl);
+        top1lbl.setIcon(topIcon1);
+        top1lbl.addMouseListener(this);
+
         topIcon = imgMk("login.png", 248, 272);
         JLabel toplbl = new JLabel();
-        toplbl.setBounds(0, 0, 248, 272);
+        toplbl.setBounds(0, -3, 248, 272);
         loginPanel.add(toplbl);
         toplbl.setIcon(topIcon);
 
@@ -34,6 +58,62 @@ public class LoginPan {
     public ImageIcon imgMk(String img, int w, int h) {
 
         return new ImageIcon(new ImageIcon(imgPath + img).getImage().getScaledInstance(w, h, Image.SCALE_SMOOTH));
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        // TODO Auto-generated method stub
+        if (e.getSource() == top1lbl) {
+            try {
+                Desktop.getDesktop().browse(new URI("http://localhost/"));
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            } catch (URISyntaxException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+        } else if (e.getSource() == loginbtn) {
+            System.out.println(id.getText());
+            System.out.println(pw.getText());
+        }
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        // TODO Auto-generated method stub
+
     }
 }
 

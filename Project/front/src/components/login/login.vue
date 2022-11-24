@@ -13,17 +13,17 @@
         </div>
         <main>
             <div class="auth-form">
-                <div class="auth-form-header"><h1>Sign into GGit</h1></div>
+                <div class="auth-form-header"><h1>GGit</h1></div>
                 <div class="auth-form-body">
                     <form @submit.prevent="onSubmitLogin" >
-                        <label class="body-label" for="login_field">email address</label>
+                        <label class="body-label" for="login_field">이메일</label>
                         <input ref="ref_email" type="text" name="login" id="login_field" class="form-control input-block" v-model="email"></input>
 
                         <div>
-                            <label for="password">Password</label>
-                            <a class="label-link" tabindex="0" href="/login">Forgot password?</a>
+                            <label for="password">패스워드</label>
+                            <a class="label-link" tabindex="0" href="/login">패스워드 찾기</a>
                             <input type="password" name="password" id="password" class="form-control input-block" v-model="pw"></input>
-                            <input type="submit" name="commit" value="Sign in" class="btn btn-primary btn-block"></input>
+                            <input type="submit" name="commit" value="로그인" class="btn btn-primary btn-block"></input>
                         </div>
                     </form>
                 </div>
@@ -49,17 +49,14 @@ export default {
     async onSubmitLogin() {
       if (this.email === "") {
         alert("이메일을 입력하세요");
-
       } else if (this.pw === "") {
         alert("비밀번호를 입력하세요");
-
       } else {
-       
         const u_data = await this.login({
           user_email: this.email,
           user_pw: this.pw,
         });
-        
+
         if (
           store.getters.getUserIdx == null ||
           store.getters.getUserIdx == "undefined" ||
