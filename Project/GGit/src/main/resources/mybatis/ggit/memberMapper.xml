@@ -53,4 +53,5 @@
          update member set img=null where idx= ${idx}
     </update>
 
+    
 </mapper>

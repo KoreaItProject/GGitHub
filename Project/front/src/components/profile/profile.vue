@@ -75,7 +75,7 @@
       </div>
 
       <div class="profile_folloew_div">
-        <a class="" href="?tap=followers">
+        <a class="" href="?tab=followers">
           <svg
             text="muted"
             aria-hidden="true"
@@ -97,7 +97,7 @@
           followers
         </a>
         ·
-        <a class="" href="?tap=following">
+        <a class="" href="?tab=following">
           <span class="text-bold color-fg-default">{{
             userInfo.following
           }}</span>
@@ -188,6 +188,8 @@
       <repositories v-if="isRepositories" />
       <stars v-if="isStars" />
       <setting v-if="isSetting" />
+      <followers v-if="isFollowers"/>
+      <following v-if="isFollowing"/>
     </div>
   </div>
 </template>
@@ -197,7 +199,9 @@ import axios from "axios";
 import overview from "@/components/profile/overview.vue";
 import repositories from "@/components/profile/repositories.vue";
 import stars from "@/components/profile/stars.vue";
-import setting from "@/components/setting/profile";
+import setting from "@/components/setting/profile.vue";
+import followers from "@/components/profile/followers.vue";
+import following from "@/components/profile/following.vue";
 import store from "../../vuex/store";
 
 export default {
@@ -216,6 +220,8 @@ export default {
       isRepositories: false,
       isStars: false,
       isSetting: false,
+      isFollowers: false,
+      isFollowing: false,
       tab1_color: "0px",
       tab2_color: "0px",
       tab3_color: "0px",
@@ -230,6 +236,8 @@ export default {
     repositories: repositories,
     stars: stars,
     setting: setting,
+    followers: followers,
+    following: following,
   },
   methods: {
     getProfileImg() {
@@ -358,6 +366,7 @@ export default {
     
 
     let tab = this.$route.query.tab;
+     
     if (tab == "repositories") {
       this.isRepositories = true;
       this.tab2_color = "4px";
@@ -366,10 +375,14 @@ export default {
       this.tab3_color = "4px";
     } else if (tab == "setting") {
       this.isSetting = true;
+    } else if (tab == "followers"){
+      this.isFollowers = true;
+    } else if (tab == "following"){
+      this.isFollowing = true;
     } else {
       this.isOverview = true;
       this.tab1_color = "4px";
-    }
+    } 
   },
 };
 </script>
