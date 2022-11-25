@@ -192,13 +192,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
         try {
             while (running) {
                 infoDTO = (InfoDTO) reader.readObject();
-                if (infoDTO.getCommand() == Info.STATE && infoDTO.getMessage().equals("running")) {
 
-                    // Thread.sleep(30000);
-                    // System.out.println(++i * 30 + "초");
-                    // writer.writeObject(infoDTO);
-                    // writer.flush();
-                }
             }
         } catch (Exception e) {
             // TODO Auto-generated catch block

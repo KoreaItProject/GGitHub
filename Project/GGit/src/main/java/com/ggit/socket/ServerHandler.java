@@ -5,7 +5,11 @@ import java.net.SocketException;
 import java.util.List;
 import java.util.Random;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.ggit.service.MemberService;
 import com.ggit.socket.InfoDTO.Info;
+import com.ggit.vo.MemberVo;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -13,6 +17,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.Member;
 
 class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정보가 담겨있는 곳. 소켓을 처리함)
 {
@@ -25,14 +30,17 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 	FileOutputStream fos = null;
 	BufferedOutputStream bos = null;
 
+	MemberService memberService;
+
 	// 생성자
-	public ServerHandler(Socket socket, List<ServerHandler> list) throws IOException {
+	public ServerHandler(Socket socket, List<ServerHandler> list, MemberService memberService) throws IOException {
 
 		this.socket = socket;
 		this.list = list;
 		writer = new ObjectOutputStream(socket.getOutputStream());
 		reader = new ObjectInputStream(socket.getInputStream());
 		// 순서가 뒤바뀌면 값을 입력받지 못하는 상황이 벌어지기 때문에 반드시 writer부터 생성시켜주어야 함!!!!!!
+		this.memberService = memberService;
 
 	}
 
@@ -62,6 +70,16 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 
 					String result = fileWrite(reader);
 				} else if (dto.getCommand() == Info.LOGIN) {
+					MemberVo memberVo = new MemberVo();
+					memberVo.setEmail(dto.getId());
+					memberVo.setPw(dto.getPw());
+
+					if (memberService.memberByemailPw(memberVo) != null)
+						System.out.println("로그인 성공");
+					else {
+						System.out.println("없음");
+					}
+
 					System.out.println("id:" + dto.getId());
 					System.out.println("pw:" + dto.getPw());
 					broadcast(dto);

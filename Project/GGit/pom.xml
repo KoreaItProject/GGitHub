@@ -6,7 +6,7 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-parent</artifactId>
       <version>2.7.4</version>
-      <relativePath/> <!-- lookup parent from repository -->
+      <relativePath /> <!-- lookup parent from repository -->
    </parent>
    <groupId>com.example</groupId>
    <artifactId>demo</artifactId>
@@ -26,7 +26,7 @@
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-devtools</artifactId>
          <scope>runtime</scope>
-         <optional>true</optional>
+         <optional>false</optional>
       </dependency>
       <dependency>
          <groupId>org.projectlombok</groupId>
@@ -64,29 +64,29 @@
          <artifactId>zt-zip</artifactId>
          <version>1.15</version>
          <type>jar</type>
-     </dependency>
-     <!--웹 소켓 사용, stomp가 들어있습니다.-->
+      </dependency>
+      <!--웹 소켓 사용, stomp가 들어있습니다.-->
       <dependency>
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-websocket</artifactId>
       </dependency>
 
       <dependency>
-    		<groupId>javax.validation</groupId>
-    		<artifactId>validation-api</artifactId>
-    		<version>2.0.1.Final</version>
-		</dependency>
+         <groupId>javax.validation</groupId>
+         <artifactId>validation-api</artifactId>
+         <version>2.0.1.Final</version>
+      </dependency>
       <dependency>
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-security</artifactId>
       </dependency>
-       <!-- JWT -->
+      <!-- JWT -->
       <dependency>
          <groupId>io.jsonwebtoken</groupId>
          <artifactId>jjwt</artifactId>
          <version>0.9.1</version>
       </dependency>
-      
+
 
    </dependencies>
 

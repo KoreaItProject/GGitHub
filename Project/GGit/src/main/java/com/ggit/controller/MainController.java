@@ -20,11 +20,13 @@ import com.ggit.vo.RepositoriesVO;
 
 @RestController
 public class MainController {
+    @Autowired
+    MemberService memberService;
 
     @GetMapping(value = "/sock1")
     public String sock() {
-        new ServerMain();
-        return "";
+        new ServerMain(memberService);
+        return null;
     }
 
     @GetMapping(value = "/sock2")
