@@ -35,8 +35,6 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     String clientPath;
     File info;
 
-    JLabel logolbl;
-
     boolean hasLogin = true;
     boolean hasClone = false;
 
@@ -45,6 +43,13 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     ObjectInputStream reader;
     InfoDTO infoDTO;
     boolean running = true;
+
+    // component
+    JLabel logolbl;
+    JLabel toptxt;
+    JPanel loginPan;
+    JScrollPane scrollPan;
+    JLabel toplbl;
 
     public GGitSource() {
         String serverIp = "localhost";
@@ -87,17 +92,17 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
         mainPanel.setBackground(new Color(36, 41, 47));
         mainPanel.setVisible(true);
 
-        JPanel loginPan = new LoginPan(writer).getLoginPan();
+        loginPan = new LoginPan(writer).getLoginPan();
         loginPan.setBounds(-2, 50, 248, 272);
         loginPan.setVisible(!hasLogin);
         mainPanel.add(loginPan);
 
-        JScrollPane scrollPan = new ScrollPan().getScrollPan();// 변경된 파일 패널
+        scrollPan = new ScrollPan().getScrollPan();// 변경된 파일 패널
         scrollPan.setBounds(-2, 50, 248, 272);
         scrollPan.setVisible(hasLogin);
         mainPanel.add(scrollPan);
 
-        JLabel toptxt = new JLabel("로그인 후 이용해주세요");
+        toptxt = new JLabel("로그인 후 이용해주세요");
         toptxt.setBounds(55, 0, 300, 50);
         toptxt.setFont(new Font("Gothic", Font.BOLD, toptxt.getFont().getSize() + 3));
         toptxt.setForeground(new Color(252, 241, 234));
@@ -106,7 +111,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
 
         ImageIcon topIcon;
         topIcon = imgMk("top.jpg", 300, 50);
-        JLabel toplbl = new JLabel();
+        toplbl = new JLabel();
         toplbl.setBounds(50, 0, 300, 50);
         mainPanel.add(toplbl);
         toplbl.setIcon(topIcon);
@@ -192,6 +197,16 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
         try {
             while (running) {
                 infoDTO = (InfoDTO) reader.readObject();
+                System.out.println(infoDTO);
+                if (infoDTO.getCommand() == Info.STATE && infoDTO.getMessage().equals("loginFalse")) {
+                    toptxt.setText("이메일 패스워드가 다릅니다");
+                } else if (infoDTO.getCommand() == Info.STATE && infoDTO.getMessage().equals("loginTrue")) {
+                    toptxt.setVisible(false);
+                    loginPan.setVisible(false);
+                    scrollPan.setVisible(true);
+                    toplbl.setVisible(false);
+
+                }
 
             }
         } catch (Exception e) {

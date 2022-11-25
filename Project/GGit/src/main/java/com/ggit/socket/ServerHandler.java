@@ -73,16 +73,15 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 					MemberVo memberVo = new MemberVo();
 					memberVo.setEmail(dto.getId());
 					memberVo.setPw(dto.getPw());
-
+					InfoDTO infoDTO = new InfoDTO();
+					infoDTO.setCommand(Info.STATE);
 					if (memberService.memberByemailPw(memberVo) != null)
-						System.out.println("로그인 성공");
+						infoDTO.setMessage("loginTrue");
 					else {
-						System.out.println("없음");
+						infoDTO.setMessage("loginFalse");
 					}
 
-					System.out.println("id:" + dto.getId());
-					System.out.println("pw:" + dto.getPw());
-					broadcast(dto);
+					broadcast(infoDTO);
 				}
 
 			} // while
