@@ -26,6 +26,7 @@ import java.net.Socket;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.UnknownHostException;
+import java.util.Random;
 
 public class GGitSource extends JFrame implements MouseInputListener, Runnable {
 
@@ -50,6 +51,8 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     JPanel loginPan;
     JScrollPane scrollPan;
     JLabel toplbl;
+
+    String member;
 
     public GGitSource() {
         String serverIp = "localhost";
@@ -188,32 +191,15 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
         } else {
             System.out.println("파일이 없습니다.");
             this.hasLogin = false;
+            int leftLimit = 97; // letter 'a'
+            int rightLimit = 122; // letter 'z'
+            int targetStringLength = 40;
+            Random random = new Random();
+            member = random.ints(leftLimit, rightLimit + 1).limit(targetStringLength)
+                    .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                    .toString();
+            System.out.println(member);
         }
-    }
-
-    @Override
-    public void run() {
-        int i = 0;
-        try {
-            while (running) {
-                infoDTO = (InfoDTO) reader.readObject();
-                System.out.println(infoDTO);
-                if (infoDTO.getCommand() == Info.STATE && infoDTO.getMessage().equals("loginFalse")) {
-                    toptxt.setText("이메일 패스워드가 다릅니다");
-                } else if (infoDTO.getCommand() == Info.STATE && infoDTO.getMessage().equals("loginTrue")) {
-                    toptxt.setVisible(false);
-                    loginPan.setVisible(false);
-                    scrollPan.setVisible(true);
-                    toplbl.setVisible(false);
-
-                }
-
-            }
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
     }
 
     @Override
@@ -258,4 +244,26 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     public void mouseMoved(MouseEvent e) {
     }
 
+    @Override
+    public void run() {
+        try {
+            while (running) {
+                infoDTO = (InfoDTO) reader.readObject();
+                System.out.println(infoDTO);
+                if (infoDTO.getCommand() == Info.STATE && infoDTO.getMessage().equals("loginFalse")) {
+                    toptxt.setText("이메일 패스워드가 다릅니다");
+                } else if (infoDTO.getCommand() == Info.STATE && infoDTO.getMessage().equals("loginTrue")) {
+                    toptxt.setVisible(false);
+                    loginPan.setVisible(false);
+                    scrollPan.setVisible(true);
+                    toplbl.setVisible(false);
+
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 }

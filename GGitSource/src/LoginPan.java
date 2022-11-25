@@ -12,7 +12,7 @@ import java.io.ObjectOutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-public class LoginPan implements MouseInputListener {
+public class LoginPan extends KeyAdapter implements MouseInputListener {
     String imgPath;
     ImageIcon topIcon;
     JLabel top1lbl;
@@ -37,11 +37,13 @@ public class LoginPan implements MouseInputListener {
         id.setBounds(11, 131, 226, 22);
         id.setFont(new Font("Gothic", Font.BOLD, id.getFont().getSize() + 3));
         loginPanel.add(id);
+        id.addKeyListener(this);
 
         pw = new MyPwField();
         pw.setBounds(11, 187, 226, 22);
         pw.setFont(new Font("Gothic", Font.BOLD, pw.getFont().getSize() + 3));
         loginPanel.add(pw);
+        pw.addKeyListener(this);
 
         loginbtn = new JButton("로그인");
         loginbtn.setBounds(-1, 234, 250, 38);
@@ -103,6 +105,24 @@ public class LoginPan implements MouseInputListener {
 
         }
 
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            try {
+                infoDTO = new InfoDTO();
+                infoDTO.setCommand(Info.LOGIN);
+                infoDTO.setId(id.getText());
+                infoDTO.setPw(pw.getText());
+
+                writer.writeObject(infoDTO);
+                writer.flush();
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+        }
     }
 
     @Override
