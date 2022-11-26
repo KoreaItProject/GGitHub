@@ -37,7 +37,6 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     File info;
 
     boolean hasLogin = true;
-    boolean hasClone = false;
 
     Socket socket;
     ObjectOutputStream writer;
@@ -52,7 +51,9 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     JScrollPane scrollPan;
     JLabel toplbl;
 
+    // info
     String member;
+    int memberIdx;
 
     public GGitSource() {
         String serverIp = "localhost";
@@ -250,13 +251,16 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             while (running) {
                 infoDTO = (InfoDTO) reader.readObject();
                 System.out.println(infoDTO);
-                if (infoDTO.getCommand() == Info.STATE && infoDTO.getMessage().equals("loginFalse")) {
-                    toptxt.setText("이메일 패스워드가 다릅니다");
-                } else if (infoDTO.getCommand() == Info.STATE && infoDTO.getMessage().equals("loginTrue")) {
-                    toptxt.setVisible(false);
-                    loginPan.setVisible(false);
-                    scrollPan.setVisible(true);
-                    toplbl.setVisible(false);
+                if (infoDTO.getCommand() == Info.LOGINRESULT) {
+                    if (infoDTO.getMessage().equals("false")) {
+                        toptxt.setText("이메일 패스워드가 다릅니다");
+                    } else if (infoDTO.getMessage().equals("true")) {
+                        this.memberIdx = infoDTO.getIdx();
+                        toptxt.setVisible(false);
+                        loginPan.setVisible(false);
+                        scrollPan.setVisible(true);
+                        toplbl.setVisible(false);
+                    }
 
                 }
 

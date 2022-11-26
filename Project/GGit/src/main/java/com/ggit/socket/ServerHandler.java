@@ -71,14 +71,18 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 					String result = fileWrite(reader);
 				} else if (dto.getCommand() == Info.LOGIN) {
 					MemberVo memberVo = new MemberVo();
+					InfoDTO infoDTO = new InfoDTO();
 					memberVo.setEmail(dto.getId());
 					memberVo.setPw(dto.getPw());
-					InfoDTO infoDTO = new InfoDTO();
-					infoDTO.setCommand(Info.STATE);
-					if (memberService.memberByemailPw(memberVo) != null)
-						infoDTO.setMessage("loginTrue");
-					else {
-						infoDTO.setMessage("loginFalse");
+
+					infoDTO.setCommand(Info.LOGINRESULT);
+					if ((memberVo = memberService.memberByemailPw(memberVo)) != null) {
+						infoDTO.setMessage("true");
+						infoDTO.setIdx(memberVo.getIdx());
+
+					} else {
+
+						infoDTO.setMessage("false");
 					}
 
 					broadcast(infoDTO);
