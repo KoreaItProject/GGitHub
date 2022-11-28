@@ -14,9 +14,10 @@
     <select id="selectRepositories" resultType="com.ggit.vo.RepositoriesVO">
         SELECT repo.idx as repo_idx,repo.name as repo_name,repo.createDate as repo_crateDate
             ,repo.public as repo_publ,repo.owner as repo_owner,repo.fork as repo_fork,
-            repomem.idx as repomem_idx,repomem.repo as repomem_repo,repomem.member as repomem_member,
+            repomem.idx as repomem_idx,repomem.repo as repomem_repo,repomem.member as repomem_member,repomem.sort as repomem_sort,
             member.idx as member_idx,member.nick as member_nick
-            FROM repo,repomem,member where repomem.repo=repo.idx and repo.owner=member.idx and repomem.member=(select idx from member where nick = #{nick});
+            FROM repo,repomem,member where repomem.repo=repo.idx and repo.owner=member.idx and repomem.member=(select idx from member where nick = #{nick})
+            ORDER BY repomem.sort DESC;
     </select>
 
     <select id="repoIdxByNickName" resultType="int">
@@ -61,6 +62,10 @@
         WHERE star.member = (select member.idx from member where member.nick=#{nick})
     </select>
 
-    
+    <update id="updaterepositoriessort">
+        UPDATE repomem SET sort=${futureIndex} 
+        WHERE repomem.memver = (select member.idx from member where member.nick=#{nick})
+    </update>
+
   
 </mapper>

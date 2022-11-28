@@ -25,6 +25,7 @@ public class RepositoriesVO {
     int repomem_idx;
     int repomem_repo;
     int repomem_member;
+    int repomem_sort;
     
 
     // member

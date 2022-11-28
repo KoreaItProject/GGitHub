@@ -43,8 +43,78 @@ $line-color: #d0d7de
                 background-color: #2da44e
                 border-color: rgb(27 31 36 / 15%)
                 border-radius: 6px
+                text-align: center
+           
+        .code_menu_top_div        
+            
+            width: 68px
+            height: 321px
+            position: relative
+            padding: 10px
+            right: 10
+            .code_menu
+                // display: none
+                position: absolute
+                background-color: white
+                right: 0
+                border: 1px solid $line-color
+                border-radius: 6px 
+                width: 400px
+                height: 145px 
+                .code_clone
+                    margin-top: 15px
+                    margin-left: 15px
+                    font-weight: bold
+                    font-size: 14px
+                    color: black
+                    float: left
+                    .clone_string
+                        display: inline
+                .code_input
+                    display: flex
+                    width: 100%
+                    justify-content: center
 
+                    .code_copy_btn
+                       
+                        display: block
+                        margin-top: 15px
+                        border: null
+                        border: 1px solid $line-color
+                        background-color: white
+                        height: 28.40px
+                        padding: 5px 8px
+
+                        border-top-right-radius: 6px
+                        border-bottom-right-radius: 6px 
+                .code_input_box
+                    
+                    display: block
+                    width: 330px
+                    padding: 3px 12px 5px 12px
+                    border: 1px solid $line-color
+                    border-top-left-radius: 6px
+                    border-bottom-left-radius: 6px
+                    margin-top: 15px
+                    border-right: 0px
+
+                    
+
+                                    
+                .code_download_div
+                    margin-top: 0px
+                    border-top: 1px solid $line-color
+                    .code_download
+                        
+                        font-weight: bold
+                        font-size: 14px
+                        margin: 15px 0px 0px 15px
+                        color: black
+                        float: left
+
+            
         .repo_box
+            
             border-radius: 6px
             border: 1px solid #d0d7de
             margin: 0px 0px 16px
@@ -81,7 +151,7 @@ $line-color: #d0d7de
                     margin: 2px 0px 5px 8px
 
                 .repo_commit_count
-
+                    
                     height: 21px
                     float: right
                     font-size: 14px

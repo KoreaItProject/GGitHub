@@ -28,6 +28,9 @@ public interface RepoMapper {
 
     int selectRepositorystarcount(String nick);
 
+    List<RepositoriesVO> updaterepositoriessort(String nick, int futureIndex);
+
+    
     
 
 }

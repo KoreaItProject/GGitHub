@@ -10,12 +10,47 @@
                     </select>
                 </div>
                 <div class="code_btn">
-                    
-                     <button class="code_btn">code</button>
-                    
+                  
+                  <button class="code_btn">code
+                    <div class="code_menu_top_div">
+                      <div class="code_menu">
+                          <div class="code_clone">
+                            <svg aria-hidden="true" height="14" viewBox="0 -1 16 16" version="1.1" width="14" data-view-component="true" class="octicon octicon-terminal mr-2">
+                                <path fill-rule="evenodd" d="M0 2.75C0 1.784.784 1 1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75zm1.75-.25a.25.25 0 00-.25.25v10.5c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V2.75a.25.25 0 00-.25-.25H1.75zM7.25 8a.75.75 0 01-.22.53l-2.25 2.25a.75.75 0 11-1.06-1.06L5.44 8 3.72 6.28a.75.75 0 111.06-1.06l2.25 2.25c.141.14.22.331.22.53zm1.5 1.5a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z"></path>
+                            </svg> 
+                            <div class="clone_string">Clone</div>
+                          </div>
 
+                          <br>
+                          
+                            <div class="code_input"><input class="code_input_box" data-autoselect value="http://localhost/sdfsd/JavaProject#" readonly></input>
+                              <button class="code_copy_btn"> 
+                                <svg aria-hidden="true" height="15" viewBox="0 0 16 16" version="1.1" width="15" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon d-inline-block">
+                                    <path fill-rule="evenodd" d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"></path><path fill-rule="evenodd" d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z"></path>
+                                </svg>
+                              </button>
+                            </div>
+                            
+                        
+                          <br>
+                          <div class="code_download_div">
+                            <div class="code_download">
+                              <a>
+                                <svg aria-hidden="true" height="14" viewBox="0 -0.5 16 16" version="1.1" width="14" data-view-component="true" class="octicon octicon-file-zip mr-2">
+                                    <path fill-rule="evenodd" d="M3.5 1.75a.25.25 0 01.25-.25h3a.75.75 0 000 1.5h.5a.75.75 0 000-1.5h2.086a.25.25 0 01.177.073l2.914 2.914a.25.25 0 01.073.177v8.586a.25.25 0 01-.25.25h-.5a.75.75 0 000 1.5h.5A1.75 1.75 0 0014 13.25V4.664c0-.464-.184-.909-.513-1.237L10.573.513A1.75 1.75 0 009.336 0H3.75A1.75 1.75 0 002 1.75v11.5c0 .649.353 1.214.874 1.515a.75.75 0 10.752-1.298.25.25 0 01-.126-.217V1.75zM8.75 3a.75.75 0 000 1.5h.5a.75.75 0 000-1.5h-.5zM6 5.25a.75.75 0 01.75-.75h.5a.75.75 0 010 1.5h-.5A.75.75 0 016 5.25zm2 1.5A.75.75 0 018.75 6h.5a.75.75 0 010 1.5h-.5A.75.75 0 018 6.75zm-1.25.75a.75.75 0 000 1.5h.5a.75.75 0 000-1.5h-.5zM8 9.75A.75.75 0 018.75 9h.5a.75.75 0 010 1.5h-.5A.75.75 0 018 9.75zm-.75.75a1.75 1.75 0 00-1.75 1.75v3c0 .414.336.75.75.75h2.5a.75.75 0 00.75-.75v-3a1.75 1.75 0 00-1.75-1.75h-.5zM7 12.25a.25.25 0 01.25-.25h.5a.25.25 0 01.25.25v2.25H7v-2.25z"></path>
+                                </svg>
+                                Download ZIP
+                              </a>
+                          </div>
+                        </div>  
+                      </div>
+                    </div>
+                  </button>
+                  
                 </div>
+                
             </div>
+            
             <div class="repo_box">
                 <div class="repo_information" >
                     <a class="owner_href" >{{push.member_nick}}</a> 
@@ -54,6 +89,7 @@
                     
                 </div>
             </div>
+            
             <div class="readme_container"  v-for="data in file_list" v-if="data.state=='readme'||(data.state=='file'&&data.name=='README.md')" >
                 <div class="readme_title">
                     <a class="readme.md">README.md</a>

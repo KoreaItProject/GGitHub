@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -83,6 +84,8 @@ public class RepositoryControlloer {
         List<RepositoriesVO> Repositorystar = repoService.selectRepositorystar(repoIdx);
         return Repositorystar;
     }
+
+
 
     @RequestMapping("/getFile")
     public List<StorageVo> getFile(int repoIdx, String token, String path) {
@@ -159,5 +162,11 @@ public class RepositoryControlloer {
         int Repositorystarcount = repoService.selectRepositorystarcount(nick);
         return Repositorystarcount;
     }
-
+    
+    @PutMapping("updaterepositoriessort")
+        public List<RepositoriesVO> updaterepositoriessort(String nick, int futureIndex){
+            List<RepositoriesVO> updaterepositoriessort = repoService.updaterepositoriessort(nick, futureIndex);
+            return updaterepositoriessort;
+        }
+    
 }

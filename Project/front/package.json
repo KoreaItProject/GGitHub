@@ -22,6 +22,7 @@
     "vue-cookies": "^1.8.2",
     "vue-persistedstate": "^1.2.5",
     "vue-router": "^3.0.1",
+    "vuedraggable": "^2.24.3",
     "vuex": "2.0",
     "webstomp-client": "^1.2.6"
   },

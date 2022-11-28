@@ -47,7 +47,12 @@ public class RepoService {
         System.out.println(nick);
         return mapper.selectRepositorystarcount(nick);
     }
+
+    public List<RepositoriesVO> updaterepositoriessort(String nick, int futureIndex){
+        return mapper.updaterepositoriessort(nick, futureIndex);
+    }
    
+    
 
    
     
