@@ -1,23 +1,20 @@
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 import java.nio.file.attribute.FileTime;
-import java.util.Map;
 
-import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import java.nio.file.Files;
-import java.nio.file.Path;
+
 import java.nio.file.Paths;
 
-import java.awt.*;
 import java.awt.event.*;
 
 class c extends JFrame implements ActionListener {

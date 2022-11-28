@@ -3,7 +3,7 @@
     <div class="header_container">
       <a href="/" class="header_logo">
         <img class="logo" src="@/assets/imgs/logo/logo.png" />
-        <span class="header_logo_text">GGIT</span>
+        <span class="header_logo_text">GGit</span>
       </a>
 
       <!-- 로그인 됐을때 -->
@@ -40,11 +40,11 @@ export default {
     return {
       islogin: false,
       nick: "",
-      profileImg: null
+      profileImg: null,
     };
   },
   methods: {
-    Logout: function() {
+    Logout: function () {
       this.$cookies.remove("idx");
       this.$cookies.remove("isLogin");
       this.$cookies.remove("nick");
@@ -55,15 +55,15 @@ export default {
       axios
         .get("/api/nickFromIdx", {
           params: {
-            idx: store.getters.getUserIdx
-          }
+            idx: store.getters.getUserIdx,
+          },
         })
-        .then(response => {
+        .then((response) => {
           // handle success
 
           this.nick = response.data;
         })
-        .catch(error => {
+        .catch((error) => {
           // handle error
           console.log(error);
         })
@@ -75,19 +75,19 @@ export default {
       axios
         .get("/api/imgFromIdx", {
           params: {
-            idx: store.getters.getUserIdx
-          }
+            idx: store.getters.getUserIdx,
+          },
         })
-        .then(response => {
+        .then((response) => {
           // handle success
           axios
             .get("/api/getProfileImg", {
               responseType: "blob",
               params: {
-                img: response.data
-              }
+                img: response.data,
+              },
             })
-            .then(response => {
+            .then((response) => {
               // handle success
               this.profileImg = window.URL.createObjectURL(
                 new Blob([response.data])
@@ -95,14 +95,14 @@ export default {
               console.log(response.data);
             });
         })
-        .catch(error => {
+        .catch((error) => {
           // handle error
           console.log(error);
         })
         .finally(() => {
           // always executed
         });
-    }
+    },
   },
   mounted() {
     this.islogin = store.getters.getIsLogin;
@@ -110,7 +110,7 @@ export default {
       this.getNick();
       this.getImg();
     }
-  }
+  },
 };
 </script>
 

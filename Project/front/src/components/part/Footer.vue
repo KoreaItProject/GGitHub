@@ -9,7 +9,7 @@
           <img class="logo" src="@/assets/imgs/logo/logoblack.png" />
         </a>
 
-        <span style="margin-left: 40px"> © 2022 GGIT, Inc. </span>
+        <span style="margin-left: 40px"> © 2022 GGit, Inc. </span>
         <h3 class="sr-only" id="sr-footer-heading" style="margin-left: 15px">
           웹프로젝트
         </h3>

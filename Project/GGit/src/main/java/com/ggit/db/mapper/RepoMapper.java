@@ -16,21 +16,24 @@ public interface RepoMapper {
 
     List<RepositoriesVO> selectRepositories(String nick);
 
-   int repoIdxByNickName(Map map);
+    int repoIdxByNickName(Map map);
 
-   RepositoriesVO selectRepositorycode(int repoIdx);
-    
+    int clone(String clone);
+
+    RepositoriesVO selectRepositorycode(int repoIdx);
+
     List<RepositoriesVO> selectRepositorycontributors(int repoIdx);
-    
+
     List<RepositoriesVO> selectRepositorystar(int repoIdx);
 
     int selectRepositorycount(String nick);
 
     int selectRepositorystarcount(String nick);
 
-    List<RepositoriesVO> updaterepositoriessort(String nick, int futureIndex);
+
 
     
     
+
 
 }

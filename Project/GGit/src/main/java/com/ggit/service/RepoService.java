@@ -21,41 +21,39 @@ public class RepoService {
         return mapper.repo();
     }
 
+    public int clone(String clone) {
+        return mapper.clone(clone);
+    }
+
     public List<RepositoriesVO> selectRepositories(String nick) {
         return mapper.selectRepositories(nick);
     }
 
-    public int repoIdxByNickName(Map map){
-        
+    public int repoIdxByNickName(Map map) {
+
         return mapper.repoIdxByNickName(map);
     }
-    public RepositoriesVO selectRepositorycode(int repoIdx){
+
+    public RepositoriesVO selectRepositorycode(int repoIdx) {
         return mapper.selectRepositorycode(repoIdx);
     }
-    public List<RepositoriesVO> selectRepositorycontributors(int repoIdx){
+
+    public List<RepositoriesVO> selectRepositorycontributors(int repoIdx) {
         return mapper.selectRepositorycontributors(repoIdx);
     }
 
-    public List<RepositoriesVO> selectRepositorystar(int repoIdx){
+    public List<RepositoriesVO> selectRepositorystar(int repoIdx) {
         return mapper.selectRepositorystar(repoIdx);
     }
 
-    public int selectRepositorycount(String nick){
+    public int selectRepositorycount(String nick) {
         return mapper.selectRepositorycount(nick);
     }
-    public int selectRepositorystarcount(String nick){
+
+    public int selectRepositorystarcount(String nick) {
         System.out.println(nick);
         return mapper.selectRepositorystarcount(nick);
     }
 
-    public List<RepositoriesVO> updaterepositoriessort(String nick, int futureIndex){
-        return mapper.updaterepositoriessort(nick, futureIndex);
-    }
-   
-    
-
-   
-    
-    
 
 }
