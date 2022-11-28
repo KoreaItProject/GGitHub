@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ggit.service.MemberService;
+import com.ggit.service.RepoService;
 import com.ggit.socket.ServerMain;
 import com.ggit.socket.SocketRunTime;
 import com.ggit.vo.MemberVo;
@@ -23,9 +24,12 @@ public class MainController {
     @Autowired
     MemberService memberService;
 
+    @Autowired
+    RepoService repoService;
+
     @GetMapping(value = "/sock1")
     public String sock() {
-        new ServerMain(memberService);
+        new ServerMain(memberService, repoService);
         return null;
     }
 

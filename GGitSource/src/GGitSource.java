@@ -16,8 +16,10 @@ import java.awt.*;
 
 import java.awt.event.*;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
@@ -32,9 +34,6 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
 
     RoundedButton pushBtn, pullBtn;
     String imgPath;
-
-    String clientPath;
-    File info;
 
     boolean hasLogin = true;
 
@@ -53,8 +52,11 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     JPanel clonepan;
 
     // info
+    String clientPath;
+    File info;
     String member;
-    int memberIdx;
+    String memberIdx;
+    String repo;
 
     public GGitSource() {
         String serverIp = "localhost";
@@ -68,11 +70,6 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             infoDTO = new InfoDTO();
 
             // 파일전송을 서버에 알린다.('file' 구분자 전송)
-
-            infoDTO.setCommand(Info.STATE);
-            infoDTO.setMessage("running");
-            writer.writeObject(infoDTO);
-            writer.flush();
 
             Thread sockThread = new Thread(this);
             sockThread.start();
@@ -182,31 +179,37 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     }
 
     public void setting() {
-        Setting setting = new Setting();
-        this.imgPath = setting.getImgPath();
+        try {
 
-        JFileChooser jfc = new JFileChooser();
-        jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        jfc.showDialog(this, null);
-        File dir = jfc.getSelectedFile();
-        this.clientPath = dir.getPath();
-        this.info = new File(clientPath + "/.ggit/user/info.gt");
+            Setting setting = new Setting();
+            this.imgPath = setting.getImgPath();
 
-        if (info.isFile()) {
-            InfoLeader infoLeader = new InfoLeader(info.getPath());
-            this.hasLogin = true;
+            JFileChooser jfc = new JFileChooser();
+            jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            jfc.showDialog(this, null);
+            File dir = jfc.getSelectedFile();
+            this.clientPath = dir.getPath();
+            this.info = new File(clientPath + "/.ggit/user/info.gt");
 
-        } else {
-            System.out.println("파일이 없습니다.");
-            this.hasLogin = false;
-            int leftLimit = 97; // letter 'a'
-            int rightLimit = 122; // letter 'z'
-            int targetStringLength = 40;
-            Random random = new Random();
-            member = random.ints(leftLimit, rightLimit + 1).limit(targetStringLength)
-                    .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-                    .toString();
-            System.out.println(member);
+            if (info.isFile()) {
+                InfoLeader infoLeader = new InfoLeader(info.getPath());
+                this.hasLogin = true;
+
+            } else {
+                System.out.println("파일이 없습니다.");
+                this.hasLogin = false;
+                int leftLimit = 97; // letter 'a'
+                int rightLimit = 122; // letter 'z'
+                int targetStringLength = 40;
+                Random random = new Random();
+                member = random.ints(leftLimit, rightLimit + 1).limit(targetStringLength)
+                        .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                        .toString();
+                System.out.println(member);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -262,16 +265,18 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                     if (infoDTO.getMessage().equals("false")) {
                         toptxt.setText("이메일 패스워드가 다릅니다");
                     } else if (infoDTO.getMessage().equals("true")) {
-                        this.memberIdx = infoDTO.getIdx();
+                        this.memberIdx = infoDTO.getIdx() + "";
                         loginPan.setVisible(false);
                         toptxt.setText("접속코드를 입력하세요");
                         // toptxt.setVisible(false);
-
                         // scrollPan.setVisible(true);
                         // toplbl.setVisible(false);
                         clonepan.setVisible(true);
                     }
 
+                } else if (infoDTO.getCommand() == Info.CLONERESULT) {
+                    this.repo = infoDTO.getMessage();
+                    fileW();
                 }
 
             }
@@ -279,5 +284,41 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             e.printStackTrace();
         }
 
+    }
+
+    public void fileW() {
+        try {
+
+            // 1. 파일 객체 생성
+            File dir = new File(clientPath + "/.ggit/user/");
+            dir.mkdirs();
+            File file = new File(clientPath + "/.ggit/user/info.gt");
+            System.out.println(file.getPath());
+            file.createNewFile();
+
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter writer = new BufferedWriter(fw);
+
+            // 4. 파일에 쓰기
+            String con = "\"member\" : \"" + member + "\", \"memberIdx\" : \"" + memberIdx + "\", \"repo\" : \"" + repo
+                    + "\",";
+            String conResult = "";
+            for (int i = 0; i < con.length(); i++) {
+                conResult += (int) con.charAt(i) + (i * 100 + 11) * con.length() + "\n";
+            }
+
+            writer.write(conResult);
+
+            // 5. BufferedWriter close
+            writer.close();
+
+            toptxt.setVisible(false);
+            scrollPan.setVisible(true);
+            toplbl.setVisible(false);
+            clonepan.setVisible(false);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

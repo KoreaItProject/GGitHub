@@ -34,11 +34,18 @@ public class InfoLeader {
                               new InputStreamReader(new FileInputStream(
                                           path), "UTF-8"));
                   String str;
-
+                  int i = 0;
+                  int line = 0;
+                  while ((str = reader.readLine()) != null) {
+                        line++;
+                  }
+                  reader = new BufferedReader(
+                              new InputStreamReader(new FileInputStream(
+                                          path), "UTF-8"));
                   while ((str = reader.readLine()) != null) {
                         System.out.println(str);
 
-                        content += (char) (Integer.parseInt(str));
+                        content += (char) (Integer.parseInt(str) - ((i++) * 100 + 11) * line);
                   }
                   reader.close();
             } catch (Exception e) {
@@ -50,12 +57,12 @@ public class InfoLeader {
             JSONParser jsonParser = new JSONParser();
             Object obj;
             try {
-                  obj = jsonParser.parse(content);
+                  obj = jsonParser.parse("{" + content + "}");
                   JSONObject jsonObj = (JSONObject) obj;
                   // print
-                  System.out.println(jsonObj.get("member"));
-                  System.out.println(jsonObj.get("repo"));
-                  System.out.println(jsonObj.get("token"));
+                  System.out.println("member = " + jsonObj.get("member"));
+                  System.out.println("repo = " + jsonObj.get("repo"));
+                  System.out.println("memberIdx = " + jsonObj.get("memberIdx"));
 
             } catch (ParseException e) {
                   // TODO Auto-generated catch block

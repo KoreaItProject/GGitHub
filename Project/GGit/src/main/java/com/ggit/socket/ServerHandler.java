@@ -8,6 +8,7 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ggit.service.MemberService;
+import com.ggit.service.RepoService;
 import com.ggit.socket.InfoDTO.Info;
 import com.ggit.vo.MemberVo;
 import com.mysql.cj.protocol.Message;
@@ -32,9 +33,11 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 	BufferedOutputStream bos = null;
 
 	MemberService memberService;
+	RepoService repoService;
 
 	// 생성자
-	public ServerHandler(Socket socket, List<ServerHandler> list, MemberService memberService) throws IOException {
+	public ServerHandler(Socket socket, List<ServerHandler> list, MemberService memberService, RepoService repoService)
+			throws IOException {
 
 		this.socket = socket;
 		this.list = list;
@@ -42,6 +45,7 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 		reader = new ObjectInputStream(socket.getInputStream());
 		// 순서가 뒤바뀌면 값을 입력받지 못하는 상황이 벌어지기 때문에 반드시 writer부터 생성시켜주어야 함!!!!!!
 		this.memberService = memberService;
+		this.repoService = repoService;
 
 	}
 
@@ -85,8 +89,10 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 
 					broadcast(infoDTO);
 				} else if (dto.getCommand() == Info.CLONE) {
-
-					System.out.println(dto.getMessage());
+					InfoDTO infoDTO = new InfoDTO();
+					infoDTO.setCommand(Info.CLONERESULT);
+					infoDTO.setMessage(repoService.clone(dto.getMessage()) + "");
+					broadcast(infoDTO);
 				} else if (dto.getCommand() == Info.PUSH) {
 
 					String result = fileWrite(reader);
