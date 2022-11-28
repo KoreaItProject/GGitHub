@@ -50,6 +50,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     JPanel loginPan;
     JScrollPane scrollPan;
     JLabel toplbl;
+    JPanel clonepan;
 
     // info
     String member;
@@ -106,9 +107,15 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
         scrollPan.setVisible(hasLogin);
         mainPanel.add(scrollPan);
 
+        clonepan = new ClonePan(writer).getPanel();
+        clonepan.setBounds(-2, 50, 248, 272);
+        mainPanel.add(clonepan);
+        clonepan.setVisible(false);
+
         toptxt = new JLabel("로그인 후 이용해주세요");
         toptxt.setBounds(55, 0, 300, 50);
-        toptxt.setFont(new Font("Gothic", Font.BOLD, toptxt.getFont().getSize() + 3));
+        toptxt.setFont(new Font("Gothic", Font.BOLD, toptxt.getFont().getSize() +
+                3));
         toptxt.setForeground(new Color(252, 241, 234));
         mainPanel.add(toptxt);
         toptxt.setVisible(!hasLogin);
@@ -256,10 +263,13 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                         toptxt.setText("이메일 패스워드가 다릅니다");
                     } else if (infoDTO.getMessage().equals("true")) {
                         this.memberIdx = infoDTO.getIdx();
-                        toptxt.setVisible(false);
                         loginPan.setVisible(false);
-                        scrollPan.setVisible(true);
-                        toplbl.setVisible(false);
+                        toptxt.setText("접속코드를 입력하세요");
+                        // toptxt.setVisible(false);
+
+                        // scrollPan.setVisible(true);
+                        // toplbl.setVisible(false);
+                        clonepan.setVisible(true);
                     }
 
                 }

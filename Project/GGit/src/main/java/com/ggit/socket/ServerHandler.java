@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.ggit.service.MemberService;
 import com.ggit.socket.InfoDTO.Info;
 import com.ggit.vo.MemberVo;
+import com.mysql.cj.protocol.Message;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -66,9 +67,6 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 					this.stop();
 
 					break;
-				} else if (dto.getCommand() == Info.PUSH) {
-
-					String result = fileWrite(reader);
 				} else if (dto.getCommand() == Info.LOGIN) {
 					MemberVo memberVo = new MemberVo();
 					InfoDTO infoDTO = new InfoDTO();
@@ -86,8 +84,13 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 					}
 
 					broadcast(infoDTO);
-				}
+				} else if (dto.getCommand() == Info.CLONE) {
 
+					System.out.println(dto.getMessage());
+				} else if (dto.getCommand() == Info.PUSH) {
+
+					String result = fileWrite(reader);
+				}
 			} // while
 
 		} catch (IOException e) {

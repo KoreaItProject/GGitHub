@@ -9,8 +9,8 @@ public class InfoDTO implements Serializable {
     SEND,
     STATE,
     PUSH,
-    LOGIN,
-    LOGINRESULT
+    LOGIN, LOGINRESULT,
+    CLONE, CLONERESULT
 
   }
 
