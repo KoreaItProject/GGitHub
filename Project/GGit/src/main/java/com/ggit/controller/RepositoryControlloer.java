@@ -163,10 +163,6 @@ public class RepositoryControlloer {
         return Repositorystarcount;
     }
     
-    // @PutMapping("updaterepositoriessort")
-    // public List<RepositoriesVO> updaterepositoriessort(String nick, int futureIndex){
-    //     List<RepositoriesVO> updaterepositoriessort = repoService.updaterepositoriessort(nick, futureIndex);
-    //     return updaterepositoriessort;
-    // }
+
     
 }

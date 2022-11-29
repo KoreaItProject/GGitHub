@@ -76,22 +76,9 @@ export default {
     checkMove: function(e) {
       window.console.log("Future index: " + e.draggedContext.futureIndex);
       console.log(this.Repo);
-      this.updaterepositoriessort();
+      
     },
-    updaterepositoriessort(){
-      axios
-      .get("/api/updaterepositoriessort",{
-        params:{
-          nick: this.$route.params.nick,
-        },
-      })
-      .then((response) => {
-        this.Repo = response.data;
-      })
-      .finally(() =>{
-
-      });
-    }
+    
 
   },
   mounted() {
