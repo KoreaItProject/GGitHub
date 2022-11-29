@@ -6,7 +6,8 @@
         background: url('./static/imgs/main/bg.jpg');
         background-repeat: no-repeat, round;
         background-size: cover;
-        background-position: center;"
+        background-position: center;
+        "
     >
       <div class="main_img_div_left">
         <h1 id="title">How people build software</h1>
@@ -42,9 +43,10 @@
               >
             </div>
 
-            <p>
+            
               <input
                 ref="ref_email"
+                id="input_email"
                 class="input"
                 name="email"
                 placeholder="이메일"
@@ -54,8 +56,22 @@
                 <span class="btn_span">인증</span>
                 <div class="liquid"></div>
               </a>
-            </p>
 
+              <div v-if="this.emailCheck == true">
+                <input
+                  ref="ref_check_code"
+                  id="input_code"
+                  class="input"
+                  name="email_code"
+                  placeholder="인증번호"
+                  v-model="input_code"
+                />
+                <a class="btn_a" @click="code_check">
+                  <span class="btn_span">확인</span>
+                  <div class="liquid"></div>
+                </a>
+              </div>
+              
             <p>
               <input
                 ref="ref_pw"
@@ -70,17 +86,12 @@
             <h6 class="">
               Use at least one letter, one numeral, and seven characters.
             </h6>
-            <p>
+
+            <p style="margin: 10px 0px;" >
               <button type="submit" class="btn--primary">회원가입</button>
             </p>
 
-            <p>
-              <button type="button" class="btn--primary">
-                <img
-                  src="src\assets\imgs\main\btn_google_signin_light_focus_web.png"
-                />
-              </button>
-            </p>
+            
             By clicking "Sign up for GitHub", you agree to our terms of service
             and privacy policy. We'll occasionally send you account related
             emails.
@@ -99,6 +110,9 @@ export default {
     return {
       nickCheck: false,
       emailCheck: false,
+      codeCheck: false,
+      return_code: "",
+      input_code: "",
       nick: "",
       email: "",
       pw: "",
@@ -114,7 +128,10 @@ export default {
         this.$refs.ref_nick.focus();
       } else if (!this.emailCheck) {
         alert("이메일 인증을 해주세요!");
-      } else {
+      }else if(!this.codeCheck){
+        alert("인증 번호를 확인해주세요!");
+      }
+       else {
         const sign_up_result = await axios.post("/api/signup", {
           nick: this.nick,
           email: this.email,
@@ -169,8 +186,11 @@ export default {
         await axios
           .post("/api/emailsender", { email: this.email })
           .then(response => {
+            this.return_code = response.data
             if (response.status == 200) {
               alert("인증 메일 전송 성공");
+              this.emailCheck = true;
+              document.getElementById("input_email").readOnly=true;
             } else {
               alert("메일 전송 실패");
             }
@@ -181,6 +201,16 @@ export default {
           .finally(() => {
             //
           });
+      }
+    }, // mail_sender()
+    code_check(){
+      if(this.input_code == this.return_code){
+        alert('인증 완료!');
+        this.codeCheck = true;
+        document.getElementById("input_code").readOnly=true;
+      }else{
+        alert('인증 실패!');
+        this.$refs.ref_check_code.focus();
       }
     }
   }

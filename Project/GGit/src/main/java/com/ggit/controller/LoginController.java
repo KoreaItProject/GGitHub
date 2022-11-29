@@ -4,6 +4,8 @@ package com.ggit.controller;
 
 import java.util.Date;
 import java.util.Properties;
+import java.util.Random;
+
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -50,7 +52,7 @@ public class LoginController {
     }
 
     @PostMapping("/emailsender")
-    public void emailsender(@RequestBody MemberVo membervo) {
+    public String emailsender(@RequestBody MemberVo membervo) {
     
         Properties p = System.getProperties();
 		
@@ -63,6 +65,17 @@ public class LoginController {
 
         Session session = Session.getInstance(p, auth);
         MimeMessage msg = new MimeMessage(session);
+
+        // 랜덤 숫자+영어 생성
+        Random rand = new Random();
+        StringBuffer sb = new StringBuffer();
+        for(int i=0; i<7; i++){
+            if(rand.nextBoolean()){
+                sb.append((char)((int)(rand.nextInt(26))+97));
+            }else{
+                sb.append((rand.nextInt(10)));
+            }
+        }
  
         try {
             msg.setSentDate(new Date());
@@ -73,18 +86,21 @@ public class LoginController {
  
             InternetAddress to = new InternetAddress(membervo.getEmail()); 
             msg.setRecipient(Message.RecipientType.TO, to);
- 
+
             msg.setSubject("[GGit] - 이메일 인증", "UTF-8"); 
-            msg.setText("[[GGit]] 아래 링크 클릭 시 이메일 인증 완료", "UTF-8"); 
+            msg.setText("<h1>인증 코드입니다.</h1><br> <p>"+ sb +"</p>", "UTF-8"); 
             msg.setHeader("content-Type", "text/html");
  
             javax.mail.Transport.send(msg);
             System.out.println("전송 완료");
+            
         } catch (AddressException addr_e){
             addr_e.printStackTrace();
         } catch (MessagingException msg_e){
             msg_e.printStackTrace();
         }
+
+        return sb+"";
 
 	} // 
 

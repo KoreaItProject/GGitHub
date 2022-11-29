@@ -21,7 +21,7 @@
 
                         <div>
                             <label for="password">패스워드</label>
-                            <a class="label-link" tabindex="0" href="/login">패스워드 찾기</a>
+                            <a class="label-link" tabindex="0" href="/find_password">패스워드 찾기</a>
                             <input type="password" name="password" id="password" class="form-control input-block" v-model="pw"></input>
                             <input type="submit" name="commit" value="로그인" class="btn btn-primary btn-block"></input>
                         </div>
