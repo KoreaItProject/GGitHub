@@ -60,9 +60,9 @@ public class InfoLeader {
                   obj = jsonParser.parse("{" + content + "}");
                   JSONObject jsonObj = (JSONObject) obj;
                   // print
-                  System.out.println("member = " + jsonObj.get("member"));
                   System.out.println("repo = " + jsonObj.get("repo"));
                   System.out.println("memberIdx = " + jsonObj.get("memberIdx"));
+                  System.out.println("token = " + jsonObj.get("token"));
 
             } catch (ParseException e) {
                   // TODO Auto-generated catch block

@@ -54,9 +54,9 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     // info
     String clientPath;
     File info;
-    String member;
     String memberIdx;
     String repo;
+    String token;
 
     public GGitSource() {
         String serverIp = "localhost";
@@ -202,10 +202,6 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                 int rightLimit = 122; // letter 'z'
                 int targetStringLength = 40;
                 Random random = new Random();
-                member = random.ints(leftLimit, rightLimit + 1).limit(targetStringLength)
-                        .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-                        .toString();
-                System.out.println(member);
             }
 
         } catch (Exception e) {
@@ -255,12 +251,29 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     public void mouseMoved(MouseEvent e) {
     }
 
+    public void pull() {
+
+        try {
+            InfoDTO dto = new InfoDTO();
+            dto.setCommand(Info.PULL);
+            dto.setIdx(repo);
+            dto.setToken(token);
+            writer.writeObject(dto);
+            writer.flush();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+    }
+
     @Override
     public void run() {
         try {
             while (running) {
                 infoDTO = (InfoDTO) reader.readObject();
-                System.out.println(infoDTO);
+                // if (infoDTO.getUser() != null && infoDTO.getUser().equals(member)) {
+
                 if (infoDTO.getCommand() == Info.LOGINRESULT) {
                     if (infoDTO.getMessage().equals("false")) {
                         toptxt.setText("이메일 패스워드가 다릅니다");
@@ -273,13 +286,23 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                         // toplbl.setVisible(false);
                         clonepan.setVisible(true);
                     }
-
                 } else if (infoDTO.getCommand() == Info.CLONERESULT) {
-                    this.repo = infoDTO.getMessage();
-                    fileW();
+                    if (infoDTO.getToken() == null) {
+                        toptxt.setText("잘못된 접속코드 입니다.");
+                    } else {
+                        this.repo = infoDTO.getIdx() + "";
+                        this.token = infoDTO.getToken();
+                        fileW();
+                        pull();
+                    }
+
+                } else if (infoDTO.getCommand() == Info.PULLRESULT) {
+                    System.out.println("pullresult");
                 }
 
             }
+
+            // }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -300,7 +323,8 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             BufferedWriter writer = new BufferedWriter(fw);
 
             // 4. 파일에 쓰기
-            String con = "\"member\" : \"" + member + "\", \"memberIdx\" : \"" + memberIdx + "\", \"repo\" : \"" + repo
+            String con = "\"memberIdx\" : \"" + memberIdx + "\", \"repo\" : \"" + repo
+                    + "\",\"token\" : \"" + token
                     + "\",";
             String conResult = "";
             for (int i = 0; i < con.length(); i++) {
