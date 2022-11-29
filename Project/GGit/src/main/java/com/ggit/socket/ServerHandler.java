@@ -111,6 +111,7 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 					infoDTO.setCommand(Info.PULLRESULT);
 					writer.writeObject(infoDTO);
 					writer.flush();
+					fileSend(writer);
 
 				} else if (dto.getCommand() == Info.PUSH) {
 
@@ -127,10 +128,10 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 
 	}
 
-	private void fileRead(ObjectOutputStream dos) {
+	private void fileSend(ObjectOutputStream dos) {
 
-		String filePath = "";
-		String fileNm = "333";
+		String filePath = "C:/gitdata/GGitHub/Project/GGit/STORAGE/repositorys/1/asda231";
+		String fileNm = "front.zip";
 		FileInputStream fis;
 		BufferedInputStream bis;
 

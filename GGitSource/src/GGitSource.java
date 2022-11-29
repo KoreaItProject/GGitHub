@@ -15,10 +15,12 @@ import com.ggit.socket.InfoDTO.Info;
 import java.awt.*;
 
 import java.awt.event.*;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -298,6 +300,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
 
                 } else if (infoDTO.getCommand() == Info.PULLRESULT) {
                     System.out.println("pullresult");
+                    fileWrite(reader);
                 }
 
             }
@@ -305,6 +308,40 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             // }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+
+    }
+
+    private void fileWrite(ObjectInputStream dis) {
+
+        try {
+            System.out.println("파일 수신 작업을 시작합니다.");
+
+            // 파일명을 전송 받고 파일명 수정
+            String fileNm = dis.readUTF();
+            System.out.println("파일명 " + fileNm + "을 전송받았습니다.");
+
+            // 파일을 생성하고 파일에 대한 출력 스트림 생성
+            File file = new File(clientPath + "/" + fileNm);
+            FileOutputStream fos = new FileOutputStream(file);
+            BufferedOutputStream bos = new BufferedOutputStream(fos);
+            System.out.println(fileNm + "파일을 생성하였습니다.");
+
+            // 바이트 데이터를 전송받으면서 기록
+            int len;
+            int size = 4096;
+            byte[] Object = new byte[size];
+            while ((len = dis.read(Object)) != -1) {
+                bos.write(Object, 0, len);
+            }
+
+            // bos.flush();
+
+            System.out.println("파일 수신 작업을 완료하였습니다.");
+            System.out.println("받은 파일의 사이즈 : " + file.length());
+        } catch (IOException e) {
+            e.printStackTrace();
+
         }
 
     }
