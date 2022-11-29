@@ -18,10 +18,18 @@ public class SettingController {
     @Autowired
     SettingService settingService;
 
+    // 계정 탭 비밀번호 확인
     @RequestMapping("/setting_check_pw")
     public MemberVo setting_check_pw(@RequestBody MemberVo membervo){
         
         return settingService.setting_check_pw(membervo);
+    }
+
+    // GGit 유저 탈퇴
+    @RequestMapping("/user_del")
+    public int user_del(@RequestBody MemberVo memvervo){
+        
+        return settingService.user_del(memvervo);
     }
 
 }

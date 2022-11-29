@@ -4,4 +4,7 @@
     <select id="setting_check_pw"  resultType="com.ggit.vo.MemberVo">
         select * from member where idx = #{idx} and pw = #{pw}
     </select>
+    <delete id="user_del">
+        delete from member where idx = #{idx};
+    </delete>
 </mapper>

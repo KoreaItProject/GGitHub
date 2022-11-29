@@ -10,5 +10,6 @@ import com.ggit.vo.MemberVo;
 public interface SettingMapper {
 
     MemberVo setting_check_pw(MemberVo membervo);
+    int user_del(MemberVo membervo);
 
 }

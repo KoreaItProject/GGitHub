@@ -20,4 +20,8 @@ public class SettingService {
         return mapper.setting_check_pw(membervo);
         
     }
+
+    public int user_del(MemberVo membervo){
+        return mapper.user_del(membervo);
+    }
 }
