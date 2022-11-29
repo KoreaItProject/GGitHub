@@ -77,7 +77,8 @@ let processResponse = (store, loginResponse) => {
   if (loginResponse == null) {
     setErrorState(store, "Wrong ID or Password");
     setIsAuth(store, false);
-  } else {
+  } else if(loginResponse.data.idx != "undefined" ){
+    
     Cookies.set("idx", enCrypt(loginResponse.data.idx + "", s_key));
     Cookies.set("isLogin", enCrypt("true", s_key));
     Cookies.set("nick", enCrypt(loginResponse.data.nick, s_key));
@@ -98,6 +99,11 @@ export default {
       email: user_email,
       pw: user_pw
     });
+
+    if(loginResponse.data.idx == undefined){
+      return "false";
+    }
+
     processResponse(store, loginResponse);
     return loginResponse; // 로그인 결과를 리턴한다
   },
