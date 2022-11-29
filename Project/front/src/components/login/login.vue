@@ -27,7 +27,7 @@
                         </div>
                     </form>
                 </div>
-                <router-view :key="$route.fullPath"/>
+                <!-- <router-view :key="$route.fullPath"/> -->
             </div>
         </main>
     </div>
