@@ -21,7 +21,13 @@ public class SettingService {
         
     }
 
+    // GGit 유저 탈퇴
     public int user_del(MemberVo membervo){
         return mapper.user_del(membervo);
+    }
+
+    // 계정 탭 비밀번호 변경
+    public int user_pw_update(MemberVo membervo){
+        return mapper.user_pw_update(membervo);
     }
 }
