@@ -9,16 +9,20 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.event.MouseInputListener;
 
+import org.zeroturnaround.zip.ZipUtil;
+
 import com.ggit.socket.InfoDTO;
 import com.ggit.socket.InfoDTO.Info;
 
 import java.awt.*;
 
 import java.awt.event.*;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -54,16 +58,16 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     // info
     String clientPath;
     File info;
-    String member;
     String memberIdx;
     String repo;
+    String token;
 
     public GGitSource() {
         String serverIp = "localhost";
         Socket socket = null;
         try {
             socket = new Socket(serverIp, 4445);
-
+            socket.setSoTimeout(0);
             writer = new ObjectOutputStream(socket.getOutputStream());
             reader = new ObjectInputStream(socket.getInputStream());
             System.out.println("서버에 연결되었습니다.");
@@ -202,10 +206,6 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                 int rightLimit = 122; // letter 'z'
                 int targetStringLength = 40;
                 Random random = new Random();
-                member = random.ints(leftLimit, rightLimit + 1).limit(targetStringLength)
-                        .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-                        .toString();
-                System.out.println(member);
             }
 
         } catch (Exception e) {
@@ -255,12 +255,29 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     public void mouseMoved(MouseEvent e) {
     }
 
+    public void pull() {
+
+        try {
+            InfoDTO dto = new InfoDTO();
+            dto.setCommand(Info.PULL);
+            dto.setIdx(repo);
+            dto.setToken(token);
+            writer.writeObject(dto);
+            writer.flush();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+    }
+
     @Override
     public void run() {
         try {
             while (running) {
                 infoDTO = (InfoDTO) reader.readObject();
-                System.out.println(infoDTO);
+                // if (infoDTO.getUser() != null && infoDTO.getUser().equals(member)) {
+
                 if (infoDTO.getCommand() == Info.LOGINRESULT) {
                     if (infoDTO.getMessage().equals("false")) {
                         toptxt.setText("이메일 패스워드가 다릅니다");
@@ -273,17 +290,73 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                         // toplbl.setVisible(false);
                         clonepan.setVisible(true);
                     }
-
                 } else if (infoDTO.getCommand() == Info.CLONERESULT) {
-                    this.repo = infoDTO.getMessage();
-                    fileW();
+                    if (infoDTO.getToken() == null) {
+                        toptxt.setText("잘못된 접속코드 입니다.");
+                    } else {
+                        this.repo = infoDTO.getIdx() + "";
+                        this.token = infoDTO.getToken();
+                        fileW();
+                        pull();
+                    }
+
+                } else if (infoDTO.getCommand() == Info.PULLRESULT) {
+                    System.out.println("pullresult");
+                    String result = fileWrite(reader);
+
                 }
 
             }
+
+            // }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+    private String fileWrite(ObjectInputStream dis) {
+        String result = "";
+        FileOutputStream fos = null;
+        BufferedOutputStream bos = null;
+        try {
+            System.out.println("파일 수신 작업을 시작합니다.");
+
+            // 파일명을 전송 받고 파일명 수정
+            String fileNm = dis.readUTF();
+            System.out.println("파일명 " + fileNm + "을 전송받았습니다.");
+
+            // 파일을 생성하고 파일에 대한 출력 스트림 생성
+            File file = new File(clientPath + "/" + fileNm);
+            fos = new FileOutputStream(file);
+            bos = new BufferedOutputStream(fos);
+            System.out.println(fileNm + "파일을 생성하였습니다.");
+
+            // 바이트 데이터를 전송받으면서 기록
+            int len = 0;
+            int size = 1024;
+            byte[] Object = new byte[size];
+            int i = 0;
+            while ((len = dis.read(Object)) > 0) {
+                System.out.println(++i);
+                bos.write(Object, 0, len);
+            }
+            System.out.println(len);
+            result = "SUCCESS";
+            // bos.flush();
+            System.out.println(1);
+            System.out.println("파일 수신 작업을 완료하였습니다.");
+            System.out.println("받은 파일의 사이즈 : " + file.length());
+            fos.close();
+            bos.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        } finally {
+
+        }
+        return result;
     }
 
     public void fileW() {
@@ -300,7 +373,8 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             BufferedWriter writer = new BufferedWriter(fw);
 
             // 4. 파일에 쓰기
-            String con = "\"member\" : \"" + member + "\", \"memberIdx\" : \"" + memberIdx + "\", \"repo\" : \"" + repo
+            String con = "\"memberIdx\" : \"" + memberIdx + "\", \"repo\" : \"" + repo
+                    + "\",\"token\" : \"" + token
                     + "\",";
             String conResult = "";
             for (int i = 0; i < con.length(); i++) {

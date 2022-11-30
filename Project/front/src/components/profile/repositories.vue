@@ -18,7 +18,11 @@
         
           <div class="repo_list">
               <ul>
-                <draggable :list="Repo" :move="checkMove">             
+                <draggable  
+        v-model="Repo"
+  
+        @change ="checkMove"
+        >             
                   <li v-for='data in Repo'>
                     <a :href="data.member_nick + '/' + data.repo_name" > 
                       <div class="repo_info">
@@ -61,25 +65,44 @@
 import axios from "axios";
 import draggable from "vuedraggable";
 export default {
-  
   data() {
     return {
       Repo: [],
-      isDrag: false,
-      
+      enabled: true,
+      dragging: false,
     };
   },
   components: {
     draggable,
   },
-  methods: {
-    checkMove: function(e) {
-      window.console.log("Future index: " + e.draggedContext.futureIndex);
-      console.log(this.Repo);
-      
+  computed: {
+    dragOptions() {
+      return {
+        animation: 0,
+        group: "description",
+        disabled: false,
+        ghostClass: "ghost",
+      };
     },
-    
+  },
+  methods: {
+    checkMove: function (e) {
+      console.log(this.Repo);
+      console.log(this.dragging);
 
+      axios
+        .post("/api/repoSort", this.Repo)
+        .then((response) => {
+          // handle success
+        })
+        .catch((error) => {
+          // handle error
+          console.log(error);
+        })
+        .finally(() => {
+          // always executed
+        });
+    },
   },
   mounted() {
     axios
@@ -100,8 +123,6 @@ export default {
       .finally(() => {
         // always executed
       });
-
-    
   },
 };
 </script>

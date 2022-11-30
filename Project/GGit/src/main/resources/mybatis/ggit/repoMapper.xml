@@ -17,14 +17,14 @@
             repomem.idx as repomem_idx,repomem.repo as repomem_repo,repomem.member as repomem_member,repomem.sort as repomem_sort,
             member.idx as member_idx,member.nick as member_nick
             FROM repo,repomem,member where repomem.repo=repo.idx and repo.owner=member.idx and repomem.member=(select idx from member where nick = #{nick})
-            ORDER BY repomem.sort DESC;
+            ORDER BY repomem.sort DESC
     </select>
 
     <select id="repoIdxByNickName" resultType="int">
-     select repo.idx from repo where repo.name=#{reponame} and owner=(select member.idx from member where member.nick =#{nick});
+     select repo.idx from repo where repo.name=#{reponame} and owner=(select member.idx from member where member.nick =#{nick})
     </select>
-    <select id="clone" resultType="int">
-     select repo.idx from repo where repo.clone=#{clone} 
+    <select id="clone" resultType="com.ggit.vo.RepositoriesVO">
+     select repo.idx as repo_idx ,push.token as push_token from repo , push where repo.clone=#{clone} and repo.idx = push.repo ORDER BY push.date DESC LIMIT 1
     </select>
 
     <select id="selectRepositorycode" resultType="com.ggit.vo.RepositoriesVO">
@@ -34,7 +34,7 @@
         FROM push, member
         WHERE member.idx = push.member and push.repo = ${repoIdx}
 		ORDER BY push.date DESC
-        LIMIT 1;
+        LIMIT 1
         <!-- 최근 한 값만 -->
 
     </select>

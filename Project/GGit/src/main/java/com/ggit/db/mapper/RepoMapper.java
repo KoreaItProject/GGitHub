@@ -18,7 +18,7 @@ public interface RepoMapper {
 
     int repoIdxByNickName(Map map);
 
-    int clone(String clone);
+    RepositoriesVO clone(String clone);
 
     RepositoriesVO selectRepositorycode(int repoIdx);
 
@@ -29,11 +29,5 @@ public interface RepoMapper {
     int selectRepositorycount(String nick);
 
     int selectRepositorystarcount(String nick);
-
-    
-
-    
-    
-
 
 }

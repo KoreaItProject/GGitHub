@@ -50,6 +50,15 @@ public class RepositoryControlloer {
         return repositories;
     }
 
+    @RequestMapping("/repoSort")
+    public void repoSort(@RequestBody List<RepositoriesVO> Repo) {
+        for (int i = 0; i < Repo.size(); i++) {
+            System.out.println("sort = " + i + " repo = " + Repo.get(i).getRepo_idx());
+        }
+        System.out.println("==========================");
+
+    }
+
     @RequestMapping("/repoIdxByNickName")
     public int repoIdxByNickName(String nick, String reponame) {
         int repoIdxByNickName;
@@ -86,8 +95,6 @@ public class RepositoryControlloer {
         List<RepositoriesVO> Repositorystar = repoService.selectRepositorystar(repoIdx);
         return Repositorystar;
     }
-
-
 
     @RequestMapping("/getFile")
     public List<StorageVo> getFile(int repoIdx, String token, String path) {
@@ -153,17 +160,16 @@ public class RepositoryControlloer {
     }
 
     @RequestMapping("selectRepositorycount")
-    public int selectRepositorycount(String nick){
+    public int selectRepositorycount(String nick) {
         int Repositorycount = repoService.selectRepositorycount(nick);
         return Repositorycount;
 
     }
 
     @RequestMapping("selectRepositorystarcount")
-    public int selectRepositorystarcount(String nick){
+    public int selectRepositorystarcount(String nick) {
         int Repositorystarcount = repoService.selectRepositorystarcount(nick);
         return Repositorystarcount;
     }
-    
 
 }

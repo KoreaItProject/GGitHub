@@ -14,8 +14,18 @@
 
     <select id="memberByNick" resultType="com.ggit.vo.MemberVo">
         <!-- 프로필 띄울때 씀 -->
-        SELECT member.idx, member.nick,member.email,member.pw,member.auth,member.date,
-        member.img,member.con,member.url,member.company,member.location,
+        SELECT member.idx, 
+               member.nick,
+               member.email,
+               member.pw,
+               member.auth,
+               member.date,
+               member.img,
+               member.con,
+               member.url,
+               member.company,
+               member.location,
+               member.email_check,
         (select count(idx) from follow where member=member.idx) as followers,
         (select count(idx) from follow where followers=member.idx) as following
         FROM member where nick = #{nick};
@@ -42,7 +52,7 @@
     <update id="saveProfile">
 
         <!-- 프로필 성정 저장 -->
-        update member set nick = #{nick},con= #{con},url= #{url},company= #{company},location = #{location} where idx= ${idx}
+        update member set nick = #{nick},con= #{con},url= #{url},company= #{company},location = #{location}, email_check = #{email_check} where idx= ${idx}
     </update>
     <update id="saveProfileImg">
 

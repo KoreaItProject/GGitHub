@@ -21,7 +21,7 @@ public class RepoService {
         return mapper.repo();
     }
 
-    public int clone(String clone) {
+    public RepositoriesVO clone(String clone) {
         return mapper.clone(clone);
     }
 
@@ -54,6 +54,5 @@ public class RepoService {
        
         return mapper.selectRepositorystarcount(nick);
     }
-  
 
 }

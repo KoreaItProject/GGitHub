@@ -9,16 +9,18 @@ public class InfoDTO implements Serializable {
     SEND,
     STATE,
     PUSH,
+    PULL, PULLRESULT,
     LOGIN, LOGINRESULT,
     CLONE, CLONERESULT
 
   }
 
-  private String message;
   private Info command;
+  private String message;
   private String id, pw;
   private String user;
-  private int idx;
+  private String idx;
+  private String token;
 
   public String getMessage() {
     return message;
@@ -60,12 +62,20 @@ public class InfoDTO implements Serializable {
     this.user = user;
   }
 
-  public int getIdx() {
+  public String getIdx() {
     return idx;
   }
 
-  public void setIdx(int idx) {
+  public void setIdx(String idx) {
     this.idx = idx;
+  }
+
+  public String getToken() {
+    return token;
+  }
+
+  public void setToken(String token) {
+    this.token = token;
   }
 
 }

@@ -18,7 +18,7 @@
             >사용중인 닉네임입니다.</span
           >
           <span class="nick_span nick_span_blue" v-if="nickCheck"
-            >사용 가능한 닉네입니다.</span
+            >사용 가능한 닉네임입니다.</span
           >
         </div>
         <div class="setting_profile_bio_div">
@@ -47,6 +47,13 @@
             type="text"
             v-model="userInfo.location"
           />
+        </div>
+        <div class="setting_profile_email_div">
+          이메일 공개 여부
+          <div class="test">
+            <p>공개</p><input class="email_radio_open" id="test111" type="radio" name="group" v-model="email_open" value="1" @click="email_open_func">
+            <p>비공개</p><input class="email_radio_private" type="radio" name="group" v-model="email_private" value="0" @click="email_private_func">
+          </div>
         </div>
         <div class="setting_save_btn_div">
           <button class="setting_save_btn" @click="save">저장</button>
@@ -113,6 +120,9 @@ export default {
       profileImg: "",
       nickCheck: true,
       nick: "",
+      email_open: "",
+      email_private: "",
+      email_check_value: "",
       imgch: 0
     };
   },
@@ -150,6 +160,13 @@ export default {
         .then(response => {
           // handle success
           this.userInfo = response.data;
+
+          if(response.data.email_check == 1){
+            this.email_open = 1;
+          }else if(response.data.email_check == 0){
+            this.email_private = 0;
+          }
+
           if (this.userInfo.con != null && this.userInfo.con != "") {
             this.userInfo.con = this.userInfo.con.replace(/<br\/>/g, "\n");
           }
@@ -246,7 +263,8 @@ export default {
             con: this.userInfo.con,
             url: this.userInfo.url,
             company: this.userInfo.company,
-            location: this.userInfo.location
+            location: this.userInfo.location,
+            email_check: this.email_check_value
           }
         })
         .then(response => {
@@ -264,13 +282,20 @@ export default {
         .finally(() => {
           // always executed
         });
+    },
+    email_open_func(){
+      this.email_check_value = 1;
+    },
+    email_private_func(){
+      this.email_check_value = 0;
     }
-  },
+  }, // method
   mounted() {
     this.getMemberInfo();
+    
   }
 };
 </script>
 <style lang="sass">
-@import "src/assets/sass/setting/profile"
+  @import "src/assets/sass/setting/profile"
 </style>

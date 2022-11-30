@@ -20,7 +20,6 @@ class F extends JFrame {
         str = str1;
 
         JList scrollList = new JList(str);
-
         JScrollPane jp = new JScrollPane(scrollList);
         jp.setBounds(100, 100, 100, 200);
         backPanel.add(jp);

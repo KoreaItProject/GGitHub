@@ -141,6 +141,7 @@
             </svg>
             <span class="p-label">{{ userInfo.company }}</span>
           </li>
+          <div v-bind:style="user_email_div">
           <li class="profile_post_info_li" v-if="userInfo.email">
             <svg
               class="octicon octicon-mail"
@@ -159,6 +160,7 @@
               userInfo.email
             }}</a>
           </li>
+          </div>
           <li class="profile_post_info_li" v-if="userInfo.url">
             <svg
               style="width: 16px"
@@ -229,6 +231,7 @@ export default {
       userInfo: [],
       repocount:'',
       starcount:'',
+      user_email_div:""
     };
   },
   components: {
@@ -295,6 +298,13 @@ export default {
         .then((response) => {
           // handle success
           this.userInfo = response.data;
+
+          
+          if(this.userInfo.email_check == 1){ // 이메일 공개 여부가 1이라면
+              this.user_email_div = "display: inline";
+          }else if(this.userInfo.email_check == 0){
+              this.user_email_div = "display: none";
+          }
           if (this.userInfo.con != null && this.userInfo.con != "") {
             this.userInfo.con = this.userInfo.con.replace(
               /(?:\r\n|\r|\n)/g,
@@ -358,7 +368,7 @@ export default {
   },
 
   mounted() {
-    this.hasNick(); 
+    this.hasNick();
     this.selectRepositorycount();
     this.selectRepositorystarcount();
     this.getMemberInfo();

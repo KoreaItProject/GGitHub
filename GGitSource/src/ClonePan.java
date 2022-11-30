@@ -48,7 +48,7 @@ public class ClonePan extends KeyAdapter implements MouseInputListener {
         clonePanel.setLayout(null);
 
         code = new MyField();
-        code.setBounds(11, 161, 239, 22);
+        code.setBounds(11, 161, 226, 22);
         code.setFont(new Font("Gothic", Font.BOLD, code.getFont().getSize() + 3));
         clonePanel.add(code);
         code.addKeyListener(this);

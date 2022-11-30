@@ -6,15 +6,20 @@ import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.zeroturnaround.zip.ZipUtil;
 
 import com.ggit.service.MemberService;
 import com.ggit.service.RepoService;
 import com.ggit.socket.InfoDTO.Info;
 import com.ggit.vo.MemberVo;
+import com.ggit.vo.RepoVo;
+import com.ggit.vo.RepositoriesVO;
 import com.mysql.cj.protocol.Message;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -34,6 +39,8 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 
 	MemberService memberService;
 	RepoService repoService;
+	MemberVo memberVo;
+	RepositoriesVO repoVo;
 
 	// 생성자
 	public ServerHandler(Socket socket, List<ServerHandler> list, MemberService memberService, RepoService repoService)
@@ -46,6 +53,8 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 		// 순서가 뒤바뀌면 값을 입력받지 못하는 상황이 벌어지기 때문에 반드시 writer부터 생성시켜주어야 함!!!!!!
 		this.memberService = memberService;
 		this.repoService = repoService;
+		this.memberVo = new MemberVo();
+		this.repoVo = new RepositoriesVO();
 
 	}
 
@@ -58,21 +67,19 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 				dto = (InfoDTO) reader.readObject();
 
 				if (dto.getCommand() == Info.STATE && dto.getMessage().equals("running")) {
-
-					broadcast(dto);
+					writer.writeObject(dto);
+					writer.flush();
 				} else if (dto.getCommand() == Info.EXIT) {
 					System.out.println("종료");
+
 					writer.writeObject(dto);
-					broadcast(dto);
-					// reader.close();
-					// writer.close();
-					// socket.close();
+					writer.flush();
+
 					list.remove(this);
 					this.stop();
 
 					break;
 				} else if (dto.getCommand() == Info.LOGIN) {
-					MemberVo memberVo = new MemberVo();
 					InfoDTO infoDTO = new InfoDTO();
 					memberVo.setEmail(dto.getId());
 					memberVo.setPw(dto.getPw());
@@ -80,19 +87,32 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 					infoDTO.setCommand(Info.LOGINRESULT);
 					if ((memberVo = memberService.memberByemailPw(memberVo)) != null) {
 						infoDTO.setMessage("true");
-						infoDTO.setIdx(memberVo.getIdx());
+						infoDTO.setIdx(memberVo.getIdx() + "");
 
 					} else {
 
 						infoDTO.setMessage("false");
 					}
-
-					broadcast(infoDTO);
+					writer.writeObject(infoDTO);
+					writer.flush();
 				} else if (dto.getCommand() == Info.CLONE) {
 					InfoDTO infoDTO = new InfoDTO();
 					infoDTO.setCommand(Info.CLONERESULT);
-					infoDTO.setMessage(repoService.clone(dto.getMessage()) + "");
-					broadcast(infoDTO);
+					repoVo = repoService.clone(dto.getMessage());
+					if (repoVo != null) {
+						infoDTO.setIdx(repoVo.getRepo_idx() + "");
+						infoDTO.setToken(repoVo.getPush_token());
+					}
+
+					writer.writeObject(infoDTO);
+					writer.flush();
+				} else if (dto.getCommand() == Info.PULL) {
+					System.out.println("PULL");
+					InfoDTO infoDTO = new InfoDTO();
+					infoDTO.setCommand(Info.PULLRESULT);
+					writer.writeObject(infoDTO);
+					fileSend(writer);
+
 				} else if (dto.getCommand() == Info.PUSH) {
 
 					String result = fileWrite(reader);
@@ -103,6 +123,49 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 			list.remove(this);
 			this.stop();
 		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	private void fileSend(ObjectOutputStream dos) {
+
+		File path = new File("C:/gitdata/GGitHub/Project/GGit/STORAGE/repositorys/1/asda231/");
+		String dirName = path.listFiles()[0].getName();
+		String zip = path.getPath() + "/" + dirName + ".zip";
+		System.out.println(path.getPath() + "/" + dirName);
+		ZipUtil.pack(new File(path.getPath() + "/" + dirName), new File(zip));
+		FileInputStream fis;
+		BufferedInputStream bis;
+
+		try {
+
+			dos.writeUTF(dirName + ".zip");
+			/* test */System.out.println("파일 이름(" + dirName + ".zip" + ")을 전송하였습니다.");
+
+			// 파일을 읽어서 서버에 전송
+
+			File file = new File(zip);
+			fis = new FileInputStream(file);
+			bis = new BufferedInputStream(fis);
+
+			int len;
+			int size = 1024;
+			int i = 0;
+			byte[] Object = new byte[size];
+			while ((len = bis.read(Object)) > 0) {
+				System.out.println(++i);
+				dos.write(Object, 0, len);
+			}
+
+			System.out.println(len);
+			// 서버에 전송
+			dos.flush();
+			fis.close();
+			bis.close();
+			dos.close();
+
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
@@ -153,15 +216,7 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 		} finally {
 			try {
 				bos.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			try {
 				fos.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			try {
 				dis.close();
 			} catch (IOException e) {
 				e.printStackTrace();
