@@ -11,9 +11,9 @@
                 </div>
                 <div class="code_btn">
                   
-                  <button class="code_btn">code
+                  <button class="code_btn" @click="toggleOnOff">code </button>
                     <div class="code_menu_top_div">
-                      <div class="code_menu">
+                      <div class="code_menu" v-if="isStatusOn">
                           <div class="code_clone">
                             <svg aria-hidden="true" height="14" viewBox="0 -1 16 16" version="1.1" width="14" data-view-component="true" class="octicon octicon-terminal mr-2">
                                 <path fill-rule="evenodd" d="M0 2.75C0 1.784.784 1 1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75zm1.75-.25a.25.25 0 00-.25.25v10.5c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V2.75a.25.25 0 00-.25-.25H1.75zM7.25 8a.75.75 0 01-.22.53l-2.25 2.25a.75.75 0 11-1.06-1.06L5.44 8 3.72 6.28a.75.75 0 111.06-1.06l2.25 2.25c.141.14.22.331.22.53zm1.5 1.5a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z"></path>
@@ -23,8 +23,8 @@
 
                           <br>
                           
-                            <div class="code_input"><input class="code_input_box" data-autoselect value="http://localhost/sdfsd/JavaProject#" readonly></input>
-                              <button class="code_copy_btn"> 
+                            <div class="code_input"><input type="text" id="codeclone" class="code_input_box" :value="clone"></input>
+                              <button class="code_copy_btn" id="clonebutton"> 
                                 <svg aria-hidden="true" height="15" viewBox="0 0 16 16" version="1.1" width="15" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon d-inline-block">
                                     <path fill-rule="evenodd" d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"></path><path fill-rule="evenodd" d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z"></path>
                                 </svg>
@@ -45,7 +45,7 @@
                         </div>  
                       </div>
                     </div>
-                  </button>
+                 
                   
                 </div>
                 
@@ -152,21 +152,36 @@
 <script>
 import axios from "axios";
 import marked from "marked";
+import {const app = Vue.createApp({})}
 export default {
   data() {
-    return {
+    return { 
       file_list: [],
       push: [],
       contributors: [],
       star: [],
+      clone:"",
       thisURL: window.location.href.split("?")[0],
       repoIdx: 0,
       readmeContent: "",
       loading: true,
+      isStatusOn:false,
     };
   },
 
   methods: {
+    toggleOnOff:function(){
+      this.isStatusOn =!this.isStatusOn;
+    },
+    copyclone(){
+      const codeclone = document.getElementById("codeclone")
+      document.getElementById("clonebutton").onclick=()=>{
+        window.navigator.clipboard.writeText(codeclone.value).then(()=>{
+          alert("복사 완료");
+        })
+      }
+    },
+
     changeMD(content) {
       marked.setOptions({
         renderer: new marked.Renderer(),
@@ -229,6 +244,7 @@ export default {
           this.getFile();
           // console.log(this.star)
           // alert(this.star)
+          this.selectRepoclone();
         });
     },
     selectRepositorycontributors() {
@@ -254,7 +270,7 @@ export default {
         })
         .then((response) => {
           this.push = response.data;
-          console.log(this.push);
+          // console.log(this.push);
           this.selectRepositorycontributors();
         });
     },
@@ -272,13 +288,14 @@ export default {
             window.location.href = "/pagenotfound";
           }
           this.selectRepositorycode();
-
+          
           //
         });
     },
   },
   mounted() {
     this.repoIdxByNickName();
+    
   },
 };
 </script>

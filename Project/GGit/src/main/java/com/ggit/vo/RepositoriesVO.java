@@ -20,6 +20,8 @@ public class RepositoriesVO {
     int repo_owner;
     int repo_fork;
     int repo_count;
+    String repo_clone;
+    
 
     // repomem
     int repomem_idx;
