@@ -32,4 +32,10 @@ public class SettingController {
         return settingService.user_del(memvervo);
     }
 
+    // 계정 탭 비밀번호 변경
+    @RequestMapping("/user_pw_update")
+    public int user_pw_update(@RequestBody MemberVo membervo){
+        return settingService.user_pw_update(membervo);
+    }
+
 }

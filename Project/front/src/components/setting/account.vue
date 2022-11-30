@@ -7,9 +7,9 @@
                     <div class="auth-form">
                         <div class="auth-form-header"><h1>GGit</h1></div>
                             <div class="auth-form-body">
-                                <form @submit.prevent="onSubmitPasswordCheck" >
-                                    <label class="body-label">비밀번호 수정</label>
-                                    <input ref="ref_pw_update_input" type="password" name="pw_first" id="pw_field" class="form-control input-block" v-model="pw_update_input" @input="pw_diff_check2"></input>
+                                <form @submit.prevent="onSubmitPasswordUpdate" >
+                                    <label class="body-label">비밀번호 변경</label>
+                                    <input ref="ref_pw_update_input" type="password" name="pw_first" id="pw_field" class="form-control input-block" v-model="pw_update_input"></input>
                                     <input type="submit" name="commit" value="변 경 하 기" class="btn btn-primary btn-block"></input>
                                 </form>
                                 <div class="line_div">
@@ -62,11 +62,11 @@ import router from '../../router';
 export default {
     data(){
         return{
-            pw_first: "",
-            pw_second: "",
-            pw_check_ok: 0,
-            pw_update_input: '',
-            check_display: "display:none;",
+            pw_first: "", // 계정 탭 - 진입 전 비밀번호 입력 데이터
+            pw_second: "", // 계정 탭 - 진입 전 비밀번호 확인 입력 데이터
+            pw_check_ok: 1, // 비밀번호 일치시 1 (default : 0)
+            pw_update_input: '', // 비밀번호 변경 데이터(유저가 입력한 pw 데이터)
+            check_display: "display:none;", // 일치합니다 표시 데이터
             pw_diff_check_bool: false
         };
     },
@@ -143,6 +143,30 @@ export default {
             }else{
                 alert("취소 누름");
             }
+        },
+        onSubmitPasswordUpdate(){
+            if(this.pw_update_input == ""){
+                alert("빈칸을 채워주세요!");
+            }else{
+                if(confirm("비밀번호를 변경하시겠습니까?") == true){
+                    axios.post('/api/user_pw_update',{
+                        idx: store.getters.getUserIdx,
+                        pw: this.pw_update_input
+                    })
+                    .then(response => {
+                        if(response.data > 0){
+                            alert("비밀번호를 변경 성공!");
+                            this.pw_update_input = "";
+                        }else{
+                            alert("비밀번호 변경 실패");
+                            this.$refs.ref_pw_update_input.focus();
+                        }
+                    })
+                }else{ 
+                    // ...
+                }
+            }
+            
         }
      
     }

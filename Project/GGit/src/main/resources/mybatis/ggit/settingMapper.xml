@@ -7,4 +7,7 @@
     <delete id="user_del">
         delete from member where idx = #{idx};
     </delete>
+    <update id="user_pw_update">
+        update member set pw=#{pw} where idx = #{idx}
+    </update>
 </mapper>
