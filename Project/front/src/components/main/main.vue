@@ -83,18 +83,20 @@
               />
             </p>
 
-            <h6 class="">
-              Use at least one letter, one numeral, and seven characters.
-            </h6>
+              <div class="div_letter">
+                <h6 class="">
+                  Use at least one letter, one numeral, and seven characters.
+                </h6>
+              </div>
+                <p style="margin: 10px 0px;" >
+                  <button type="submit" class="btn--primary">회원가입</button>
+                </p>
 
-            <p style="margin: 10px 0px;" >
-              <button type="submit" class="btn--primary">회원가입</button>
-            </p>
-
-            
-            By clicking "Sign up for GitHub", you agree to our terms of service
-            and privacy policy. We'll occasionally send you account related
-            emails.
+              <div class="div_letter">
+                By clicking "Sign up for GitHub", you agree to our terms of service
+                and privacy policy. We'll occasionally send you account related
+                emails.
+              </div>
           </form>
         </div>
       </div>
