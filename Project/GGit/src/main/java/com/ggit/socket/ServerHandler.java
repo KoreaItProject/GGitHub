@@ -111,7 +111,6 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 					InfoDTO infoDTO = new InfoDTO();
 					infoDTO.setCommand(Info.PULLRESULT);
 					writer.writeObject(infoDTO);
-					writer.flush();
 					fileSend(writer);
 
 				} else if (dto.getCommand() == Info.PUSH) {
@@ -151,15 +150,20 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 			bis = new BufferedInputStream(fis);
 
 			int len;
-			int size = 4096;
+			int size = 1024;
+			int i = 0;
 			byte[] Object = new byte[size];
-			while ((len = bis.read(Object)) != -1) {
+			while ((len = bis.read(Object)) > 0) {
+				System.out.println(++i);
 				dos.write(Object, 0, len);
 			}
 
+			System.out.println(len);
 			// 서버에 전송
-
 			dos.flush();
+			fis.close();
+			bis.close();
+			dos.close();
 
 		} catch (IOException e) {
 			e.printStackTrace();

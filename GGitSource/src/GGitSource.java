@@ -67,7 +67,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
         Socket socket = null;
         try {
             socket = new Socket(serverIp, 4445);
-
+            socket.setSoTimeout(0);
             writer = new ObjectOutputStream(socket.getOutputStream());
             reader = new ObjectInputStream(socket.getInputStream());
             System.out.println("서버에 연결되었습니다.");
@@ -302,7 +302,8 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
 
                 } else if (infoDTO.getCommand() == Info.PULLRESULT) {
                     System.out.println("pullresult");
-                    fileWrite(reader);
+                    String result = fileWrite(reader);
+
                 }
 
             }
@@ -314,8 +315,10 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
 
     }
 
-    private void fileWrite(ObjectInputStream dis) {
-
+    private String fileWrite(ObjectInputStream dis) {
+        String result = "";
+        FileOutputStream fos = null;
+        BufferedOutputStream bos = null;
         try {
             System.out.println("파일 수신 작업을 시작합니다.");
 
@@ -325,34 +328,35 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
 
             // 파일을 생성하고 파일에 대한 출력 스트림 생성
             File file = new File(clientPath + "/" + fileNm);
-            FileOutputStream fos = new FileOutputStream(file);
-            BufferedOutputStream bos = new BufferedOutputStream(fos);
+            fos = new FileOutputStream(file);
+            bos = new BufferedOutputStream(fos);
             System.out.println(fileNm + "파일을 생성하였습니다.");
-            System.out.println(clientPath + "/" + fileNm);
-            System.out.println(clientPath + "/" + fileNm.replace(".zip", ""));
 
             // 바이트 데이터를 전송받으면서 기록
-            int len;
-            int size = 852786100;
+            int len = 0;
+            int size = 1024;
             byte[] Object = new byte[size];
-            while ((len = dis.read(Object)) != -1) {
-                System.out.println(len);
+            int i = 0;
+            while ((len = dis.read(Object)) > 0) {
+                System.out.println(++i);
                 bos.write(Object, 0, len);
-
             }
-
+            System.out.println(len);
+            result = "SUCCESS";
             // bos.flush();
-
+            System.out.println(1);
             System.out.println("파일 수신 작업을 완료하였습니다.");
             System.out.println("받은 파일의 사이즈 : " + file.length());
-            ZipUtil.unpack(new File(clientPath + "/" + fileNm),
-                    new File(clientPath + "/" + fileNm.replace(".zip", "")));
+            fos.close();
+            bos.close();
 
         } catch (IOException e) {
             e.printStackTrace();
 
-        }
+        } finally {
 
+        }
+        return result;
     }
 
     public void fileW() {
