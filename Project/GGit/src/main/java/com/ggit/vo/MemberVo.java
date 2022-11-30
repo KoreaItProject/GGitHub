@@ -29,6 +29,7 @@ public class MemberVo {
     String url;
     String company;
     String location;
+    int email_check;
 
     // 팔로우수
     int followers, following;
