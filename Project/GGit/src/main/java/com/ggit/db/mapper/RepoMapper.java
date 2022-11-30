@@ -30,7 +30,7 @@ public interface RepoMapper {
 
     int selectRepositorystarcount(String nick);
 
-
+    
 
     
     

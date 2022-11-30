@@ -51,9 +51,9 @@ public class RepoService {
     }
 
     public int selectRepositorystarcount(String nick) {
-        System.out.println(nick);
+       
         return mapper.selectRepositorystarcount(nick);
     }
-
+  
 
 }
