@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.event.MouseInputListener;
 
+import org.zeroturnaround.zip.ZipUtil;
+
 import com.ggit.socket.InfoDTO;
 import com.ggit.socket.InfoDTO.Info;
 
@@ -326,19 +328,26 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             FileOutputStream fos = new FileOutputStream(file);
             BufferedOutputStream bos = new BufferedOutputStream(fos);
             System.out.println(fileNm + "파일을 생성하였습니다.");
+            System.out.println(clientPath + "/" + fileNm);
+            System.out.println(clientPath + "/" + fileNm.replace(".zip", ""));
 
             // 바이트 데이터를 전송받으면서 기록
             int len;
-            int size = 4096;
+            int size = 852786100;
             byte[] Object = new byte[size];
             while ((len = dis.read(Object)) != -1) {
+                System.out.println(len);
                 bos.write(Object, 0, len);
+
             }
 
             // bos.flush();
 
             System.out.println("파일 수신 작업을 완료하였습니다.");
             System.out.println("받은 파일의 사이즈 : " + file.length());
+            ZipUtil.unpack(new File(clientPath + "/" + fileNm),
+                    new File(clientPath + "/" + fileNm.replace(".zip", "")));
+
         } catch (IOException e) {
             e.printStackTrace();
 

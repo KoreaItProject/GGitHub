@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.zeroturnaround.zip.ZipUtil;
 
 import com.ggit.service.MemberService;
 import com.ggit.service.RepoService;
@@ -130,18 +131,22 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 
 	private void fileSend(ObjectOutputStream dos) {
 
-		String filePath = "C:/gitdata/GGitHub/Project/GGit/STORAGE/repositorys/1/asda231";
-		String fileNm = "front.zip";
+		File path = new File("C:/gitdata/GGitHub/Project/GGit/STORAGE/repositorys/1/asda231/");
+		String dirName = path.listFiles()[0].getName();
+		String zip = path.getPath() + "/" + dirName + ".zip";
+		System.out.println(path.getPath() + "/" + dirName);
+		ZipUtil.pack(new File(path.getPath() + "/" + dirName), new File(zip));
 		FileInputStream fis;
 		BufferedInputStream bis;
 
 		try {
-			dos.writeUTF(fileNm);
-			/* test */System.out.println("파일 이름(" + fileNm + ")을 전송하였습니다.");
+
+			dos.writeUTF(dirName + ".zip");
+			/* test */System.out.println("파일 이름(" + dirName + ".zip" + ")을 전송하였습니다.");
 
 			// 파일을 읽어서 서버에 전송
 
-			File file = new File(filePath + "/" + fileNm);
+			File file = new File(zip);
 			fis = new FileInputStream(file);
 			bis = new BufferedInputStream(fis);
 
