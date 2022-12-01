@@ -65,5 +65,8 @@
         WHERE star.member = (select member.idx from member where member.nick=#{nick})
     </select>
 
+   
+ 
+
 
 </mapper>
