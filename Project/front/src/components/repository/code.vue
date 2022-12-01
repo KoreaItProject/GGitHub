@@ -188,8 +188,8 @@ export default {
         .then((response) => {
           this.clone = response.data;
           
-          console.log(this.clone)
-          alert(this.clone)
+          // console.log(this.clone)
+          // alert(this.clone)
           
         });
 
