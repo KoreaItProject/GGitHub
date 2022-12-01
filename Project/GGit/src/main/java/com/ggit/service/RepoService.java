@@ -54,5 +54,7 @@ public class RepoService {
        
         return mapper.selectRepositorystarcount(nick);
     }
-
+    public List<RepositoriesVO> selectRepoClone(int repoIdx){
+        return mapper.selectRepoClone(repoIdx);
+    }
 }

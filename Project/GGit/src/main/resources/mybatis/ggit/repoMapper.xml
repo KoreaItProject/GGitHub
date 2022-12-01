@@ -65,7 +65,11 @@
         WHERE star.member = (select member.idx from member where member.nick=#{nick})
     </select>
 
-   
+    <select id="selectRepoClone" resultType="String">
+        SELECT repo.clone as repo_clone
+        FROM repo,member
+        WHERE member.idx  = (SELECT repo.owner from repo where repo.idx=${repoIdx})and repo.idx=${repoIdx};
+    </select>
  
 
 

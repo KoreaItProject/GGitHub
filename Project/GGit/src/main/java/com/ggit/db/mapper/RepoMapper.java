@@ -30,4 +30,6 @@ public interface RepoMapper {
 
     int selectRepositorystarcount(String nick);
 
+    List<RepositoriesVO> selectRepoClone(int repoIdx);
+
 }
