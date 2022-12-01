@@ -116,20 +116,24 @@ public class RepositoryControlloer {
 
             return list;
         }
+        try {
+            for (int i = 0; i < files.length; i++) {
+                StorageVo file = new StorageVo();
+                if (files[i].getName().equals("README.md")) {
+                    file.setState("readme");
+                    String content = "";
+                    content = fileLeader(filePath + "/README.md", file);
+                    file.setContent(content);
+                }
+                file.setName(files[i].getName());
+                file.setDirectory(files[i].isDirectory());
+                list.add(file);
 
-        for (int i = 0; i < files.length; i++) {
-            StorageVo file = new StorageVo();
-            if (files[i].getName().equals("README.md")) {
-                file.setState("readme");
-                String content = "";
-                content = fileLeader(filePath + "/README.md", file);
-                file.setContent(content);
             }
-            file.setName(files[i].getName());
-            file.setDirectory(files[i].isDirectory());
-            list.add(file);
-
+        } catch (NullPointerException e) {
+            System.out.println("파일없음");
         }
+
         return list;
     }
 
