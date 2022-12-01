@@ -23,7 +23,7 @@
 
                           <br>
                           
-                            <div class="code_input"><input type="text" id="codeclone" class="code_input_box" :value="clone"></input>
+                            <div class="code_input"><input type="text" id="codeclone" class="code_input_box" data-autoselect :value="clone" readonly></input>
                               <button class="code_copy_btn" id="clonebutton"> 
                                 <svg aria-hidden="true" height="15" viewBox="0 0 16 16" version="1.1" width="15" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon d-inline-block">
                                     <path fill-rule="evenodd" d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"></path><path fill-rule="evenodd" d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z"></path>
@@ -152,7 +152,6 @@
 <script>
 import axios from "axios";
 import marked from "marked";
-import {const app = Vue.createApp({})}
 export default {
   data() {
     return { 
@@ -173,14 +172,7 @@ export default {
     toggleOnOff:function(){
       this.isStatusOn =!this.isStatusOn;
     },
-    copyclone(){
-      const codeclone = document.getElementById("codeclone")
-      document.getElementById("clonebutton").onclick=()=>{
-        window.navigator.clipboard.writeText(codeclone.value).then(()=>{
-          alert("복사 완료");
-        })
-      }
-    },
+   
 
     changeMD(content) {
       marked.setOptions({
@@ -244,7 +236,7 @@ export default {
           this.getFile();
           // console.log(this.star)
           // alert(this.star)
-          this.selectRepoclone();
+          
         });
     },
     selectRepositorycontributors() {
