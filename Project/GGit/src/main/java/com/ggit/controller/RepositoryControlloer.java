@@ -13,7 +13,9 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ggit.service.RepoService;
+import com.ggit.vo.RepomemVo;
 import com.ggit.vo.RepositoriesVO;
 import com.ggit.vo.StorageVo;
 
@@ -58,6 +61,16 @@ public class RepositoryControlloer {
         System.out.println("==========================");
 
     }
+//    @Transactional
+//    @PutMapping("/repoSortUpdate")
+//    public RepositoriesVO repoSortUpdate(@PathVariable int idx, @RequestBody List<RepositoriesVO> Repo){
+//         for(int i=0; i< Repo.size(); i++){
+//             RepositoriesVO.setSort(requestRepositoriesVO.getSort());
+//             RepositoriesVO.setRepo(requestRepositoriesVO.getRepo());
+
+//         }
+//    }
+    
 
     @RequestMapping("/repoIdxByNickName")
     public int repoIdxByNickName(String nick, String reponame) {
@@ -174,6 +187,13 @@ public class RepositoryControlloer {
     public int selectRepositorystarcount(String nick) {
         int Repositorystarcount = repoService.selectRepositorystarcount(nick);
         return Repositorystarcount;
+    }
+
+    @RequestMapping("selectRepoClone")
+    public List<RepositoriesVO> selectRepoClone(int repoIdx){
+        System.out.println(repoIdx);
+        List<RepositoriesVO> RepoClone = repoService.selectRepoClone(repoIdx);
+        return RepoClone;
     }
 
 }
