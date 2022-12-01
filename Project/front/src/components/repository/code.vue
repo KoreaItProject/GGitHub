@@ -152,34 +152,34 @@
 <script>
 import axios from "axios";
 import marked from "marked";
-import {const app = Vue.createApp({})}
+
 export default {
   data() {
-    return { 
+    return {
       file_list: [],
       push: [],
       contributors: [],
       star: [],
-      clone:"",
+      clone: "",
       thisURL: window.location.href.split("?")[0],
       repoIdx: 0,
       readmeContent: "",
       loading: true,
-      isStatusOn:false,
+      isStatusOn: false,
     };
   },
 
   methods: {
-    toggleOnOff:function(){
-      this.isStatusOn =!this.isStatusOn;
+    toggleOnOff: function () {
+      this.isStatusOn = !this.isStatusOn;
     },
-    copyclone(){
-      const codeclone = document.getElementById("codeclone")
-      document.getElementById("clonebutton").onclick=()=>{
-        window.navigator.clipboard.writeText(codeclone.value).then(()=>{
+    copyclone() {
+      const codeclone = document.getElementById("codeclone");
+      document.getElementById("clonebutton").onclick = () => {
+        window.navigator.clipboard.writeText(codeclone.value).then(() => {
           alert("복사 완료");
-        })
-      }
+        });
+      };
     },
 
     changeMD(content) {
@@ -288,14 +288,13 @@ export default {
             window.location.href = "/pagenotfound";
           }
           this.selectRepositorycode();
-          
+
           //
         });
     },
   },
   mounted() {
     this.repoIdxByNickName();
-    
   },
 };
 </script>

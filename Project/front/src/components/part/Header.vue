@@ -12,6 +12,7 @@
         <div class="header_tab_div">
           <a class="header_tab" @click="Logout"><span>로그아웃</span></a>
           <a class="header_tab" href="/setting/profile"><span>설정</span></a>
+          <a class="header_tab" href="/download"><span>다운로드</span></a>
           <a class="header_tab" href="/create"><span>새 저장소</span></a>
           <a class="header_tab" :href="'/' + nick + '?tab=repositories'"
             ><span>내 저장소</span></a
@@ -25,6 +26,7 @@
         <div class="header_tab_div">
           <a class="header_tab"><span>회원가입</span></a>
           <a class="header_tab" href="/login"><span>로그인</span></a>
+          <a class="header_tab" href="/download"><span>다운로드</span></a>
         </div>
       </div>
     </div>

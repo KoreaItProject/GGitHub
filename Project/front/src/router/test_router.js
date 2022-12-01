@@ -19,9 +19,13 @@ export default[
         component: () => import('@/components/test/test2')
     }
     ,{
-      path: '/download',
-      name: 'download',
+      path: '/download/ggitsource',
+      name: 'ggitsource',
       component: () => import('@/components/test/testfiledown')
+  },{
+      path: '/download',
+      name: 'ggitsource',
+      component: () => import('@/components/main/download')
   }
     ,{
       path: '/testSock',
