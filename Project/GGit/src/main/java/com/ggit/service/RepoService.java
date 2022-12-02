@@ -25,6 +25,10 @@ public class RepoService {
         return mapper.clone(clone);
     }
 
+    public int createRepo(RepoVo RepoVo) {
+        return mapper.createRepo(RepoVo);
+    }
+
     public List<RepositoriesVO> selectRepositories(String nick) {
         return mapper.selectRepositories(nick);
     }
@@ -51,10 +55,11 @@ public class RepoService {
     }
 
     public int selectRepositorystarcount(String nick) {
-       
+
         return mapper.selectRepositorystarcount(nick);
     }
-    public List<RepositoriesVO> selectRepoClone(int repoIdx){
+
+    public List<RepositoriesVO> selectRepoClone(int repoIdx) {
         return mapper.selectRepoClone(repoIdx);
     }
 }

@@ -25,5 +25,6 @@ public class RepoVo {
     int fork;
 
     String clone;
+    String description;
 
 }

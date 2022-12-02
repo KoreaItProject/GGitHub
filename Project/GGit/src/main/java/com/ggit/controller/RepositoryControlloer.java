@@ -11,6 +11,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,27 +27,67 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonParser;
 import com.ggit.service.RepoService;
+import com.ggit.service.RepomemService;
+import com.ggit.util.RandStr;
+import com.ggit.vo.RepoVo;
 import com.ggit.vo.RepomemVo;
 import com.ggit.vo.RepositoriesVO;
 import com.ggit.vo.StorageVo;
-
-
 
 @RestController
 public class RepositoryControlloer {
 
     @Autowired
     RepositoriesVO repositoriesVO;
-
     @Autowired
     RepoService repoService;
-
     @Autowired
     StorageVo storageVo;
+    @Autowired
+    RepoVo repoVo;
+    @Autowired
+    RepomemVo repomemVo;
+    @Autowired
+    RepomemService repomemService;
 
     @Value("${storage_dir}")
     String storage_dir;
+
+    @RequestMapping("/createRepo")
+    public int createRepo(@RequestBody String data) {
+        // 저장소를 만들면 푸쉬가 한번 돼야한다
+        // 저장소 만든 오너도 repomem에 넣어야한다 sort = 0
+        //
+
+        try {
+
+            JSONObject jsonObject = (JSONObject) new JSONParser().parse(data);
+
+            String repoName = (String) jsonObject.get("repoName");
+            String description = (String) jsonObject.get("description");
+            int pub = Integer.parseInt(jsonObject.get("pub") + "");
+            boolean readme = (boolean) jsonObject.get("readme");
+            int owner = Integer.parseInt(jsonObject.get("owner") + "");
+
+            repoVo.setName(repoName);
+            repoVo.setDescription(description);
+            repoVo.setPubl(pub);
+            repoVo.setOwner(owner);
+            repoVo.setClone(new RandStr(35).getResult());
+            repoService.createRepo(repoVo);
+            repomemVo.setMember(owner);
+            repomemVo.setRepo(repoVo.getIdx());
+            repomemService.join(repomemVo);
+
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            return 0;
+        }
+
+        return 1;
+    }
 
     @RequestMapping("/myRepositories")
     public List<RepositoriesVO> myRepositories(String nick) {
@@ -61,16 +104,16 @@ public class RepositoryControlloer {
         System.out.println("==========================");
 
     }
-//    @Transactional
-//    @PutMapping("/repoSortUpdate")
-//    public RepositoriesVO repoSortUpdate(@PathVariable int idx, @RequestBody List<RepositoriesVO> Repo){
-//         for(int i=0; i< Repo.size(); i++){
-//             RepositoriesVO.setSort(requestRepositoriesVO.getSort());
-//             RepositoriesVO.setRepo(requestRepositoriesVO.getRepo());
+    // @Transactional
+    // @PutMapping("/repoSortUpdate")
+    // public RepositoriesVO repoSortUpdate(@PathVariable int idx, @RequestBody
+    // List<RepositoriesVO> Repo){
+    // for(int i=0; i< Repo.size(); i++){
+    // RepositoriesVO.setSort(requestRepositoriesVO.getSort());
+    // RepositoriesVO.setRepo(requestRepositoriesVO.getRepo());
 
-//         }
-//    }
-    
+    // }
+    // }
 
     @RequestMapping("/repoIdxByNickName")
     public int repoIdxByNickName(String nick, String reponame) {
@@ -190,7 +233,7 @@ public class RepositoryControlloer {
     }
 
     @RequestMapping("selectRepoClone")
-    public List<RepositoriesVO> selectRepoClone(int repoIdx){
+    public List<RepositoriesVO> selectRepoClone(int repoIdx) {
         System.out.println(repoIdx);
         List<RepositoriesVO> RepoClone = repoService.selectRepoClone(repoIdx);
         return RepoClone;

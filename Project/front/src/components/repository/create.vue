@@ -126,6 +126,7 @@
 </template>
 <script>
 import axios from "axios";
+import store from "../../vuex/store";
 
 export default {
   data() {
@@ -138,15 +139,15 @@ export default {
   },
   methods: {
     create: function () {
-      alert(
-        this.repoName +
-          "\n" +
-          this.description +
-          "\n" +
-          this.pub +
-          "\n" +
-          this.readme
-      );
+      axios
+        .post("/api/createRepo", {
+          repoName: this.repoName,
+          description: this.description,
+          pub: this.pub,
+          readme: this.readme,
+          owner: store.getters.getUserIdx,
+        })
+        .then((response) => {});
     },
   },
 };
