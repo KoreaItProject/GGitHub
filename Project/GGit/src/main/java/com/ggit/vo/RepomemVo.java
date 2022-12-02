@@ -11,5 +11,6 @@ public class RepomemVo {
     int idx;
     int repo;
     int member;
+    int sort;
 
 }

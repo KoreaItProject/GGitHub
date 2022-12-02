@@ -32,4 +32,6 @@ public interface RepoMapper {
 
     List<RepositoriesVO> selectRepoClone(int repoIdx);
 
+    int createRepo(RepoVo repoVo);
+
 }

@@ -11,13 +11,21 @@
             member.idx as member_idx,member.nick as member_nick,member.email as member_email,
             member.pw as member_pw, member.img as member_img,member.auth as member_auth,member.date as member_date
             FROM repo,repomem,member where repomem.repo=repo.idx and repo.owner=member.idx and repomem.member=${member}; -->
+
+    <insert id="createRepo">
+        insert into repo(name,public,owner,clone) value(#{name},${publ},${owner},#{clone});
+        <selectKey keyProperty="idx" resultType="int" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+    </insert>
     <select id="selectRepositories" resultType="com.ggit.vo.RepositoriesVO">
-        SELECT repo.idx as repo_idx,repo.name as repo_name,repo.createDate as repo_crateDate
+        SELECT repo.idx as repo_idx,
+        repo.name as repo_name,repo.createDate as repo_crateDate
             ,repo.public as repo_publ,repo.owner as repo_owner,repo.fork as repo_fork,
             repomem.idx as repomem_idx,repomem.repo as repomem_repo,repomem.member as repomem_member,repomem.sort as repomem_sort,
             member.idx as member_idx,member.nick as member_nick
             FROM repo,repomem,member where repomem.repo=repo.idx and repo.owner=member.idx and repomem.member=(select idx from member where nick = #{nick})
-            ORDER BY repomem.sort DESC
+            ORDER BY repomem.sort ASC ,repo.createDate desc
     </select>
 
     <select id="repoIdxByNickName" resultType="int">
@@ -70,6 +78,7 @@
         FROM repo,member
         WHERE member.idx  = (SELECT repo.owner from repo where repo.idx=${repoIdx})and repo.idx=${repoIdx};
     </select>
+
  
     <!-- <update id="repoSortUpdate" resultType="com.ggit.vo.RepositoriesVO">
         UPDATE repomem SET sort = $

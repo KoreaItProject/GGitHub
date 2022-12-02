@@ -27,27 +27,79 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.ggit.service.PushService;
 import com.ggit.service.RepoService;
+import com.ggit.service.RepomemService;
+import com.ggit.util.RandStr;
+import com.ggit.vo.PushVo;
+import com.ggit.vo.RepoVo;
 import com.ggit.vo.RepomemVo;
 import com.ggit.vo.RepositoriesVO;
 import com.ggit.vo.StorageVo;
-
-
 
 @RestController
 public class RepositoryControlloer {
 
     @Autowired
     RepositoriesVO repositoriesVO;
-
     @Autowired
     RepoService repoService;
-
     @Autowired
     StorageVo storageVo;
+    @Autowired
+    RepoVo repoVo;
+    @Autowired
+    RepomemVo repomemVo;
+    @Autowired
+    RepomemService repomemService;
+    @Autowired
+    PushVo pushVo;
+    @Autowired
+    PushService pushService;
 
     @Value("${storage_dir}")
     String storage_dir;
+
+    @RequestMapping("/createRepo")
+    public int createRepo(@RequestBody String data) {
+        // 저장소를 만들면 푸쉬가 한번 돼야한다
+        // 저장소 만든 오너도 repomem에 넣어야한다 sort = 0
+        //
+
+        try {
+
+            JSONObject jsonObject = (JSONObject) new JSONParser().parse(data);
+
+            String repoName = (String) jsonObject.get("repoName");
+            String description = (String) jsonObject.get("description");
+            int pub = Integer.parseInt(jsonObject.get("pub") + "");
+            boolean readme = (boolean) jsonObject.get("readme");
+            int owner = Integer.parseInt(jsonObject.get("owner") + "");
+
+            repoVo.setName(repoName);
+            repoVo.setDescription(description);
+            repoVo.setPubl(pub);
+            repoVo.setOwner(owner);
+            repoVo.setClone(new RandStr(35).getResult());
+            repoService.createRepo(repoVo);// repo insert
+
+            repomemVo.setMember(owner);
+            repomemVo.setRepo(repoVo.getIdx());
+            repomemService.join(repomemVo);// repomem insert
+
+            pushVo.setToken(new RandStr(10).getResult());
+            pushVo.setMember(owner);
+            pushVo.setMessage("프로젝트 생성");
+            pushVo.setRepo(repoVo.getIdx());
+            pushService.push(pushVo);
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            return 0;
+        }
+
+        return 1;
+    }
 
     @RequestMapping("/myRepositories")
     public List<RepositoriesVO> myRepositories(String nick) {
@@ -73,7 +125,6 @@ public class RepositoryControlloer {
 
     }
 
-    
 
     @RequestMapping("/repoIdxByNickName")
     public int repoIdxByNickName(String nick, String reponame) {
@@ -193,7 +244,7 @@ public class RepositoryControlloer {
     }
 
     @RequestMapping("selectRepoClone")
-    public List<RepositoriesVO> selectRepoClone(int repoIdx){
+    public List<RepositoriesVO> selectRepoClone(int repoIdx) {
         System.out.println(repoIdx);
         List<RepositoriesVO> RepoClone = repoService.selectRepoClone(repoIdx);
         return RepoClone;

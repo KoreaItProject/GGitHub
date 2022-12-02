@@ -126,6 +126,7 @@
 </template>
 <script>
 import axios from "axios";
+import store from "../../vuex/store";
 
 export default {
   data() {
@@ -138,15 +139,26 @@ export default {
   },
   methods: {
     create: function () {
-      alert(
-        this.repoName +
-          "\n" +
-          this.description +
-          "\n" +
-          this.pub +
-          "\n" +
-          this.readme
-      );
+      if (this.repoName == "") {
+        alert("정확하게 입력해주세요");
+      } else {
+        axios
+          .post("/api/createRepo", {
+            repoName: this.repoName,
+            description: this.description,
+            pub: this.pub,
+            readme: this.readme,
+            owner: store.getters.getUserIdx,
+          })
+          .then((response) => {
+            if (response.data == 1) {
+              window.location.href =
+                "/" + store.getters.getUserNick + "/" + this.repoName;
+            } else if (response.data == 0) {
+              alert("정확하게 입력해주세요");
+            }
+          });
+      }
     },
   },
 };

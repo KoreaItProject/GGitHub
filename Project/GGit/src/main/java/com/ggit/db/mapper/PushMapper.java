@@ -10,6 +10,6 @@ import com.ggit.vo.PushVo;
 @Repository
 @Mapper
 public interface PushMapper {
-    
-    List<PushVo> push();
+
+    void push(PushVo pushVo);
 }

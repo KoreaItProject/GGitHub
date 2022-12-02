@@ -11,5 +11,7 @@ import com.ggit.vo.RepomemVo;
 @Mapper
 public interface RepomemMapper {
     List<RepomemVo> repomem();
-    
+
+    void join(RepomemVo repomemVo);
+
 }
