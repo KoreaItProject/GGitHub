@@ -11,6 +11,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,22 +57,22 @@ public class RepositoryControlloer {
     }
 
     @RequestMapping("/repoSort")
-    public void repoSort(@RequestBody List<RepositoriesVO> Repo) {
-        for (int i = 0; i < Repo.size(); i++) {
-            System.out.println("sort = " + i + " repo = " + Repo.get(i).getRepo_idx());
-        }
-        System.out.println("==========================");
+    public void repoSort( @RequestBody Map<String,String> map) {
+
+        // int owner = Integer.parseInt(map.get("owner")+"");
+        // System.out.println(owner);
+        // System.out.println((map.get("Repo")));
+ 
+    
+        // //  for (int i = 0; i < Repo.size(); i++) {
+        // //      System.out.println("sort = " + i + " repo = " + Repo.get(i).getRepo_idx());
+            
+            
+        // //  }
+        // System.out.println("==========================");
 
     }
-//    @Transactional
-//    @PutMapping("/repoSortUpdate")
-//    public RepositoriesVO repoSortUpdate(@PathVariable int idx, @RequestBody List<RepositoriesVO> Repo){
-//         for(int i=0; i< Repo.size(); i++){
-//             RepositoriesVO.setSort(requestRepositoriesVO.getSort());
-//             RepositoriesVO.setRepo(requestRepositoriesVO.getRepo());
 
-//         }
-//    }
     
 
     @RequestMapping("/repoIdxByNickName")

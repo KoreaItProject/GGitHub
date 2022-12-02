@@ -59,6 +59,7 @@
 <script>
 import axios from "axios";
 import draggable from "vuedraggable";
+import store from "../../vuex/store";
 export default {
   data() {
     return {
@@ -86,7 +87,7 @@ export default {
       console.log(this.dragging);
 
       axios
-        .post("/api/repoSort", this.Repo)
+        .post("/api/repoSort",{owner:store.getters.getUserIdx,Repo: this.Repo})
         .then((response) => {
           // handle success
         })
