@@ -17,8 +17,8 @@
         </div>
         
           <div class="repo_list">
-                <draggable  v-model="Repo" @change ="checkMove"   ghost-class="ghost" handle=".handle"  class="list-group"  tag="ul"     v-bind="dragOptions"    @start="drag = true"    @end="drag = false">             
-                  <li class="repo_li" v-for='data in Repo' >
+                <draggable  v-model="repo" @change ="checkMove"   ghost-class="ghost" handle=".handle"  class="list-group"  tag="ul"     v-bind="dragOptions"    @start="drag = true"    @end="drag = false">             
+                  <li class="repo_li" v-for='data in repo' >
                     <a :href="data.member_nick + '/' + data.repo_name" > 
                       <div class="repo_info">
                           <div class="repo_name_div" >
@@ -63,7 +63,7 @@ import store from "../../vuex/store";
 export default {
   data() {
     return {
-      Repo: [],
+      repo: {},
       enabled: true,
       dragging: false,
     };
@@ -81,13 +81,32 @@ export default {
       };
     },
   },
+  // methods: {
+  //   checkMove: function (e) {
+  //     console.log(this.repo);
+  //     console.log(this.dragging);
+
+  //     axios
+  //       .post("/api/repoSort",{owner:store.getters.getUserIdx,repo: this.repo})
+  //       .then((response) => {
+  //         // handle success
+  //       })
+  //       .catch((error) => {
+  //         // handle error
+  //         console.log(error);
+  //       })
+  //       .finally(() => {
+  //         // always executed
+  //       });
+  //   },
+  // },
   methods: {
     checkMove: function (e) {
-      console.log(this.Repo);
-      console.log(this.dragging);
-
       axios
-        .post("/api/repoSort",{owner:store.getters.getUserIdx,Repo: this.Repo})
+        .post("/api/repoSort", {
+          repo: this.repo,
+          idx: store.getters.getUserIdx,
+        })
         .then((response) => {
           // handle success
         })
@@ -100,6 +119,7 @@ export default {
         });
     },
   },
+
   mounted() {
     axios
       .get("/api/myRepositories", {
@@ -109,8 +129,8 @@ export default {
       })
       .then((response) => {
         // handle success
-        this.Repo = response.data;
-        console.log(this.Repo);
+        this.repo = response.data;
+        console.log(this.repo);
       })
       .catch((error) => {
         // handle error

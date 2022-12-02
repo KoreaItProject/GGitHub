@@ -79,10 +79,5 @@
         WHERE member.idx  = (SELECT repo.owner from repo where repo.idx=${repoIdx})and repo.idx=${repoIdx};
     </select>
 
- 
-    <!-- <update id="repoSortUpdate" resultType="com.ggit.vo.RepositoriesVO">
-        UPDATE repomem SET sort = $
-
-    </update> -->
 
 </mapper>

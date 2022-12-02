@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import com.ggit.vo.RepoVo;
 import com.ggit.vo.RepomemVo;
 
 @Repository
@@ -14,4 +15,5 @@ public interface RepomemMapper {
 
     void join(RepomemVo repomemVo);
 
+    void repoSortUpdate(RepomemVo repoVo);
 }

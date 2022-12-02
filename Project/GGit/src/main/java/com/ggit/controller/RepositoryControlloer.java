@@ -108,23 +108,37 @@ public class RepositoryControlloer {
         return repositories;
     }
 
-    @RequestMapping("/repoSort")
-    public void repoSort( @RequestBody Map<String,String> map) {
+    // @RequestMapping("/repoSort")
+    // public void repoSort( @RequestBody Map<String,String> map) {
 
-        // int owner = Integer.parseInt(map.get("owner")+"");
-        // System.out.println(owner);
-        // System.out.println((map.get("Repo")));
- 
-    
-        // //  for (int i = 0; i < Repo.size(); i++) {
-        // //      System.out.println("sort = " + i + " repo = " + Repo.get(i).getRepo_idx());
-            
-            
-        // //  }
-        // System.out.println("==========================");
+    // int owner = Integer.parseInt(map.get("owner")+"");
+    // System.out.println(owner);
+    // System.out.println((map.get("Repo")));
+
+    // for (int i = 0; i < Repo.size(); i++) {
+    // System.out.println("sort = " + i + " repo = " + Repo.get(i).getRepo_idx());
+
+    // }
+    // System.out.println("==========================");
+
+    // }
+
+    @RequestMapping("/repoSort")
+    public void repoSort(@RequestBody SortData sortData) {// https://wakestand.tistory.com/787 269번 줄
+
+        List<RepositoriesVO> list = sortData.getRepo();
+        int idx = sortData.getIdx();
+
+        for (int i = 0; i < list.size(); i++) {
+
+            repomemVo.setMember(idx);
+            repomemVo.setSort(i);
+            repomemVo.setRepo(list.get(i).getRepo_idx());
+            repomemService.repoSortUpdate(repomemVo);
+
+        }
 
     }
-
 
     @RequestMapping("/repoIdxByNickName")
     public int repoIdxByNickName(String nick, String reponame) {
@@ -250,4 +264,17 @@ public class RepositoryControlloer {
         return RepoClone;
     }
 
+}
+
+class SortData {
+    private int idx;
+    private List<RepositoriesVO> repo;
+
+    public int getIdx() {
+        return idx;
+    }
+
+    public List<RepositoriesVO> getRepo() {
+        return repo;
+    }
 }
