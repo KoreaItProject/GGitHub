@@ -28,9 +28,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonParser;
+import com.ggit.service.PushService;
 import com.ggit.service.RepoService;
 import com.ggit.service.RepomemService;
 import com.ggit.util.RandStr;
+import com.ggit.vo.PushVo;
 import com.ggit.vo.RepoVo;
 import com.ggit.vo.RepomemVo;
 import com.ggit.vo.RepositoriesVO;
@@ -51,6 +53,10 @@ public class RepositoryControlloer {
     RepomemVo repomemVo;
     @Autowired
     RepomemService repomemService;
+    @Autowired
+    PushVo pushVo;
+    @Autowired
+    PushService pushService;
 
     @Value("${storage_dir}")
     String storage_dir;
@@ -76,11 +82,17 @@ public class RepositoryControlloer {
             repoVo.setPubl(pub);
             repoVo.setOwner(owner);
             repoVo.setClone(new RandStr(35).getResult());
-            repoService.createRepo(repoVo);
+            repoService.createRepo(repoVo);// repo insert
+
             repomemVo.setMember(owner);
             repomemVo.setRepo(repoVo.getIdx());
-            repomemService.join(repomemVo);
+            repomemService.join(repomemVo);// repomem insert
 
+            pushVo.setToken(new RandStr(10).getResult());
+            pushVo.setMember(owner);
+            pushVo.setMessage("프로젝트 생성");
+            pushVo.setRepo(repoVo.getIdx());
+            pushService.push(pushVo);
         } catch (ParseException e) {
             // TODO Auto-generated catch block
             return 0;

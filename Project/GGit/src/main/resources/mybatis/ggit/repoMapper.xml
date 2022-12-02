@@ -25,7 +25,7 @@
             repomem.idx as repomem_idx,repomem.repo as repomem_repo,repomem.member as repomem_member,repomem.sort as repomem_sort,
             member.idx as member_idx,member.nick as member_nick
             FROM repo,repomem,member where repomem.repo=repo.idx and repo.owner=member.idx and repomem.member=(select idx from member where nick = #{nick})
-            ORDER BY repomem.sort ASC
+            ORDER BY repomem.sort ASC ,repo.createDate desc
     </select>
 
     <select id="repoIdxByNickName" resultType="int">

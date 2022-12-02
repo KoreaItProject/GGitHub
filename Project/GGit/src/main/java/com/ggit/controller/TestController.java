@@ -93,14 +93,6 @@ public class TestController {
         return pullreqList;
     }
 
-    @RequestMapping(value = "/push")
-    public List<PushVo> push() throws Exception {
-
-        List<PushVo> pushList = pushService.push();
-
-        return pushList;
-    }
-
     @RequestMapping(value = "/repomem")
     public List<RepomemVo> repomem() throws Exception {
 
