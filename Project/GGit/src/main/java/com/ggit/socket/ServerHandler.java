@@ -111,6 +111,7 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 					InfoDTO infoDTO = new InfoDTO();
 					infoDTO.setCommand(Info.PULLRESULT);
 					writer.writeObject(infoDTO);
+					writer.flush();
 					fileSend(writer);
 
 				} else if (dto.getCommand() == Info.PUSH) {
@@ -132,7 +133,7 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 
 		File path = new File("C:/gitdata/GGitHub/Project/GGit/STORAGE/repositorys/1/asda231/");
 		String dirName = path.listFiles()[0].getName();
-		String zip = path.getPath() + "/" + dirName + ".zip";
+		String zip = path.getPath() + "\\" + dirName + ".zip";
 		System.out.println(path.getPath() + "/" + dirName);
 		ZipUtil.pack(new File(path.getPath() + "/" + dirName), new File(zip));
 		FileInputStream fis;
@@ -154,7 +155,7 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 			int i = 0;
 			byte[] Object = new byte[size];
 			while ((len = bis.read(Object)) > 0) {
-				System.out.println(++i);
+
 				dos.write(Object, 0, len);
 			}
 
@@ -163,7 +164,10 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 			dos.flush();
 			fis.close();
 			bis.close();
-			dos.close();
+			InfoDTO infoDTO = new InfoDTO();
+			infoDTO.setCommand(Info.FILEEND);
+			dos.writeObject(infoDTO);
+			dos.flush();
 
 		} catch (IOException e) {
 			e.printStackTrace();

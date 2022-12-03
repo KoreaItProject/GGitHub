@@ -66,6 +66,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
         String serverIp = "localhost";
         Socket socket = null;
         try {
+
             socket = new Socket(serverIp, 4445);
             socket.setSoTimeout(0);
             writer = new ObjectOutputStream(socket.getOutputStream());
@@ -304,8 +305,10 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                     System.out.println("pullresult");
                     String result = fileWrite(reader);
 
-                }
+                } else if (infoDTO.getCommand() == Info.FILEEND) {
+                    System.out.println("end");
 
+                }
             }
 
             // }
@@ -334,11 +337,11 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
 
             // 바이트 데이터를 전송받으면서 기록
             int len = 0;
-            int size = 1024;
+            int size = 4096;
             byte[] Object = new byte[size];
             int i = 0;
-            while ((len = dis.read(Object)) > 0) {
-                System.out.println(++i);
+            while ((len = dis.read(Object)) > -1) {
+
                 bos.write(Object, 0, len);
             }
             System.out.println(len);
@@ -347,8 +350,13 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             System.out.println(1);
             System.out.println("파일 수신 작업을 완료하였습니다.");
             System.out.println("받은 파일의 사이즈 : " + file.length());
-            fos.close();
-            bos.close();
+            System.out.println(clientPath + "\\" + fileNm + ".zip");
+            try {
+                fos.close();
+                bos.close();
+            } catch (Exception e1) {
+
+            }
 
         } catch (IOException e) {
             e.printStackTrace();

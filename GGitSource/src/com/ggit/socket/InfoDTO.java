@@ -11,7 +11,8 @@ public class InfoDTO implements Serializable {
     PUSH,
     PULL, PULLRESULT,
     LOGIN, LOGINRESULT,
-    CLONE, CLONERESULT
+    CLONE, CLONERESULT,
+    FILEEND
 
   }
 
