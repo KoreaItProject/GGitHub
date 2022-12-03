@@ -111,7 +111,6 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 					InfoDTO infoDTO = new InfoDTO();
 					infoDTO.setCommand(Info.PULLRESULT);
 					writer.writeObject(infoDTO);
-					writer.flush();
 					fileSend(writer);
 
 				} else if (dto.getCommand() == Info.PUSH) {
@@ -131,27 +130,23 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 
 	private void fileSend(ObjectOutputStream dos) {
 
-		File path = new File("C:/gitdata/GGitHub/Project/GGit/STORAGE/repositorys/1/asda231/");
-		String dirName = path.listFiles()[0].getName();
-		String zip = path.getPath() + "\\" + dirName + ".zip";
-		System.out.println(path.getPath() + "/" + dirName);
-		ZipUtil.pack(new File(path.getPath() + "/" + dirName), new File(zip));
+		File path = new File("C:/gitdata/GGitHub/Project/GGit/STORAGE/repositorys/1/djs234dao22");
+		ZipUtil.pack(path, new File(path.getPath() + ".zip"));
 		FileInputStream fis;
 		BufferedInputStream bis;
 
 		try {
 
-			dos.writeUTF(dirName + ".zip");
-			/* test */System.out.println("파일 이름(" + dirName + ".zip" + ")을 전송하였습니다.");
+			dos.writeUTF("file.zip");
 
 			// 파일을 읽어서 서버에 전송
 
-			File file = new File(zip);
+			File file = new File(path.getPath() + ".zip");
 			fis = new FileInputStream(file);
 			bis = new BufferedInputStream(fis);
 
 			int len;
-			int size = 1024;
+			int size = 100000;
 			int i = 0;
 			byte[] Object = new byte[size];
 			while ((len = bis.read(Object)) > 0) {
@@ -168,6 +163,8 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 			infoDTO.setCommand(Info.FILEEND);
 			dos.writeObject(infoDTO);
 			dos.flush();
+
+			// file.delete();
 
 		} catch (IOException e) {
 			e.printStackTrace();

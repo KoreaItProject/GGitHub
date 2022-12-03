@@ -63,6 +63,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     String token;
 
     public GGitSource() {
+
         String serverIp = "localhost";
         Socket socket = null;
         try {
@@ -277,6 +278,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
         try {
             while (running) {
                 infoDTO = (InfoDTO) reader.readObject();
+
                 // if (infoDTO.getUser() != null && infoDTO.getUser().equals(member)) {
 
                 if (infoDTO.getCommand() == Info.LOGINRESULT) {
@@ -303,7 +305,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
 
                 } else if (infoDTO.getCommand() == Info.PULLRESULT) {
                     System.out.println("pullresult");
-                    String result = fileWrite(reader);
+                    String result = fileWrite();
 
                 } else if (infoDTO.getCommand() == Info.FILEEND) {
                     System.out.println("end");
@@ -318,15 +320,16 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
 
     }
 
-    private String fileWrite(ObjectInputStream dis) {
+    private String fileWrite() {
         String result = "";
         FileOutputStream fos = null;
         BufferedOutputStream bos = null;
+
         try {
+            String fileNm = reader.readUTF();
             System.out.println("파일 수신 작업을 시작합니다.");
 
             // 파일명을 전송 받고 파일명 수정
-            String fileNm = dis.readUTF();
             System.out.println("파일명 " + fileNm + "을 전송받았습니다.");
 
             // 파일을 생성하고 파일에 대한 출력 스트림 생성
@@ -337,12 +340,13 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
 
             // 바이트 데이터를 전송받으면서 기록
             int len = 0;
-            int size = 4096;
+            int size = 100000;
             byte[] Object = new byte[size];
             int i = 0;
-            while ((len = dis.read(Object)) > -1) {
+            while ((len = reader.read(Object)) > 0) {
 
                 bos.write(Object, 0, len);
+
             }
             System.out.println(len);
             result = "SUCCESS";
@@ -350,15 +354,20 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             System.out.println(1);
             System.out.println("파일 수신 작업을 완료하였습니다.");
             System.out.println("받은 파일의 사이즈 : " + file.length());
-            System.out.println(clientPath + "\\" + fileNm + ".zip");
+            System.out.println(clientPath + "\\" + fileNm);
+            new UnzipFile(clientPath, fileNm);
+
             try {
                 fos.close();
                 bos.close();
+
             } catch (Exception e1) {
 
             }
 
-        } catch (IOException e) {
+        } catch (
+
+        IOException e) {
             e.printStackTrace();
 
         } finally {
