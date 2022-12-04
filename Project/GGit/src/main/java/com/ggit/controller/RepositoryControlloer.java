@@ -183,7 +183,7 @@ public class RepositoryControlloer {
         if (path == null) {
             path = "";
         }
-        String filePath = storage_dir + "/repositorys/" + repoIdx + "/" + token + "/data/" + path;
+        String filePath = storage_dir + "repositorys/" + repoIdx + "/" + token + "/data/" + path;
         List list = new ArrayList<StorageVo>();
         File folder = new File(filePath);
         File files[] = folder.listFiles();

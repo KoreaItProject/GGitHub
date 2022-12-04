@@ -19,7 +19,7 @@
           <div class="repo_list">
                 <draggable  v-model="repo" @change ="checkMove"   ghost-class="ghost" handle=".handle"  class="list-group"  tag="ul"     v-bind="dragOptions"    @start="drag = true"    @end="drag = false">             
                   <li class="repo_li" v-for='data in repo' >
-                    <a :href="data.member_nick + '/' + data.repo_name" > 
+                    <a :href="'/'+data.member_nick + '/' + data.repo_name" > 
                       <div class="repo_info">
                           <div class="repo_name_div" >
         

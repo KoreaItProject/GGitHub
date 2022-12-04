@@ -216,7 +216,7 @@ export default {
         .get("/api/getFile", {
           params: {
             repoIdx: this.repoIdx,
-            token: "asda231",
+            token: this.push.push_token,
             path: this.$route.params.path,
           },
         })
@@ -294,9 +294,7 @@ export default {
         })
         .then((response) => {
           this.repoIdx = response.data;
-          if (this.repoIdx == 0) {
-            window.location.href = "/pagenotfound";
-          }
+
           this.selectRepositorycode();
 
           this.selectRepoClone();
