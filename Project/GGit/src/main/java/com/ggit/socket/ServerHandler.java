@@ -130,14 +130,14 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 
 	private void fileSend(ObjectOutputStream dos) {
 
-		File path = new File("C:/gitdata/GGitHub/Project/GGit/STORAGE/repositorys/1/djs234dao22");
+		File path = new File("C:/gitdata/GGitHub/Project/GGit/STORAGE/repositorys/2/kv87gi9kq");
 		ZipUtil.pack(path, new File(path.getPath() + ".zip"));
 		FileInputStream fis;
 		BufferedInputStream bis;
 
 		try {
 
-			dos.writeUTF("file.zip");
+			dos.writeUTF("projectName");
 
 			// 파일을 읽어서 서버에 전송
 
@@ -156,15 +156,16 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 
 			System.out.println(len);
 			// 서버에 전송
-			dos.flush();
+
 			fis.close();
 			bis.close();
+			dos.flush();
 			InfoDTO infoDTO = new InfoDTO();
 			infoDTO.setCommand(Info.FILEEND);
 			dos.writeObject(infoDTO);
 			dos.flush();
 
-			// file.delete();
+			file.delete();
 
 		} catch (IOException e) {
 			e.printStackTrace();

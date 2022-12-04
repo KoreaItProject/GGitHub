@@ -221,7 +221,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
         if (e.getSource() == pushBtn) {
 
         } else if (e.getSource() == pullBtn) {
-
+            pull();
         } else if (e.getSource() == logolbl) {
             try {
                 Desktop.getDesktop().browse(new URI("http://localhost/"));
@@ -326,17 +326,16 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
         BufferedOutputStream bos = null;
 
         try {
-            String fileNm = reader.readUTF();
+            String projectName = reader.readUTF();
             System.out.println("파일 수신 작업을 시작합니다.");
 
             // 파일명을 전송 받고 파일명 수정
-            System.out.println("파일명 " + fileNm + "을 전송받았습니다.");
-
+            System.out.println("파일명 " + projectName + "을 전송받았습니다.");
             // 파일을 생성하고 파일에 대한 출력 스트림 생성
-            File file = new File(clientPath + "/" + fileNm);
+            File file = new File(clientPath + "/.ggit/.repo/file.zip");
             fos = new FileOutputStream(file);
             bos = new BufferedOutputStream(fos);
-            System.out.println(fileNm + "파일을 생성하였습니다.");
+            System.out.println("file.zip을 생성하였습니다.");
 
             // 바이트 데이터를 전송받으면서 기록
             int len = 0;
@@ -354,9 +353,11 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             System.out.println(1);
             System.out.println("파일 수신 작업을 완료하였습니다.");
             System.out.println("받은 파일의 사이즈 : " + file.length());
-            System.out.println(clientPath + "\\" + fileNm);
-            new UnzipFile(clientPath, fileNm);
-
+            System.out.println(clientPath + "/file.zip");
+            new UnzipFile(clientPath, "file.zip");
+            new File(clientPath + "/" + projectName + "/").mkdir();
+            new CopyFile().copy(new File(clientPath + "/.ggit/.repo/file/data/"),
+                    new File(clientPath + "/" + projectName + "/"));
             try {
                 fos.close();
                 bos.close();
@@ -382,6 +383,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             // 1. 파일 객체 생성
             File dir = new File(clientPath + "/.ggit/user/");
             dir.mkdirs();
+            new File(clientPath + "/.ggit/.repo/").mkdir();
             File file = new File(clientPath + "/.ggit/user/info.gt");
             System.out.println(file.getPath());
             file.createNewFile();

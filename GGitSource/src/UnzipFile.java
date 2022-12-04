@@ -8,8 +8,8 @@ import java.util.zip.ZipInputStream;
 public class UnzipFile {// https://mindols.tistory.com/260
     UnzipFile(String path, String filename) {
         try {
-            String fileZip = path + "/" + filename;
-            File destDir = new File(path + "/" + filename.replace(".zip", ""));
+            String fileZip = path + "/.ggit/.repo/" + filename;
+            File destDir = new File(path + "/.ggit/.repo/" + filename.replace(".zip", ""));
             System.out.println(path + "/" + filename);
             byte[] buffer = new byte[1024];
             ZipInputStream zis = new ZipInputStream(new FileInputStream(fileZip));
@@ -40,12 +40,10 @@ public class UnzipFile {// https://mindols.tistory.com/260
             }
             zis.closeEntry();
             zis.close();
-            File f = new File(fileZip);
-            f.delete();
-
         } catch (
 
         Exception e) {
+            e.fillInStackTrace();
 
         }
 
