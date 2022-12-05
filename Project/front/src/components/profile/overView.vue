@@ -34,7 +34,18 @@
         ></div>
       </div>
       <div class="overView_contribution_div" :style="cssVariable">
-        <calendar-heatmap :values="[{ date: '2022-9-22', count: 3 },{date: '2022-1-11', count: 6}]" :end-date="Date()"></calendar-heatmap>
+        <calendar-heatmap :values="[{ date: '2022-1-10', count: 1 },{date: '2022-1-11', count: 1},{ date: '2022-1-12', count: 6 }]" 
+                          :end-date="Date()"
+                          :max="5"
+                          :range-color="[
+                          '#ebedf0',
+                          '#9be9a8',
+                          '#40c463',
+                          '#30a14e',
+                          '#216e39'
+                          ]"
+                          >
+        </calendar-heatmap>
       </div>
     </div>
   </div>
