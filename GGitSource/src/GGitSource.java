@@ -9,10 +9,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.event.MouseInputListener;
 
-import org.zeroturnaround.zip.ZipUtil;
-
 import com.ggit.socket.InfoDTO;
 import com.ggit.socket.InfoDTO.Info;
+
+import javafx.scene.paint.Stop;
+import zipUtill.UnzipFile;
+import zipUtill.ZipFile;
 
 import java.awt.*;
 
@@ -207,6 +209,9 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
 
             if (info.isFile()) {
                 InfoLeader infoLeader = new InfoLeader(info.getPath());
+                this.repo = infoLeader.getRepo();
+                this.memberIdx = infoLeader.getMemberIdx();
+                this.token = infoLeader.getToken();
                 this.hasLogin = true;
 
             } else {
@@ -282,23 +287,42 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     }
 
     public void push() {// push
+
+        try {
+            InfoDTO dto = new InfoDTO();
+            dto.setCommand(Info.PUSH);
+            dto.setIdx(repo);// 레포인덱스
+            System.out.println(repo);
+            dto.setId(memberIdx + "");// 로그인된 회원 인덱스
+            dto.setMessage("");// commit시 메시지
+            dto.setLastToken(token);// 이전토큰 어떤걸 가져와서 push 한건지
+            String newToken = new RandStr(10).getResult();
+            dto.setToken(newToken);// 새로운 토큰 이 push에 대한 토큰
+
+            writer.writeObject(dto);
+            writer.flush();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        new ZipFile(clientPath + "/.ggit/.repo/file/", clientPath + "/.ggit/.repo/file.zip");
         fileSend();
     }
 
     private void fileSend() {
 
-        File path = new File("C:/gitdata/GGitHub/Project/GGit/STORAGE/repositorys/2/kv87gi9kq");
-        ZipUtil.pack(path, new File(path.getPath() + ".zip"));
+        File path = new File(clientPath + "/.ggit/.repo/file.zip");
+
         FileInputStream fis;
         BufferedInputStream bis;
 
         try {
 
-            writer.writeUTF("projectName");
+            writer.writeUTF("file");
 
             // 파일을 읽어서 서버에 전송
 
-            File file = new File(path.getPath() + ".zip");
+            File file = new File(path.getPath());
             fis = new FileInputStream(file);
             bis = new BufferedInputStream(fis);
 
@@ -321,8 +345,6 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             infoDTO.setCommand(Info.FILEEND);
             writer.writeObject(infoDTO);
             writer.flush();
-
-            file.delete();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -373,7 +395,9 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
 
             // }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("run 오류");
+            running = false;
+
         }
 
     }
@@ -417,8 +441,8 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             new CopyFile().copy(new File(clientPath + "/.ggit/.repo/file/data/"),
                     new File(clientPath + "/" + projectName + "/"));
             try {
-                fos.close();
                 bos.close();
+                fos.close();
 
             } catch (Exception e1) {
 
