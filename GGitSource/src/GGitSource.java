@@ -1,41 +1,40 @@
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
+
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
+
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.event.MouseInputListener;
 
+import org.zeroturnaround.zip.ZipUtil;
+
 import com.ggit.socket.InfoDTO;
 import com.ggit.socket.InfoDTO.Info;
 
-import javafx.scene.paint.Stop;
 import zipUtill.UnzipFile;
-import zipUtill.ZipFile;
 
 import java.awt.*;
 
 import java.awt.event.*;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
+
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.URI;
-import java.net.URISyntaxException;
+
 import java.net.UnknownHostException;
-import java.util.Random;
 
 public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     // pull
@@ -305,7 +304,9 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        new ZipFile(clientPath + "/.ggit/.repo/file/", clientPath + "/.ggit/.repo/file.zip");
+        File zip = new File(clientPath + "/.ggit/.repo/file/");
+        ZipUtil.pack(zip, new File(clientPath + "/.ggit/.repo/file.zip"));
+        zip.delete();
         fileSend();
     }
 

@@ -226,7 +226,7 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 			fos.close();
 			File zip = new File(writePath + token + ".zip");
 			ZipUtil.unpack(zip, new File(zip.getPath().replace(".zip", "")));
-			// zip.delete();
+			zip.delete();
 
 		} catch (Exception e1) {
 			e1.printStackTrace();
