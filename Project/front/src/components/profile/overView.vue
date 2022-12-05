@@ -33,7 +33,9 @@
           v-bind:key="pin"
         ></div>
       </div>
-      <div class="overView_contribution_div" :style="cssVariable"></div>
+      <div class="overView_contribution_div" :style="cssVariable">
+        <calendar-heatmap :values="[{ date: '2022-9-22', count: 3 },{date: '2022-1-11', count: 6}]" :end-date="Date()"></calendar-heatmap>
+      </div>
     </div>
   </div>
 </template>
@@ -41,8 +43,18 @@
 <script>
 import axios from "axios";
 import marked from "marked";
+
 export default {
+  props: ['entries', 'colorRange', 'tooltipEnabled', 'tooltipUnit', 'locale', 'max', 'onClick', 'selector'],
   name: "ShowMdPage",
+  mounted() {
+    // this.renderHeatMap()
+  },
+  watch: {
+    entries() {
+      // this.renderHeatMap()
+    }
+  }, 
   data() {
     return {
       mdText:
@@ -77,7 +89,7 @@ export default {
       changedText = changedText.replaceAll("&gt;", ">");
       changedText = changedText.replaceAll("&quot;", '"');
       return changedText;
-    }
+    },
   }
 };
 </script>
