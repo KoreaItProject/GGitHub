@@ -12,11 +12,11 @@
             </svg>
             New</button>
             </a>
-            <input type ="search" class = "repo_search" placeholder="저장소 검색"></input>
+            <input type ="search" class = "repo_search" placeholder="저장소 검색" v-model="searchStr" v-on:keyup.enter="search"></input>
             
         </div>
         
-          <div class="repo_list">
+          <div class="repo_list" id ="repo_list">
                 <draggable  v-model="repo" @change ="checkMove"   ghost-class="ghost" handle=".handle"  class="list-group"  tag="ul"     v-bind="dragOptions"    @start="drag = true"    @end="drag = false">             
                   <li class="repo_li" v-for='data in repo' >
                     <a :href="'/'+data.member_nick + '/' + data.repo_name" > 
@@ -78,6 +78,7 @@ export default {
         group: "description",
         disabled: false,
         ghostClass: "ghost",
+        searchStr: "",
       };
     },
   },
@@ -117,6 +118,23 @@ export default {
         .finally(() => {
           // always executed
         });
+    },
+
+    search: function () {
+      var str = this.searchStr;
+
+      var strFound;
+      // NAVIGATOR-SPECIFIC CODE
+
+      strFound = window.find(str);
+
+      if (!strFound) {
+        strFound = window.find(str, 0, 1);
+
+        while (window.find(str, 0, 1)) continue;
+      }
+
+      // EXPLORER-SPECIFIC CODE
     },
   },
 
