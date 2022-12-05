@@ -34,8 +34,9 @@
         ></div>
       </div>
       <div class="overView_contribution_div" :style="cssVariable">
-        <calendar-heatmap :values="[{ date: '2022-1-10', count: 1 },{date: '2022-1-11', count: 1},{ date: '2022-1-12', count: 6 }]" 
+        <calendar-heatmap :values="this.contribution_data" 
                           :end-date="Date()"
+                          tooltip-unit="stars"
                           :max="5"
                           :range-color="[
                           '#ebedf0',
@@ -44,6 +45,7 @@
                           '#30a14e',
                           '#216e39'
                           ]"
+                          
                           >
         </calendar-heatmap>
       </div>
@@ -59,20 +61,36 @@ export default {
   props: ['entries', 'colorRange', 'tooltipEnabled', 'tooltipUnit', 'locale', 'max', 'onClick', 'selector'],
   name: "ShowMdPage",
   mounted() {
-    // this.renderHeatMap()
+    this.getPushData()
   },
   watch: {
-    entries() {
-      // this.renderHeatMap()
-    }
+    
   }, 
   data() {
     return {
       mdText:
         "[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=ymiru0324&layout=compact&&theme=dark&&&langs_count=6)](https://github.com/ymiru0324)",
       pins: ["", "", "", ""],
-      contribution_top: "0px"
+      contribution_top: "0px",
+      contribution_data:[{ date: '2022-01-10', count: 1 },
+                         { date: '2022-01-11', count: 1 },
+                         { date: '2022-01-12', count: 2 },
+                         { date: '2022-01-13', count: 2 },
+                         { date: '2022-01-14', count: 5 },
+                         { date: '2022-01-15', count: 2 },
+                         { date: '2022-01-16', count: 3 },
+                         { date: '2022-01-17', count: 2 },
+                         { date: '2022-01-18', count: 2 },
+                         { date: '2022-01-19', count: 1 },
+                         { date: '2022-01-20', count: 2 },
+                         { date: '2022-01-21', count: 4 },
+                         { date: '2022-01-22', count: 2 },
+                         { date: '2022-01-23', count: 4 },
+                         { date: '2022-01-24', count: 5 }]
     };
+  },
+  methods: {
+
   },
   computed: {
     cssVariable() {
