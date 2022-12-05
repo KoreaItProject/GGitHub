@@ -10,11 +10,12 @@ import com.ggit.vo.PushVo;
 
 @Service
 public class PushService {
-    
+
     @Autowired
     public PushMapper mapper;
 
-    public List<PushVo> push(){
-        return mapper.push();
+    public void push(PushVo pushVo) {
+        mapper.push(pushVo);
     }
+
 }

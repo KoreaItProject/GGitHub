@@ -41,11 +41,13 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 	RepoService repoService;
 	MemberVo memberVo;
 	RepositoriesVO repoVo;
+	String storage;
 
 	// 생성자
-	public ServerHandler(Socket socket, List<ServerHandler> list, MemberService memberService, RepoService repoService)
+	public ServerHandler(Socket socket, List<ServerHandler> list, MemberService memberService, RepoService repoService,
+			String storage)
 			throws IOException {
-
+		this.storage = storage;
 		this.socket = socket;
 		this.list = list;
 		writer = new ObjectOutputStream(socket.getOutputStream());
@@ -114,56 +116,63 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 					fileSend(writer);
 
 				} else if (dto.getCommand() == Info.PUSH) {
+					String writePath = storage + "repositorys/" + dto.getIdx() + "/";
+					System.out.println(writePath);
+					File file = new File(writePath);
+					file.mkdir();
 
-					String result = fileWrite(reader);
+					String result = fileWrite(writePath, dto.getToken());
+
+				} else if (dto.getCommand() == Info.FILEEND) {
+					System.out.println("end");
 				}
 			} // while
 
-		} catch (IOException e) {
+		} catch (Exception e) {
 			list.remove(this);
 			this.stop();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		}
 
 	}
 
 	private void fileSend(ObjectOutputStream dos) {
 
-		File path = new File("C:/gitdata/GGitHub/Project/GGit/STORAGE/repositorys/1/asda231/");
-		String dirName = path.listFiles()[0].getName();
-		String zip = path.getPath() + "/" + dirName + ".zip";
-		System.out.println(path.getPath() + "/" + dirName);
-		ZipUtil.pack(new File(path.getPath() + "/" + dirName), new File(zip));
+		File path = new File(storage + "repositorys/2/kv87gi9kq");
+		ZipUtil.pack(path, new File(path.getPath() + ".zip"));
 		FileInputStream fis;
 		BufferedInputStream bis;
 
 		try {
 
-			dos.writeUTF(dirName + ".zip");
-			/* test */System.out.println("파일 이름(" + dirName + ".zip" + ")을 전송하였습니다.");
+			dos.writeUTF("projectName");
 
 			// 파일을 읽어서 서버에 전송
 
-			File file = new File(zip);
+			File file = new File(path.getPath() + ".zip");
 			fis = new FileInputStream(file);
 			bis = new BufferedInputStream(fis);
 
 			int len;
-			int size = 1024;
+			int size = 100000;
 			int i = 0;
 			byte[] Object = new byte[size];
 			while ((len = bis.read(Object)) > 0) {
-				System.out.println(++i);
+
 				dos.write(Object, 0, len);
 			}
 
 			System.out.println(len);
 			// 서버에 전송
-			dos.flush();
+
 			fis.close();
 			bis.close();
-			dos.close();
+			dos.flush();
+			InfoDTO infoDTO = new InfoDTO();
+			infoDTO.setCommand(Info.FILEEND);
+			dos.writeObject(infoDTO);
+			dos.flush();
+
+			file.delete();
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -179,50 +188,49 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 		}
 	}
 
-	private String fileWrite(ObjectInputStream dis) {
-
-		String result;
-		String filePath = "C:\\Users\\harry\\OneDrive\\바탕 화면\\";
+	private String fileWrite(String writePath, String token) {
+		String result = "";
+		FileOutputStream fos = null;
+		BufferedOutputStream bos = null;
 
 		try {
+			String projectName = reader.readUTF();
 			System.out.println("파일 수신 작업을 시작합니다.");
 
 			// 파일명을 전송 받고 파일명 수정
-			String fileNm = dis.readUTF();
-			System.out.println("파일명 " + fileNm + "을 전송받았습니다.");
-
+			System.out.println("파일명 " + projectName + "을 전송받았습니다.");
 			// 파일을 생성하고 파일에 대한 출력 스트림 생성
-			File file = new File(filePath + "/" + fileNm);
+			File file = new File(writePath + token + ".zip");
 			fos = new FileOutputStream(file);
 			bos = new BufferedOutputStream(fos);
-			System.out.println(fileNm + "파일을 생성하였습니다.");
+			System.out.println("file.zip을 생성하였습니다.");
 
 			// 바이트 데이터를 전송받으면서 기록
-			int len;
-			int size = 4096;
+			int len = 0;
+			int size = 100000;
 			byte[] Object = new byte[size];
-			while ((len = dis.read(Object)) != -1) {
+			int i = 0;
+			while ((len = reader.read(Object)) > 0) {
+
 				bos.write(Object, 0, len);
+
 			}
-
-			// bos.flush();
+			System.out.println(len);
 			result = "SUCCESS";
-
+			// bos.flush();
+			System.out.println(1);
 			System.out.println("파일 수신 작업을 완료하였습니다.");
 			System.out.println("받은 파일의 사이즈 : " + file.length());
-		} catch (IOException e) {
-			e.printStackTrace();
-			result = "ERROR";
-		} finally {
-			try {
-				bos.close();
-				fos.close();
-				dis.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
 
+			bos.close();
+			fos.close();
+			File zip = new File(writePath + token + ".zip");
+			ZipUtil.unpack(zip, new File(zip.getPath().replace(".zip", "")));
+			// zip.delete();
+
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 		return result;
 	}
 

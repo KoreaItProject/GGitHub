@@ -23,10 +23,12 @@ public class ServerMain {
 	MemberService memberService;
 	RepoService repoService;
 	int port = 4445;
+	String storage;
 
-	public ServerMain(MemberService memberService, RepoService repoService) {
+	public ServerMain(MemberService memberService, RepoService repoService, String storage) {
 		System.out.println("서버시작");
 		try {
+			this.storage = storage;
 			this.repoService = repoService;
 			this.memberService = memberService;
 			serverSocket = new ServerSocket(port);
@@ -39,9 +41,11 @@ public class ServerMain {
 			while (true) {
 				System.out.println(123);
 				Socket socket = serverSocket.accept();
-				ServerHandler handler = new ServerHandler(socket, list, memberService, repoService); // 스레드를 생성한 것이랑
-																										// 동일함! 떄문에
-																										// 시자해주어야
+				ServerHandler handler = new ServerHandler(socket, list, memberService, repoService, storage); // 스레드를
+																												// 생성한
+																												// 것이랑
+				// 동일함! 떄문에
+				// 시자해주어야
 				handler.start(); // 스레드 시작- 스레드 실행
 				list.add(handler); // 핸들러를 담음( 이 리스트의 개수가 클라이언트의 갯수!!)
 
@@ -84,7 +88,7 @@ public class ServerMain {
 					return pid;
 				}
 			}
-			new ServerMain(memberService, repoService);
+			new ServerMain(memberService, repoService, storage);
 
 		} catch (Exception e) {
 			e.printStackTrace();

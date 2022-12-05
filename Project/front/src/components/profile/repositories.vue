@@ -12,14 +12,14 @@
             </svg>
             New</button>
             </a>
-            <input type ="search" class = "repo_search" placeholder="저장소 검색"></input>
+            <input type ="search" class = "repo_search" placeholder="저장소 검색" v-model="searchStr" v-on:keyup.enter="search"></input>
             
         </div>
         
-          <div class="repo_list">
-                <draggable  v-model="Repo" @change ="checkMove"   ghost-class="ghost" handle=".handle"  class="list-group"  tag="ul"     v-bind="dragOptions"    @start="drag = true"    @end="drag = false">             
-                  <li class="repo_li" v-for='data in Repo' >
-                    <a :href="data.member_nick + '/' + data.repo_name" > 
+          <div class="repo_list" id ="repo_list">
+                <draggable  v-model="repo" @change ="checkMove"   ghost-class="ghost" handle=".handle"  class="list-group"  tag="ul"     v-bind="dragOptions"    @start="drag = true"    @end="drag = false">             
+                  <li class="repo_li" v-for='data in repo' >
+                    <a :href="'/'+data.member_nick + '/' + data.repo_name" > 
                       <div class="repo_info">
                           <div class="repo_name_div" >
         
@@ -59,10 +59,11 @@
 <script>
 import axios from "axios";
 import draggable from "vuedraggable";
+import store from "../../vuex/store";
 export default {
   data() {
     return {
-      Repo: [],
+      repo: {},
       enabled: true,
       dragging: false,
     };
@@ -77,16 +78,36 @@ export default {
         group: "description",
         disabled: false,
         ghostClass: "ghost",
+        searchStr: "",
       };
     },
   },
+  // methods: {
+  //   checkMove: function (e) {
+  //     console.log(this.repo);
+  //     console.log(this.dragging);
+
+  //     axios
+  //       .post("/api/repoSort",{owner:store.getters.getUserIdx,repo: this.repo})
+  //       .then((response) => {
+  //         // handle success
+  //       })
+  //       .catch((error) => {
+  //         // handle error
+  //         console.log(error);
+  //       })
+  //       .finally(() => {
+  //         // always executed
+  //       });
+  //   },
+  // },
   methods: {
     checkMove: function (e) {
-      console.log(this.Repo);
-      console.log(this.dragging);
-
       axios
-        .post("/api/repoSort", this.Repo)
+        .post("/api/repoSort", {
+          repo: this.repo,
+          idx: store.getters.getUserIdx,
+        })
         .then((response) => {
           // handle success
         })
@@ -98,7 +119,25 @@ export default {
           // always executed
         });
     },
+
+    search: function () {
+      var str = this.searchStr;
+
+      var strFound;
+      // NAVIGATOR-SPECIFIC CODE
+
+      strFound = window.find(str);
+
+      if (!strFound) {
+        strFound = window.find(str, 0, 1);
+
+        while (window.find(str, 0, 1)) continue;
+      }
+
+      // EXPLORER-SPECIFIC CODE
+    },
   },
+
   mounted() {
     axios
       .get("/api/myRepositories", {
@@ -108,8 +147,8 @@ export default {
       })
       .then((response) => {
         // handle success
-        this.Repo = response.data;
-        console.log(this.Repo);
+        this.repo = response.data;
+        console.log(this.repo);
       })
       .catch((error) => {
         // handle error

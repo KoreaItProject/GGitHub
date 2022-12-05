@@ -9,14 +9,17 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.event.MouseInputListener;
 
-import org.zeroturnaround.zip.ZipUtil;
-
 import com.ggit.socket.InfoDTO;
 import com.ggit.socket.InfoDTO.Info;
+
+import javafx.scene.paint.Stop;
+import zipUtill.UnzipFile;
+import zipUtill.ZipFile;
 
 import java.awt.*;
 
 import java.awt.event.*;
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -35,6 +38,10 @@ import java.net.UnknownHostException;
 import java.util.Random;
 
 public class GGitSource extends JFrame implements MouseInputListener, Runnable {
+    // pull
+    // 1.pull 버튼 클릭시 pull()함수 에서 서버에 Pull요청을 함
+    // 2.서버에서 pull에 대한 zip파일을 보내줌
+    // 3.run 에서 zip파일을 받으면 fileWrite()함수로 파일을 받아서 저장함
 
     RoundedButton pushBtn, pullBtn;
     String imgPath;
@@ -46,6 +53,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     ObjectInputStream reader;
     InfoDTO infoDTO;
     boolean running = true;
+    Thread sockThread;
 
     // component
     JLabel logolbl;
@@ -54,6 +62,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     JScrollPane scrollPan;
     JLabel toplbl;
     JPanel clonepan;
+    boolean canbtn = true;
 
     // info
     String clientPath;
@@ -63,9 +72,12 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     String token;
 
     public GGitSource() {
+
         String serverIp = "localhost";
         Socket socket = null;
+        setting();
         try {
+
             socket = new Socket(serverIp, 4445);
             socket.setSoTimeout(0);
             writer = new ObjectOutputStream(socket.getOutputStream());
@@ -75,7 +87,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
 
             // 파일전송을 서버에 알린다.('file' 구분자 전송)
 
-            Thread sockThread = new Thread(this);
+            sockThread = new Thread(this);
             sockThread.start();
         } catch (UnknownHostException e) {
             // TODO Auto-generated catch block
@@ -85,7 +97,6 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             e.printStackTrace();
         }
 
-        setting();
         setSize(250, 350); // 컨테이너 크기 지정
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
@@ -169,6 +180,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                     writer.writeObject(infoDTO);
                     writer.flush();
                     running = false;
+                    sockThread.stop();
 
                 } catch (IOException io) {
                     io.printStackTrace();
@@ -197,15 +209,15 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
 
             if (info.isFile()) {
                 InfoLeader infoLeader = new InfoLeader(info.getPath());
+                this.repo = infoLeader.getRepo();
+                this.memberIdx = infoLeader.getMemberIdx();
+                this.token = infoLeader.getToken();
                 this.hasLogin = true;
 
             } else {
                 System.out.println("파일이 없습니다.");
                 this.hasLogin = false;
-                int leftLimit = 97; // letter 'a'
-                int rightLimit = 122; // letter 'z'
-                int targetStringLength = 40;
-                Random random = new Random();
+
             }
 
         } catch (Exception e) {
@@ -215,19 +227,21 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        // TODO Auto-generated method stub
-        if (e.getSource() == pushBtn) {
-
-        } else if (e.getSource() == pullBtn) {
-
-        } else if (e.getSource() == logolbl) {
-            try {
-                Desktop.getDesktop().browse(new URI("http://localhost/"));
-            } catch (Exception e1) {
-                // TODO Auto-generated catch block
-                System.out.println("안에 내용이 올바르지 않음");
+        if (canbtn) {
+            if (e.getSource() == pushBtn) {
+                push();
+            } else if (e.getSource() == pullBtn) {
+                pull();
+            } else if (e.getSource() == logolbl) {
+                try {
+                    Desktop.getDesktop().browse(new URI("http://localhost/"));
+                } catch (Exception e1) {
+                    // TODO Auto-generated catch block
+                    System.out.println("안에 내용이 올바르지 않음");
+                }
             }
         }
+        // TODO Auto-generated method stub
 
     }
 
@@ -255,7 +269,8 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     public void mouseMoved(MouseEvent e) {
     }
 
-    public void pull() {
+    public void pull() {// 풀
+        canbtn = false;
 
         try {
             InfoDTO dto = new InfoDTO();
@@ -271,11 +286,78 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
 
     }
 
+    public void push() {// push
+
+        try {
+            InfoDTO dto = new InfoDTO();
+            dto.setCommand(Info.PUSH);
+            dto.setIdx(repo);// 레포인덱스
+            System.out.println(repo);
+            dto.setId(memberIdx + "");// 로그인된 회원 인덱스
+            dto.setMessage("");// commit시 메시지
+            dto.setLastToken(token);// 이전토큰 어떤걸 가져와서 push 한건지
+            String newToken = new RandStr(10).getResult();
+            dto.setToken(newToken);// 새로운 토큰 이 push에 대한 토큰
+
+            writer.writeObject(dto);
+            writer.flush();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        new ZipFile(clientPath + "/.ggit/.repo/file/", clientPath + "/.ggit/.repo/file.zip");
+        fileSend();
+    }
+
+    private void fileSend() {
+
+        File path = new File(clientPath + "/.ggit/.repo/file.zip");
+
+        FileInputStream fis;
+        BufferedInputStream bis;
+
+        try {
+
+            writer.writeUTF("file");
+
+            // 파일을 읽어서 서버에 전송
+
+            File file = new File(path.getPath());
+            fis = new FileInputStream(file);
+            bis = new BufferedInputStream(fis);
+
+            int len;
+            int size = 100000;
+            int i = 0;
+            byte[] Object = new byte[size];
+            while ((len = bis.read(Object)) > 0) {
+
+                writer.write(Object, 0, len);
+            }
+
+            System.out.println(len);
+            // 서버에 전송
+
+            fis.close();
+            bis.close();
+            writer.flush();
+            InfoDTO infoDTO = new InfoDTO();
+            infoDTO.setCommand(Info.FILEEND);
+            writer.writeObject(infoDTO);
+            writer.flush();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     @Override
     public void run() {
         try {
             while (running) {
                 infoDTO = (InfoDTO) reader.readObject();
+
                 // if (infoDTO.getUser() != null && infoDTO.getUser().equals(member)) {
 
                 if (infoDTO.getCommand() == Info.LOGINRESULT) {
@@ -302,44 +384,50 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
 
                 } else if (infoDTO.getCommand() == Info.PULLRESULT) {
                     System.out.println("pullresult");
-                    String result = fileWrite(reader);
+                    String result = fileWrite();
+
+                } else if (infoDTO.getCommand() == Info.FILEEND) {
+                    System.out.println("end");
+                    canbtn = true;
 
                 }
-
             }
 
             // }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("run 오류");
+            running = false;
+
         }
 
     }
 
-    private String fileWrite(ObjectInputStream dis) {
+    private String fileWrite() {
         String result = "";
         FileOutputStream fos = null;
         BufferedOutputStream bos = null;
+
         try {
+            String projectName = reader.readUTF();
             System.out.println("파일 수신 작업을 시작합니다.");
 
             // 파일명을 전송 받고 파일명 수정
-            String fileNm = dis.readUTF();
-            System.out.println("파일명 " + fileNm + "을 전송받았습니다.");
-
+            System.out.println("파일명 " + projectName + "을 전송받았습니다.");
             // 파일을 생성하고 파일에 대한 출력 스트림 생성
-            File file = new File(clientPath + "/" + fileNm);
+            File file = new File(clientPath + "/.ggit/.repo/file.zip");
             fos = new FileOutputStream(file);
             bos = new BufferedOutputStream(fos);
-            System.out.println(fileNm + "파일을 생성하였습니다.");
+            System.out.println("file.zip을 생성하였습니다.");
 
             // 바이트 데이터를 전송받으면서 기록
             int len = 0;
-            int size = 1024;
+            int size = 100000;
             byte[] Object = new byte[size];
             int i = 0;
-            while ((len = dis.read(Object)) > 0) {
-                System.out.println(++i);
+            while ((len = reader.read(Object)) > 0) {
+
                 bos.write(Object, 0, len);
+
             }
             System.out.println(len);
             result = "SUCCESS";
@@ -347,10 +435,22 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             System.out.println(1);
             System.out.println("파일 수신 작업을 완료하였습니다.");
             System.out.println("받은 파일의 사이즈 : " + file.length());
-            fos.close();
-            bos.close();
+            System.out.println(clientPath + "/file.zip");
+            new UnzipFile(clientPath, "file.zip");
+            new File(clientPath + "/" + projectName + "/").mkdir();
+            new CopyFile().copy(new File(clientPath + "/.ggit/.repo/file/data/"),
+                    new File(clientPath + "/" + projectName + "/"));
+            try {
+                bos.close();
+                fos.close();
 
-        } catch (IOException e) {
+            } catch (Exception e1) {
+
+            }
+
+        } catch (
+
+        IOException e) {
             e.printStackTrace();
 
         } finally {
@@ -365,6 +465,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             // 1. 파일 객체 생성
             File dir = new File(clientPath + "/.ggit/user/");
             dir.mkdirs();
+            new File(clientPath + "/.ggit/.repo/").mkdir();
             File file = new File(clientPath + "/.ggit/user/info.gt");
             System.out.println(file.getPath());
             file.createNewFile();

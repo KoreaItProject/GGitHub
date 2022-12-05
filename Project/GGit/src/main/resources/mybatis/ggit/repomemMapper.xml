@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ggit.db.mapper.RepomemMapper">
-    <select id="repomem"  resultType="com.ggit.vo.RepomemVo">
+    <select id="repomem" resultType="com.ggit.vo.RepomemVo">
         SELECT * FROM repomem;
     </select>
+    <insert id="join">
+        insert into repomem(repo,member) value(${repo},${member});
+
+    </insert>
+    <update id="repoSortUpdate">
+        UPDATE repomem SET sort = ${sort} where repo=${repo} and member=${member}
+
+    </update>
 </mapper>

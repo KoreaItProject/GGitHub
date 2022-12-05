@@ -44,10 +44,10 @@ $line-color: #d0d7de
                 border-color: rgb(27 31 36 / 15%)
                 border-radius: 6px
                 text-align: center
-           
-        .code_menu_top_div        
-           
-            margin-top:28px
+
+        .code_menu_top_div
+
+            margin-top: 28px
             width: 68px
             height: 321px
             position: relative
@@ -59,9 +59,10 @@ $line-color: #d0d7de
                 background-color: white
                 right: 0
                 border: 1px solid $line-color
-                border-radius: 6px 
+                border-radius: 6px
                 width: 400px
-                height: 145px 
+                height: 145px
+                margin-top: -6px
                 .code_clone
                     margin-top: 15px
                     margin-left: 15px
@@ -74,11 +75,11 @@ $line-color: #d0d7de
                 .code_input
                     display: flex
                     width: 100%
-                    
+
                     justify-content: center
 
                     .code_copy_btn
-                       
+
                         display: block
                         margin-top: 15px
                         border: null
@@ -88,9 +89,9 @@ $line-color: #d0d7de
                         padding: 5px 8px
 
                         border-top-right-radius: 6px
-                        border-bottom-right-radius: 6px 
+                        border-bottom-right-radius: 6px
                 .code_input_box
-                    
+
                     display: block
                     width: 330px
                     height: 30px
@@ -101,23 +102,19 @@ $line-color: #d0d7de
                     margin-top: 15px
                     border-right: 0px
 
-                    
-
-                                    
                 .code_download_div
                     margin-top: 0px
                     border-top: 1px solid $line-color
                     .code_download
-                        
+
                         font-weight: bold
                         font-size: 14px
                         margin: 15px 0px 0px 15px
                         color: black
                         float: left
 
-            
         .repo_box
-            
+
             border-radius: 6px
             border: 1px solid #d0d7de
             margin: 0px 0px 16px
@@ -154,7 +151,7 @@ $line-color: #d0d7de
                     margin: 2px 0px 5px 8px
 
                 .repo_commit_count
-                    
+
                     height: 21px
                     float: right
                     font-size: 14px
@@ -245,3 +242,25 @@ $line-color: #d0d7de
             padding: 1px 3px
             border-radius: 15px
             background-color: rgba(188,202,204,.2)
+.highlighted
+    background-color: yellow
+
+.highlight
+    background-color: #fff34d
+    -moz-border-radius: 5px
+     /* FF1+ */
+    -webkit-border-radius: 5px
+     /* Saf3-4 */
+    border-radius: 5px
+     /* Opera 10.5, IE 9, Saf5, Chrome */
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.7)
+     /* FF3.5+ */
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.7)
+     /* Saf3.0+, Chrome */
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.7)
+     /* Opera 10.5+, IE 9.0 */
+
+
+    &
+        padding: 1px 4px
+        margin: 0 -4px
