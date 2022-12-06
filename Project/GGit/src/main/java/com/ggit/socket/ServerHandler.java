@@ -111,7 +111,8 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 					InfoDTO infoDTO = new InfoDTO();
 					infoDTO.setCommand(Info.PULLRESULT);
 					writer.writeObject(infoDTO);
-					fileSend(writer);
+
+					fileSend(writer, dto.getIdx(), dto.getToken());
 
 				} else if (dto.getCommand() == Info.PUSH) {
 					String writePath = storage + "repositorys/" + dto.getIdx() + "/";
@@ -133,9 +134,9 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 
 	}
 
-	private void fileSend(ObjectOutputStream dos) {
+	private void fileSend(ObjectOutputStream dos, String repo, String token) {
 
-		File path = new File(storage + "repositorys/2/kv87gi9kq");
+		File path = new File(storage + "repositorys/" + repo + "/" + token);
 		ZipUtil.pack(path, new File(path.getPath() + ".zip"));
 		FileInputStream fis;
 		BufferedInputStream bis;
