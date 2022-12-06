@@ -74,10 +74,8 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 				} else if (dto.getCommand() == Info.EXIT) {
 					System.out.println("종료");
 
-					writer.writeObject(dto);
-					writer.flush();
-
 					list.remove(this);
+
 					this.stop();
 
 					break;
