@@ -142,7 +142,7 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 
 		try {
 
-			dos.writeUTF("projectName");
+			dos.writeUTF("project");
 
 			// 파일을 읽어서 서버에 전송
 

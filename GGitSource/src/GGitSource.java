@@ -14,8 +14,6 @@ import org.zeroturnaround.zip.ZipUtil;
 import com.ggit.socket.InfoDTO;
 import com.ggit.socket.InfoDTO.Info;
 
-import zipUtill.UnzipFile;
-
 import java.awt.*;
 
 import java.awt.event.*;
@@ -114,7 +112,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
         loginPan.setVisible(!hasLogin);
         mainPanel.add(loginPan);
 
-        scrollPan = new ScrollPan().getScrollPan();// 변경된 파일 패널
+        scrollPan = new ScrollPan().getScrollPan(clientPath);// 변경된 파일 패널
         scrollPan.setBounds(-2, 50, 248, 272);
         scrollPan.setVisible(hasLogin);
         mainPanel.add(scrollPan);
@@ -399,7 +397,11 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                             new File(clientPath + "/.ggit/.repo/file"));
                     zip.delete();
 
-                    new File(clientPath + "/" + projectName + "/").mkdir();
+                    File projectFolder = new File(clientPath + "/" + projectName + "/");
+                    if (projectFolder.isDirectory()) {
+                        projectFolder.delete();
+                    }
+                    projectFolder.mkdir();
                     new CopyFile().copy(new File(clientPath + "/.ggit/.repo/file/data/"),
                             new File(clientPath + "/" + projectName + "/"));
 
@@ -505,6 +507,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             scrollPan.setVisible(true);
             toplbl.setVisible(false);
             clonepan.setVisible(false);
+            hasLogin = true;
 
         } catch (IOException e) {
             e.printStackTrace();
