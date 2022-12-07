@@ -72,7 +72,8 @@
         <a href="?tab=setting" v-if="isMy">
           <button class="profile_edit_btn">내 정보 변경</button> 
         </a> 
-        <button class="follow_button" v-if="!isMy" @click="insertFollow">Follow</button>
+        <button class="follow_button" v-if="!isMy && followcount==0" @click="insertFollow">Follow</button>
+        <button class="unfollow_button" v-if="!isMy && followcount==1">Unfollow</button>
       </div>
 
       <div class="profile_folloew_div">
@@ -230,10 +231,12 @@ export default {
       tab3_color: "0px",
       profileImg: "",
       userInfo: [],
+      followcount:3,
       repocount:'',
       starcount:'',
       user_email_div:"",
       isMy: store.getters.getUserNick==this.$route.params.nick,
+
     };
   },
   components: {
@@ -245,7 +248,28 @@ export default {
     following: following,
   },
   methods: {
-   
+    selectfollowcount(){
+      axios
+      .get("/api/selectfollowcount", {
+          params: {
+            nick:this.$route.params.nick,
+            idx:store.getters.getUserIdx,
+          },
+        })
+        .then((response) => {
+          // handle success
+          this.followcount = response.data;
+          // alert(this.followcount)
+        })
+        .catch((error) => {
+          // handle error
+          console.log(error);
+        })
+        .finally(() => {
+          // always executed
+        });
+       
+    },  
     insertFollow(){
       axios
       .get("/api/insertFollow", {
@@ -256,7 +280,7 @@ export default {
         })
         .then((response) => {
           // handle success
-          this.repocount = response.data;
+         
          
         })
         .catch((error) => {
@@ -397,6 +421,7 @@ export default {
     this.selectRepositorycount();
     this.selectRepositorystarcount();
     this.getMemberInfo();
+    this.selectfollowcount();
     
     
 

@@ -34,6 +34,7 @@ import com.ggit.service.RepoService;
 import com.ggit.service.RepomemService;
 import com.ggit.util.CopyFile;
 import com.ggit.util.RandStr;
+import com.ggit.vo.FollowVo;
 import com.ggit.vo.PushVo;
 import com.ggit.vo.RepoVo;
 import com.ggit.vo.RepomemVo;
@@ -176,6 +177,11 @@ public class RepositoryController {
         System.out.println(idx);
         int insertFollow = followService.insertFollow(nick, idx);
         return 1;
+    }
+    @RequestMapping("/selectfollowcount")
+    public int selectfollowcount(int idx,String nick){
+       int followcount = followService.selectfollowcount(idx, nick);
+       return followcount;
     }
 
     @RequestMapping("/selectRepositorycode")

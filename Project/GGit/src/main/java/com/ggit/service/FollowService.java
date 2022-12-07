@@ -27,4 +27,7 @@ public class FollowService {
     public int insertFollow(String nick, int idx){
         return mapper.insertFollow(nick, idx);
     }
+    public int selectfollowcount(int idx,String nick){
+        return mapper.selectfollowcount(idx, nick);
+    }
 }

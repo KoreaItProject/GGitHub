@@ -7,11 +7,9 @@ import lombok.Data;
 @Data
 @Component
 public class FollowVo {
-
-    int idx;
-
-    int member;
-
-    int follower;
+    //follow
+    int follow_idx;
+    int follow_member;
+    int follow_follower;
 
 }
