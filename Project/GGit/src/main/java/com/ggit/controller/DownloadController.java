@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,6 +41,9 @@ import com.ggit.vo.StarVo;
 
 @RequestMapping("/download")
 public class DownloadController {
+
+    @Value("${storage_dir}")
+    String storage_dir;
 
     @RequestMapping("")
     public void download(HttpServletResponse response, HttpServletRequest req) {

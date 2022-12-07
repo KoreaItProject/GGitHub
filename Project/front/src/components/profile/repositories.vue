@@ -28,7 +28,7 @@
                               <span></span>
                               <span class="repo_public">public</span>
                               <span class="repo_move_icon handle" >
-                                <svg  height="12" viewBox="0 0 12 12" version="1.1" width="12" >
+                                <svg  height="17px" viewBox="0 0 16 16" version="1.1" width="17px" >
                                     <path d="M10 13a1 1 0 100-2 1 1 0 000 2zm-4 0a1 1 0 100-2 1 1 0 000 2zm1-5a1 1 0 11-2 0 1 1 0 012 0zm3 1a1 1 0 100-2 1 1 0 000 2zm1-5a1 1 0 11-2 0 1 1 0 012 0zM6 5a1 1 0 100-2 1 1 0 000 2z"></path>
                                 </svg>
                               </span>

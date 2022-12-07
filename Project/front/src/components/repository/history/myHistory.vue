@@ -1,5 +1,6 @@
 <template lang="">
     <div>
+    
         <div class="repository_history_table_div">          
             <table class="repository_history_table">
                 <colgroup>
@@ -25,7 +26,7 @@
                         <col width="10%">
                 </colgroup>  
                 <tr @click="clickIndex=index">
-                    <td width="65%">내 작업 영역 내용</td>
+                    <td width="65%">  <font-awesome-icon icon="trash-alt" /> 내 작업 영역 내용</td>
                     <td>날짜</td>
                     <td>사용자</td>
                     <td>토큰</td>
@@ -38,7 +39,9 @@
         </div>
     </div>
 </template>
+
 <script>
+import "@/assets/js/fontAwesomeIcon.js";
 export default {
   data() {
     return {

@@ -7,7 +7,9 @@ import axios from "axios";
 import VueCookies from "vue-cookies"; // npm install --save js-cookie
 import store from "./vuex/store"; //1. store 추가
 import VuejsHeatmap from 'vuejs-heatmap' // npm install --save vuejs-heatmap
+import "@/assets/js/fontAwesomeIcon.js"
 export default VuejsHeatmap
+
 
 Vue.use(VueCookies);
 
