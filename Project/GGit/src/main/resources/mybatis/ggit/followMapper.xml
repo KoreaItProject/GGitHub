@@ -20,4 +20,12 @@
     <insert id="insertFollow">
         INSERT INTO follow(member,follower) VALUES((select member.idx from member where member.nick=#{nick}),${idx})
     </insert>
+
+    <select id="selectfollowcount" resultType="int">
+        SELECT count(idx) FROM follow  WHERE follower=${idx} and (select member.idx from member where member.nick=#{nick}) = member;
+    </select>
+
+    <!-- <delete id="deletefollowlist">
+        DELETE FROM follow WHERE follower=${idx} and member=(select member.idx from member where member.nick=#{nick})
+    </delete> -->
 </mapper>
