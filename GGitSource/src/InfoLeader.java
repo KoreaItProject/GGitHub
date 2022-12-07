@@ -8,7 +8,8 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class InfoLeader {
-      String content = "";
+      private String content = "";
+      private String repo, memberIdx, token;
 
       public InfoLeader(String path) {
 
@@ -64,11 +65,30 @@ public class InfoLeader {
                   System.out.println("memberIdx = " + jsonObj.get("memberIdx"));
                   System.out.println("token = " + jsonObj.get("token"));
 
+                  repo = jsonObj.get("repo") + "";
+                  memberIdx = jsonObj.get("memberIdx") + "";
+                  token = jsonObj.get("token") + "";
             } catch (ParseException e) {
                   // TODO Auto-generated catch block
                   e.printStackTrace();
             }
 
+      }
+
+      public String getContent() {
+            return content;
+      }
+
+      public String getRepo() {
+            return repo;
+      }
+
+      public String getMemberIdx() {
+            return memberIdx;
+      }
+
+      public String getToken() {
+            return token;
       }
 
 }

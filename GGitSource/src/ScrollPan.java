@@ -7,33 +7,13 @@ import java.awt.*;
 
 public class ScrollPan {
 
-    public JScrollPane getScrollPan() {
-        String str[];
-        String str1[] = { "asdf777777777777777776666666666666666667777777777", "fdas",
-                "asdf777777777777777776666666666666666667777777777", "fdas",
-                "asdf777777777777777776666666666666666667777777777", "fdas",
-                "asdf777777777777777776666666666666666667777777777", "fdas",
-                "asdf777777777777777776666666666666666667777777777", "fdas",
-                "asdf777777777777777776666666666666666667777777777", "fdas",
-                "asdf777777777777777776666666666666666667777777777", "fdas",
-                "asdf777777777777777776666666666666666667777777777", "fdas",
-                "asdf777777777777777776666666666666666667777777777", "fdas",
-                "asdf777777777777777776666666666666666667777777777", "fdas",
-                "asdf777777777777777776666666666666666667777777777", "fdas",
-                "asdf777777777777777776666666666666666667777777777", "fdas",
-                "asdf777777777777777776666666666666666667777777777", "fdas",
-                "asdf777777777777777776666666666666666667777777777", "fdas",
-                "asdf777777777777777776666666666666666667777777777", "fdas",
-                "asdf777777777777777776666666666666666667777777777", "fdas",
-                "asdf777777777777777776666666666666666667777777777", "fdas",
-                "asdf777777777777777776666666666666666667777777777", "fdas",
-                "asdf777777777777777776666666666666666667777777777", "fdas",
-                "asdf777777777777777776666666666666666667777777777", "fdas",
-                "asdf777777777777777776666666666666666667777777777", "fdas",
-                "asdf777777777777777776666666666666666667777777777", "fdas",
-                "asdf777777777777777776666666666666666667777777777", "fdas" };
-        str = str1;
-        JList scrollList = new JList(str);
+    public JScrollPane getScrollPan(String clientPath) {
+        String str[] = { "변경사항 없음" };
+        JList scrollList = new JList();
+        scrollList.setListData(str);
+
+        new FileState(clientPath, scrollList).start();
+
         JScrollPane jp = new JScrollPane(scrollList);
         MyScrollBarUI myScrollBarUI = new MyScrollBarUI();
         jp.getVerticalScrollBar().setUI(new MyScrollBarUI());

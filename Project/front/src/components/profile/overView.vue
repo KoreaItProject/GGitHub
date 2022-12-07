@@ -33,7 +33,22 @@
           v-bind:key="pin"
         ></div>
       </div>
-      <div class="overView_contribution_div" :style="cssVariable"></div>
+      <div class="overView_contribution_div" :style="cssVariable">
+        <calendar-heatmap :values="this.contribution_data" 
+                          :end-date="Date()"
+                          tooltip-unit="contribution"
+                          :max="5"
+                          :range-color="[
+                          '#ebedf0',
+                          '#9be9a8',
+                          '#40c463',
+                          '#30a14e',
+                          '#216e39'
+                          ]"
+                          
+                          >
+        </calendar-heatmap>
+      </div>
     </div>
   </div>
 </template>
@@ -41,15 +56,36 @@
 <script>
 import axios from "axios";
 import marked from "marked";
+import store from "../../vuex/store";
+import { log } from 'console';
+
 export default {
+  props: ['entries', 'colorRange', 'tooltipEnabled', 'tooltipUnit', 'locale', 'max', 'onClick', 'selector'],
   name: "ShowMdPage",
   data() {
     return {
       mdText:
         "[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=ymiru0324&layout=compact&&theme=dark&&&langs_count=6)](https://github.com/ymiru0324)",
       pins: ["", "", "", ""],
-      contribution_top: "0px"
+      contribution_top: "0px",
+      contribution_data:[]
     };
+  },
+  mounted() {
+    this.getContributionData();
+  },
+  methods: {
+    getContributionData(){
+      axios.post("/api/getContributionData", {
+        //idx: store.getters.getUserIdx,
+        nick: this.$route.params.nick,
+      })
+      .then(response => {
+          console.log(response.data);
+          this.contribution_data = response.data;
+      })
+      
+    },
   },
   computed: {
     cssVariable() {
@@ -77,7 +113,7 @@ export default {
       changedText = changedText.replaceAll("&gt;", ">");
       changedText = changedText.replaceAll("&quot;", '"');
       return changedText;
-    }
+    },
   }
 };
 </script>

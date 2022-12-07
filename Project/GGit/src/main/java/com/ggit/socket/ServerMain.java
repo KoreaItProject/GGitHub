@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.boot.autoconfigure.web.ServerProperties.Tomcat.Mbeanregistry;
 
 import com.ggit.service.MemberService;
+import com.ggit.service.PushService;
 import com.ggit.service.RepoService;
 
 import java.io.BufferedReader;
@@ -22,13 +23,17 @@ public class ServerMain {
 	public static HashMap<String, Integer> room;
 	MemberService memberService;
 	RepoService repoService;
+	PushService pushService;
 	int port = 4445;
+	String storage;
 
-	public ServerMain(MemberService memberService, RepoService repoService) {
+	public ServerMain(MemberService memberService, RepoService repoService, PushService pushService, String storage) {
 		System.out.println("서버시작");
 		try {
+			this.storage = storage;
 			this.repoService = repoService;
 			this.memberService = memberService;
+			this.pushService = pushService;
 			serverSocket = new ServerSocket(port);
 			serverSocket.setSoTimeout(0);
 			System.out.println("서버 준비 완료");
@@ -39,15 +44,19 @@ public class ServerMain {
 			while (true) {
 				System.out.println(123);
 				Socket socket = serverSocket.accept();
-				ServerHandler handler = new ServerHandler(socket, list, memberService, repoService); // 스레드를 생성한 것이랑
-																										// 동일함! 떄문에
-																										// 시자해주어야
+				ServerHandler handler = new ServerHandler(socket, list, memberService, repoService, pushService,
+						storage); // 스레드를
+				// 생성한
+				// 것이랑
+				// 동일함! 떄문에
+				// 시자해주어야
 				handler.start(); // 스레드 시작- 스레드 실행
 				list.add(handler); // 핸들러를 담음( 이 리스트의 개수가 클라이언트의 갯수!!)
 
 			} // while
 
-		} catch (IOException e) {
+		} catch (Exception e) {
+
 			killProcessID(port);
 
 		} finally {
@@ -84,7 +93,7 @@ public class ServerMain {
 					return pid;
 				}
 			}
-			new ServerMain(memberService, repoService);
+			new ServerMain(memberService, repoService, pushService, storage);
 
 		} catch (Exception e) {
 			e.printStackTrace();

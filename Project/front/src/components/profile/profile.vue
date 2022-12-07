@@ -397,7 +397,7 @@ export default {
     this.selectRepositorycount();
     this.selectRepositorystarcount();
     this.getMemberInfo();
-   
+    
     
 
     let tab = this.$route.query.tab;

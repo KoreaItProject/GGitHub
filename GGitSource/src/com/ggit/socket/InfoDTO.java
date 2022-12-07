@@ -11,7 +11,8 @@ public class InfoDTO implements Serializable {
     PUSH,
     PULL, PULLRESULT,
     LOGIN, LOGINRESULT,
-    CLONE, CLONERESULT
+    CLONE, CLONERESULT,
+    FILEEND
 
   }
 
@@ -21,6 +22,7 @@ public class InfoDTO implements Serializable {
   private String user;
   private String idx;
   private String token;
+  private String lastToken;
 
   public String getMessage() {
     return message;
@@ -76,6 +78,14 @@ public class InfoDTO implements Serializable {
 
   public void setToken(String token) {
     this.token = token;
+  }
+
+  public String getLastToken() {
+    return lastToken;
+  }
+
+  public void setLastToken(String lastToken) {
+    this.lastToken = lastToken;
   }
 
 }

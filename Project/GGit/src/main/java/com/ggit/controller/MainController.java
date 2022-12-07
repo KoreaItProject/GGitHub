@@ -3,6 +3,7 @@ package com.ggit.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ggit.service.MemberService;
+import com.ggit.service.PushService;
 import com.ggit.service.RepoService;
 import com.ggit.socket.ServerMain;
 import com.ggit.socket.SocketRunTime;
@@ -27,9 +29,15 @@ public class MainController {
     @Autowired
     RepoService repoService;
 
+    @Autowired
+    PushService pushService;
+
+    @Value("${storage_dir}")
+    String storage_dir;
+
     @GetMapping(value = "/sock1")
     public String sock() {
-        new ServerMain(memberService, repoService);
+        new ServerMain(memberService, repoService, pushService, storage_dir);
         return null;
     }
 
