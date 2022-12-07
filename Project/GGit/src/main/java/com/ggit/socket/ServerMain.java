@@ -58,7 +58,6 @@ public class ServerMain {
 		} catch (Exception e) {
 
 			killProcessID(port);
-			e.printStackTrace();
 
 		} finally {
 

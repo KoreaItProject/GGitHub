@@ -1,5 +1,6 @@
 package com.ggit.socket;
 
+import java.net.BindException;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.List;
@@ -123,28 +124,32 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 
 				} else if (dto.getCommand() == Info.PUSH) {
 
-					String writePath = storage + "repositorys/" + dto.getIdx() + "/";
-					File file = new File(writePath);
-					file.mkdir();
-					String result = fileWrite(writePath, dto.getToken());
-
 					pushVo.setToken(dto.getToken());
 					pushVo.setMember(Integer.parseInt(dto.getId()));
 					pushVo.setRepo(Integer.parseInt(dto.getIdx()));
 					pushVo.setMessage(dto.getMessage());
 					pushVo.setBranch(Integer.parseInt(dto.getId()));
-					pushVo.setFrom(dto.getLastToken());
-
+					pushVo.setBefore_token(dto.getLastToken());
 					pushService.push(pushVo);
+
+					String writePath = storage + "repositorys/" + dto.getIdx() + "/";
+					System.out.println(storage + "repositorys/" + dto.getIdx() + "/");
+					File file = new File(writePath);
+					file.mkdir();
+					String result = fileWrite(writePath, dto.getToken());
 
 				} else if (dto.getCommand() == Info.FILEEND) {
 					System.out.println("end");
 				}
 			} // while
 
-		} catch (Exception e) {
+		} catch (BindException e) {
+
 			list.remove(this);
 			this.stop();
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 	}
