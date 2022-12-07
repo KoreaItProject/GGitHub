@@ -69,9 +69,10 @@
       </div>
       <div class="profile_info_con" v-html="userInfo.con"></div>
       <div class="profile_edit_btn_div">
-        <a href="?tab=setting"
-          ><button class="profile_edit_btn">내 정보 변경</button></a
-        >
+        <a href="?tab=setting" v-if="isMy">
+          <button class="profile_edit_btn">내 정보 변경</button> 
+        </a> 
+        <button class="follow_button" v-if="!isMy" @click="insertFollow">Follow</button>
       </div>
 
       <div class="profile_folloew_div">
@@ -231,7 +232,8 @@ export default {
       userInfo: [],
       repocount:'',
       starcount:'',
-      user_email_div:""
+      user_email_div:"",
+      isMy: store.getters.getUserNick==this.$route.params.nick,
     };
   },
   components: {
@@ -243,6 +245,29 @@ export default {
     following: following,
   },
   methods: {
+   
+    insertFollow(){
+      axios
+      .get("/api/insertFollow", {
+          params: {
+            nick:this.$route.params.nick,
+            idx:store.getters.getUserIdx,
+          },
+        })
+        .then((response) => {
+          // handle success
+          this.repocount = response.data;
+         
+        })
+        .catch((error) => {
+          // handle error
+          console.log(error);
+        })
+        .finally(() => {
+          // always executed
+        });
+       
+    },  
     getProfileImg() {
       axios
         .get("/api/getProfileImg", {
@@ -376,7 +401,8 @@ export default {
     
 
     let tab = this.$route.query.tab;
-     
+
+
     if (tab == "repositories") {
       this.isRepositories = true;
       this.tab2_color = "4px";

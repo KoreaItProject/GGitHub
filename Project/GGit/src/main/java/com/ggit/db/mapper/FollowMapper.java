@@ -16,4 +16,6 @@ public interface FollowMapper {
     List<MemberVo> selectfollowlist(String nick);
 
     List<MemberVo> selectfollowinglist(String nick);
+
+    int insertFollow(String nick, int idx);
 }

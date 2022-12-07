@@ -24,4 +24,7 @@ public class FollowService {
     public List<MemberVo> selectfollowinglist(String nick){
         return mapper.selectfollowinglist(nick);
     }
+    public int insertFollow(String nick, int idx){
+        return mapper.insertFollow(nick, idx);
+    }
 }
