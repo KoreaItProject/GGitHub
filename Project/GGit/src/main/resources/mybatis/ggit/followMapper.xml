@@ -16,4 +16,8 @@
         FROM member,follow 
         WHERE follow.member = member.idx and follow.follower=(SELECT member.idx from member where member.nick=#{nick})
     </select>
+
+    <insert id="insertFollow">
+        INSERT INTO follow(member,follower) VALUES((select member.idx from member where member.nick=#{nick}),${idx})
+    </insert>
 </mapper>

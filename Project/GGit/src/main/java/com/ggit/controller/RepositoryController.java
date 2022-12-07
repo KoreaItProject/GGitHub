@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonParser;
+import com.ggit.service.FollowService;
 import com.ggit.service.PushService;
 import com.ggit.service.RepoService;
 import com.ggit.service.RepomemService;
@@ -40,7 +41,7 @@ import com.ggit.vo.RepositoriesVO;
 import com.ggit.vo.StorageVo;
 
 @RestController
-public class RepositoryControlloer {
+public class RepositoryController {
 
     @Autowired
     RepositoriesVO repositoriesVO;
@@ -58,6 +59,9 @@ public class RepositoryControlloer {
     PushVo pushVo;
     @Autowired
     PushService pushService;
+    @Autowired
+    FollowService followService;
+
 
     @Value("${storage_dir}")
     String storage_dir;
@@ -109,6 +113,8 @@ public class RepositoryControlloer {
         return 1;
     }
 
+    
+
     @RequestMapping("/myRepositories")
     public List<RepositoriesVO> myRepositories(String nick) {
 
@@ -147,6 +153,7 @@ public class RepositoryControlloer {
         }
 
     }
+    
 
     @RequestMapping("/repoIdxByNickName")
     public int repoIdxByNickName(String nick, String reponame) {
@@ -162,6 +169,13 @@ public class RepositoryControlloer {
         }
         return repoIdxByNickName;
 
+    }
+    @RequestMapping("/insertFollow")
+    public int insertFollow(String nick, int idx){
+        System.out.println(nick);
+        System.out.println(idx);
+        int insertFollow = followService.insertFollow(nick, idx);
+        return 1;
     }
 
     @RequestMapping("/selectRepositorycode")
