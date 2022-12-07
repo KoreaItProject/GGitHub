@@ -31,6 +31,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.ggit.service.PushService;
 import com.ggit.service.RepoService;
 import com.ggit.service.RepomemService;
+import com.ggit.util.CopyFile;
 import com.ggit.util.RandStr;
 import com.ggit.vo.PushVo;
 import com.ggit.vo.RepoVo;
@@ -88,11 +89,18 @@ public class RepositoryControlloer {
             repomemVo.setRepo(repoVo.getIdx());
             repomemService.join(repomemVo);// repomem insert
 
-            pushVo.setToken(new RandStr(10).getResult());
+            String token = new RandStr(15).getResult();
+            pushVo.setToken(token);
             pushVo.setMember(owner);
             pushVo.setMessage("프로젝트 생성");
             pushVo.setRepo(repoVo.getIdx());
             pushService.push(pushVo);
+
+            File file = new File(storage_dir + "repositorys/" + repoVo.getIdx() + "/" + token);
+            file.mkdirs();
+
+            new CopyFile().copy(new File(storage_dir + "def/"), file);
+
         } catch (ParseException e) {
             // TODO Auto-generated catch block
             return 0;
