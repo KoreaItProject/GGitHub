@@ -1,5 +1,6 @@
 package com.ggit.socket;
 
+import java.net.BindException;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.List;
@@ -9,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.zeroturnaround.zip.ZipUtil;
 
 import com.ggit.service.MemberService;
+import com.ggit.service.PushService;
 import com.ggit.service.RepoService;
 import com.ggit.socket.InfoDTO.Info;
 import com.ggit.vo.MemberVo;
+import com.ggit.vo.PushVo;
 import com.ggit.vo.RepoVo;
 import com.ggit.vo.RepositoriesVO;
 import com.mysql.cj.protocol.Message;
@@ -39,12 +42,15 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 
 	MemberService memberService;
 	RepoService repoService;
+	PushService pushService;
 	MemberVo memberVo;
 	RepositoriesVO repoVo;
+	PushVo pushVo;
 	String storage;
 
 	// 생성자
-	public ServerHandler(Socket socket, List<ServerHandler> list, MemberService memberService, RepoService repoService,
+	public ServerHandler(Socket socket, List<ServerHandler> list, MemberService memberService,
+			RepoService repoService, PushService pushService,
 			String storage)
 			throws IOException {
 		this.storage = storage;
@@ -55,8 +61,10 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 		// 순서가 뒤바뀌면 값을 입력받지 못하는 상황이 벌어지기 때문에 반드시 writer부터 생성시켜주어야 함!!!!!!
 		this.memberService = memberService;
 		this.repoService = repoService;
+		this.pushService = pushService;
 		this.memberVo = new MemberVo();
 		this.repoVo = new RepositoriesVO();
+		this.pushVo = new PushVo();
 
 	}
 
@@ -115,11 +123,19 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 					fileSend(writer, dto.getIdx(), dto.getToken());
 
 				} else if (dto.getCommand() == Info.PUSH) {
+
+					pushVo.setToken(dto.getToken());
+					pushVo.setMember(Integer.parseInt(dto.getId()));
+					pushVo.setRepo(Integer.parseInt(dto.getIdx()));
+					pushVo.setMessage(dto.getMessage());
+					pushVo.setBranch(Integer.parseInt(dto.getId()));
+					pushVo.setBefore_token(dto.getLastToken());
+					pushService.push(pushVo);
+
 					String writePath = storage + "repositorys/" + dto.getIdx() + "/";
-					System.out.println(writePath);
+					System.out.println(storage + "repositorys/" + dto.getIdx() + "/");
 					File file = new File(writePath);
 					file.mkdir();
-
 					String result = fileWrite(writePath, dto.getToken());
 
 				} else if (dto.getCommand() == Info.FILEEND) {
@@ -127,9 +143,13 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 				}
 			} // while
 
-		} catch (Exception e) {
+		} catch (BindException e) {
+
 			list.remove(this);
 			this.stop();
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 	}

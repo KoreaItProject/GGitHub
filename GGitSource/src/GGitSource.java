@@ -300,16 +300,28 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             String newToken = new RandStr(10).getResult();
             dto.setToken(newToken);// 새로운 토큰 이 push에 대한 토큰
 
+            token = newToken; // 토큰 바꾸고
+            fileW();// info.gt에도 써줌
+
+            File data = new File(clientPath + "/.ggit/.repo/file/data/");//
+            if (data.isDirectory()) {
+                new AllDelete(clientPath + "/.ggit/.repo/file/data/");
+            }
+            data.mkdir();
+            new CopyFile().copy(new File(clientPath + "/project/"),
+                    new File(clientPath + "/.ggit/.repo/file/data/"));// 지금 파일을 보낼 파일로 옮김
+
+            File zip = new File(clientPath + "/.ggit/.repo/file/");// 폴더 압축
+            ZipUtil.pack(zip, new File(clientPath + "/.ggit/.repo/file.zip"));// 파일 보내기 위해 압축
             writer.writeObject(dto);
-            writer.flush();
-        } catch (IOException e) {
+            writer.flush();// 서버한테 나 푸쉬할게 라고 말함
+            fileSend();// 서버한테 파일 보냄
+            zip.delete();// 보낸거 삭제
+        } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        File zip = new File(clientPath + "/.ggit/.repo/file/");
-        ZipUtil.pack(zip, new File(clientPath + "/.ggit/.repo/file.zip"));
-        zip.delete();
-        fileSend();
+
     }
 
     private void fileSend() {
@@ -393,13 +405,16 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                     System.out.println("end");
                     File zip = new File(clientPath + "/.ggit/.repo/file.zip");
 
+                    if (new File(clientPath + "/.ggit/.repo/file").isDirectory()) {
+                        new AllDelete(clientPath + "/.ggit/.repo/file");
+                    }
                     ZipUtil.unpack(zip,
                             new File(clientPath + "/.ggit/.repo/file"));
                     zip.delete();
 
                     File projectFolder = new File(clientPath + "/" + projectName + "/");
                     if (projectFolder.isDirectory()) {
-                        projectFolder.delete();
+                        new AllDelete(clientPath + "/" + projectName + "/");
                     }
                     projectFolder.mkdir();
                     new CopyFile().copy(new File(clientPath + "/.ggit/.repo/file/data/"),
@@ -493,6 +508,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             String con = "\"memberIdx\" : \"" + memberIdx + "\", \"repo\" : \"" + repo
                     + "\",\"token\" : \"" + token
                     + "\",";
+            System.out.println(con);
             String conResult = "";
             for (int i = 0; i < con.length(); i++) {
                 conResult += (int) con.charAt(i) + (i * 100 + 11) * con.length() + "\n";
