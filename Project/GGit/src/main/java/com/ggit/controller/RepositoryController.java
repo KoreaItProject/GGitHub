@@ -39,7 +39,7 @@ import com.ggit.vo.RepositoriesVO;
 import com.ggit.vo.StorageVo;
 
 @RestController
-public class RepositoryControlloer {
+public class RepositoryController {
 
     @Autowired
     RepositoriesVO repositoriesVO;
