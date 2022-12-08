@@ -73,7 +73,7 @@
           <button class="profile_edit_btn">내 정보 변경</button> 
         </a> 
         <button class="follow_button" v-if="!isMy && followcount==0" @click="insertFollow">Follow</button>
-        <button class="unfollow_button" v-if="!isMy && followcount==1">Unfollow</button>
+        <button class="unfollow_button" v-if="!isMy && followcount==1" @click="deletefollowlist">Unfollow</button>
       </div>
 
       <div class="profile_folloew_div">
@@ -260,6 +260,29 @@ export default {
           // handle success
           this.followcount = response.data;
           // alert(this.followcount)
+        })
+        .catch((error) => {
+          // handle error
+          console.log(error);
+        })
+        .finally(() => {
+          // always executed
+        });
+       
+    },  
+    
+    deletefollowlist(){
+      axios
+      .get("/api/deletefollowlist", {
+          params: {
+            nick:this.$route.params.nick,
+            idx:store.getters.getUserIdx,
+          },
+        })
+        .then((response) => {
+          // handle success
+         
+         
         })
         .catch((error) => {
           // handle error

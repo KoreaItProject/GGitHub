@@ -30,4 +30,8 @@ public class FollowService {
     public int selectfollowcount(int idx,String nick){
         return mapper.selectfollowcount(idx, nick);
     }
+
+    public int deletefollowlist(int idx, String nick){
+        return mapper.deletefollowlist(idx, nick);
+    }
 }

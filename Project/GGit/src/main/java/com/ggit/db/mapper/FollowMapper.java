@@ -20,4 +20,6 @@ public interface FollowMapper {
     int insertFollow(String nick, int idx);
 
     int selectfollowcount(int idx, String nick);
+
+    int deletefollowlist(int idx, String nick);
 }
