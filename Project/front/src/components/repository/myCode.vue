@@ -4,7 +4,7 @@
            
             <div class="code_navigator">
                 <div class="branch_btn">
-                  <h3>저장소</h3>
+                   <h3>작업 저장소</h3>
                 </div>
                 <div class="code_btn">
                   

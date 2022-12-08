@@ -42,6 +42,14 @@
                     저장소
                     </span>
                 </a>
+                <a href="?tab=myCode">
+                    <span class="repository_tab repository_tab5">
+                    <svg aria-hidden="true" height="16" viewBox="0 -1 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-code UnderlineNav-octicon d-none d-sm-inline">
+                        <path fill-rule="evenodd" d="M4.72 3.22a.75.75 0 011.06 1.06L2.06 8l3.72 3.72a.75.75 0 11-1.06 1.06L.47 8.53a.75.75 0 010-1.06l4.25-4.25zm6.56 0a.75.75 0 10-1.06 1.06L13.94 8l-3.72 3.72a.75.75 0 101.06 1.06l4.25-4.25a.75.75 0 000-1.06l-4.25-4.25z"></path>
+                    </svg>
+                    작업 저장소
+                    </span>
+                </a>
                 <a href="?tab=history">
                     <span class="repository_tab repository_tab2">
                     <svg aria-hidden="true" height="16" viewBox="0 -1 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-git-branch">
@@ -71,6 +79,7 @@
         </div>
         <div class="repository_content_container">
             <code-view v-if="isCode"/>
+            <myCode-view v-if="isMyCode"/>
             <history-view v-if="isHistory"/>
             <pullrequest-view v-if="isPullrequest"/>
             <setting-view v-if="isSetting"/>
@@ -80,9 +89,10 @@
 
 <script>
 import code from "@/components/repository/code.vue";
+import myCode from "@/components/repository/myCode.vue";
+
 import history from "@/components/repository/history/history.vue";
 import pullrequest from "@/components/repository/pullrequest.vue";
-
 import setting from "@/components/repository/setting/setting.vue";
 import axios from "axios";
 
@@ -95,6 +105,7 @@ export default {
       hrefRepository:
         "/" + this.$route.params.nick + "/" + this.$route.params.repository,
       isCode: false,
+      isMyCode: false,
       isHistory: false,
       isPullrequest: false,
       isSetting: false,
@@ -102,6 +113,7 @@ export default {
       tab2_color: "0px",
       tab3_color: "0px",
       tab4_color: "0px",
+      tab5_color: "0px",
     };
   },
   computed: {
@@ -111,11 +123,13 @@ export default {
         "--tab2_color": this.tab2_color,
         "--tab3_color": this.tab3_color,
         "--tab4_color": this.tab4_color,
+        "--tab5_color": this.tab5_color,
       };
     },
   },
   components: {
     "code-view": code,
+    "myCode-view": myCode,
     "history-view": history,
     "pullrequest-view": pullrequest,
     "setting-view": setting,
@@ -131,6 +145,9 @@ export default {
     } else if (tab == "setting") {
       this.isSetting = true;
       this.tab4_color = "4px";
+    } else if (tab == "myCode") {
+      this.isMyCode = true;
+      this.tab5_color = "4px";
     } else {
       this.isCode = true;
       this.tab1_color = "4px";
