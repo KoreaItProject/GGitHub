@@ -36,4 +36,6 @@ public interface RepoMapper {
 
     int createRepo(RepoVo repoVo);
 
+    int repo_rename(RepoVo repoVo);
+
 }

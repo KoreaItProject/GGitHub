@@ -67,4 +67,8 @@ public class RepoService {
         return mapper.selectRepoClone(repoIdx);
     }
 
+    public int repo_rename(RepoVo repovo){
+        return mapper.repo_rename(repovo);
+    }
+
 }
