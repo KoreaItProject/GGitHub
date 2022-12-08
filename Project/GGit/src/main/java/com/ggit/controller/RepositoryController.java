@@ -198,9 +198,9 @@ public class RepositoryController {
         map.put("member", member);
         repositoriesVO = repoService.selectRepositoryMyCode(map);
         if (repositoriesVO == null) {
-            System.out.println("null");
+            repositoriesVO = repoService.selectRepositorycode(repoIdx);
         }
-        // repositoriesVO = repoService.selectRepositorycode(repoIdx);
+
         return repositoriesVO;
     }
 
