@@ -34,7 +34,7 @@
         ></div>
       </div>
       <div class="overView_contribution_div" :style="cssVariable">
-        <div class="test">
+        <div class="overView_contribution_inner_div">
           <calendar-heatmap :values="this.contribution_data" 
                             :end-date="Date()"
                             tooltip-unit="contribution"
