@@ -305,6 +305,12 @@ public class RepositoryController {
         return RepoClone;
     }
 
+    // 저장소 이름 변경
+    @RequestMapping("repo_rename")
+    public int repo_rename(@RequestBody RepoVo repovo){
+        return repoService.repo_rename(repovo);
+    }
+
 }
 
 class SortData {

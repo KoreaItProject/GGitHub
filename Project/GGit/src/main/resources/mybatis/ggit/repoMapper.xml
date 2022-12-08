@@ -95,6 +95,9 @@
         FROM repo,member
         WHERE member.idx  = (SELECT repo.owner from repo where repo.idx=${repoIdx})and repo.idx=${repoIdx};
     </select>
-
+    
+    <update id="repo_rename">
+        update repo set name=#{repo_rename} where idx = #{idx}
+    </update>
 
 </mapper>
