@@ -34,20 +34,21 @@
         ></div>
       </div>
       <div class="overView_contribution_div" :style="cssVariable">
-        <calendar-heatmap :values="this.contribution_data" 
-                          :end-date="Date()"
-                          tooltip-unit="contribution"
-                          :max="5"
-                          :range-color="[
-                          '#ebedf0',
-                          '#9be9a8',
-                          '#40c463',
-                          '#30a14e',
-                          '#216e39'
-                          ]"
-                          
-                          >
-        </calendar-heatmap>
+        <div class="overView_contribution_inner_div">
+          <calendar-heatmap :values="this.contribution_data" 
+                            :end-date="Date()"
+                            tooltip-unit="contribution"
+                            :max="5"
+                            :range-color="[
+                              '#ebedf0',
+                              '#9be9a8',
+                              '#40c463',
+                              '#30a14e',
+                              '#216e39',
+                            ]"
+                            >
+          </calendar-heatmap>
+        </div>
       </div>
     </div>
   </div>
@@ -77,11 +78,10 @@ export default {
   methods: {
     getContributionData(){
       axios.post("/api/getContributionData", {
-        //idx: store.getters.getUserIdx,
         nick: this.$route.params.nick,
       })
       .then(response => {
-          console.log(response.data);
+          // console.log(response.data);
           this.contribution_data = response.data;
       })
       
