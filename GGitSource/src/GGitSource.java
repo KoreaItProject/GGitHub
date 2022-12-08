@@ -295,6 +295,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             dto.setIdx(repo);// 레포인덱스
             System.out.println(repo);
             dto.setId(memberIdx + "");// 로그인된 회원 인덱스
+            System.out.println(dto.getId());
             dto.setMessage("");// commit시 메시지
             dto.setLastToken(token);// 이전토큰 어떤걸 가져와서 push 한건지
             String newToken = new RandStr(15).getResult();
@@ -380,6 +381,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                         toptxt.setText("이메일 패스워드가 다릅니다");
                     } else if (infoDTO.getMessage().equals("true")) {
                         this.memberIdx = infoDTO.getIdx() + "";
+                        System.out.println(this.memberIdx);
                         loginPan.setVisible(false);
                         toptxt.setText("접속코드를 입력하세요");
                         // toptxt.setVisible(false);

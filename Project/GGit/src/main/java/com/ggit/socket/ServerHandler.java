@@ -89,13 +89,15 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 					break;
 				} else if (dto.getCommand() == Info.LOGIN) {
 					InfoDTO infoDTO = new InfoDTO();
-					memberVo.setEmail(dto.getId());
-					memberVo.setPw(dto.getPw());
 
+					MemberVo vo = new MemberVo();
+
+					vo.setEmail(dto.getId());
+					vo.setPw(dto.getPw());
 					infoDTO.setCommand(Info.LOGINRESULT);
-					if ((memberVo = memberService.memberByemailPw(memberVo)) != null) {
+					if ((vo = memberService.memberByemailPw(vo)) != null) {
 						infoDTO.setMessage("true");
-						infoDTO.setIdx(memberVo.getIdx() + "");
+						infoDTO.setIdx(vo.getIdx() + "");
 
 					} else {
 
