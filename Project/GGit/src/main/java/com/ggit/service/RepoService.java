@@ -42,6 +42,10 @@ public class RepoService {
         return mapper.selectRepositorycode(repoIdx);
     }
 
+    public RepositoriesVO selectRepositoryMyCode(Map map) {
+        return mapper.selectRepositoryMyCode(map);
+    }
+
     public List<RepositoriesVO> selectRepositorycontributors(int repoIdx) {
         return mapper.selectRepositorycontributors(repoIdx);
     }

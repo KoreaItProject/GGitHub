@@ -22,6 +22,8 @@ public interface RepoMapper {
 
     RepositoriesVO selectRepositorycode(int repoIdx);
 
+    RepositoriesVO selectRepositoryMyCode(Map map);
+
     List<RepositoriesVO> selectRepositorycontributors(int repoIdx);
 
     List<RepositoriesVO> selectRepositorystar(int repoIdx);

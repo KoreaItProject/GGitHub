@@ -63,7 +63,6 @@ public class RepositoryController {
     @Autowired
     FollowService followService;
 
-
     @Value("${storage_dir}")
     String storage_dir;
 
@@ -114,8 +113,6 @@ public class RepositoryController {
         return 1;
     }
 
-    
-
     @RequestMapping("/myRepositories")
     public List<RepositoriesVO> myRepositories(String nick) {
 
@@ -154,7 +151,6 @@ public class RepositoryController {
         }
 
     }
-    
 
     @RequestMapping("/repoIdxByNickName")
     public int repoIdxByNickName(String nick, String reponame) {
@@ -171,17 +167,19 @@ public class RepositoryController {
         return repoIdxByNickName;
 
     }
+
     @RequestMapping("/insertFollow")
-    public int insertFollow(String nick, int idx){
+    public int insertFollow(String nick, int idx) {
         System.out.println(nick);
         System.out.println(idx);
         int insertFollow = followService.insertFollow(nick, idx);
         return 1;
     }
+
     @RequestMapping("/selectfollowcount")
-    public int selectfollowcount(int idx,String nick){
-       int followcount = followService.selectfollowcount(idx, nick);
-       return followcount;
+    public int selectfollowcount(int idx, String nick) {
+        int followcount = followService.selectfollowcount(idx, nick);
+        return followcount;
     }
 
     @RequestMapping("/selectRepositorycode")
@@ -189,6 +187,21 @@ public class RepositoryController {
 
         RepositoriesVO Repositorycode = repoService.selectRepositorycode(repoIdx);
         return Repositorycode;
+    }
+
+    @RequestMapping("/selectRepositoryMyCode")
+    public RepositoriesVO selectRepositoryMyCode(int repoIdx, int member) {
+
+        RepositoriesVO repositoriesVO = null;
+        HashMap<String, Integer> map = new HashMap<>();
+        map.put("repoIdx", repoIdx);
+        map.put("member", member);
+        repositoriesVO = repoService.selectRepositoryMyCode(map);
+        if (repositoriesVO == null) {
+            System.out.println("null");
+        }
+        // repositoriesVO = repoService.selectRepositorycode(repoIdx);
+        return repositoriesVO;
     }
 
     @RequestMapping("/selectRepositorycontributors")
