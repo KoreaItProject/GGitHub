@@ -1,0 +1,49 @@
+$line-color: #d0d7de
+.repository_history_container
+    width: 100%
+    .repository_history_div
+        max-width: 1300px
+        width: 100%
+        margin: auto
+        padding-top: 60px
+        display: flex
+        justify-content: center
+        .repository_history_left
+            width: 100%
+            padding-right: 25px
+
+            .repository_history_table_div
+
+                border: 1px solid $line-color
+                border-radius: 5px
+
+                width: 100%
+
+                .repository_history_table
+                    width: 100%
+                    border-style: hidden
+                    font-size: 17px
+
+                th
+                    background: #f6f8fa
+                    height: 31px
+
+                .repository_history_table_data_div
+                    overflow: auto
+                    max-height: 380px
+
+                tr
+                    cursor: pointer
+                    &:hover
+                        background: #f6f8fa
+        .repository_history_right
+            width: 350px
+            border: 1px solid black
+            padding-left: 10px
+            .repository_history_control_container
+                border: 1px solid red
+                height: 100%
+                .repository_history_branch_div
+                    height: 50px
+                    width: 100%
+                    border: 1px solid blue

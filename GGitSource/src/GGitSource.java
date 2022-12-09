@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.event.MouseInputListener;
 
 import org.zeroturnaround.zip.ZipUtil;
@@ -33,6 +34,10 @@ import java.net.Socket;
 import java.net.URI;
 
 import java.net.UnknownHostException;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     // pull
@@ -51,6 +56,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     InfoDTO infoDTO;
     boolean running = true;
     Thread sockThread;
+    Thread refThread;
     String projectName;
 
     // component
@@ -61,6 +67,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     JLabel toplbl;
     JPanel clonepan;
     boolean canbtn = true;
+    JTextField pushMsg;
 
     // info
     String clientPath;
@@ -112,8 +119,13 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
         loginPan.setVisible(!hasLogin);
         mainPanel.add(loginPan);
 
+        pushMsg = new HintTextField("전송할 메시지를 입력해주세요");
+        pushMsg.setBounds(-2, 50, 248, 26);
+        pushMsg.setVisible(hasLogin);
+        mainPanel.add(pushMsg);
+
         scrollPan = new ScrollPan().getScrollPan(clientPath);// 변경된 파일 패널
-        scrollPan.setBounds(-2, 50, 248, 272);
+        scrollPan.setBounds(-2, 75, 248, 247);
         scrollPan.setVisible(hasLogin);
         mainPanel.add(scrollPan);
 
@@ -167,8 +179,6 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
 
         add(mainPanel);
 
-        this.addMouseListener(this);
-
         // 창닫을 경우
         this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -180,12 +190,17 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                     writer.flush();
                     running = false;
                     sockThread.stop();
+                    refThread.stop();
 
                 } catch (IOException io) {
                     io.printStackTrace();
                 }
             }
         });
+
+        refThread = new Refresh(this);
+        refThread.start();
+
     }
 
     public ImageIcon imgMk(String img, int w, int h) {
@@ -202,6 +217,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             JFileChooser jfc = new JFileChooser();
             jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             jfc.showDialog(this, null);
+
             File dir = jfc.getSelectedFile();
             this.clientPath = dir.getPath();
             this.info = new File(clientPath + "/.ggit/user/info.gt");
@@ -296,7 +312,8 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             System.out.println(repo);
             dto.setId(memberIdx + "");// 로그인된 회원 인덱스
             System.out.println(dto.getId());
-            dto.setMessage("");// commit시 메시지
+            dto.setMessage(pushMsg.getText());// commit시 메시지
+            pushMsg.setText("전송할 메시지를 입력해주세요");
             dto.setLastToken(token);// 이전토큰 어떤걸 가져와서 push 한건지
             String newToken = new RandStr(15).getResult();
             dto.setToken(newToken);// 새로운 토큰 이 push에 대한 토큰
@@ -498,6 +515,8 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             // 1. 파일 객체 생성
             File dir = new File(clientPath + "/.ggit/user/");
             dir.mkdirs();
+            Path p = Paths.get(clientPath + "/.ggit");
+            Files.setAttribute(p, "dos:hidden", Boolean.TRUE, LinkOption.NOFOLLOW_LINKS);
             new File(clientPath + "/.ggit/.repo/").mkdir();
             File file = new File(clientPath + "/.ggit/user/info.gt");
             System.out.println(file.getPath());
@@ -522,6 +541,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             writer.close();
 
             toptxt.setVisible(false);
+            pushMsg.setVisible(true);
             scrollPan.setVisible(true);
             toplbl.setVisible(false);
             clonepan.setVisible(false);

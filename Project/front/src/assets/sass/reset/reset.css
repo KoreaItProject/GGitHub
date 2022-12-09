@@ -399,21 +399,21 @@ table {
   overflow-y: scroll;
 }
 body::-webkit-scrollbar , .scrollBar::-webkit-scrollbar{
-  width: 7px;
+  width: 9px;
   /* 스크롤바의 너비 */
 }
 
 body::-webkit-scrollbar-thumb , .scrollBar::-webkit-scrollbar-thumb{
-  height: 30%;
+
   /* 스크롤바의 길이 */
   background: pink;
   /* 스크롤바의 색상 */
 
-  border-radius: 10px;
+  border-radius: 8px;
 }
 
 body::-webkit-scrollbar-track , .scrollBar::-webkit-scrollbar-track{
-  background: rgba(33, 122, 244, 0);
+  background: rgba(0, 0, 0, 0.05);
   /*스크롤바 뒷 배경 색상*/
 }
 /* 임의의 영역 생성 */
