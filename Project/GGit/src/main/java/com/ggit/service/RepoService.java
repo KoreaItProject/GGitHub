@@ -21,8 +21,8 @@ public class RepoService {
         return mapper.repo();
     }
 
-    public RepositoriesVO clone(String clone) {
-        return mapper.clone(clone);
+    public RepositoriesVO clone(Map map) {
+        return mapper.clone(map);
     }
 
     public int createRepo(RepoVo RepoVo) {
@@ -67,7 +67,7 @@ public class RepoService {
         return mapper.selectRepoClone(repoIdx);
     }
 
-    public int repo_rename(RepoVo repovo){
+    public int repo_rename(RepoVo repovo) {
         return mapper.repo_rename(repovo);
     }
 

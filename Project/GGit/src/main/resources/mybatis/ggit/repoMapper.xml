@@ -32,7 +32,10 @@
      select repo.idx from repo where repo.name=#{reponame} and owner=(select member.idx from member where member.nick =#{nick})
     </select>
     <select id="clone" resultType="com.ggit.vo.RepositoriesVO">
-     select repo.idx as repo_idx ,push.token as push_token from repo , push where repo.clone=#{clone} and repo.idx = push.repo ORDER BY push.date DESC LIMIT 1
+     select repo.idx as repo_idx ,push.token as push_token ,push.before_token as before_token
+     from repo , push 
+     where repo.clone=#{clone} and repo.idx = push.repo and branch= ${member}
+     ORDER BY push.selected DESC,push.date DESC LIMIT 1
     </select>
 
     <select id="selectRepositorycode" resultType="com.ggit.vo.RepositoriesVO">
@@ -95,7 +98,7 @@
         FROM repo,member
         WHERE member.idx  = (SELECT repo.owner from repo where repo.idx=${repoIdx})and repo.idx=${repoIdx};
     </select>
-    
+
     <update id="repo_rename">
         update repo set name=#{repo_rename} where idx = #{idx}
     </update>

@@ -68,6 +68,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     JPanel clonepan;
     boolean canbtn = true;
     JTextField pushMsg;
+    ClonePan cp;
 
     // info
     String clientPath;
@@ -75,6 +76,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     String memberIdx;
     String repo;
     String token;
+    String lastToken;
 
     public GGitSource() {
 
@@ -129,7 +131,8 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
         scrollPan.setVisible(hasLogin);
         mainPanel.add(scrollPan);
 
-        clonepan = new ClonePan(writer).getPanel();
+        cp = new ClonePan(writer);
+        clonepan = cp.getPanel();
         clonepan.setBounds(-2, 50, 248, 272);
         mainPanel.add(clonepan);
         clonepan.setVisible(false);
@@ -227,6 +230,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                 this.repo = infoLeader.getRepo();
                 this.memberIdx = infoLeader.getMemberIdx();
                 this.token = infoLeader.getToken();
+                this.lastToken = infoLeader.getLastToken();
                 this.hasLogin = true;
 
             } else {
@@ -294,6 +298,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             dto.setCommand(Info.PULL);
             dto.setIdx(repo);
             dto.setToken(token);
+            dto.setId(memberIdx);
             writer.writeObject(dto);
             writer.flush();
         } catch (IOException e) {
@@ -313,11 +318,10 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             dto.setId(memberIdx + "");// 로그인된 회원 인덱스
             System.out.println(dto.getId());
             dto.setMessage(pushMsg.getText());// commit시 메시지
-            pushMsg.setText("전송할 메시지를 입력해주세요");
-            dto.setLastToken(token);// 이전토큰 어떤걸 가져와서 push 한건지
+            pushMsg.setText("Update");
+            dto.setLastToken(lastToken);// 이전토큰 어떤걸 가져와서 push 한건지
             String newToken = new RandStr(15).getResult();
             dto.setToken(newToken);// 새로운 토큰 이 push에 대한 토큰
-
             token = newToken; // 토큰 바꾸고
             fileW();// info.gt에도 써줌
 
@@ -400,6 +404,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                         this.memberIdx = infoDTO.getIdx() + "";
                         System.out.println(this.memberIdx);
                         loginPan.setVisible(false);
+                        cp.setMemberIdx(memberIdx);
                         toptxt.setText("접속코드를 입력하세요");
                         // toptxt.setVisible(false);
                         // scrollPan.setVisible(true);
@@ -412,6 +417,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                     } else {
                         this.repo = infoDTO.getIdx() + "";
                         this.token = infoDTO.getToken();
+                        this.lastToken = infoDTO.getLastToken();
                         fileW();
                         pull();
                     }
@@ -527,7 +533,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
 
             // 4. 파일에 쓰기
             String con = "\"memberIdx\" : \"" + memberIdx + "\", \"repo\" : \"" + repo
-                    + "\",\"token\" : \"" + token
+                    + "\",\"token\" : \"" + token + "\",\"lasttoken\":\"" + lastToken
                     + "\",";
             System.out.println(con);
             String conResult = "";

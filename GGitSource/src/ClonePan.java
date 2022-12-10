@@ -35,9 +35,11 @@ public class ClonePan extends KeyAdapter implements MouseInputListener {
     JTextField code;
     ObjectOutputStream writer;
     InfoDTO infoDTO;
+    String member;
 
     ClonePan(ObjectOutputStream writer) {
         this.writer = writer;
+        this.member = member;
 
         infoDTO = new InfoDTO();
         imgPath = new Setting().getImgPath();
@@ -102,6 +104,7 @@ public class ClonePan extends KeyAdapter implements MouseInputListener {
                 infoDTO = new InfoDTO();
                 infoDTO.setCommand(Info.CLONE);
                 infoDTO.setMessage(code.getText());
+                infoDTO.setId(member);
                 writer.writeObject(infoDTO);
                 writer.flush();
             } catch (IOException e1) {
@@ -120,6 +123,7 @@ public class ClonePan extends KeyAdapter implements MouseInputListener {
                 infoDTO = new InfoDTO();
                 infoDTO.setCommand(Info.CLONE);
                 infoDTO.setMessage(code.getText());
+                infoDTO.setId(member);
                 writer.writeObject(infoDTO);
                 writer.flush();
             } catch (IOException e1) {
@@ -163,6 +167,10 @@ public class ClonePan extends KeyAdapter implements MouseInputListener {
     public void mouseReleased(MouseEvent e) {
         // TODO Auto-generated method stub
 
+    }
+
+    public void setMemberIdx(String member) {
+        this.member = member;
     }
 
 }
