@@ -110,26 +110,9 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 				} else if (dto.getCommand() == Info.CLONE) {
 					InfoDTO infoDTO = new InfoDTO();
 					infoDTO.setCommand(Info.CLONERESULT);
-					Map<String, String> map = null;
-					map = new HashMap<String, String>();
-					map.put("clone", dto.getMessage());
-					map.put("member", dto.getId());
-
-					repositoriesVO = repoService.clone(map);// 작업저장소에서 선택된거 또는 없으면 최근거를 가져온다.
-					if (repositoriesVO != null) {// 가 있으면 정보를 전송한다.
+					repositoriesVO = repoService.clone(dto.getMessage());
+					if (repositoriesVO != null) {
 						infoDTO.setIdx(repositoriesVO.getRepo_idx() + "");
-						infoDTO.setToken(repositoriesVO.getPush_token());
-						infoDTO.setLastToken(repositoriesVO.getBefore_token());
-					} else {// 가 없다면 메인저장소에서 가져온다.
-						map = new HashMap<String, String>();
-						map.put("clone", dto.getMessage());
-						map.put("member", "0");
-						repositoriesVO = repoService.clone(map);
-						if (repositoriesVO != null) {
-							infoDTO.setIdx(repositoriesVO.getRepo_idx() + "");
-							infoDTO.setToken(repositoriesVO.getPush_token());
-							infoDTO.setLastToken(repositoriesVO.getPush_token());
-						} // 위에 if문에 다 안걸렸다면 token은 null일거고 깃소스 받는 쪽에서 token이 null이면 없는 clone으로 인식한다.
 
 					}
 
@@ -138,11 +121,29 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 
 				} else if (dto.getCommand() == Info.PULL) {
 					System.out.println("PULL");
+
+					Map<String, String> map = null;
+					map = new HashMap<String, String>();
+					map.put("repo", dto.getIdx());
+					map.put("member", dto.getId());
+					repositoriesVO = repoService.pulltoken(map);
+
 					InfoDTO infoDTO = new InfoDTO();
+					if (repositoriesVO == null) {
+						map = new HashMap<String, String>();
+						map.put("repo", dto.getIdx());
+						map.put("member", "0");
+						repositoriesVO = repoService.pulltoken(map);
+						infoDTO.setLastToken(repositoriesVO.getPush_token());
+					} else {
+						infoDTO.setLastToken(repositoriesVO.getBefore_token());
+					}
+					infoDTO.setToken(repositoriesVO.getPush_token());
+
 					infoDTO.setCommand(Info.PULLRESULT);
 					writer.writeObject(infoDTO);
 
-					fileSend(writer, dto.getIdx(), dto.getToken());
+					fileSend(writer, dto.getIdx(), infoDTO.getToken());
 
 				} else if (dto.getCommand() == Info.PUSH) {
 

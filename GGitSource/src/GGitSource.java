@@ -297,7 +297,6 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             InfoDTO dto = new InfoDTO();
             dto.setCommand(Info.PULL);
             dto.setIdx(repo);
-            dto.setToken(token);
             dto.setId(memberIdx);
             writer.writeObject(dto);
             writer.flush();
@@ -309,7 +308,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     }
 
     public void push() {// push
-
+        canbtn = false;
         try {
             InfoDTO dto = new InfoDTO();
             dto.setCommand(Info.PUSH);
@@ -372,11 +371,10 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                 writer.write(Object, 0, len);
             }
 
-            System.out.println(len);
-            // 서버에 전송
-
             fis.close();
             bis.close();
+            System.out.println("전송완료");
+            canbtn = true;
             writer.flush();
             InfoDTO infoDTO = new InfoDTO();
             infoDTO.setCommand(Info.FILEEND);
@@ -412,18 +410,20 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                         clonepan.setVisible(true);
                     }
                 } else if (infoDTO.getCommand() == Info.CLONERESULT) {
-                    if (infoDTO.getToken() == null) {
+                    if (infoDTO.getIdx() == null) {
                         toptxt.setText("잘못된 접속코드 입니다.");
                     } else {
                         this.repo = infoDTO.getIdx() + "";
-                        this.token = infoDTO.getToken();
-                        this.lastToken = infoDTO.getLastToken();
-                        fileW();
                         pull();
                     }
 
                 } else if (infoDTO.getCommand() == Info.PULLRESULT) {
                     System.out.println("pullresult");
+
+                    this.token = infoDTO.getToken();
+                    this.lastToken = infoDTO.getLastToken();
+                    fileW();
+
                     String result = fileWrite();
 
                 } else if (infoDTO.getCommand() == Info.FILEEND) {
@@ -486,10 +486,10 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                 bos.write(Object, 0, len);
 
             }
-            System.out.println(len);
+
             result = "SUCCESS";
             // bos.flush();
-            System.out.println(1);
+
             System.out.println("파일 수신 작업을 완료하였습니다.");
             System.out.println("받은 파일의 사이즈 : " + file.length());
             System.out.println(clientPath + "/file.zip");

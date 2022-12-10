@@ -18,7 +18,9 @@ public interface RepoMapper {
 
     int repoIdxByNickName(Map map);
 
-    RepositoriesVO clone(Map map);
+    RepositoriesVO clone(String clone);
+
+    RepositoriesVO pulltoken(Map map);
 
     RepositoriesVO selectRepositorycode(int repoIdx);
 

@@ -32,10 +32,13 @@
      select repo.idx from repo where repo.name=#{reponame} and owner=(select member.idx from member where member.nick =#{nick})
     </select>
     <select id="clone" resultType="com.ggit.vo.RepositoriesVO">
-     select repo.idx as repo_idx ,push.token as push_token ,push.before_token as before_token
-     from repo , push 
-     where repo.clone=#{clone} and repo.idx = push.repo and branch= ${member}
-     ORDER BY push.selected DESC,push.date DESC LIMIT 1
+     select repo.idx as repo_idx ,push.token as push_token from repo , push where repo.clone=#{clone} and repo.idx = push.repo ORDER BY push.date DESC LIMIT 1
+    </select>
+    <select id="pulltoken" resultType="com.ggit.vo.RepositoriesVO">
+     select token as push_token, before_token 
+     from push 
+     where  repo = ${repo} and branch = ${member}
+     ORDER BY selected DESC,date DESC LIMIT 1
     </select>
 
     <select id="selectRepositorycode" resultType="com.ggit.vo.RepositoriesVO">

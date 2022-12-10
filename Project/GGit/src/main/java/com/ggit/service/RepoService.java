@@ -21,8 +21,12 @@ public class RepoService {
         return mapper.repo();
     }
 
-    public RepositoriesVO clone(Map map) {
-        return mapper.clone(map);
+    public RepositoriesVO clone(String clone) {
+        return mapper.clone(clone);
+    }
+
+    public RepositoriesVO pulltoken(Map map) {
+        return mapper.pulltoken(map);
     }
 
     public int createRepo(RepoVo RepoVo) {
