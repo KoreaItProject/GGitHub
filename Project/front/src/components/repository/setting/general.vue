@@ -7,13 +7,11 @@
             <button class="repo_rename_btn" @click="repo_rename_func">적용하기</button>
 
             <div class="repo_about_setting_box">
-                <div class="repo_about">
-                    저장소 소개글 변경
-                </div>
+                <div class="repo_about">저장소 소개글 변경</div>
                 <div>
-                <textarea class="repo_about_textarea" placeholder="about-message" ></textarea>
+                    <textarea class="repo_about_textarea" :placeholder="repo_message" @input="repo_remesagge" v-model="repo_remessage"></textarea>
                 </div>
-                <button class="repo_about_btn">적용하기</button>
+                <button class="repo_about_btn" @click="repo_remessage_func()" >적용하기</button>
             </div>
 
         </div>
@@ -22,9 +20,12 @@
 <script>
 import axios from 'axios';
 import { rename } from 'fs';
+import { log } from 'console';
 export default {
     data(){
         return{
+            repo_remessage: "",
+            repo_message: "",
             repo_owner: "",
             repoIdx: "",
             repo_rename: "",
@@ -65,6 +66,9 @@ export default {
         input_rename(e){
             this.repo_rename = e.target.value;
         },
+        repo_remesagge(e){
+            this.repo_remesagge = e.target.value;
+        },
         repoIdxByNickName() {
             axios.get("/api/repoIdxByNickName", {
                 params: {
@@ -74,8 +78,37 @@ export default {
             })
             .then((response) => {
                 this.repoIdx = response.data;
+                this.get_repo_message();
             });
         },
+        get_repo_message(){ // 저장소 소개글 가져오는 함수
+            axios.post("/api/getrepomessage", {
+                idx: this.repoIdx
+            })
+            .then(response => {
+                console.log(response.data);
+                this.repo_message = response.data.description;
+            })
+        },
+        repo_remessage_func(){ // 저장소 소개글 업데이트 함수
+            if(this.repo_remessage.trim() == ""){
+                alert("변경 내용을 작성해주세요");
+            }else{
+                axios.post("/api/repo_remessage_func",{
+                    idx: this.repoIdx,
+                    description: this.repo_remessage
+                })
+                .then(response => {
+                    if(response.data > 0){
+                        alert("변경 성공");
+                        this.$router.go();
+                    }else{
+                        alert("변경 실패");
+                    }
+                })
+            }
+            
+        }
         
     }
 }

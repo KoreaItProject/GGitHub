@@ -38,4 +38,8 @@ public interface RepoMapper {
 
     int repo_rename(RepoVo repoVo);
 
+    RepoVo getrepomessage(RepoVo repoVo);
+
+    int repo_remessage_func(RepoVo repoVo);
+
 }
