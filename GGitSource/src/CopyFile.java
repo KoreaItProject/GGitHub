@@ -14,8 +14,6 @@ public class CopyFile {
             File temp = new File(targetF.getAbsolutePath() + File.separator + file.getName());
             try {
 
-                System.out.println();
-
                 if (file.isDirectory()) {
                     temp.mkdir();
                     copy(file, temp);

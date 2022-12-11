@@ -65,6 +65,7 @@
 
                 </div>
                 <div class="repo_list" v-show="loading">데이터 불러오는 중...</div>
+                 <a :href="backURL"><div class="repo_list" v-show="!(path==undefined)">  . . </div></a>
                 <div class="repo_list" v-for="data in file_list"  >
                   
                     <a :href="thisURL+'/'+data.name+'?tab=myCode'" v-if="data.state!='file'">
@@ -153,10 +154,19 @@ export default {
       star: [],
       clone: "",
       thisURL: window.location.href.split("?")[0],
+      backURL:
+        window.location.href.replace(
+          "/" +
+            window.location.href.split("/")[
+              window.location.href.split("/").length - 1
+            ],
+          ""
+        ) + "?tab=myCode",
       repoIdx: 0,
       readmeContent: "",
       loading: true,
       isStatusOn: false,
+      path: this.$route.params.path,
     };
   },
 

@@ -9,7 +9,7 @@ import org.json.simple.parser.ParseException;
 
 public class InfoLeader {
       private String content = "";
-      private String repo, memberIdx, token;
+      private String repo, memberIdx, token, lasttoken;
 
       public InfoLeader(String path) {
 
@@ -64,10 +64,12 @@ public class InfoLeader {
                   System.out.println("repo = " + jsonObj.get("repo"));
                   System.out.println("memberIdx = " + jsonObj.get("memberIdx"));
                   System.out.println("token = " + jsonObj.get("token"));
-
+                  System.out.println("lasttoken = " + jsonObj.get("lasttoken"));
+                  System.out.println(jsonObj);
                   repo = jsonObj.get("repo") + "";
                   memberIdx = jsonObj.get("memberIdx") + "";
                   token = jsonObj.get("token") + "";
+                  lasttoken = jsonObj.get("lasttoken") + "";
             } catch (ParseException e) {
                   // TODO Auto-generated catch block
                   e.printStackTrace();
@@ -91,4 +93,7 @@ public class InfoLeader {
             return token;
       }
 
+      public String getLastToken() {
+            return lasttoken;
+      }
 }

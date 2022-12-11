@@ -20,6 +20,8 @@ public interface RepoMapper {
 
     RepositoriesVO clone(String clone);
 
+    RepositoriesVO pulltoken(Map map);
+
     RepositoriesVO selectRepositorycode(int repoIdx);
 
     RepositoriesVO selectRepositoryMyCode(Map map);

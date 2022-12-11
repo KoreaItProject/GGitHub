@@ -25,6 +25,10 @@ public class RepoService {
         return mapper.clone(clone);
     }
 
+    public RepositoriesVO pulltoken(Map map) {
+        return mapper.pulltoken(map);
+    }
+
     public int createRepo(RepoVo RepoVo) {
         return mapper.createRepo(RepoVo);
     }
@@ -67,7 +71,7 @@ public class RepoService {
         return mapper.selectRepoClone(repoIdx);
     }
 
-    public int repo_rename(RepoVo repovo){
+    public int repo_rename(RepoVo repovo) {
         return mapper.repo_rename(repovo);
     }
 

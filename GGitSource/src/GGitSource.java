@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.event.MouseInputListener;
 
 import org.zeroturnaround.zip.ZipUtil;
@@ -33,6 +34,10 @@ import java.net.Socket;
 import java.net.URI;
 
 import java.net.UnknownHostException;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     // pull
@@ -50,6 +55,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     InfoDTO infoDTO;
     boolean running = true;
     Thread sockThread;
+    Thread refThread;
     String projectName;
 
     // component
@@ -60,6 +66,8 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     JLabel toplbl;
     JPanel clonepan;
     boolean canbtn = true;
+    JTextField pushMsg;
+    ClonePan cp;
 
     // info
     String clientPath;
@@ -67,6 +75,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     String memberIdx;
     String repo;
     String token;
+    String lastToken;
 
     public GGitSource() {
 
@@ -111,12 +120,18 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
         loginPan.setVisible(!hasLogin);
         mainPanel.add(loginPan);
 
+        pushMsg = new HintTextField("전송할 메시지를 입력해주세요");
+        pushMsg.setBounds(-2, 50, 248, 26);
+        pushMsg.setVisible(hasLogin);
+        mainPanel.add(pushMsg);
+
         scrollPan = new ScrollPan().getScrollPan(clientPath);// 변경된 파일 패널
-        scrollPan.setBounds(-2, 50, 248, 272);
+        scrollPan.setBounds(-2, 75, 248, 247);
         scrollPan.setVisible(hasLogin);
         mainPanel.add(scrollPan);
 
-        clonepan = new ClonePan(writer).getPanel();
+        cp = new ClonePan(writer);
+        clonepan = cp.getPanel();
         clonepan.setBounds(-2, 50, 248, 272);
         mainPanel.add(clonepan);
         clonepan.setVisible(false);
@@ -166,8 +181,6 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
 
         add(mainPanel);
 
-        this.addMouseListener(this);
-
         // 창닫을 경우
         this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -179,12 +192,17 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                     writer.flush();
                     running = false;
                     sockThread.stop();
+                    refThread.stop();
 
                 } catch (IOException io) {
                     io.printStackTrace();
                 }
             }
         });
+
+        refThread = new Refresh(this);
+        refThread.start();
+
     }
 
     public ImageIcon imgMk(String img, int w, int h) {
@@ -202,6 +220,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             
             jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             jfc.showDialog(this, null);
+
             File dir = jfc.getSelectedFile();
             this.clientPath = dir.getPath();
             this.info = new File(clientPath + "/.ggit/user/info.gt");
@@ -211,6 +230,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                 this.repo = infoLeader.getRepo();
                 this.memberIdx = infoLeader.getMemberIdx();
                 this.token = infoLeader.getToken();
+                this.lastToken = infoLeader.getLastToken();
                 this.hasLogin = true;
 
             } else {
@@ -277,7 +297,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             InfoDTO dto = new InfoDTO();
             dto.setCommand(Info.PULL);
             dto.setIdx(repo);
-            dto.setToken(token);
+            dto.setId(memberIdx);
             writer.writeObject(dto);
             writer.flush();
         } catch (IOException e) {
@@ -288,18 +308,19 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     }
 
     public void push() {// push
-
+        canbtn = false;
         try {
             InfoDTO dto = new InfoDTO();
             dto.setCommand(Info.PUSH);
             dto.setIdx(repo);// 레포인덱스
             System.out.println(repo);
             dto.setId(memberIdx + "");// 로그인된 회원 인덱스
-            dto.setMessage("");// commit시 메시지
-            dto.setLastToken(token);// 이전토큰 어떤걸 가져와서 push 한건지
+            System.out.println(dto.getId());
+            dto.setMessage(pushMsg.getText());// commit시 메시지
+            pushMsg.setText("Update");
+            dto.setLastToken(lastToken);// 이전토큰 어떤걸 가져와서 push 한건지
             String newToken = new RandStr(15).getResult();
             dto.setToken(newToken);// 새로운 토큰 이 push에 대한 토큰
-
             token = newToken; // 토큰 바꾸고
             fileW();// info.gt에도 써줌
 
@@ -350,11 +371,10 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                 writer.write(Object, 0, len);
             }
 
-            System.out.println(len);
-            // 서버에 전송
-
             fis.close();
             bis.close();
+            System.out.println("전송완료");
+            canbtn = true;
             writer.flush();
             InfoDTO infoDTO = new InfoDTO();
             infoDTO.setCommand(Info.FILEEND);
@@ -380,7 +400,9 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                         toptxt.setText("이메일 패스워드가 다릅니다");
                     } else if (infoDTO.getMessage().equals("true")) {
                         this.memberIdx = infoDTO.getIdx() + "";
+                        System.out.println(this.memberIdx);
                         loginPan.setVisible(false);
+                        cp.setMemberIdx(memberIdx);
                         toptxt.setText("접속코드를 입력하세요");
                         // toptxt.setVisible(false);
                         // scrollPan.setVisible(true);
@@ -388,17 +410,20 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                         clonepan.setVisible(true);
                     }
                 } else if (infoDTO.getCommand() == Info.CLONERESULT) {
-                    if (infoDTO.getToken() == null) {
+                    if (infoDTO.getIdx() == null) {
                         toptxt.setText("잘못된 접속코드 입니다.");
                     } else {
                         this.repo = infoDTO.getIdx() + "";
-                        this.token = infoDTO.getToken();
-                        fileW();
                         pull();
                     }
 
                 } else if (infoDTO.getCommand() == Info.PULLRESULT) {
                     System.out.println("pullresult");
+
+                    this.token = infoDTO.getToken();
+                    this.lastToken = infoDTO.getLastToken();
+                    fileW();
+
                     String result = fileWrite();
 
                 } else if (infoDTO.getCommand() == Info.FILEEND) {
@@ -461,10 +486,10 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                 bos.write(Object, 0, len);
 
             }
-            System.out.println(len);
+
             result = "SUCCESS";
             // bos.flush();
-            System.out.println(1);
+
             System.out.println("파일 수신 작업을 완료하였습니다.");
             System.out.println("받은 파일의 사이즈 : " + file.length());
             System.out.println(clientPath + "/file.zip");
@@ -496,6 +521,8 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             // 1. 파일 객체 생성
             File dir = new File(clientPath + "/.ggit/user/");
             dir.mkdirs();
+            Path p = Paths.get(clientPath + "/.ggit");
+            Files.setAttribute(p, "dos:hidden", Boolean.TRUE, LinkOption.NOFOLLOW_LINKS);
             new File(clientPath + "/.ggit/.repo/").mkdir();
             File file = new File(clientPath + "/.ggit/user/info.gt");
             System.out.println(file.getPath());
@@ -506,7 +533,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
 
             // 4. 파일에 쓰기
             String con = "\"memberIdx\" : \"" + memberIdx + "\", \"repo\" : \"" + repo
-                    + "\",\"token\" : \"" + token
+                    + "\",\"token\" : \"" + token + "\",\"lasttoken\":\"" + lastToken
                     + "\",";
             System.out.println(con);
             String conResult = "";
@@ -520,6 +547,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             writer.close();
 
             toptxt.setVisible(false);
+            pushMsg.setVisible(true);
             scrollPan.setVisible(true);
             toplbl.setVisible(false);
             clonepan.setVisible(false);

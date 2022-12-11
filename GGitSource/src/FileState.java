@@ -96,7 +96,7 @@ public class FileState extends Thread {
                                 "lastModifiedTime");
                         FileTime tarFileTime = (FileTime) Files.getAttribute(Paths.get(temp.getPath()),
                                 "lastModifiedTime");
-                        if ((int) (sorcFileTime.toMillis() / 3000) > (int) (tarFileTime.toMillis() / 3000)) {
+                        if ((int) (sorcFileTime.toMillis() / 1000) - 1 > (int) (tarFileTime.toMillis() / 1000)) {
                             list.add(change + file.getName() + "     " + file.getPath());
                         }
                     } catch (Exception e) {

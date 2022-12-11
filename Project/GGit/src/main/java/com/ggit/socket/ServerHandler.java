@@ -3,7 +3,9 @@ package com.ggit.socket;
 import java.net.BindException;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +46,7 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 	RepoService repoService;
 	PushService pushService;
 	MemberVo memberVo;
-	RepositoriesVO repoVo;
+	RepositoriesVO repositoriesVO;
 	PushVo pushVo;
 	String storage;
 
@@ -63,7 +65,7 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 		this.repoService = repoService;
 		this.pushService = pushService;
 		this.memberVo = new MemberVo();
-		this.repoVo = new RepositoriesVO();
+		this.repositoriesVO = new RepositoriesVO();
 		this.pushVo = new PushVo();
 
 	}
@@ -89,13 +91,15 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 					break;
 				} else if (dto.getCommand() == Info.LOGIN) {
 					InfoDTO infoDTO = new InfoDTO();
-					memberVo.setEmail(dto.getId());
-					memberVo.setPw(dto.getPw());
 
+					MemberVo vo = new MemberVo();
+
+					vo.setEmail(dto.getId());
+					vo.setPw(dto.getPw());
 					infoDTO.setCommand(Info.LOGINRESULT);
-					if ((memberVo = memberService.memberByemailPw(memberVo)) != null) {
+					if ((vo = memberService.memberByemailPw(vo)) != null) {
 						infoDTO.setMessage("true");
-						infoDTO.setIdx(memberVo.getIdx() + "");
+						infoDTO.setIdx(vo.getIdx() + "");
 
 					} else {
 
@@ -106,21 +110,40 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 				} else if (dto.getCommand() == Info.CLONE) {
 					InfoDTO infoDTO = new InfoDTO();
 					infoDTO.setCommand(Info.CLONERESULT);
-					repoVo = repoService.clone(dto.getMessage());
-					if (repoVo != null) {
-						infoDTO.setIdx(repoVo.getRepo_idx() + "");
-						infoDTO.setToken(repoVo.getPush_token());
+					repositoriesVO = repoService.clone(dto.getMessage());
+					if (repositoriesVO != null) {
+						infoDTO.setIdx(repositoriesVO.getRepo_idx() + "");
+
 					}
 
 					writer.writeObject(infoDTO);
 					writer.flush();
+
 				} else if (dto.getCommand() == Info.PULL) {
 					System.out.println("PULL");
+
+					Map<String, String> map = null;
+					map = new HashMap<String, String>();
+					map.put("repo", dto.getIdx());
+					map.put("member", dto.getId());
+					repositoriesVO = repoService.pulltoken(map);
+
 					InfoDTO infoDTO = new InfoDTO();
+					if (repositoriesVO == null) {
+						map = new HashMap<String, String>();
+						map.put("repo", dto.getIdx());
+						map.put("member", "0");
+						repositoriesVO = repoService.pulltoken(map);
+						infoDTO.setLastToken(repositoriesVO.getPush_token());
+					} else {
+						infoDTO.setLastToken(repositoriesVO.getBefore_token());
+					}
+					infoDTO.setToken(repositoriesVO.getPush_token());
+
 					infoDTO.setCommand(Info.PULLRESULT);
 					writer.writeObject(infoDTO);
 
-					fileSend(writer, dto.getIdx(), dto.getToken());
+					fileSend(writer, dto.getIdx(), infoDTO.getToken());
 
 				} else if (dto.getCommand() == Info.PUSH) {
 
