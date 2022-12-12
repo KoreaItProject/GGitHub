@@ -44,7 +44,6 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     // 1.pull 버튼 클릭시 pull()함수 에서 서버에 Pull요청을 함
     // 2.서버에서 pull에 대한 zip파일을 보내줌
     // 3.run 에서 zip파일을 받으면 fileWrite()함수로 파일을 받아서 저장함
-
     RoundedButton pushBtn, pullBtn;
     String imgPath;
 
@@ -218,6 +217,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             this.imgPath = setting.getImgPath();
 
             JFileChooser jfc = new JFileChooser();
+            
             jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             jfc.showDialog(this, null);
 

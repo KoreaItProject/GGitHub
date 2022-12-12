@@ -87,7 +87,6 @@
         SELECT count(repomem.idx)
         FROM repomem 
         WHERE repomem.member=(select member.idx from member where member.nick =#{nick});
-       
     </select>
 
     <select id="selectRepositorystarcount" resultType="int">
@@ -104,6 +103,14 @@
 
     <update id="repo_rename">
         update repo set name=#{repo_rename} where idx = #{idx}
+    </update>
+
+    <select id="getrepomessage" resultType="com.ggit.vo.RepoVo">
+        select description from repo where idx=#{idx}
+    </select>
+
+    <update id="repo_remessage_func">
+        update repo set description=#{description} where idx=#{idx}
     </update>
 
 </mapper>

@@ -311,6 +311,19 @@ public class RepositoryController {
         return repoService.repo_rename(repovo);
     }
 
+    // 저장소 소개글 가져오기
+    @RequestMapping("getrepomessage")
+    public RepoVo getrepomessage(@RequestBody RepoVo repovo){
+        System.out.println("-=-=>" + repovo.getIdx());
+        return repoService.getrepomessage(repovo);
+    }
+
+    // 저장소 소개글 업데이트
+    @RequestMapping("repo_remessage_func")
+    public int repo_remessage_func(@RequestBody RepoVo repovo){
+        return repoService.repo_remessage_func(repovo);
+    }
+
 }
 
 class SortData {

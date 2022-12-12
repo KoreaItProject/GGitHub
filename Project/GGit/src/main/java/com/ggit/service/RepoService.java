@@ -75,4 +75,13 @@ public class RepoService {
         return mapper.repo_rename(repovo);
     }
 
+    public RepoVo getrepomessage(RepoVo repovo){
+        return mapper.getrepomessage(repovo);
+    }
+
+    // 저장소 소개글 업데이트
+    public int repo_remessage_func(RepoVo repovo){
+        return mapper.repo_remessage_func(repovo);
+    }
+
 }

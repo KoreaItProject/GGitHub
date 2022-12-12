@@ -104,7 +104,7 @@
         <div class="code_middle_container_left"  >
             <div class="about_box">
                 <h2 class="about_string">About</h2>
-                <p class="about_setting_message">협업, 형상 관리 프로그램</p>
+                <p class="about_setting_message">{{this.discription}}</p>
                 <div class="readme_link">
                     <a href="#" class="readme_link_href">
                     <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-book mr-2">
@@ -155,6 +155,7 @@ import marked from "marked";
 export default {
   data() {
     return {
+      discription: "",
       file_list: [],
       push: [],
       contributors: [],
@@ -301,13 +302,22 @@ export default {
         })
         .then((response) => {
           this.repoIdx = response.data;
-
+          this.get_repo_message();
           this.selectRepositorycode();
 
           this.selectRepoClone();
 
           //
         });
+    },
+    get_repo_message(){ // 저장소 소개글 가져오는 함수
+      axios.post("/api/getrepomessage", {
+          idx: this.repoIdx
+      })
+      .then(response => {
+          console.log(response.data);
+          this.discription = response.data.description;
+      })
     },
   },
   mounted() {
