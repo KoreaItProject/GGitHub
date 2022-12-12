@@ -20,7 +20,11 @@ public interface RepoMapper {
 
     RepositoriesVO clone(String clone);
 
+    RepositoriesVO pulltoken(Map map);
+
     RepositoriesVO selectRepositorycode(int repoIdx);
+
+    RepositoriesVO selectRepositoryMyCode(Map map);
 
     List<RepositoriesVO> selectRepositorycontributors(int repoIdx);
 
@@ -33,5 +37,11 @@ public interface RepoMapper {
     List<RepositoriesVO> selectRepoClone(int repoIdx);
 
     int createRepo(RepoVo repoVo);
+
+    int repo_rename(RepoVo repoVo);
+
+    RepoVo getrepomessage(RepoVo repoVo);
+
+    int repo_remessage_func(RepoVo repoVo);
 
 }

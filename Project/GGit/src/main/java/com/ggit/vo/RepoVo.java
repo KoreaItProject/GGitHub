@@ -23,6 +23,7 @@ public class RepoVo {
     int owner;
 
     int fork;
+    String repo_rename;
 
     String clone;
     String description;

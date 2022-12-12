@@ -4,10 +4,7 @@
            
             <div class="code_navigator">
                 <div class="branch_btn">
-                    <select name="barnch_select" class="branch_select_btn">
-                        <option value="main" selected>main</option> 
-
-                    </select>
+                  <h3>저장소</h3>
                 </div>
                 <div class="code_btn">
                   
@@ -67,6 +64,7 @@
                 
 
                 </div>
+                <a :href="backURL"><div class="repo_list" v-show="!(path==undefined)">  . . </div></a>
                 <div class="repo_list" v-show="loading">데이터 불러오는 중...</div>
                 <div class="repo_list" v-for="data in file_list"  >
                   
@@ -85,6 +83,7 @@
                       </svg>
                       {{data.name}} / {{data.totalLine}}줄
                     </div>
+                    
                     <textarea v-if="data.state=='file'"  class="repo_file_content scrollBar" readonly="true">{{data.content}}</textarea>
                     
                 </div>
@@ -105,7 +104,7 @@
         <div class="code_middle_container_left"  >
             <div class="about_box">
                 <h2 class="about_string">About</h2>
-                <p class="about_setting_message">협업, 형상 관리 프로그램</p>
+                <p class="about_setting_message">{{this.discription}}</p>
                 <div class="readme_link">
                     <a href="#" class="readme_link_href">
                     <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-book mr-2">
@@ -156,16 +155,25 @@ import marked from "marked";
 export default {
   data() {
     return {
+      discription: "",
       file_list: [],
       push: [],
       contributors: [],
       star: [],
       clone: "",
       thisURL: window.location.href.split("?")[0],
+      backURL: window.location.href.replace(
+        "/" +
+          window.location.href.split("/")[
+            window.location.href.split("/").length - 1
+          ],
+        ""
+      ),
       repoIdx: 0,
       readmeContent: "",
       loading: true,
       isStatusOn: false,
+      path: this.$route.params.path,
     };
   },
 
@@ -217,7 +225,7 @@ export default {
           params: {
             repoIdx: this.repoIdx,
             token: this.push.push_token,
-            path: this.$route.params.path,
+            path: this.path,
           },
         })
         .then((response) => {
@@ -294,13 +302,22 @@ export default {
         })
         .then((response) => {
           this.repoIdx = response.data;
-
+          this.get_repo_message();
           this.selectRepositorycode();
 
           this.selectRepoClone();
 
           //
         });
+    },
+    get_repo_message(){ // 저장소 소개글 가져오는 함수
+      axios.post("/api/getrepomessage", {
+          idx: this.repoIdx
+      })
+      .then(response => {
+          console.log(response.data);
+          this.discription = response.data.description;
+      })
     },
   },
   mounted() {

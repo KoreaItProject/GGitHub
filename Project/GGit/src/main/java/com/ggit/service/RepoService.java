@@ -25,6 +25,10 @@ public class RepoService {
         return mapper.clone(clone);
     }
 
+    public RepositoriesVO pulltoken(Map map) {
+        return mapper.pulltoken(map);
+    }
+
     public int createRepo(RepoVo RepoVo) {
         return mapper.createRepo(RepoVo);
     }
@@ -40,6 +44,10 @@ public class RepoService {
 
     public RepositoriesVO selectRepositorycode(int repoIdx) {
         return mapper.selectRepositorycode(repoIdx);
+    }
+
+    public RepositoriesVO selectRepositoryMyCode(Map map) {
+        return mapper.selectRepositoryMyCode(map);
     }
 
     public List<RepositoriesVO> selectRepositorycontributors(int repoIdx) {
@@ -61,6 +69,19 @@ public class RepoService {
 
     public List<RepositoriesVO> selectRepoClone(int repoIdx) {
         return mapper.selectRepoClone(repoIdx);
+    }
+
+    public int repo_rename(RepoVo repovo) {
+        return mapper.repo_rename(repovo);
+    }
+
+    public RepoVo getrepomessage(RepoVo repovo){
+        return mapper.getrepomessage(repovo);
+    }
+
+    // 저장소 소개글 업데이트
+    public int repo_remessage_func(RepoVo repovo){
+        return mapper.repo_remessage_func(repovo);
     }
 
 }

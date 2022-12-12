@@ -26,4 +26,6 @@ public class PushVo {
 
     String before_token;
 
+    int selected;
+
 }

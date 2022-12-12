@@ -42,6 +42,8 @@ public class RepositoriesVO {
     String push_message;
     String push_token;
     String push_date;
+    int selected;
+    String before_token;
     // 커밋수
     int commits;
 
