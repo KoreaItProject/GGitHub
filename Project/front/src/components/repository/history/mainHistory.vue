@@ -1,7 +1,7 @@
 <template lang="">
     <div>
         <div class="repository_history_table_div">          
-
+         
               <div class="repository_history_table" v-for="(data,index) in history" @click="clickIndex=index">            
               
         
@@ -13,7 +13,6 @@
            
               </div>
        
-
         </div>
     </div>
 </template>
@@ -25,6 +24,7 @@ export default {
   data() {
     return {
       clickIndex: -1,
+      history: [],
     };
   },
   methods: {
