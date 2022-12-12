@@ -217,7 +217,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             this.imgPath = setting.getImgPath();
 
             JFileChooser jfc = new JFileChooser();
-            
+
             jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             jfc.showDialog(this, null);
 
