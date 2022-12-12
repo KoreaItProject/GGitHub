@@ -5,7 +5,7 @@
               <div class="repository_history_table" v-for="(data,index) in history" @click="clickIndex=index">            
               
         
-                   <div class="history_message">      {{data.push_message}}</div>
+                   <div class="history_message">{{data.push_message}}</div>
                    <div class="history_nick">{{data.member_nick}}</div>
                     <div class="history_date">{{data.push_date}}</div>
                     <div class="history_token">{{data.push_token}}</div>
