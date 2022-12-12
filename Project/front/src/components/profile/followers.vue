@@ -11,7 +11,7 @@
                 
             </a>
             <div class="unfollow">
-                <button class="unfollow_btn">
+                <button class="unfollow_btn" @onClick="deletefollowlist">
                     Unfollow
                 </button>
 
@@ -22,6 +22,7 @@
 </template>
 <script>
 import axios from 'axios';
+import store from '../../vuex/store';
 export default {
     data(){
         return{
@@ -40,7 +41,29 @@ export default {
                 this.followers = response.data;
                 // alert(this.followers)
             })
-        }
+        },
+        deletefollowlist(){
+            axios
+            .get("/api/deletefollowlist", {
+                params: {
+                    nick:this.followers.nick,
+                    idx:store.getters.getUserIdx,
+                },
+                })
+                .then((response) => {
+                // handle success
+              
+                
+                })
+                .catch((error) => {
+                // handle error
+                console.log(error);
+                })
+                .finally(() => {
+                // always executed
+                });
+       
+    }
     },
     mounted(){
         this.selectfollowlist();
