@@ -9,6 +9,11 @@
               <mainHistory v-if="isMain"/>
               <myHistory v-if="!isMain"/>
             </div>
+            <div class="repository_history_right">
+              <div class="history_right">
+
+              </div>
+            </div>
             
         </div>
     </div>

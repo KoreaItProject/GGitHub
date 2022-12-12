@@ -7,9 +7,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -225,7 +228,7 @@ public class RepositoryController {
             path = "";
         }
         String filePath = storage_dir + "repositorys/" + repoIdx + "/" + token + "/data/" + path;
-        List list = new ArrayList<StorageVo>();
+        List<StorageVo> list = new ArrayList<StorageVo>();
         File folder = new File(filePath);
         File files[] = folder.listFiles();
 
@@ -254,6 +257,10 @@ public class RepositoryController {
                 list.add(file);
 
             }
+            list = (ArrayList<StorageVo>) (list.stream()
+                    .sorted(Comparator.comparing(StorageVo::getDirectory).reversed())
+                    .collect(Collectors.toList()));
+
         } catch (NullPointerException e) {
             System.out.println("파일없음");
         }

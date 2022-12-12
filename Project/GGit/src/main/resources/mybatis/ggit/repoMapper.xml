@@ -21,7 +21,7 @@
     <select id="selectHistory" resultType="com.ggit.vo.RepositoriesVO">
         SELECT 
         push.message as push_message, push.token as push_token, DATE_FORMAT(push.date,'%Y/%m/%d') as push_date,member.nick as member_nick,
-        push.before_token as before_token
+        push.before_token as before_token,push.selected as selected
 
         from push,member
         where push.repo =(select idx from repo where name= #{repo}) and push.branch = ${member} and push.member=member.idx
