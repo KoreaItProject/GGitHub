@@ -3,10 +3,10 @@
         <div class="repository_history_table_div">          
             <table class="repository_history_table">
                 <colgroup>
-                        <col width="65%">
+                        <col width="60%">
                         <col width="10%">
                         <col width="15%">
-                        <col width="10%">
+                        <col width="15%">
                 </colgroup>  
                 <tr>
                     <th>내용</th>
@@ -19,16 +19,16 @@
             <div class="repository_history_table_data_div scrollBar">
                 <table class="repository_history_table" v-for="(data,index) in history">            
                 <colgroup>
-                        <col width="65%">
+                        <col width="60%">
                         <col width="10%">
                         <col width="15%">
-                        <col width="10%">
+                        <col width="15%">
                 </colgroup>  
                 <tr @click="clickIndex=index">
-                    <td width="65%">{{data.push_message}}</td>
-                    <td>{{data.push_date}}</td>
-                    <td>{{data.member_nick}}</td>
-                    <td>{{data.push_token}}</td>
+                    <td width="60%">{{data.push_message}}</td>
+                    <td class="center_text">{{data.push_date}}</td>
+                    <td class="center_text">{{data.member_nick}}</td>
+                    <td class="center_text">{{data.push_token}}</td>
                 </tr>
                 <div class="repository_history_click_container" v-show="clickIndex==index">
                     <button>내 작업 영역으로 가져오기</button>
