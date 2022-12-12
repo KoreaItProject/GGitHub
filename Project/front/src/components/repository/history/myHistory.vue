@@ -7,7 +7,7 @@
                 <div class="repository_history_table" v-for="(data,index) in history">            
           
                 
-                   <div class="history_message">{{data.push_message}}</div>
+                   <div class="history_message"> <font-awesome-icon icon="fa-sharp fa-solid fa-check" />{{data.push_message}}</div>
                    <div class="history_nick">{{data.push_date}}</div>
                     <div class="history_date">{{data.before_token}}</div>
                     <div class="history_token">{{data.push_token}}</div>
