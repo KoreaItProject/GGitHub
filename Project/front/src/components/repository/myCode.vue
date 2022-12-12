@@ -64,8 +64,8 @@
                 
 
                 </div>
+                <a :href="backURL"><div class="repo_list" v-show="!(path==undefined)">  . . </div></a>
                 <div class="repo_list" v-show="loading">데이터 불러오는 중...</div>
-                 <a :href="backURL"><div class="repo_list" v-show="!(path==undefined)">  . . </div></a>
                 <div class="repo_list" v-for="data in file_list"  >
                   
                     <a :href="thisURL+'/'+data.name+'?tab=myCode'" v-if="data.state!='file'">
