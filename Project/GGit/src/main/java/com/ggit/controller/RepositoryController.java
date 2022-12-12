@@ -307,21 +307,37 @@ public class RepositoryController {
 
     // 저장소 이름 변경
     @RequestMapping("repo_rename")
-    public int repo_rename(@RequestBody RepoVo repovo){
+    public int repo_rename(@RequestBody RepoVo repovo) {
         return repoService.repo_rename(repovo);
     }
 
     // 저장소 소개글 가져오기
     @RequestMapping("getrepomessage")
-    public RepoVo getrepomessage(@RequestBody RepoVo repovo){
+    public RepoVo getrepomessage(@RequestBody RepoVo repovo) {
         System.out.println("-=-=>" + repovo.getIdx());
         return repoService.getrepomessage(repovo);
     }
 
     // 저장소 소개글 업데이트
     @RequestMapping("repo_remessage_func")
-    public int repo_remessage_func(@RequestBody RepoVo repovo){
+    public int repo_remessage_func(@RequestBody RepoVo repovo) {
         return repoService.repo_remessage_func(repovo);
+    }
+
+    @RequestMapping("/selectHistory")
+    public List<RepositoriesVO> selectHistory(String mode, String repo, int member) {
+        List<RepositoriesVO> list = null;
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("repo", repo);
+        if (mode.equals("main")) {
+            map.put("member", 0 + "");
+        } else {
+            map.put("member", member + "");
+        }
+        list = repoService.selectHistory(map);
+
+        return list;
+
     }
 
 }

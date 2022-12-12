@@ -38,6 +38,8 @@ public interface RepoMapper {
 
     int createRepo(RepoVo repoVo);
 
+    List<RepositoriesVO> selectHistory(Map map);
+
     int repo_rename(RepoVo repoVo);
 
     RepoVo getrepomessage(RepoVo repoVo);
