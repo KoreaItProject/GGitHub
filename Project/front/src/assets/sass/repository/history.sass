@@ -20,38 +20,31 @@ $line-color: #d0d7de
                 font-size: 18px
             .repository_history_table_div
 
-                border: 1px solid $line-color
-                border-radius: 5px
-
-                width: 100%
-
                 .repository_history_table
                     width: 100%
-                    border-style: hidden
                     font-size: 17px
-                    border-top-left-radius: 5px
-                    border-top-right-radius: 5px
-
-                th
-                    border-top-left-radius: 5px
-                    border-top-right-radius: 5px
-                    background: #f6f8fa
-                    height: 33px
-                    padding: 10px 5px
-
-                .repository_history_table_data_div
-                    overflow: auto
-                    max-height: 380px
-
-                tr
-                    cursor: pointer
+                    border-radius: 5px
+                    margin: 10px auto
                     border: 1px solid $line-color
+                    cursor: pointer
 
+                    padding-bottom: 35px
                     &:hover
                         background: #f6f8fa
-                    td
-                        padding: 12px 5px
-                        border: 1px solid $line-color
 
-.center_text
-    text-align: center
+                .history_message
+                    width: 100%
+                    text-size: 15px
+                    padding: 15px 10px 10px 10px
+                .history_date
+                    float: left
+                    margin-left: 10px
+                .history_nick
+                    float: left
+                    margin-left: 10px
+                .history_token
+                    float: left
+                    margin-left: 10px
+        .repository_history_right
+            width: 500px
+            border: 1px solid red
