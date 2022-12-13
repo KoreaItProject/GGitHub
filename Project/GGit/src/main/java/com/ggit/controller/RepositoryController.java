@@ -7,9 +7,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -226,7 +229,7 @@ public class RepositoryController {
             path = "";
         }
         String filePath = storage_dir + "repositorys/" + repoIdx + "/" + token + "/data/" + path;
-        List list = new ArrayList<StorageVo>();
+        List<StorageVo> list = new ArrayList<StorageVo>();
         File folder = new File(filePath);
         File files[] = folder.listFiles();
 
@@ -255,6 +258,10 @@ public class RepositoryController {
                 list.add(file);
 
             }
+            list = (ArrayList<StorageVo>) (list.stream()
+                    .sorted(Comparator.comparing(StorageVo::getDirectory).reversed())
+                    .collect(Collectors.toList()));
+
         } catch (NullPointerException e) {
             System.out.println("파일없음");
         }
@@ -308,21 +315,37 @@ public class RepositoryController {
 
     // 저장소 이름 변경
     @RequestMapping("repo_rename")
-    public int repo_rename(@RequestBody RepoVo repovo){
+    public int repo_rename(@RequestBody RepoVo repovo) {
         return repoService.repo_rename(repovo);
     }
 
     // 저장소 소개글 가져오기
     @RequestMapping("getrepomessage")
-    public RepoVo getrepomessage(@RequestBody RepoVo repovo){
+    public RepoVo getrepomessage(@RequestBody RepoVo repovo) {
         System.out.println("-=-=>" + repovo.getIdx());
         return repoService.getrepomessage(repovo);
     }
 
     // 저장소 소개글 업데이트
     @RequestMapping("repo_remessage_func")
-    public int repo_remessage_func(@RequestBody RepoVo repovo){
+    public int repo_remessage_func(@RequestBody RepoVo repovo) {
         return repoService.repo_remessage_func(repovo);
+    }
+
+    @RequestMapping("/selectHistory")
+    public List<RepositoriesVO> selectHistory(String mode, String repo, int member) {
+        List<RepositoriesVO> list = null;
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("repo", repo);
+        if (mode.equals("main")) {
+            map.put("member", 0 + "");
+        } else {
+            map.put("member", member + "");
+        }
+        list = repoService.selectHistory(map);
+
+        return list;
+
     }
 
 }
