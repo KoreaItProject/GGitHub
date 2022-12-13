@@ -170,14 +170,15 @@ public class RepositoryController {
 
     @RequestMapping("/insertFollow")
     public int insertFollow(String nick, int idx) {
-        System.out.println(nick);
-        System.out.println(idx);
+        
         int insertFollow = followService.insertFollow(nick, idx);
         return 1;
     }
 
     @RequestMapping("/selectfollowcount")
     public int selectfollowcount(int idx, String nick) {
+        // System.out.println(idx);
+        // System.out.println(nick);
         int followcount = followService.selectfollowcount(idx, nick);
         return followcount;
     }

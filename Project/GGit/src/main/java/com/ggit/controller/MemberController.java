@@ -125,23 +125,30 @@ public class MemberController {
         memberService.delectProfileImg(idx);
 
     }
-    @RequestMapping("selectfollowlist")
-    public List<MemberVo> selectfollowlist(String nick){
-        List<MemberVo> followlist = followService.selectfollowlist(nick);
-        
+    @RequestMapping("/selectfollowlist")
+    public List<MemberVo> selectfollowlist(String nick, int idx){
+        List<MemberVo> followlist = followService.selectfollowlist(nick,idx);
         return followlist;
     }
-    @RequestMapping("selectfollowinglist")
-    public List<MemberVo> selectfollowinglist(String nick){
-        List<MemberVo> followinglist = followService.selectfollowinglist(nick);
-        return followinglist;
+    @RequestMapping("selectfollowerlist")
+    public List<MemberVo> selectfollowerlist(String nick, int idx){
+        List<MemberVo> followerlist = followService.selectfollowerlist(nick, idx);
+        return followerlist;
     }
 
     @RequestMapping("deletefollowlist")
     public int deletefollowlist(String nick, int idx){
-        System.out.println(nick);
-        System.out.println(idx);
+        // System.out.println(nick);
+        // System.out.println(idx);
         int deletefollowlist = followService.deletefollowlist(idx,nick);
+        return 1;
+    }
+    
+    @RequestMapping("deletefollowerlist")
+    public int deletefollowerlist(String nick, int idx){
+        // System.out.println(nick);
+        // System.out.println(idx);
+        int deletefollowerlist = followService.deletefollowerlist(idx,nick);
         return 1;
     }
     

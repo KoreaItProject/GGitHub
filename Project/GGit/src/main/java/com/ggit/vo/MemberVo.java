@@ -31,6 +31,10 @@ public class MemberVo {
     String location;
     int email_check;
 
+    
+
     // 팔로우수
     int followers, following;
+    int follow_idx;
+    int count;
 }

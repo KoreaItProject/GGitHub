@@ -18,13 +18,14 @@ public class FollowService {
         return mapper.follow();
     }
 
-    public List<MemberVo> selectfollowlist(String nick){
-        return mapper.selectfollowlist(nick);
+    public List<MemberVo> selectfollowlist(String nick, int idx){
+        return mapper.selectfollowlist(nick, idx);
     }
-    public List<MemberVo> selectfollowinglist(String nick){
-        return mapper.selectfollowinglist(nick);
+    public List<MemberVo> selectfollowerlist(String nick, int idx){
+        return mapper.selectfollowerlist(nick, idx);
     }
     public int insertFollow(String nick, int idx){
+        
         return mapper.insertFollow(nick, idx);
     }
     public int selectfollowcount(int idx,String nick){
@@ -32,6 +33,12 @@ public class FollowService {
     }
 
     public int deletefollowlist(int idx, String nick){
+       
         return mapper.deletefollowlist(idx, nick);
+    }
+    
+    public int deletefollowerlist(int idx, String nick){
+       
+        return mapper.deletefollowerlist(idx, nick);
     }
 }
