@@ -163,8 +163,10 @@ export default {
 
           if(response.data.email_check == 1){
             this.email_open = 1;
+            this.email_check_value = 1;
           }else if(response.data.email_check == 0){
             this.email_private = 0;
+            this.email_check_value = 0;
           }
 
           if (this.userInfo.con != null && this.userInfo.con != "") {

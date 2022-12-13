@@ -5,8 +5,8 @@
         select date_format(s1.date, '%Y-%m-%d')as date, count(*) as count
         from(
             SELECT push.token, push.member, push.repo, push.message, push.date, push.branch
-            FROM push as push, (SELECT * FROM repo WHERE owner=#{idx} and public=1 ) as repo         
-            WHERE repo.idx = push.repo
+            FROM push as push, (SELECT * FROM repo WHERE public=1) as repo         
+            WHERE repo.idx = push.repo and push.branch = 0 and push.member = #{idx}
         ) as s1
         group by date_format(push.date, '%Y-%m-%d') order by date;
     </select>
