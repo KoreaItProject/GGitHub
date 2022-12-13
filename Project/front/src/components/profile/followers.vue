@@ -1,22 +1,29 @@
 <template lang="">
     <div class="followers_main_div">
-        <div class="followers_box" v-for="follower in followers">
-            <div class="follower_profile_img">
-                img~
-            </div>
-            <a class="follower_profile_go" href="#">
-                <span class="follower_nick">
-                    {{follower.nick}}
-                </span>
-                
-            </a>
-            <div class="unfollow">
-                <button class="unfollow_btn" @onClick="deletefollowlist">
-                    Unfollow
-                </button>
+        <template v-for="follower,idx in followers">
+            <div class="followers_box"> 
+                <div class="follower_profile_img">
+                    img~
+                </div>
+                <a class="follower_profile_go" href="#">
+                    <span class="follower_nick">
+                        {{follower.nick}}
+                        
+                    </span>
+                    
+                </a>
+                <div class="unfollow">
+                    <button class="unfollow_btn" v-if="follower.count==1" @click="[deletefollowerlist(follower.nick),refreshAll()]">
+                        Unfollow
+                    </button>
 
+                    <button class="follow_btn" v-if="follower.count==0" @click="[insertFollow(follower.nick),refreshAll()]">
+                        follow
+                    </button>
+
+                </div>
             </div>
-        </div>
+        </template>
         
     </div>
 </template>
@@ -27,32 +34,25 @@ export default {
     data(){
         return{
             followers:[],
+            
         };
     },
     methods:{
-        selectfollowlist(){
-            axios
-            .get("/api/selectfollowlist",{
-                params:{
-                    nick:this.$route.params.nick,
-                },
-            })
-            .then((response) => {
-                this.followers = response.data;
-                // alert(this.followers)
-            })
+        refreshAll() {
+            // 새로고침
+            this.$router.go();
         },
-        deletefollowlist(){
+        insertFollow(nick){
             axios
-            .get("/api/deletefollowlist", {
+            .get("/api/insertFollow", {
                 params: {
-                    nick:this.followers.nick,
+                    nick:nick,
                     idx:store.getters.getUserIdx,
                 },
                 })
                 .then((response) => {
                 // handle success
-              
+                
                 
                 })
                 .catch((error) => {
@@ -62,11 +62,49 @@ export default {
                 .finally(() => {
                 // always executed
                 });
-       
+            
+            },  
+        
+        selectfollowerlist(){
+            // alert(this.$route.params.nick)
+            axios
+            .get("/api/selectfollowerlist",{
+                params:{
+                    nick:this.$route.params.nick,
+                    idx:store.getters.getUserIdx,
+                },
+            })
+            .then((response) => {
+                this.followers = response.data;
+                console.log(this.followers)
+            })
+        },
+        deletefollowerlist(nick){
+            axios
+            .get("/api/deletefollowerlist", {
+                params: {
+                    nick:nick,
+                    idx:store.getters.getUserIdx,
+                },
+                })
+                .then((response) => {
+                // handle success
+                
+                
+                })
+                .catch((error) => {
+                // handle error
+                console.log(error);
+                })
+                .finally(() => {
+                // always executed
+                });
+            
     }
     },
     mounted(){
-        this.selectfollowlist();
+        this.selectfollowerlist();
+        
     }
 
     
