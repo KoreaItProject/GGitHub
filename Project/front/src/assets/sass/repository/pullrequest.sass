@@ -1,19 +1,20 @@
 .pullreq_top_div
     border: 1px solid black
-    max-width: 1439px
     width: 100%
     .pullreq_main_div
+        
         border: 1px solid red
-        max-width: 1280px
-        width: 100%
-        height: 422px
+        max-width: 900px
+        width: 90%
         margin: 24px 79.5px 0px
         padding: 0px 32px
+        margin: 0 auto
         .pullreq_main_list
             margin-right: 0
             margin-left: 0
             border: 1px solid #d0d7de
             border-radius: 6px
+            border-bottom-width: 0.2px
         .pullreq_select_div
             .pullreq_select
                 border-radius: 4px
@@ -21,7 +22,9 @@
                 margin-bottom: 20px
                 font-size: 16px
         .pullreq_main_header
-            max-width: 1216px
+            display: flex
+            align-items: center
+            padding-left: 15px 
             width: 100%
             height: 60px
             border-width: 0px 0px
@@ -32,14 +35,25 @@
             border-top-left-radius: 6px
             border-top-right-radius: 6px
 
-            background-color: #f6f8fa
+            background-color: #ffffff
             border-color: #d0d7de
             border-style: solid
+            .pullreq_main_body_icon
+                padding-right: 15px
         .pullreq_main_body
-            background-color: #f6f8fa
+            border-width: 0px 0px 1px 0px
+            border-style: solid
+            border-color: #d0d7de
+            background-color: #ffffff
             max-width: 1216px
             width: 100%
             height: 63px
+
+            cursor: pointer
+            cos
+            &:hover
+                background-color: #f6f8fa
+
             .pullreq_main_body_flex
                 display: flex
                 .pullreq_main_body_icon
@@ -52,6 +66,4 @@
                 .pullreq_main_body_innerdiv
                     margin-left: 15px
                     margin-top: 16px
-                    .pullreq_main_body_a:hover
-                       color: #0969da
                     
