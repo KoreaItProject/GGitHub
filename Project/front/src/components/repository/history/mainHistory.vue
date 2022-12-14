@@ -1,22 +1,49 @@
 <template lang="">
     <div>
-        <div class="repository_history_table_div">          
+    
+          <div class="repository_history_table_div scrollBar">
+            
+              <div v-for="(data,index) in history" >
+                <div class="repository_history_table" @click="clickIndex==index?clickIndex=-1:clickIndex=index">    
+                  <div class="repo_history_div">
+                    <div class="repo_history_con">
+                      <div class="history_message"><font-awesome-icon icon="fa-check " v-if="data.selected==1"/>{{data.push_message}}</div>
+                      <div class="history_nick">{{data.member_nick}}</div>
+                      <div class="history_date">{{data.push_date}}</div>
+                      <div class="history_token">{{data.push_token}}</div>
+                    </div>
+                    <div class="repo_history_btn">
+                      
+                      <font-awesome-icon icon="fa-check" />
+                    </div>
+                  </div>       
+                 
+             
+                
+                   
+                      <div class="history_info_div" v-if="clickIndex==index">
 
-         
-              <div class="repository_history_table" v-for="(data,index) in history" @click="clickIndex=index">            
-              
-        
-                   <div class="history_message">{{data.push_message}}</div>
-                   <div class="history_nick">{{data.member_nick}}</div>
-                    <div class="history_date">{{data.push_date}}</div>
-                    <div class="history_token">{{data.push_token}}</div>
-      
-           
+                      <div class="history_info_left">
+                          {{data.push_message}}
+                          
+                      </div>
+                      <div class="history_info_right">
+
+                      </div>
+                    </div>
+                   
+                </div>
+                 <div style="text-align:center;;width:100%;padding:5px 0">
+                    <font-awesome-icon icon="fa-solid fa-arrow-up" />
+                  </div> 
               </div>
-       
+              <div class="repository_history_table" style="padding:5px 0;text-align:center">
+                저장소 생성
+              </div>
+           
 
-        </div>
-    </div>
+      </div>
+      </div>
 </template>
 <script>
 import axios from "axios";
@@ -26,9 +53,7 @@ export default {
   data() {
     return {
       clickIndex: -1,
-
       history: [],
-
     };
   },
   methods: {
