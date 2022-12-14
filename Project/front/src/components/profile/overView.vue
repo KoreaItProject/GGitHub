@@ -35,18 +35,19 @@
       </div>
       <div class="overView_contribution_div" :style="cssVariable">
         <div class="overView_contribution_inner_div">
-          <calendar-heatmap :values="this.contribution_data" 
-                            :end-date="Date()"
-                            tooltip-unit="contribution"
-                            :max="5"
-                            :range-color="[
-                              '#ebedf0',
-                              '#9be9a8',
-                              '#40c463',
-                              '#30a14e',
-                              '#216e39',
-                            ]"
-                            >
+          <calendar-heatmap
+            :values="this.contribution_data"
+            :end-date="Date()"
+            tooltip-unit="contribution"
+            :max="5"
+            :range-color="[
+              '#ebedf0',
+              '#9be9a8',
+              '#40c463',
+              '#30a14e',
+              '#216e39',
+            ]"
+          >
           </calendar-heatmap>
         </div>
       </div>
@@ -58,10 +59,19 @@
 import axios from "axios";
 import marked from "marked";
 import store from "../../vuex/store";
-import { log } from 'console';
+import { log } from "console";
 
 export default {
-  props: ['entries', 'colorRange', 'tooltipEnabled', 'tooltipUnit', 'locale', 'max', 'onClick', 'selector'],
+  props: [
+    "entries",
+    "colorRange",
+    "tooltipEnabled",
+    "tooltipUnit",
+    "locale",
+    "max",
+    "onClick",
+    "selector",
+  ],
   name: "ShowMdPage",
   data() {
     return {
@@ -69,28 +79,28 @@ export default {
         "[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=ymiru0324&layout=compact&&theme=dark&&&langs_count=6)](https://github.com/ymiru0324)",
       pins: ["", "", "", ""],
       contribution_top: "0px",
-      contribution_data:[]
+      contribution_data: [],
     };
   },
   mounted() {
     this.getContributionData();
   },
   methods: {
-    getContributionData(){
-      axios.post("/api/getContributionData", {
-        nick: this.$route.params.nick,
-      })
-      .then(response => {
+    getContributionData() {
+      axios
+        .post("/api/getContributionData", {
+          nick: this.$route.params.nick,
+        })
+        .then((response) => {
           // console.log(response.data);
           this.contribution_data = response.data;
-      })
-      
+        });
     },
   },
   computed: {
     cssVariable() {
       return {
-        "--contribution-top": this.contribution_top
+        "--contribution-top": this.contribution_top,
       };
     },
     changeMarkdown() {
@@ -106,7 +116,7 @@ export default {
         pedantic: false,
         sanitize: true,
         smartLists: true,
-        smartypants: false
+        smartypants: false,
       });
       let changedText = marked(this.mdText);
       changedText = changedText.replaceAll("&lt;", "<");
@@ -114,7 +124,7 @@ export default {
       changedText = changedText.replaceAll("&quot;", '"');
       return changedText;
     },
-  }
+  },
 };
 </script>
 <style lang="sass">

@@ -18,7 +18,6 @@
               <h3 v-if="isMain">작업 히스토리</h3>
               <div class="history_right">
               <mainHistory v-if="!isMain"/>
-              
               <myHistory v-if="isMain"/>
               </div>
             </div>
@@ -32,7 +31,10 @@ import mainHistory from "./mainHistory.vue";
 import myHistory from "./myHistory.vue";
 export default {
   data() {
-    return { isMain: true };
+    return {
+      col: this.$route.query.col,
+      isMain: true,
+    };
   },
   components: {
     mainHistory: mainHistory,

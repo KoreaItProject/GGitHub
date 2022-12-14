@@ -12,9 +12,9 @@
                       <div class="history_date">{{data.push_date}}</div>
                       <div class="history_token">{{data.push_token}}</div>
                     </div>
-                    <div class="repo_history_btn">
+                    <div class="repo_history_btn" title="작업 저장소로 가져오기">
                       
-                      <font-awesome-icon icon="fa-check" />
+                      <font-awesome-icon icon="fa-solid fa-right-to-bracket" />
                     </div>
                   </div>       
                  
