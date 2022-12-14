@@ -143,6 +143,11 @@ public class MemberController {
         int deletefollowlist = followService.deletefollowlist(idx,nick);
         return 1;
     }
+    @RequestMapping("followlist")
+    public List<MemberVo> followlist(String nick){
+        List<MemberVo> followlist = followService.followlist(nick);
+        return followlist; 
+    }
     
    
     

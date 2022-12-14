@@ -23,4 +23,5 @@ public interface FollowMapper {
 
     int deletefollowlist(int idx, String nick);
 
+    List<MemberVo> followlist(String nick);
 }

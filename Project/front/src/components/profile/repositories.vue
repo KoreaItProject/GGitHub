@@ -149,6 +149,7 @@ export default {
         // handle success
         this.repo = response.data;
         console.log(this.repo);
+        
       })
       .catch((error) => {
         // handle error

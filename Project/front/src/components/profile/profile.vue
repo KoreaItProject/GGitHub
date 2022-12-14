@@ -72,8 +72,11 @@
         <a href="?tab=setting" v-if="isMy">
           <button class="profile_edit_btn">내 정보 변경</button> 
         </a> 
-        <button class="follow_button" v-if="!isMy && followcount==0" @click="insertFollow">Follow</button>
-        <button class="unfollow_button" v-if="!isMy && followcount==1" @click="deletefollowlist">Unfollow</button>
+
+        <a href='/login'><button class="follow_button" v-if="!islogin" >Follow</button></a>
+        <button class="follow_button" v-if="!isMy && followcount==0" @click="[insertFollow(),refreshAll()]">Follow</button>
+        <button class="unfollow_button" v-if="!isMy && followcount==1" @click="[deletefollowlist(),refreshAll()]">Unfollow</button>
+
       </div>
 
       <div class="profile_folloew_div">
@@ -232,10 +235,11 @@ export default {
       profileImg: "",
       userInfo: [],
       followcount:3,
-      repocount:'',
-      starcount:'',
+      repocount:0,
+      starcount:0,
       user_email_div:"",
       isMy: store.getters.getUserNick==this.$route.params.nick,
+      islogin:false,
 
     };
   },
@@ -248,6 +252,10 @@ export default {
     following: following,
   },
   methods: {
+    refreshAll() {
+            // 새로고침
+            this.$router.go();
+        },
     selectfollowcount(){
       axios
       .get("/api/selectfollowcount", {
@@ -444,7 +452,11 @@ export default {
     this.selectRepositorycount();
     this.selectRepositorystarcount();
     this.getMemberInfo();
-    this.selectfollowcount();
+    this.islogin = store.getters.getIsLogin;
+        if (this.islogin) {
+            
+        this.selectfollowcount();
+        }
     
     
 

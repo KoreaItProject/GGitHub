@@ -13,7 +13,7 @@
                     </span>
                     
                 </a>
-                <div class="unfollow">
+                <div class="unfollow" v-if="!isMy(following.nick)">
                     <button class="unfollow_btn" v-if="following.count==1" @click="[deletefollowlist(following.nick),refreshAll()]">
                         Unfollow
                     </button>
@@ -39,6 +39,11 @@ export default {
     };
 },
     methods:{
+        isMy(nick){
+          
+          return store.getters.getUserNick==nick
+          
+      },
         selectfollowlist(){
         axios
             .get("/api/selectfollowlist",{
