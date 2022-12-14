@@ -36,5 +36,6 @@ public class MemberVo {
     // 팔로우수
     int followers, following;
     int follow_idx;
+    //팔로우 여부 확인
     int count;
 }

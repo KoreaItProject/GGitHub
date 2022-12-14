@@ -37,8 +37,5 @@ public class FollowService {
         return mapper.deletefollowlist(idx, nick);
     }
     
-    public int deletefollowerlist(int idx, String nick){
-       
-        return mapper.deletefollowerlist(idx, nick);
-    }
+  
 }
