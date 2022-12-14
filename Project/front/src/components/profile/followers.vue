@@ -9,7 +9,6 @@
                     <a class="follower_profile_go" href="#">
                         <span class="follower_nick">
                             {{follower.nick}}
-                            
                         </span>
                         
                     </a>
@@ -42,7 +41,7 @@
                             
                         </span>
                         
-                    </a>z
+                    </a>
                     <div class="unfollow">
                         <a href='login'><button class="follow_btn" >
                             follow
@@ -102,23 +101,24 @@ export default {
             
             },  
         
-        selectfollowerlist(){
+            selectfollowerlist(){
             
-            axios
-            .get("/api/selectfollowerlist",{
-                params:{
-                    nick:this.$route.params.nick,
-                    idx:store.getters.getUserIdx,
-                },
-            })
-            .then((response) => {
-                this.followers = response.data;
-                
-            })
+                axios
+                .get("/api/selectfollowerlist",{
+                    params:{
+                        nick:this.$route.params.nick,
+                        idx:store.getters.getUserIdx,
+                    },
+                })
+                .then((response) => {
+                    this.followers = response.data;
+                    
+                })
+                // alert(this.followers)
         },
-        followlist(){
+        followerlist(){
             axios
-            .get("/api/followlist",{
+            .get("/api/followerlist",{
                 params:{
                     nick:this.$route.params.nick,
                    
@@ -158,7 +158,7 @@ export default {
         if (this.islogin) { 
             this.selectfollowerlist();
         }
-        this. followlist();
+        this. followerlist();
 
      
         
