@@ -11,8 +11,6 @@
         WHERE follow.follower=(select idx from member where nick=#{nick}) and member.idx=follow.member;
     </select>
     
-  
-
     <select id="selectfollowerlist" resultType="com.ggit.vo.MemberVo">
        SELECT member.nick as nick, (select count(follow.idx) from follow where follower=${idx} and member.idx= follow.member) as count
         FROM member,follow
@@ -31,7 +29,5 @@
         DELETE FROM follow WHERE follower=${idx} and member=(select member.idx from member where member.nick=#{nick})
     </delete>
 
-    <delete id="deletefollowerlist">
-        DELETE FROM follow WHERE member=${idx} and follower=(select member.idx from member where member.nick=#{nick})
-    </delete>
+    
 </mapper>

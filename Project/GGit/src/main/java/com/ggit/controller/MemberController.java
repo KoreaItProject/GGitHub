@@ -138,19 +138,13 @@ public class MemberController {
 
     @RequestMapping("deletefollowlist")
     public int deletefollowlist(String nick, int idx){
-        // System.out.println(nick);
-        // System.out.println(idx);
+        System.out.println(nick);
+        System.out.println(idx);
         int deletefollowlist = followService.deletefollowlist(idx,nick);
         return 1;
     }
     
-    @RequestMapping("deletefollowerlist")
-    public int deletefollowerlist(String nick, int idx){
-        // System.out.println(nick);
-        // System.out.println(idx);
-        int deletefollowerlist = followService.deletefollowerlist(idx,nick);
-        return 1;
-    }
+   
     
     
 }

@@ -13,7 +13,7 @@
                     
                 </a>
                 <div class="unfollow">
-                    <button class="unfollow_btn" v-if="follower.count==1" @click="[deletefollowerlist(follower.nick),refreshAll()]">
+                    <button class="unfollow_btn" v-if="follower.count==1" @click="[deletefollowlist(follower.nick),refreshAll()]">
                         Unfollow
                     </button>
 
@@ -66,7 +66,7 @@ export default {
             },  
         
         selectfollowerlist(){
-            // alert(this.$route.params.nick)
+            
             axios
             .get("/api/selectfollowerlist",{
                 params:{
@@ -79,9 +79,9 @@ export default {
                 console.log(this.followers)
             })
         },
-        deletefollowerlist(nick){
+        deletefollowlist(nick){
             axios
-            .get("/api/deletefollowerlist", {
+            .get("/api/deletefollowlist", {
                 params: {
                     nick:nick,
                     idx:store.getters.getUserIdx,

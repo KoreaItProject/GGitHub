@@ -27,7 +27,7 @@
                member.location,
                member.email_check,
         (select count(idx) from follow where member=member.idx) as followers,
-        (select count(idx) from follow where followers=member.idx) as following
+        (select count(idx) from follow where follower=member.idx) as following
         FROM member where nick = #{nick};
     </select>
 

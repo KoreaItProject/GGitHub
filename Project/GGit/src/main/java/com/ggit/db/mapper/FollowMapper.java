@@ -23,5 +23,4 @@ public interface FollowMapper {
 
     int deletefollowlist(int idx, String nick);
 
-    int deletefollowerlist(int idx, String nick);
 }
