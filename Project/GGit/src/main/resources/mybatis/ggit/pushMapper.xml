@@ -5,4 +5,13 @@
         insert into push(token,member,repo,message,branch,before_token) value(#{token},${member},${repo},#{message},${branch},#{before_token})
     </insert>
 
+    <update id="delsel">
+        update push set selected = 0
+        where repo=(select idx from repo where name=#{repo} )and branch=${member} 
+    </update>
+    <update id="insel">
+         update push set selected = 1
+        where token = #{token}
+    </update>
+
 </mapper>

@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.annotation.RequestScope;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.ggit.service.FollowService;
@@ -116,6 +117,18 @@ public class RepositoryController {
         return 1;
     }
 
+    @RequestMapping("/changeSelected")
+    public void changeSelected(String token, String repo, String member) {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("token", token);
+        map.put("repo", repo);
+        map.put("member", member);
+        pushService.delsel(map);
+        pushService.insel(token);
+        System.out.println(token);
+    }
+
     @RequestMapping("/myRepositories")
     public List<RepositoriesVO> myRepositories(String nick) {
 
@@ -173,7 +186,7 @@ public class RepositoryController {
 
     @RequestMapping("/insertFollow")
     public int insertFollow(String nick, int idx) {
-        
+
         int insertFollow = followService.insertFollow(nick, idx);
         return 1;
     }

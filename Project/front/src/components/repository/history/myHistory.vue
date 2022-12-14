@@ -13,7 +13,7 @@
                       <div class="history_date">{{data.before_token}}</div>
                       <div class="history_token">{{data.push_token}}</div>
                     </div>
-                    <div class="repo_history_btn" @click="click(index)">
+                    <div class="repo_history_btn" @click="click(index)" title="현재 상태로 지정">
                       
                       <font-awesome-icon icon="fa-check" />
                     </div>
@@ -59,11 +59,11 @@ export default {
     };
   },
   methods: {
-    click(token) {
+    click(idx) {
       axios
         .get("/api/changeSelected", {
           params: {
-            token: token,
+            token: this.history[idx].push_token,
             repo: this.$route.params.repository,
             member: store.getters.getUserIdx,
           },

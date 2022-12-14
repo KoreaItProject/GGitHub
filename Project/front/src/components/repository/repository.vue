@@ -73,7 +73,7 @@
 
         </div>
         <div class="repository_content_container">
-            <code-view v-if="isCode"/>
+            <code-view v-iㄹ="isCode"/>
             <myCode-view v-if="isMyCode"/>
             <history-view v-if="isHistory"/>
             <pullrequest-view v-if="isPullrequest"/>
