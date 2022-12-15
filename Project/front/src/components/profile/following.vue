@@ -6,7 +6,7 @@
                     <div class="following_profile_img">
                         img~
                     </div>
-                    <a class="following_profile_go" href="#">
+                    <a class="following_profile_go" :href="'/'+following.nick">
                         <span class="following_nick">
                             {{following.nick}}
                             

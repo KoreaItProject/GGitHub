@@ -15,7 +15,11 @@ public interface StarMapper {
     
     public List<StarVo> selectStarlist(String nick);
 
+    public int selectstarcount(String reponame, int idx);
     
+    public int insertStar(String reponame, int idx);
+
+    public int deleteStar(String reponame, int idx);
     
    
 
