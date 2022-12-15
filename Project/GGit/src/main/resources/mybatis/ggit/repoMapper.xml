@@ -4,6 +4,9 @@
     <select id="repo" resultType="com.ggit.vo.RepoVo">
         SELECT * FROM repo;
     </select>
+    <select id="nameForIdx" resultType="int">
+        select idx from repo where name = #{name}
+    </select>
     <!-- member,repomem,repo 세개 모두다 검색 -->
     <!-- SELECT repo.idx as repo_idx,repo.name as repo_name,repo.createDate as repo_crateDate
             ,repo.public as repo_publ,repo.owner as repo_owner,repo.fork as repo_fork,
@@ -13,7 +16,7 @@
             FROM repo,repomem,member where repomem.repo=repo.idx and repo.owner=member.idx and repomem.member=${member}; -->
 
     <insert id="createRepo">
-        insert into repo(name,public,owner,clone) value(#{name},${publ},${owner},#{clone});
+        insert into repo(name,public,owner,clone,description) value(#{name},${publ},${owner},#{clone},#{description});
         <selectKey keyProperty="idx" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>

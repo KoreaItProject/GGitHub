@@ -82,17 +82,6 @@
             비공개
             <div class="repo_intro">소유자에게만 보여집니다.</div>
           </div>
-
-          <div>
-            <div class="add_readme">
-              <input
-                class="readme_check"
-                type="checkbox"
-                v-model="readme"
-                value="true"
-              />README.md 생성
-            </div>
-          </div>
         </div>
         <div class="repo_create_info">
           <svg

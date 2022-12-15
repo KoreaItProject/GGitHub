@@ -14,7 +14,7 @@
                     </div>
                     <div class="repo_history_btn" title="작업 저장소로 가져오기" @click="click(index)">
                       
-                      <font-awesome-icon icon="fa-solid fa-right-to-bracket" />
+                      <font-awesome-icon icon="fa-solid fa-arrow-right" />
                     </div>
                   </div>       
                  
@@ -57,21 +57,6 @@ export default {
     };
   },
   methods: {
-    click(index) {
-      axios
-        .get("/api/getMainToMy", {
-          params: {
-            token: this.history[index].token,
-            repo: this.$route.params.repository,
-            member: store.getters.getUserIdx,
-          },
-        })
-        .then((response) => {
-          this.selectHistory();
-          // console.log(this.clone);
-          //alert(this.clone);
-        });
-    },
     selectHistory() {
       axios
         .get("/api/selectHistory", {
@@ -86,6 +71,19 @@ export default {
 
           // console.log(this.clone);
           //alert(this.clone);
+        });
+    },
+    click(index) {
+      axios
+        .get("/api/pushMainToMy", {
+          params: {
+            token: this.history[index].push_token,
+            repo: this.$route.params.repository,
+            member: store.getters.getUserIdx,
+          },
+        })
+        .then((response) => {
+          window.location.href = window.location.href;
         });
     },
   },

@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -38,6 +39,7 @@ import com.ggit.service.RepoService;
 import com.ggit.service.RepomemService;
 import com.ggit.util.CopyFile;
 import com.ggit.util.RandStr;
+import com.ggit.util.ReadPushData;
 import com.ggit.vo.FollowVo;
 import com.ggit.vo.PushVo;
 import com.ggit.vo.RepoVo;
@@ -118,15 +120,40 @@ public class RepositoryController {
     }
 
     @RequestMapping("/changeSelected")
-    public void changeSelected(String token, String repo, String member) {
+    public int changeSelected(String token, String repo, String member) {
 
+        int repoidx = repoService.nameForIdx(repo);
         Map<String, String> map = new HashMap<>();
         map.put("token", token);
-        map.put("repo", repo);
+        map.put("repo", repoidx + "");
         map.put("member", member);
         pushService.delsel(map);
         pushService.insel(token);
-        System.out.println(token);
+
+        return 1;
+
+    }
+
+    @RequestMapping("/pushMainToMy")
+    public int pushMainToMy(String token, String repo, String member) {
+
+        int repoidx = repoService.nameForIdx(repo);
+
+        String newToken = new RandStr(15).getResult();
+        File targFile = new File(storage_dir + "repositorys/" + repoidx + "/" + newToken);
+        targFile.mkdir();
+        new CopyFile().copy(new File(storage_dir + "repositorys/" + repoidx + "/" + token),
+                targFile);
+
+        pushVo.setToken(newToken);
+        pushVo.setMember(Integer.parseInt(member));
+        pushVo.setRepo(repoidx);
+        pushVo.setMessage("메인 저장소에서 가져옴");
+        pushVo.setBranch(Integer.parseInt(member));
+        pushVo.setBefore_token(token);
+        pushService.push(pushVo);
+
+        return changeSelected(newToken, repo, member);
     }
 
     @RequestMapping("/myRepositories")
@@ -246,39 +273,68 @@ public class RepositoryController {
         File folder = new File(filePath);
         File files[] = folder.listFiles();
 
-        if (folder.isFile()) {
-            StorageVo file = new StorageVo();
-            String content = "";
-            content = fileLeader(filePath, file);
-            file.setState("file");
-            file.setContent(content);
-            file.setName(folder.getName());
-            list.add(file);
+        String con = new ReadPushData(storage_dir + "repositorys/" + repoIdx + "/" + token + "/dump/pushData.txt")
+                .getCon();
+        System.out.println(con);
 
-            return list;
-        }
+        JSONParser parser = new JSONParser();
         try {
-            for (int i = 0; i < files.length; i++) {
+            JSONObject obj = (JSONObject) parser.parse(con);
+            JSONArray data = (JSONArray) obj.get("data");
+            String searchStr = "/README.md";
+
+            if (folder.isFile()) {
                 StorageVo file = new StorageVo();
-                if (files[i].getName().equals("README.md")) {
-                    file.setState("readme");
-                    String content = "";
-                    content = fileLeader(filePath + "/README.md", file);
-                    file.setContent(content);
-                }
-                file.setName(files[i].getName());
-                file.setDirectory(files[i].isDirectory());
+                String content = "";
+                content = fileLeader(filePath, file);
+                file.setState("file");
+                file.setContent(content);
+                file.setName(folder.getName());
                 list.add(file);
 
+                return list;
             }
-            list = (ArrayList<StorageVo>) (list.stream()
-                    .sorted(Comparator.comparing(StorageVo::getDirectory).reversed())
-                    .collect(Collectors.toList()));
+            try {
+                for (int i = 0; i < files.length; i++) {
+                    StorageVo file = new StorageVo();
+                    if (files[i].getName().equals("README.md")) {
+                        file.setState("readme");
+                        String content = "";
+                        content = fileLeader(filePath + "/README.md", file);
+                        file.setContent(content);
+                    }
+                    file.setName(files[i].getName());
+                    file.setDirectory(files[i].isDirectory());
 
-        } catch (NullPointerException e) {
-            System.out.println("파일없음");
+                    if (path.equals("")) {
+                        searchStr = "/" + files[i].getName();
+                    } else {
+                        searchStr = "/" + path + "/" + files[i].getName();
+                    }
+
+                    for (int j = 0; j < data.size(); j++) {
+
+                        if (((JSONObject) data.get(j)).get("path").equals(searchStr)) {
+                            file.setPush_message(((JSONObject) data.get(j)).get("message") + "");
+                            file.setPush_date(((JSONObject) data.get(j)).get("date") + "");
+
+                        }
+                    }
+
+                    list.add(file);
+
+                }
+                list = (ArrayList<StorageVo>) (list.stream()
+                        .sorted(Comparator.comparing(StorageVo::getDirectory).reversed())
+                        .collect(Collectors.toList()));
+
+            } catch (NullPointerException e) {
+                System.out.println("파일없음");
+            }
+        } catch (ParseException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
         }
-
         return list;
     }
 
