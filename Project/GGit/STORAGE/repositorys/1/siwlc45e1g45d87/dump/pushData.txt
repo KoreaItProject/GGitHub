@@ -18,6 +18,12 @@
             "date":"2022/10/13",
             
         },
+        {
+            "path":"/front/.gitignore",
+            "message":"create project"
+            "date":"2022/10/13",
+            
+        },
         
     ],
     "changed":[

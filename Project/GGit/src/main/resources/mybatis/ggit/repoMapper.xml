@@ -16,7 +16,7 @@
             FROM repo,repomem,member where repomem.repo=repo.idx and repo.owner=member.idx and repomem.member=${member}; -->
 
     <insert id="createRepo">
-        insert into repo(name,public,owner,clone) value(#{name},${publ},${owner},#{clone});
+        insert into repo(name,public,owner,clone,description) value(#{name},${publ},${owner},#{clone},#{description});
         <selectKey keyProperty="idx" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
