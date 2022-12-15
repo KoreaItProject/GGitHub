@@ -14,6 +14,8 @@ public class StorageVo {
     String date;
     String content;
     int totalLine;
+    String push_message;
+    String push_date;
 
     public boolean getDirectory() {
         return isDirectory;

@@ -20,5 +20,14 @@ public class StarService {
     public List<StarVo> selectStarlist(String nick){
         return mapper.selectStarlist(nick);
     }
+    public int selectstarcount(String reponame, int idx){
+        return mapper.selectstarcount(reponame, idx);
+    }
+    public int insertStar(String reponame, int idx){
+        return mapper.insertStar(reponame, idx);
+    }
+    public int deleteStar(String reponame, int idx){
+        return mapper.deleteStar(reponame, idx);
+    }
     
 }

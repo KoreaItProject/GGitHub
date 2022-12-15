@@ -14,7 +14,7 @@
                     </div>
                     <div class="repo_history_btn" title="작업 저장소로 가져오기" @click="click(index)">
                       
-                      <font-awesome-icon icon="fa-solid fa-right-to-bracket" />
+                      <font-awesome-icon icon="fa-solid fa-arrow-right" />
                     </div>
                   </div>       
                  
