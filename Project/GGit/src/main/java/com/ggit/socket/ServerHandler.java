@@ -161,6 +161,13 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 					file.mkdir();
 					String result = fileWrite(writePath, dto.getToken());
 
+					Map<String, String> map = new HashMap<>();
+					map.put("token", dto.getToken());
+					map.put("repo", dto.getIdx());
+					map.put("member", dto.getId());
+					pushService.delsel(map);
+					pushService.insel(dto.getToken());
+
 				} else if (dto.getCommand() == Info.FILEEND) {
 					System.out.println("end");
 				}

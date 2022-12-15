@@ -21,6 +21,10 @@ public class RepoService {
         return mapper.repo();
     }
 
+    public int nameForIdx(String name) {
+        return mapper.nameForIdx(name);
+    }
+
     public RepositoriesVO clone(String clone) {
         return mapper.clone(clone);
     }
