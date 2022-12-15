@@ -4,6 +4,9 @@
     <select id="repo" resultType="com.ggit.vo.RepoVo">
         SELECT * FROM repo;
     </select>
+    <select id="nameForIdx" resultType="int">
+        select idx from repo where name = #{name}
+    </select>
     <!-- member,repomem,repo 세개 모두다 검색 -->
     <!-- SELECT repo.idx as repo_idx,repo.name as repo_name,repo.createDate as repo_crateDate
             ,repo.public as repo_publ,repo.owner as repo_owner,repo.fork as repo_fork,

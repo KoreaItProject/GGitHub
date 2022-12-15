@@ -118,15 +118,40 @@ public class RepositoryController {
     }
 
     @RequestMapping("/changeSelected")
-    public void changeSelected(String token, String repo, String member) {
+    public int changeSelected(String token, String repo, String member) {
 
+        int repoidx = repoService.nameForIdx(repo);
         Map<String, String> map = new HashMap<>();
         map.put("token", token);
-        map.put("repo", repo);
+        map.put("repo", repoidx + "");
         map.put("member", member);
         pushService.delsel(map);
         pushService.insel(token);
-        System.out.println(token);
+
+        return 1;
+
+    }
+
+    @RequestMapping("/pushMainToMy")
+    public int pushMainToMy(String token, String repo, String member) {
+
+        int repoidx = repoService.nameForIdx(repo);
+
+        String newToken = new RandStr(15).getResult();
+        File targFile = new File(storage_dir + "repositorys/" + repoidx + "/" + newToken);
+        targFile.mkdir();
+        new CopyFile().copy(new File(storage_dir + "repositorys/" + repoidx + "/" + token),
+                targFile);
+
+        pushVo.setToken(newToken);
+        pushVo.setMember(Integer.parseInt(member));
+        pushVo.setRepo(repoidx);
+        pushVo.setMessage("메인 저장소에서 가져옴");
+        pushVo.setBranch(Integer.parseInt(member));
+        pushVo.setBefore_token(token);
+        pushService.push(pushVo);
+
+        return changeSelected(newToken, repo, member);
     }
 
     @RequestMapping("/myRepositories")
