@@ -13,9 +13,9 @@ import com.ggit.vo.MemberVo;
 public interface FollowMapper {
     List<FollowVo> follow();
 
-    List<MemberVo> selectfollowlist(String nick,int idx);
+    List<MemberVo> selectfollowerlist(String nick,int idx);
 
-    List<MemberVo> selectfollowerlist(String nick, int idx);
+    List<MemberVo> selectfollowinglist(String nick, int idx);
 
     int insertFollow(String nick, int idx);
 
@@ -23,4 +23,7 @@ public interface FollowMapper {
 
     int deletefollowlist(int idx, String nick);
 
+    List<MemberVo> followinglist(String nick);
+
+    List<MemberVo> followerlist(String nick);
 }
