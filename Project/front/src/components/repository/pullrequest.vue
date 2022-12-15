@@ -1,7 +1,7 @@
 <template lang="">
     
     <div class="pullreq_top_div" :style="cssVariable">
-        <div class="merge_request_div" style="border: 1px solid blue; display:flex; margin-top: 40px;">
+        <div class="merge_request_div">
             <div class="setting_left_container">
                 <ul>
                     <li class="setting_left_li setting_left_li1">
@@ -36,6 +36,8 @@
 </template>
 <script>
 import pullreqnomem from "@/components/repository/pullrequest_nomem.vue";
+import axios from 'axios';
+
 export default {
     computed: {
     cssVariable() {
@@ -66,7 +68,7 @@ export default {
         pullreqnomem : pullreqnomem
     },
     mounted(){
-
+        this.find_repo();
     },
     methods: {
         changetab(tab){
@@ -91,7 +93,17 @@ export default {
                 this.span2 = "rgb(188, 204, 202,0.2)";
                 
             } 
-        }
+        },
+        find_repo(){ // 존재하는 저장소인지 확인하자
+            axios.post("/api/find_repo",{
+                name : this.$route.params.repository
+            })
+            .then(response => {
+                if(response.data == ""){
+                    location.href="/pagenotfound";
+                }
+            })
+        },
     }
 };
 </script>

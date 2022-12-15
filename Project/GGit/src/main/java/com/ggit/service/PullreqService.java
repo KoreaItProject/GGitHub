@@ -16,4 +16,8 @@ public class PullreqService {
     public List<PullreqVo> pullreq(){
         return mapper.pullreq();
     }
+
+    public List<PullreqVo> pullreq_select(int idx){
+        return mapper.pullreq_select(idx);
+    }
 }

@@ -33,12 +33,14 @@ import org.springframework.web.context.annotation.RequestScope;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.ggit.service.FollowService;
+import com.ggit.service.PullreqService;
 import com.ggit.service.PushService;
 import com.ggit.service.RepoService;
 import com.ggit.service.RepomemService;
 import com.ggit.util.CopyFile;
 import com.ggit.util.RandStr;
 import com.ggit.vo.FollowVo;
+import com.ggit.vo.PullreqVo;
 import com.ggit.vo.PushVo;
 import com.ggit.vo.RepoVo;
 import com.ggit.vo.RepomemVo;
@@ -66,6 +68,8 @@ public class RepositoryController {
     PushService pushService;
     @Autowired
     FollowService followService;
+    @Autowired
+    PullreqService pullreqService;
 
     @Value("${storage_dir}")
     String storage_dir;
@@ -384,6 +388,18 @@ public class RepositoryController {
 
         return list;
 
+    }
+
+    // 존재하는 저장소인지 확인(저장소 이름으로 select)
+    @RequestMapping("find_repo")
+    public int find_repo(@RequestBody RepoVo repo){
+        return repoService.find_repo(repo.getName());
+    }
+
+    // 저장소 idx로 풀 리퀘스트 조회
+    @RequestMapping("pullreq_select")
+    public List<PullreqVo> pullreq_select(@RequestBody PullreqVo pullreqVo){
+        return pullreqService.pullreq_select(pullreqVo.getIdx());
     }
 
 }

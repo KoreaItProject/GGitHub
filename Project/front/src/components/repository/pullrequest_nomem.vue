@@ -20,8 +20,8 @@
                 </div>
             </div>
 
-            <div class="pullreq_main_body" v-for="Data in pullreqData">
-                <div class="pullreq_main_body_flex" @click="pullreqUserData(Data)">
+            <div class="pullreq_main_body" v-for="(Data,index) in pullreqData">    
+                <div class="pullreq_main_body_flex" @click="pullreqUserData(Data.token)">
                     <div class="pullreq_main_body_icon">
                         <span class="pullreq_main_body_icon_span">
                             <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="color-fg-color">
@@ -30,7 +30,7 @@
                         </span>
                     </div>
                     <div class="pullreq_main_body_innerdiv">
-                        <a class="pullreq_main_body_a"><h4>{{Data}}</h4></a>
+                        <a class="pullreq_main_body_a"><h4>{{Data.message}}</h4></a>
                     </div>
                 </div>
             </div>
@@ -38,24 +38,41 @@
     </div>
 </template>
 <script>
+import axios from 'axios';
 export default {
     data(){
         return{
-            pullreqData:["이거 어때요?",
-                         "내 잔디보고 오셈",
-                         "병합 요청합니다" ,
-                         "이거 괜찮은듯", 
-                         "무야호~", 
-                         "test", 
-                         "풀리풀리"],
+            pullreqData_length: "",
+            pullreqData:[],
         }
     },
     mounted(){
-
+        this.find_repo()
+        // this.mergeRequest()
     },
     methods: {
         pullreqUserData(u_data){
             alert(u_data);
+        },
+        find_repo(){ // 존재하는 저장소인지 확인하자
+            axios.post("/api/find_repo",{
+                name : this.$route.params.repository
+            })
+            .then(response => {
+                if(response.data == ""){
+                    location.href="/pagenotfound";
+                }else{
+                    axios.post("/api/pullreq_select", {
+                        idx : response.data
+                    })
+                    .then(response => {
+                        this.pullreqData = response.data
+                    })
+                }
+            })
+        },
+        mergeRequest(){
+            alert(this.$route.params.repository);
         }
     }
 }

@@ -48,4 +48,6 @@ public interface RepoMapper {
 
     int repo_remessage_func(RepoVo repoVo);
 
+    int find_repo(String name);
+
 }
