@@ -15,6 +15,8 @@ import org.zeroturnaround.zip.ZipUtil;
 import com.ggit.socket.InfoDTO;
 import com.ggit.socket.InfoDTO.Info;
 
+import util.ReadPushData;
+
 import java.awt.*;
 
 import java.awt.event.*;
@@ -38,6 +40,7 @@ import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     // pull
@@ -58,7 +61,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     Thread sockThread;
     Thread refThread;
     String projectName;
-
+    FileState fileState;
     // component
     JLabel logolbl;
     JLabel toptxt;
@@ -126,7 +129,10 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
         pushMsg.setVisible(hasLogin);
         mainPanel.add(pushMsg);
 
-        scrollPan = new ScrollPan().getScrollPan(clientPath);// 변경된 파일 패널
+        ScrollPan sp = new ScrollPan();
+        scrollPan = sp.getScrollPan(clientPath);// 변경된 파일 패널
+        fileState = sp.getFileState();
+
         scrollPan.setBounds(-2, 75, 248, 247);
         scrollPan.setVisible(hasLogin);
         mainPanel.add(scrollPan);
@@ -222,7 +228,11 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             jfc.showDialog(this, null);
 
             File dir = jfc.getSelectedFile();
+            if (dir == null) {
+                System.exit(0);
+            }
             this.clientPath = dir.getPath();
+
             this.info = new File(clientPath + "/.ggit/user/info.gt");
 
             if (info.isFile()) {
@@ -323,6 +333,16 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             dto.setToken(newToken);// 새로운 토큰 이 push에 대한 토큰
             token = newToken; // 토큰 바꾸고
             fileW();// info.gt에도 써줌
+
+            List<String> addPush = fileState.getAddPush();
+            List<String> changePush = fileState.getChangePush();
+            List<String> delPush = fileState.getDelPush();
+
+            System.out.println(addPush);
+            System.out.println(changePush);
+            System.out.println(delPush);
+            String con = new ReadPushData(clientPath + "/.ggit/.repo/file/dump/pushData.txt").getCon();
+            System.out.println(con);
 
             File data = new File(clientPath + "/.ggit/.repo/file/data/");//
             if (data.isDirectory()) {

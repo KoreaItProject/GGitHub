@@ -6,20 +6,25 @@ import javax.swing.plaf.basic.BasicScrollBarUI;
 import java.awt.*;
 
 public class ScrollPan {
+    FileState fileState;
 
     public JScrollPane getScrollPan(String clientPath) {
         String str[] = { "변경사항 없음" };
         JList scrollList = new JList();
         scrollList.setListData(str);
 
-        new FileState(clientPath, scrollList).start();
-
+        fileState = new FileState(clientPath, scrollList);
+        fileState.start();
         JScrollPane jp = new JScrollPane(scrollList);
         MyScrollBarUI myScrollBarUI = new MyScrollBarUI();
         jp.getVerticalScrollBar().setUI(new MyScrollBarUI());
         jp.getHorizontalScrollBar().setUI(new MyScrollBarUI());
 
         return jp;
+    }
+
+    public FileState getFileState() {
+        return fileState;
     }
 
     class MyScrollBarUI extends BasicScrollBarUI {

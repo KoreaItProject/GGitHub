@@ -5,6 +5,8 @@ import java.nio.file.Paths;
 import java.nio.file.attribute.FileTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+
 import javax.swing.JList;
 
 //추가됨,수정됨,삭제됨 검색 방식
@@ -21,6 +23,11 @@ public class FileState extends Thread {
     String change = "수정됨    ";
     String delete = "삭제됨    ";
 
+    // pushData에 기록하기 위한 리스트
+    List<String> addPush;
+    List<String> changePush;
+    List<String> delPush;
+
     public FileState(String clientPath, JList jlist) {
         this.clientPath = clientPath;
         this.jlist = jlist;
@@ -32,6 +39,9 @@ public class FileState extends Thread {
         while (true) {
             try {
                 Thread.sleep(700);
+                addPush = new ArrayList<String>();
+                changePush = new ArrayList<String>();
+                delPush = new ArrayList<String>();
                 jlist.setListData(check());// check()에서 가져온 배열로 리스트의 데이터를 바꿔준다.
 
             } catch (InterruptedException e) {
@@ -86,10 +96,12 @@ public class FileState extends Thread {
 
                 if (file.isDirectory()) {
                     list.addAll(addChCheck(file, temp));
+
                 }
 
                 if (!temp.isDirectory() && !temp.isFile()) {
                     list.add(add + file.getName() + "     " + temp.getPath());
+                    addPush.add(temp.getPath());
                 } else if (file.isFile()) {
                     try {
                         FileTime sorcFileTime = (FileTime) Files.getAttribute(Paths.get(file.getPath()),
@@ -98,6 +110,7 @@ public class FileState extends Thread {
                                 "lastModifiedTime");
                         if ((int) (sorcFileTime.toMillis() / 1000) - 1 > (int) (tarFileTime.toMillis() / 1000)) {
                             list.add(change + file.getName() + "     " + file.getPath());
+                            changePush.add(file.getPath());
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -120,10 +133,12 @@ public class FileState extends Thread {
 
                 if (file.isDirectory()) {
                     list.addAll(delCheck(file, temp));
+
                 }
 
                 if (!temp.isDirectory() && !temp.isFile()) {
                     list.add(delete + file.getName() + "     " + temp.getPath());
+                    delPush.add(temp.getPath());
                 }
 
             }
@@ -131,6 +146,18 @@ public class FileState extends Thread {
 
         return list;
 
+    }
+
+    public List<String> getAddPush() {
+        return addPush;
+    }
+
+    public List<String> getChangePush() {
+        return changePush;
+    }
+
+    public List<String> getDelPush() {
+        return delPush;
     }
 
 }
