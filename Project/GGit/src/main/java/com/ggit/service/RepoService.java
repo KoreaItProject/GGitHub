@@ -92,4 +92,9 @@ public class RepoService {
         return mapper.repo_remessage_func(repovo);
     }
 
+    // 저장소 이름으로 저장소 존재 여부 확인
+    public int find_repo(String name){
+        return mapper.find_repo(name);
+    }
+
 }

@@ -126,4 +126,9 @@
         update repo set description=#{description} where idx=#{idx}
     </update>
 
+    <!-- 저장소 이름으로 저장소 존재 여부 확인 -->
+    <select id="find_repo" resultType="int">
+        select idx from repo where name = #{name}
+    </select>
+
 </mapper>

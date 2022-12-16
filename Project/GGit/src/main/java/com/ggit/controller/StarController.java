@@ -25,6 +25,25 @@ public class StarController {
         return Starlist;
     }
 
+    @RequestMapping("selectstarcount")
+    public int selectstarcount(String reponame, int idx){
+        int selectstarcount = starService.selectstarcount(reponame, idx);
+        return selectstarcount;
+    }
+    @RequestMapping("insertStar")
+    public int insertStar(String reponame, int idx){
+        
+        int insertStar = starService.insertStar(reponame, idx);
+        return 1;
+    }
+
+    @RequestMapping("deleteStar")
+    public int deleteStar(String reponame, int idx){
+        System.out.println(reponame);
+        System.out.println(idx);
+        int deleteStar = starService.deleteStar(reponame, idx);
+        return 1;
+    }
     
 
     

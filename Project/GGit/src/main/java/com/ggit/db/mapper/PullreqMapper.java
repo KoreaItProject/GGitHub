@@ -11,5 +11,9 @@ import com.ggit.vo.PullreqVo;
 @Mapper
 public interface PullreqMapper {
     
+
+
     List<PullreqVo> pullreq();
+
+    List<PullreqVo> pullreq_select(int idx);
 }
