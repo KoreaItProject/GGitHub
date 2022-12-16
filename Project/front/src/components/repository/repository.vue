@@ -37,6 +37,7 @@
                     저장소
                     </span>
                 </a>
+                
                 <a :href="'/'+nick+'/'+repository+'?tab=myCode'">
                     <span class="repository_tab repository_tab5">
                     <svg aria-hidden="true" height="16" viewBox="0 -1 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-code UnderlineNav-octicon d-none d-sm-inline">
