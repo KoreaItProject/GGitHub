@@ -19,14 +19,17 @@ public class ReadPushData {
             while ((str = reader.readLine()) != null) {
                 content += str + "\n";
             }
-
+            reader.close();
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
     }
 
     public String getCon() {
+        System.out.println(123123123);
+        System.out.println(content);
         return content;
     }
 

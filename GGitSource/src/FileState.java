@@ -101,7 +101,8 @@ public class FileState extends Thread {
 
                 if (!temp.isDirectory() && !temp.isFile()) {
                     list.add(add + file.getName() + "     " + file.getPath());
-                    addPush.add(file.getPath().toString().replace(clientPath + "\\project", ""));
+                    addPush.add(file.getPath().replace(clientPath + "\\project\\", "/").replaceAll("\\\\",
+                            "/"));
                 } else if (file.isFile()) {
                     try {
                         FileTime sorcFileTime = (FileTime) Files.getAttribute(Paths.get(file.getPath()),
@@ -110,7 +111,8 @@ public class FileState extends Thread {
                                 "lastModifiedTime");
                         if ((int) (sorcFileTime.toMillis() / 1000) - 1 > (int) (tarFileTime.toMillis() / 1000)) {
                             list.add(change + file.getName() + "     " + file.getPath());
-                            changePush.add(file.getPath().toString().replace(clientPath + "\\project", ""));
+                            changePush.add(file.getPath().replace(clientPath + "\\project\\", "/").replaceAll("\\\\",
+                                    "/"));
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -138,7 +140,8 @@ public class FileState extends Thread {
 
                 if (!temp.isDirectory() && !temp.isFile()) {
                     list.add(delete + file.getName() + "     " + file.getPath());
-                    delPush.add(temp.getPath().toString().replace(clientPath + "\\project", ""));
+                    delPush.add(temp.getPath().replace(clientPath + "\\project\\", "/").replaceAll("\\\\",
+                            "/"));
                 }
 
             }
