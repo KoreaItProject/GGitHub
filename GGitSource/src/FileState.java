@@ -127,21 +127,34 @@ public class FileState extends Thread {
 
     }
 
-    public ArrayList<String> delCheck(File sorceF, File targetF) {
+    public ArrayList<String> delCheck(File sorceF, File targetF) {// 삭제는 sorcef가 data 폴더 targetf는 project폴더
+        // 삭제 되었기에 project폴더에는 없다 그래서 data폴더를 기준으로 포문을 돌려준다
         ArrayList<String> list = new ArrayList<String>();
         if (targetF.listFiles() != null) {
             for (File file : sorceF.listFiles()) {
                 File temp = new File(targetF.getAbsolutePath() + File.separator + file.getName());
 
                 if (file.isDirectory()) {
-                    list.addAll(delCheck(file, temp));
+                    list.addAll(delCheck(file, temp));// 폴더있경우 폴더 안으로 타고 들어가서 확인
 
                 }
 
-                if (!temp.isDirectory() && !temp.isFile()) {
+                if (!temp.isDirectory() && !temp.isFile()) {// 삭제기록
                     list.add(delete + file.getName() + "     " + file.getPath());
                     delPush.add(temp.getPath().replace(clientPath + "\\project\\", "/").replaceAll("\\\\",
                             "/"));
+                    if (file.isDirectory()) {// 폴더 자체가 삭제되었을때 안에 있는 파일들도 삭제로 기록
+
+                        for (File sorce : file.listFiles()) {
+
+                            list.add(delete + sorce.getName() + "     " + sorce.getPath());
+                            delPush.add(
+                                    sorce.getPath().replace(clientPath + "\\.ggit\\.repo\\file\\data\\", "/")
+                                            .replaceAll("\\\\",
+                                                    "/"));
+                        }
+                    }
+
                 }
 
             }

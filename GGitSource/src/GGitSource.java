@@ -359,6 +359,16 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             System.out.println(jsonObject);
             JSONArray pushData = (JSONArray) jsonObject.get("data");
 
+            for (int i = 0; i < delPush.size(); i++) {
+                System.out.println(delPush.get(i));
+                for (int j = 0; j < pushData.size(); j++) {
+
+                    if (((JSONObject) pushData.get(j)).get("path").equals(delPush.get(i))) {
+                        pushData.remove(j);
+                    }
+                }
+
+            }
             for (int i = 0; i < changePush.size(); i++) {
 
                 for (int j = 0; j < pushData.size(); j++) {
@@ -371,7 +381,6 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
 
             }
             for (int i = 0; i < addPush.size(); i++) {
-                System.out.println(addPush.get(i));
                 String str = "{\"date\":\"" + nowTime + "\",\"path\":\"" + addPush.get(i) + "\",\"message\": \""
                         + pushMsg
                                 .getText()
