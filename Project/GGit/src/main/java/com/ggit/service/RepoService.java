@@ -97,4 +97,9 @@ public class RepoService {
         return mapper.find_repo(name);
     }
 
+    // 저장소에 속해있는지 확인
+    public RepoVo repoMemCheck(RepoVo repoVo){
+        return mapper.repoMemCheck(repoVo);
+    }
+
 }

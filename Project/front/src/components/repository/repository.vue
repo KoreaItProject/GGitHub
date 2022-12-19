@@ -11,12 +11,15 @@
                     <div class="repository_public"> public </div>
                 </div>
                 <div class="repository_btn_div">
-                    <button class="repository_btn_pin repository_btn">
-                        <svg aria-hidden="true" height="16" viewBox="0 -1 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-pin mr-2">
-                            <path fill-rule="evenodd" d="M4.456.734a1.75 1.75 0 012.826.504l.613 1.327a3.081 3.081 0 002.084 1.707l2.454.584c1.332.317 1.8 1.972.832 2.94L11.06 10l3.72 3.72a.75.75 0 11-1.061 1.06L10 11.06l-2.204 2.205c-.968.968-2.623.5-2.94-.832l-.584-2.454a3.081 3.081 0 00-1.707-2.084l-1.327-.613a1.75 1.75 0 01-.504-2.826L4.456.734zM5.92 1.866a.25.25 0 00-.404-.072L1.794 5.516a.25.25 0 00.072.404l1.328.613A4.582 4.582 0 015.73 9.63l.584 2.454a.25.25 0 00.42.12l5.47-5.47a.25.25 0 00-.12-.42L9.63 5.73a4.581 4.581 0 01-3.098-2.537L5.92 1.866z"></path>
-                        </svg>
-                        고정
-                    </button>
+                  <div v-if="idx != null"> <!-- idx가 null이 아닐때만! 즉, 로그인이 됐으면 보여주고 아니면 안보여주고 -->
+                    <span v-if="pin_btn_state != false"> <!-- 내가 속한 저장소이면 보이고 아니면 안보이고 -->
+                      <button class="repository_btn_pin repository_btn" @click="pin_btn_click()">
+                          <svg aria-hidden="true" height="16" viewBox="0 -1 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-pin mr-2">
+                              <path fill-rule="evenodd" d="M4.456.734a1.75 1.75 0 012.826.504l.613 1.327a3.081 3.081 0 002.084 1.707l2.454.584c1.332.317 1.8 1.972.832 2.94L11.06 10l3.72 3.72a.75.75 0 11-1.061 1.06L10 11.06l-2.204 2.205c-.968.968-2.623.5-2.94-.832l-.584-2.454a3.081 3.081 0 00-1.707-2.084l-1.327-.613a1.75 1.75 0 01-.504-2.826L4.456.734zM5.92 1.866a.25.25 0 00-.404-.072L1.794 5.516a.25.25 0 00.072.404l1.328.613A4.582 4.582 0 015.73 9.63l.584 2.454a.25.25 0 00.42.12l5.47-5.47a.25.25 0 00-.12-.42L9.63 5.73a4.581 4.581 0 01-3.098-2.537L5.92 1.866z"></path>
+                          </svg>
+                          고정
+                      </button>
+                    </span>
               
                     <button class="repository_btn_star repository_btn">
                         <svg aria-hidden="true" height="16" viewBox="0 -1 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-star d-inline-block mr-2">
@@ -24,8 +27,7 @@
                         </svg>
                         즐겨찾기
                     </button>
-                  
-                    
+                  </div>
                 </div>
             </div>
             <div class="repository_tab_div" :style="cssVariable">
@@ -87,10 +89,12 @@ import history from "@/components/repository/history/history.vue";
 import pullrequest from "@/components/repository/pullrequest.vue";
 import setting from "@/components/repository/setting/setting.vue";
 import axios from "axios";
+import store from "../../vuex/store";
 
 export default {
   data() {
     return {
+      idx: store.getters.getUserIdx,
       nick: this.$route.params.nick,
       hrefNick: "/" + this.$route.params.nick,
       repository: this.$route.params.repository,
@@ -106,6 +110,8 @@ export default {
       tab3_color: "0px",
       tab4_color: "0px",
       tab5_color: "0px",
+
+      pin_btn_state:""
     };
   },
   computed: {
@@ -144,7 +150,41 @@ export default {
       this.isCode = true;
       this.tab1_color = "4px";
     }
+
+    this.getRepoIdx_RepoMemCheck() // 저장소 idx 가져온 후 내가 속해있는 저장소인지 확인하자
   },
+  methods: {
+    pin_btn_click(){
+      alert("고정 버튼 클릭!");
+    },
+    getRepoIdx_RepoMemCheck(){ // 저장소 idx 가져오기
+      axios.get("/api/repoIdxByNickName",{
+        params: {
+          nick: this.$route.params.nick,
+          reponame: this.$route.params.repository
+        }
+      })
+      .then(response => {
+        // 내가 속한 저장소인지 확인하자
+        if(this.idx != null){
+          axios.post("/api/repoMemCheck",{
+              repo_idx : response.data, // response.data => 저장소 idx
+              u_idx : this.idx
+          })
+          .then(response => {
+             if(response.data.idx != undefined){
+                this.pin_btn_state = true;
+             }else{
+                this.pin_btn_state = false;
+             }
+          })
+        } // if문 
+      })
+    },
+    myRepoCheck(){ // 내 저장소인지 확인해보자
+       this.$route.params.repository // 현재 저장소 이름
+    }
+  }
 };
 </script>
 <style lang="sass">

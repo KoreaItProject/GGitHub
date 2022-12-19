@@ -33,9 +33,16 @@
     </select>
     <select id="selectRepositories" resultType="com.ggit.vo.RepositoriesVO">
         SELECT repo.idx as repo_idx,
-        repo.name as repo_name,repo.createDate as repo_crateDate
-            ,repo.public as repo_publ,repo.owner as repo_owner,repo.fork as repo_fork,
-            repomem.idx as repomem_idx,repomem.repo as repomem_repo,repomem.member as repomem_member,repomem.sort as repomem_sort,
+        repo.name as repo_name,
+        repo.createDate as repo_crateDate,
+        repo.public as repo_publ,
+        repo.owner as repo_owner,
+        repo.fork as repo_fork,
+
+        repomem.idx as repomem_idx,
+        repomem.repo as repomem_repo,
+        repomem.member as repomem_member,
+        repomem.sort as repomem_sort,
             member.idx as member_idx,member.nick as member_nick
             FROM repo,repomem,member where repomem.repo=repo.idx and repo.owner=member.idx and repomem.member=(select idx from member where nick = #{nick})
             ORDER BY repomem.sort ASC ,repo.createDate desc
@@ -129,6 +136,13 @@
     <!-- 저장소 이름으로 저장소 존재 여부 확인 -->
     <select id="find_repo" resultType="int">
         select idx from repo where name = #{name}
+    </select>
+
+    <!-- 저장소에 속해 있는지(저장소 멤버) 확인 -->
+    <select id="repoMemCheck" resultType="com.ggit.vo.RepoVo">
+        select *
+        from repomem
+        where repo = #{repo_idx} and member = #{u_idx};
     </select>
 
 </mapper>

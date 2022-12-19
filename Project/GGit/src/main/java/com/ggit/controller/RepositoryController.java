@@ -201,6 +201,7 @@ public class RepositoryController {
 
     @RequestMapping("/repoIdxByNickName")
     public int repoIdxByNickName(String nick, String reponame) {
+        //System.out.println("===> " + nick + ' ' + reponame);
         int repoIdxByNickName;
         try {
             Map<String, String> map = new HashMap<String, String>();
@@ -209,6 +210,7 @@ public class RepositoryController {
             repoIdxByNickName = repoService.repoIdxByNickName(map);
 
         } catch (Exception e) {
+            e.printStackTrace();
             return 0;
         }
         return repoIdxByNickName;
@@ -279,7 +281,7 @@ public class RepositoryController {
 
         String con = new ReadPushData(storage_dir + "repositorys/" + repoIdx + "/" + token + "/dump/pushData.txt")
                 .getCon();
-        System.out.println(con);
+        //System.out.println(con);
 
         JSONParser parser = new JSONParser();
         try {
@@ -381,7 +383,7 @@ public class RepositoryController {
 
     @RequestMapping("selectRepoClone")
     public List<RepositoriesVO> selectRepoClone(int repoIdx) {
-        System.out.println(repoIdx);
+        //System.out.println(repoIdx);
         List<RepositoriesVO> RepoClone = repoService.selectRepoClone(repoIdx);
         return RepoClone;
     }
@@ -395,7 +397,7 @@ public class RepositoryController {
     // 저장소 소개글 가져오기
     @RequestMapping("getrepomessage")
     public RepoVo getrepomessage(@RequestBody RepoVo repovo) {
-        System.out.println("-=-=>" + repovo.getIdx());
+        //System.out.println("-=-=>" + repovo.getIdx());
         return repoService.getrepomessage(repovo);
     }
 
@@ -431,6 +433,12 @@ public class RepositoryController {
     @RequestMapping("pullreq_select")
     public List<PullreqVo> pullreq_select(@RequestBody PullreqVo pullreqVo){
         return pullreqService.pullreq_select(pullreqVo.getIdx());
+    }
+
+    // 저장소에 속해있는지 확인
+    @RequestMapping("repoMemCheck")
+    public RepoVo repoMemCheck(@RequestBody RepoVo repoVo){
+        return repoService.repoMemCheck(repoVo);
     }
 
 }
