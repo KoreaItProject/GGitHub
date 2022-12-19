@@ -21,29 +21,15 @@ public class CopyFile {
                     FileInputStream fis = null;
                     FileOutputStream fos = null;
                     try {
-                        if (temp.isFile()) {
-                            FileTime lastModifiedTime = (FileTime) Files.getAttribute(Paths.get(file.getPath()),
-                                    "lastModifiedTime");
-                            FileTime lastModifiedTime1 = (FileTime) Files.getAttribute(Paths.get(temp.getPath()),
-                                    "lastModifiedTime");
-                            if (lastModifiedTime.toMillis() > lastModifiedTime1.toMillis()) {
-                                fis = new FileInputStream(file);
-                                fos = new FileOutputStream(temp);
-                                byte[] b = new byte[4096];
-                                int cnt = 0;
-                                while ((cnt = fis.read(b)) != -1) {
-                                    fos.write(b, 0, cnt);
-                                }
-                            }
-                        } else {
-                            fis = new FileInputStream(file);
-                            fos = new FileOutputStream(temp);
-                            byte[] b = new byte[4096];
-                            int cnt = 0;
-                            while ((cnt = fis.read(b)) != -1) {
-                                fos.write(b, 0, cnt);
-                            }
+
+                        fis = new FileInputStream(file);
+                        fos = new FileOutputStream(temp);
+                        byte[] b = new byte[4096];
+                        int cnt = 0;
+                        while ((cnt = fis.read(b)) != -1) {
+                            fos.write(b, 0, cnt);
                         }
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {

@@ -326,6 +326,9 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     public void push() {// push
         canbtn = false;
         try {
+            fileState.setRunning(false);
+            Thread.sleep(300);
+
             JSONParser parser = new JSONParser();
             InfoDTO dto = new InfoDTO();
             dto.setCommand(Info.PUSH);
@@ -347,7 +350,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             List<String> addPush = fileState.getAddPush();
             List<String> changePush = fileState.getChangePush();
             List<String> delPush = fileState.getDelPush();
-            fileState.setRunning(false);
+
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String nowTime = sdf.format(new Date()).toString();
 
@@ -421,13 +424,14 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             data.mkdir();
             new CopyFile().copy(new File(clientPath + "/project/"),
                     new File(clientPath + "/.ggit/.repo/file/data/"));// 지금 파일을 보낼 파일로 옮김
-
+            System.out.println("-1--");
             File zip = new File(clientPath + "/.ggit/.repo/file/");// 폴더 압축
-            ZipUtil.pack(zip, new File(clientPath + "/.ggit/.repo/file.zip"));// 파일 보내기 위해 압축
+            ZipUtil.pack(zip, new File(clientPath + "/.ggit/.repo/file.zip"), 0);// 파일 보내기 위해 압축
+            System.out.println("-2--");
             writer.writeObject(dto);
             writer.flush();// 서버한테 나 푸쉬할게 라고 말함
+
             fileSend();// 서버한테 파일 보냄
-            zip.delete();// 보낸거 삭제
             pushMsg.setText("전송할 메시지를 입력해주세요");
             fileState.setRunning(true);
         } catch (Exception e) {

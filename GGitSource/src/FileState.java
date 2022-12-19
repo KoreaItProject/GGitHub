@@ -44,7 +44,7 @@ public class FileState extends Thread {
         int i = 0;
         while (true) {
             try {
-                Thread.sleep(500);
+
                 if (running) {
 
                     addPush = new ArrayList<String>();
@@ -53,10 +53,11 @@ public class FileState extends Thread {
                     jlist.setListData(check());// check()에서 가져온 배열로 리스트의 데이터를 바꿔준다.
 
                 }
+                Thread.sleep(500);
 
-            } catch (InterruptedException e) {
+            } catch (Exception e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
+                System.out.println("약간의 오류");
             }
         }
     }
@@ -68,22 +69,16 @@ public class FileState extends Thread {
         File sorceF = new File(clientPath + "/project");
         File targetF = new File(clientPath + "/.ggit/.repo/file/data");
 
-        ArrayList addChList = addChCheck(sorceF, targetF);// add와 change 확인
-        String[] addChStr = (String[]) addChList.toArray(new String[addChList.size()]);
-
-        ArrayList delList = delCheck(targetF, sorceF);// delete 확인
-        String[] delStr = (String[]) delList.toArray(new String[delList.size()]);
-
         if (sorceF.listFiles() != null) {
-            resultStr = new String[addChStr.length + delStr.length];// add와 change 확인과 delete 확인 결과를 합쳐준다.
 
-            int index = 0;
-            for (String str : addChStr) {
-                resultStr[index++] = str;
-            }
-            for (String str : delStr) {
-                resultStr[index++] = str;
-            }
+            ArrayList addChList = addChCheck(sorceF, targetF);// add와 change 확인
+
+            ArrayList delList = delCheck(targetF, sorceF);// delete 확인
+            addChList.addAll(delList);
+
+            resultStr = (String[]) addChList.toArray(new String[addChList.size()]);// add와 change 확인과 delete 확인 결과를
+                                                                                   // 합쳐준다.
+
         } else {
             resultStr = new String[1];
             resultStr[0] = "프로젝트 파일이 존재하지 않습니다";

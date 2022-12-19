@@ -1,0 +1,82 @@
+$line-color: #d0d7de
+
+.overView_div
+    border: 1px solid $line-color
+    border-radius: 7px
+.overView_container
+    width: 100%
+    padding-left: 20px
+    .overView_readme
+        max-width: 886px
+        width: 98.7%
+        margin-left: 5px
+        margin-top: 25px
+        padding: 30px 0
+        @media screen and ( max-width:  1006px)
+            width: 100%
+
+        .overView_readme_title
+            width: 100%
+            height: 20px
+            padding: 0 30px
+
+            .overView_readme_pencil
+                float: right
+        .overView_readme_content
+            width: 100%
+            text-align: center
+    .overView_pinned_div
+        max-width: 900px
+        width: 100%
+        margin-top: 20px
+        padding: 10px 0
+        .overView_pinned_top
+            width: 100%
+            .overView_pinned_top_left
+                float: left
+                font-size: 16px
+            .overView_pinned_top_right
+                float: right
+                font-size: 13px
+        .overView_pins_div
+            width: 100%
+            padding: 30px 0px
+            text-align: center
+
+            .overView_pins
+                width: 49%
+                height: 107px
+                display: inline-block
+                vertical-align: middle
+                margin: 3px 3px
+                float: left
+                @media screen and ( max-width:  1006px)
+                    width: 100%
+                    float: none
+    .overView_contribution_div
+        max-width: 886px
+        width: 98.7%
+        margin-left: 5px
+        margin-top: 25px
+        padding: 20px
+        border: 1px solid #d0d7de
+        border-radius: 10px
+        margin-top: var(--contribution-top)
+        @media screen and ( max-width:  1006px)
+            margin-top: 0
+            width: 100%
+        @media screen and ( max-width: 1290px)
+            height: 200px
+
+        .overView_contribution_inner_div
+            display: flex
+            align-items: flex-end
+            align-content: flex-end
+            flex-direction: column
+            overflow: hidden
+            svg
+                width: 850px
+                height: 152px
+
+.vch__day__square has-tooltip
+    border-radius: 20px
