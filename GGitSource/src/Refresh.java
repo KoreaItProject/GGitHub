@@ -11,7 +11,7 @@ public class Refresh extends Thread {
     public void run() {
         while (true) {
             try {
-                Thread.sleep(800);
+                Thread.sleep(500);
                 frame.revalidate();
                 frame.repaint();
             } catch (InterruptedException e) {

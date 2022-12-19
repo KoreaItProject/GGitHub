@@ -109,7 +109,7 @@ public class RepositoryController {
             String token = new RandStr(15).getResult();
             pushVo.setToken(token);
             pushVo.setMember(owner);
-            pushVo.setMessage("프로젝트 생성");
+            pushVo.setMessage("저장소 생성");
             pushVo.setRepo(repoVo.getIdx());
             pushService.push(pushVo);
 
@@ -125,7 +125,6 @@ public class RepositoryController {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String nowTime = sdf.format(new Date()).toString();
             ((JSONObject) (pushData.get(0))).replace("date", nowTime);
-            System.out.println(pushData);
             new WritePushData(storage_dir + "repositorys/" + repoVo.getIdx() + "/" + token + "/dump/pushData.txt")
                     .write(jObject.toString());
 
@@ -293,7 +292,6 @@ public class RepositoryController {
 
         String con = new ReadPushData(storage_dir + "repositorys/" + repoIdx + "/" + token + "/dump/pushData.txt")
                 .getCon();
-        System.out.println(con);
 
         JSONParser parser = new JSONParser();
         try {
@@ -437,13 +435,13 @@ public class RepositoryController {
 
     // 존재하는 저장소인지 확인(저장소 이름으로 select)
     @RequestMapping("find_repo")
-    public int find_repo(@RequestBody RepoVo repo){
+    public int find_repo(@RequestBody RepoVo repo) {
         return repoService.find_repo(repo.getName());
     }
 
     // 저장소 idx로 풀 리퀘스트 조회
     @RequestMapping("pullreq_select")
-    public List<PullreqVo> pullreq_select(@RequestBody PullreqVo pullreqVo){
+    public List<PullreqVo> pullreq_select(@RequestBody PullreqVo pullreqVo) {
         return pullreqService.pullreq_select(pullreqVo.getIdx());
     }
 

@@ -28,8 +28,7 @@ public class ReadPushData {
     }
 
     public String getCon() {
-        System.out.println(123123123);
-        System.out.println(content);
+
         return content;
     }
 

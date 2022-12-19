@@ -28,7 +28,7 @@ CREATE TABLE `repomem` (
   `member` int NOT NULL COMMENT '회원번호',
   `sort` int DEFAULT '0',
   PRIMARY KEY (`idx`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +37,7 @@ CREATE TABLE `repomem` (
 
 LOCK TABLES `repomem` WRITE;
 /*!40000 ALTER TABLE `repomem` DISABLE KEYS */;
-INSERT INTO `repomem` VALUES (1,1,1,7),(2,2,1,9),(3,3,8,0),(4,4,3,0),(5,5,1,8),(6,6,6,0),(7,7,6,1),(8,8,9,0),(9,9,8,1),(10,10,3,1),(11,1,4,0),(12,2,4,1),(13,3,7,0),(14,4,10,0),(15,11,4,2),(16,12,7,1),(17,12,1,10),(18,11,1,11),(19,2,2,0),(22,21,1,6),(23,22,1,5),(24,23,1,4),(25,24,1,2),(26,25,1,0),(27,26,1,1),(28,27,1,3);
+INSERT INTO `repomem` VALUES (1,1,1,0),(2,1,2,0),(3,1,3,0),(4,2,1,1),(5,2,2,0),(6,2,3,0),(7,3,1,2),(8,3,2,0),(9,3,3,0),(10,4,1,3);
 /*!40000 ALTER TABLE `repomem` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-02 19:37:48
+-- Dump completed on 2022-12-19 13:42:28

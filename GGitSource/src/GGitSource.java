@@ -326,6 +326,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     public void push() {// push
         canbtn = false;
         try {
+            JSONParser parser = new JSONParser();
             InfoDTO dto = new InfoDTO();
             dto.setCommand(Info.PUSH);
             dto.setIdx(repo);// 레포인덱스
@@ -346,22 +347,19 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             List<String> addPush = fileState.getAddPush();
             List<String> changePush = fileState.getChangePush();
             List<String> delPush = fileState.getDelPush();
-
+            fileState.setRunning(false);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String nowTime = sdf.format(new Date()).toString();
 
-            System.out.println(addPush);
-            System.out.println(changePush);
-            System.out.println(delPush);
             String con = new ReadPushData(clientPath + "/.ggit/.repo/file/dump/pushData.txt").getCon();
-            System.out.println(con);
-            JSONObject jsonObject = (JSONObject) (new JSONParser()).parse(con);
-            System.out.println(jsonObject);
+
+            JSONObject jsonObject = (JSONObject) parser.parse(con);
+
             JSONArray pushData = (JSONArray) jsonObject.get("data");
             JSONArray pushChanged = new JSONArray();
 
             for (int i = 0; i < delPush.size(); i++) {
-                System.out.println(delPush.get(i));
+
                 for (int j = 0; j < pushData.size(); j++) {
 
                     if (((JSONObject) pushData.get(j)).get("path").equals(delPush.get(i))) {
@@ -386,27 +384,27 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                         + pushMsg
                                 .getText()
                         + "\",}";
-                JSONObject jsonObj1 = (JSONObject) new JSONParser().parse(str);
+                JSONObject jsonObj1 = (JSONObject) parser.parse(str);
                 pushData.add(jsonObj1);
             }
             jsonObject.remove("changed");
 
             String changestr;
             JSONObject jo;
-            JSONParser jp = new JSONParser();
+
             for (int i = 0; i < addPush.size(); i++) {
                 changestr = "{\"path\":\"" + addPush.get(i) + "\",\"state\":\"add\"}";
-                jo = (JSONObject) jp.parse(changestr);
+                jo = (JSONObject) parser.parse(changestr);
                 pushChanged.add(jo);
             }
             for (int i = 0; i < changePush.size(); i++) {
                 changestr = "{\"path\":\"" + changePush.get(i) + "\",\"state\":\"change\"}";
-                jo = (JSONObject) jp.parse(changestr);
+                jo = (JSONObject) parser.parse(changestr);
                 pushChanged.add(jo);
             }
             for (int i = 0; i < delPush.size(); i++) {
                 changestr = "{\"path\":\"" + delPush.get(i) + "\",\"state\":\"del\"}";
-                jo = (JSONObject) jp.parse(changestr);
+                jo = (JSONObject) parser.parse(changestr);
                 pushChanged.add(jo);
             }
             jsonObject.put("changed", pushChanged);
@@ -414,7 +412,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             new WritePushData(clientPath + "/.ggit/.repo/file/dump/pushData.txt")
                     .write((jsonObject + ""));
 
-            System.out.println(jsonObject);
+            System.out.println(123);
 
             File data = new File(clientPath + "/.ggit/.repo/file/data/");//
             if (data.isDirectory()) {
@@ -431,6 +429,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             fileSend();// 서버한테 파일 보냄
             zip.delete();// 보낸거 삭제
             pushMsg.setText("전송할 메시지를 입력해주세요");
+            fileState.setRunning(true);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

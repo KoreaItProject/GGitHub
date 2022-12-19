@@ -28,6 +28,12 @@ public class FileState extends Thread {
     List<String> changePush;
     List<String> delPush;
 
+    protected boolean running = true;
+
+    public void setRunning(boolean running) {
+        this.running = running;
+    }
+
     public FileState(String clientPath, JList jlist) {
         this.clientPath = clientPath;
         this.jlist = jlist;
@@ -38,11 +44,15 @@ public class FileState extends Thread {
         int i = 0;
         while (true) {
             try {
-                Thread.sleep(700);
-                addPush = new ArrayList<String>();
-                changePush = new ArrayList<String>();
-                delPush = new ArrayList<String>();
-                jlist.setListData(check());// check()에서 가져온 배열로 리스트의 데이터를 바꿔준다.
+                Thread.sleep(500);
+                if (running) {
+
+                    addPush = new ArrayList<String>();
+                    changePush = new ArrayList<String>();
+                    delPush = new ArrayList<String>();
+                    jlist.setListData(check());// check()에서 가져온 배열로 리스트의 데이터를 바꿔준다.
+
+                }
 
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
@@ -127,6 +137,20 @@ public class FileState extends Thread {
 
     }
 
+    public void deldirectory(File file, ArrayList list) {
+        for (File sorce : file.listFiles()) {
+            if (sorce.isDirectory()) {
+                deldirectory(sorce, list);
+            }
+
+            list.add(delete + sorce.getName() + "     " + sorce.getPath());
+            delPush.add(
+                    sorce.getPath().replace(clientPath + "\\.ggit\\.repo\\file\\data\\", "/")
+                            .replaceAll("\\\\",
+                                    "/"));
+        }
+    }
+
     public ArrayList<String> delCheck(File sorceF, File targetF) {// 삭제는 sorcef가 data 폴더 targetf는 project폴더
         // 삭제 되었기에 project폴더에는 없다 그래서 data폴더를 기준으로 포문을 돌려준다
         ArrayList<String> list = new ArrayList<String>();
@@ -145,14 +169,7 @@ public class FileState extends Thread {
                             "/"));
                     if (file.isDirectory()) {// 폴더 자체가 삭제되었을때 안에 있는 파일들도 삭제로 기록
 
-                        for (File sorce : file.listFiles()) {
-
-                            list.add(delete + sorce.getName() + "     " + sorce.getPath());
-                            delPush.add(
-                                    sorce.getPath().replace(clientPath + "\\.ggit\\.repo\\file\\data\\", "/")
-                                            .replaceAll("\\\\",
-                                                    "/"));
-                        }
+                        deldirectory(file, list);
                     }
 
                 }

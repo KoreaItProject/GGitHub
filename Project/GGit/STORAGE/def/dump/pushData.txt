@@ -2,7 +2,7 @@
     "data":[
         {
             "path":"\/README.md",
-            "message":"create project"
+            "message":"저장소 생성"
             "date":"2022/10/13",
             
         },
