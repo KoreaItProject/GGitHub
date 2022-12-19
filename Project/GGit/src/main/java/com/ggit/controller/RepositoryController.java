@@ -6,8 +6,10 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +43,7 @@ import com.ggit.service.RepomemService;
 import com.ggit.util.CopyFile;
 import com.ggit.util.RandStr;
 import com.ggit.util.ReadPushData;
+import com.ggit.util.WritePushData;
 import com.ggit.vo.FollowVo;
 import com.ggit.vo.PullreqVo;
 import com.ggit.vo.PushVo;
@@ -114,6 +117,17 @@ public class RepositoryController {
             file.mkdirs();
 
             new CopyFile().copy(new File(storage_dir + "def/"), file);
+
+            String con = new ReadPushData(
+                    storage_dir + "repositorys/" + repoVo.getIdx() + "/" + token + "/dump/pushData.txt").getCon();
+            JSONObject jObject = (JSONObject) new JSONParser().parse(con);
+            JSONArray pushData = (JSONArray) jObject.get("data");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String nowTime = sdf.format(new Date()).toString();
+            ((JSONObject) (pushData.get(0))).replace("date", nowTime);
+            System.out.println(pushData);
+            new WritePushData(storage_dir + "repositorys/" + repoVo.getIdx() + "/" + token + "/dump/pushData.txt")
+                    .write(jObject.toString());
 
         } catch (ParseException e) {
             // TODO Auto-generated catch block

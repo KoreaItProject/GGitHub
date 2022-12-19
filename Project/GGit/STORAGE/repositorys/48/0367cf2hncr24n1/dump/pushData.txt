@@ -1,0 +1,1 @@
+{"data":[{"date":"2022-12-19 10:25:22","path":"\/README.md","message":"fffff"},{"date":"2022-12-19 10:25:22","path":"\/새 폴더 (2)","message":"fffff"}],"changed":[{"path":"\/새 폴더 (2)","state":"add"},{"path":"\/README.md","state":"change"},{"path":"\/새 폴더","state":"del"}]}

@@ -10,10 +10,16 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.event.MouseInputListener;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.zeroturnaround.zip.ZipUtil;
 
 import com.ggit.socket.InfoDTO;
 import com.ggit.socket.InfoDTO.Info;
+
+import util.ReadPushData;
+import util.WritePushData;
 
 import java.awt.*;
 
@@ -38,6 +44,9 @@ import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     // pull
@@ -58,7 +67,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
     Thread sockThread;
     Thread refThread;
     String projectName;
-
+    FileState fileState;
     // component
     JLabel logolbl;
     JLabel toptxt;
@@ -126,7 +135,10 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
         pushMsg.setVisible(hasLogin);
         mainPanel.add(pushMsg);
 
-        scrollPan = new ScrollPan().getScrollPan(clientPath);// 변경된 파일 패널
+        ScrollPan sp = new ScrollPan();
+        scrollPan = sp.getScrollPan(clientPath);// 변경된 파일 패널
+        fileState = sp.getFileState();
+
         scrollPan.setBounds(-2, 75, 248, 247);
         scrollPan.setVisible(hasLogin);
         mainPanel.add(scrollPan);
@@ -222,7 +234,11 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             jfc.showDialog(this, null);
 
             File dir = jfc.getSelectedFile();
+            if (dir == null) {
+                System.exit(0);
+            }
             this.clientPath = dir.getPath();
+
             this.info = new File(clientPath + "/.ggit/user/info.gt");
 
             if (info.isFile()) {
@@ -317,12 +333,88 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             dto.setId(memberIdx + "");// 로그인된 회원 인덱스
             System.out.println(dto.getId());
             dto.setMessage(pushMsg.getText());// commit시 메시지
-            pushMsg.setText("Update");
+            if (pushMsg.getText().equals("전송할 메시지를 입력해주세요")) {
+                dto.setMessage("업데이트됨");// commit시 메시지
+            }
+
             dto.setLastToken(lastToken);// 이전토큰 어떤걸 가져와서 push 한건지
             String newToken = new RandStr(15).getResult();
             dto.setToken(newToken);// 새로운 토큰 이 push에 대한 토큰
             token = newToken; // 토큰 바꾸고
             fileW();// info.gt에도 써줌
+
+            List<String> addPush = fileState.getAddPush();
+            List<String> changePush = fileState.getChangePush();
+            List<String> delPush = fileState.getDelPush();
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String nowTime = sdf.format(new Date()).toString();
+
+            System.out.println(addPush);
+            System.out.println(changePush);
+            System.out.println(delPush);
+            String con = new ReadPushData(clientPath + "/.ggit/.repo/file/dump/pushData.txt").getCon();
+            System.out.println(con);
+            JSONObject jsonObject = (JSONObject) (new JSONParser()).parse(con);
+            System.out.println(jsonObject);
+            JSONArray pushData = (JSONArray) jsonObject.get("data");
+            JSONArray pushChanged = new JSONArray();
+
+            for (int i = 0; i < delPush.size(); i++) {
+                System.out.println(delPush.get(i));
+                for (int j = 0; j < pushData.size(); j++) {
+
+                    if (((JSONObject) pushData.get(j)).get("path").equals(delPush.get(i))) {
+                        pushData.remove(j);
+                    }
+                }
+
+            }
+            for (int i = 0; i < changePush.size(); i++) {
+
+                for (int j = 0; j < pushData.size(); j++) {
+                    if (((JSONObject) pushData.get(j)).get("path").equals(changePush.get(i))) {
+                        ((JSONObject) pushData.get(j)).replace("path", changePush.get(i));
+                        ((JSONObject) pushData.get(j)).replace("date", nowTime);
+                        ((JSONObject) pushData.get(j)).replace("message", pushMsg.getText());
+                    }
+                }
+
+            }
+            for (int i = 0; i < addPush.size(); i++) {
+                String str = "{\"date\":\"" + nowTime + "\",\"path\":\"" + addPush.get(i) + "\",\"message\": \""
+                        + pushMsg
+                                .getText()
+                        + "\",}";
+                JSONObject jsonObj1 = (JSONObject) new JSONParser().parse(str);
+                pushData.add(jsonObj1);
+            }
+            jsonObject.remove("changed");
+
+            String changestr;
+            JSONObject jo;
+            JSONParser jp = new JSONParser();
+            for (int i = 0; i < addPush.size(); i++) {
+                changestr = "{\"path\":\"" + addPush.get(i) + "\",\"state\":\"add\"}";
+                jo = (JSONObject) jp.parse(changestr);
+                pushChanged.add(jo);
+            }
+            for (int i = 0; i < changePush.size(); i++) {
+                changestr = "{\"path\":\"" + changePush.get(i) + "\",\"state\":\"change\"}";
+                jo = (JSONObject) jp.parse(changestr);
+                pushChanged.add(jo);
+            }
+            for (int i = 0; i < delPush.size(); i++) {
+                changestr = "{\"path\":\"" + delPush.get(i) + "\",\"state\":\"del\"}";
+                jo = (JSONObject) jp.parse(changestr);
+                pushChanged.add(jo);
+            }
+            jsonObject.put("changed", pushChanged);
+
+            new WritePushData(clientPath + "/.ggit/.repo/file/dump/pushData.txt")
+                    .write((jsonObject + ""));
+
+            System.out.println(jsonObject);
 
             File data = new File(clientPath + "/.ggit/.repo/file/data/");//
             if (data.isDirectory()) {
@@ -338,6 +430,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             writer.flush();// 서버한테 나 푸쉬할게 라고 말함
             fileSend();// 서버한테 파일 보냄
             zip.delete();// 보낸거 삭제
+            pushMsg.setText("전송할 메시지를 입력해주세요");
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

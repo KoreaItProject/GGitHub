@@ -84,13 +84,15 @@
                       </svg>
                       {{data.name}} / {{data.totalLine}}줄
                     </div>
+                       <textarea v-if="data.state=='file'"  class="repo_file_content scrollBar" readonly="true">{{data.content}}</textarea>
                   </div>
-                    <div class="repo_list_part2">{{data.push_message}}</div>
-                    <div class="repo_list_part3">{{data.push_date}}</div>
-                    
-                    <textarea v-if="data.state=='file'"  class="repo_file_content scrollBar" readonly="true">{{data.content}}</textarea>
+                    <div class="repo_list_part2" v-if="data.state!='file'">{{data.push_message}}</div>
+                    <div class="repo_list_part3" v-if="data.state!='file'">{{data.push_date}}</div>
+                 
                     
                 </div>
+              
+                
             </div>
             
             <div class="readme_container"  v-for="data in file_list" v-if="data.state=='readme'||(data.state=='file'&&data.name=='README.md')" >
