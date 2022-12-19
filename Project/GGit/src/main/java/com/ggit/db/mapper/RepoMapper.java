@@ -50,4 +50,6 @@ public interface RepoMapper {
 
     int find_repo(String name);
 
+    RepoVo repoMemCheck(RepoVo repoVo);
+
 }
