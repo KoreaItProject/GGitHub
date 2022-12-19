@@ -358,6 +358,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             JSONObject jsonObject = (JSONObject) (new JSONParser()).parse(con);
             System.out.println(jsonObject);
             JSONArray pushData = (JSONArray) jsonObject.get("data");
+            JSONArray pushChanged = new JSONArray();
 
             for (int i = 0; i < delPush.size(); i++) {
                 System.out.println(delPush.get(i));
@@ -388,6 +389,27 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                 JSONObject jsonObj1 = (JSONObject) new JSONParser().parse(str);
                 pushData.add(jsonObj1);
             }
+            jsonObject.remove("changed");
+
+            String changestr;
+            JSONObject jo;
+            JSONParser jp = new JSONParser();
+            for (int i = 0; i < addPush.size(); i++) {
+                changestr = "{\"path\":\"" + addPush.get(i) + "\",\"state\":\"add\"}";
+                jo = (JSONObject) jp.parse(changestr);
+                pushChanged.add(jo);
+            }
+            for (int i = 0; i < changePush.size(); i++) {
+                changestr = "{\"path\":\"" + changePush.get(i) + "\",\"state\":\"change\"}";
+                jo = (JSONObject) jp.parse(changestr);
+                pushChanged.add(jo);
+            }
+            for (int i = 0; i < delPush.size(); i++) {
+                changestr = "{\"path\":\"" + delPush.get(i) + "\",\"state\":\"del\"}";
+                jo = (JSONObject) jp.parse(changestr);
+                pushChanged.add(jo);
+            }
+            jsonObject.put("changed", pushChanged);
 
             new WritePushData(clientPath + "/.ggit/.repo/file/dump/pushData.txt")
                     .write((jsonObject + ""));
