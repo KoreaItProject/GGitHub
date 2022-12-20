@@ -17,8 +17,12 @@ export default[
         path: '/test2',
         name: 'test2',
         component: () => import('@/components/test/test2')
-    }
-    ,{
+    },{
+      path: '/download/:repo/:token',
+      name: 'ggitsource',
+      component: () => import('@/components/test/testfiledown')
+  },
+    {
       path: '/download/ggitsource',
       name: 'ggitsource',
       component: () => import('@/components/test/testfiledown')

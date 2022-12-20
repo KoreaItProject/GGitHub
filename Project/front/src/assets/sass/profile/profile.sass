@@ -28,15 +28,23 @@ $line-color: #d0d7de
             .profile_tab
                 line-height: $profile_bar_top_height
                 margin: 0 10px
-                padding: 7px 8px
+                padding: 8px 2px
                 font-size: 16px
 
             #profile_tab1
                 border-bottom: var(--tab1_color) solid pink
+
             #profile_tab2
                 border-bottom: var(--tab2_color) solid pink
+
             #profile_tab3
                 border-bottom: var(--tab3_color) solid pink
+
+            .tabs
+                padding: 7px 7px
+                &:hover
+                    background-color: rgb(246, 248, 250,0.6 )
+                    border-radius: 12px
 
     .profile_bar_left
         width: $profile_bar_left_width
@@ -117,7 +125,7 @@ $line-color: #d0d7de
         min-height: 500px
         width: calc(100% - $profile_bar_left_width)
         margin-left: $profile_bar_left_width
-.profile_container 
+.profile_container
     // svg
     //     height: 14px
 .Counter

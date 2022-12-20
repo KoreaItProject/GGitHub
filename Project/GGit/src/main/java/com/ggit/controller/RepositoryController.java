@@ -456,15 +456,15 @@ public class RepositoryController {
 
     // 저장소에 속해있는지 확인
     @RequestMapping("repoMemCheck")
-    public RepoVo repoMemCheck(@RequestBody RepoVo repoVo){
+    public RepoVo repoMemCheck(@RequestBody RepoVo repoVo) {
         return repoService.repoMemCheck(repoVo);
     }
 
     // 저장소 pin 클릭시 유저 정보와 저장소정보를 insert
     @RequestMapping("pinClick")
-    public int pinClick(@RequestBody RepoVo repoVo){
-        System.out.println(repoVo.getRepo_idx());
-        System.out.println(repoVo.getU_idx());
+
+
+    public int pinClick(@RequestBody RepoVo repoVo) {
         return repoService.pinClick(repoVo);
     }
 
