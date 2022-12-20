@@ -98,4 +98,7 @@
     <select id="repoMemCheck" resultType="com.ggit.vo.RepoVo"> select * from repomem where repo =
         #{repo_idx} and member = #{u_idx}; </select>
 
+    <insert id="pinClick">
+        insert into pin values(#{repo_idx},#{u_idx});
+    </insert>
 </mapper>
