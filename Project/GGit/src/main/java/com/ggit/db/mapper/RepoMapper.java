@@ -38,6 +38,8 @@ public interface RepoMapper {
 
     List<RepositoriesVO> selectRepoClone(int repoIdx);
 
+    int checkRepo(Map map);
+
     int createRepo(RepoVo repoVo);
 
     List<RepositoriesVO> selectHistory(Map map);

@@ -92,7 +92,6 @@ public class RepositoryController {
             String repoName = (String) jsonObject.get("repoName");
             String description = (String) jsonObject.get("description");
             int pub = Integer.parseInt(jsonObject.get("pub") + "");
-            boolean readme = (boolean) jsonObject.get("readme");
             int owner = Integer.parseInt(jsonObject.get("owner") + "");
 
             repoVo.setName(repoName);
@@ -134,6 +133,16 @@ public class RepositoryController {
         }
 
         return 1;
+    }
+
+    @RequestMapping("checkRepo")
+    public int checkRepo(int owner, String repoName) {
+
+        Map map = new HashMap<>();
+        map.put("owner", owner);
+        map.put("repoName", repoName);
+
+        return repoService.checkRepo(map);
     }
 
     @RequestMapping("/changeSelected")
