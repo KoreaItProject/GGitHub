@@ -96,6 +96,18 @@ export default {
           this.contribution_data = response.data;
         });
     },
+    getMD() {
+      axios
+        .get("/api/getMD", {
+          params: {
+            nick: this.$route.params.nick,
+          },
+        })
+        .then((response) => {
+          // console.log(response.data);
+          this.contribution_data = response.data;
+        });
+    },
   },
   computed: {
     cssVariable() {
