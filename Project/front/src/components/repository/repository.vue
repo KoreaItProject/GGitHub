@@ -160,10 +160,11 @@ mounted() {
 },
 methods: {
   pin_btn_click(){
-    alert(this.repo_idx);
+    //alert(this.repo_idx);
     axios.post("/api/pinClick",{
-        u_idx : idx, // 로그인한 유저의 idx
-        repo_idx: this.repo_idx // 현재 저장소 idx
+        u_idx : this.idx, // 로그인한 유저의 idx
+        repo_idx: this.repo_idx, // 현재 저장소 idx
+        sort_idx: 0
     })
     .then(response => {
       

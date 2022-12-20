@@ -402,7 +402,7 @@ public class RepositoryController {
 
     @RequestMapping("selectRepoClone")
     public List<RepositoriesVO> selectRepoClone(int repoIdx) {
-        System.out.println(repoIdx);
+        //System.out.println(repoIdx);
         List<RepositoriesVO> RepoClone = repoService.selectRepoClone(repoIdx);
         return RepoClone;
     }
@@ -416,7 +416,7 @@ public class RepositoryController {
     // 저장소 소개글 가져오기
     @RequestMapping("getrepomessage")
     public RepoVo getrepomessage(@RequestBody RepoVo repovo) {
-        System.out.println("-=-=>" + repovo.getIdx());
+        //System.out.println("-=-=>" + repovo.getIdx());
         return repoService.getrepomessage(repovo);
     }
 
@@ -463,7 +463,8 @@ public class RepositoryController {
     // 저장소 pin 클릭시 유저 정보와 저장소정보를 insert
     @RequestMapping("pinClick")
     public int pinClick(@RequestBody RepoVo repoVo){
-        System.out.println("asdasdasdadadasdas");
+        System.out.println(repoVo.getRepo_idx());
+        System.out.println(repoVo.getU_idx());
         return repoService.pinClick(repoVo);
     }
 

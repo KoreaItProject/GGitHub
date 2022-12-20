@@ -30,5 +30,6 @@ public class RepoVo {
 
     int repo_idx;
     int u_idx;
+    int sort_idx;
 
 }

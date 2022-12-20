@@ -99,6 +99,6 @@
         #{repo_idx} and member = #{u_idx}; </select>
 
     <insert id="pinClick">
-        insert into pin values(#{repo_idx},#{u_idx});
+        insert into pin(member, repo, sort) values(#{u_idx}, #{repo_idx}, #{sort_idx});
     </insert>
 </mapper>
