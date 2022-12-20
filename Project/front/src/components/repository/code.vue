@@ -142,9 +142,11 @@
                 </h2>
                 
                 <ul>
-                    <div v-for="contributor in contributors">
-                    <span><li class="contributor_member_img">{{contributor.member_img}}</li></span>
-                    <span><li class="contributor_member_list">{{contributor.member_nick}}</li></span>
+                    <div v-for="contributor,idx in contributors" class="contributors_div">
+             
+                      <div><a :href="'/'+contributor.member_nick"><img :src="profileImg[idx]"  class="contributor_member_img"/>   </a></div>
+                      <div class="contributor_member_list"><a :href="'/'+contributor.member_nick">{{contributor.member_nick}}  </a></div>
+                   
                     </div>
                 </ul>
             </div>
@@ -181,6 +183,8 @@ export default {
       loading: true,
       isStatusOn: false,
       path: this.$route.params.path,
+      profileImg: [],
+      i: 0,
     };
   },
   components: {
@@ -257,6 +261,7 @@ export default {
           }
           this.loading = false;
           // alert(this.star)
+          this.getContriImg();
         });
     },
 
@@ -283,6 +288,7 @@ export default {
         })
         .then((response) => {
           this.contributors = response.data;
+
           // console.log(this.contributors)
           // alert(this.contributors)
           this.selectRepositorystar();
@@ -328,6 +334,25 @@ export default {
         .then((response) => {
           console.log(response.data);
           this.discription = response.data.description;
+        });
+    },
+    getContriImg() {
+      axios
+        .get("/api/getProfileImg", {
+          responseType: "blob",
+          params: {
+            img: this.contributors[this.i].member_img,
+          },
+        })
+        .then((response) => {
+          // handle success
+          this.profileImg.push(
+            window.URL.createObjectURL(new Blob([response.data]))
+          );
+          this.i++;
+          if (this.i < this.contributors.length) {
+            this.getContriImg();
+          }
         });
     },
   },

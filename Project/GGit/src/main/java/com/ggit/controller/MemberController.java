@@ -60,7 +60,7 @@ public class MemberController {
 
     @RequestMapping("/imgFromNick")
     public String imgFromNick(String nick) {
-
+        System.out.println(nick);
         return memberService.imgFromNick(nick);
     }
 
@@ -71,6 +71,7 @@ public class MemberController {
 
     @RequestMapping("/getProfileImg")
     public void getProfileImg(HttpServletResponse response, HttpServletRequest req, String img) {
+        System.out.println(img);
         try {
             String path = storage_dir + "profile/img/" + img;
 
@@ -125,38 +126,37 @@ public class MemberController {
         memberService.delectProfileImg(idx);
 
     }
+
     @RequestMapping("selectfollowerlist")
-    public List<MemberVo> selectfollowerlist(String nick, int idx){
-        List<MemberVo> selectfollowerlist = followService.selectfollowerlist(nick,idx);
+    public List<MemberVo> selectfollowerlist(String nick, int idx) {
+        List<MemberVo> selectfollowerlist = followService.selectfollowerlist(nick, idx);
         return selectfollowerlist;
     }
+
     @RequestMapping("selectfollowinglist")
-    public List<MemberVo> selectfollowinglist(String nick, int idx){
+    public List<MemberVo> selectfollowinglist(String nick, int idx) {
         List<MemberVo> followerlist = followService.selectfollowinglist(nick, idx);
         return followerlist;
     }
 
     @RequestMapping("deletefollowlist")
-    public int deletefollowlist(String nick, int idx){
+    public int deletefollowlist(String nick, int idx) {
         System.out.println(nick);
         System.out.println(idx);
-        int deletefollowlist = followService.deletefollowlist(idx,nick);
+        int deletefollowlist = followService.deletefollowlist(idx, nick);
         return 1;
     }
+
     @RequestMapping("followinglist")
-    public List<MemberVo> followlist(String nick){
+    public List<MemberVo> followlist(String nick) {
         List<MemberVo> followlist = followService.followinglist(nick);
-        return followlist; 
+        return followlist;
     }
 
     @RequestMapping("followerlist")
-    public List<MemberVo> followerlist(String nick){
-     List<MemberVo> followerlist = followService.followerlist(nick);
-     return followerlist;
+    public List<MemberVo> followerlist(String nick) {
+        List<MemberVo> followerlist = followService.followerlist(nick);
+        return followerlist;
     }
-        
-    
-   
-    
-    
+
 }
