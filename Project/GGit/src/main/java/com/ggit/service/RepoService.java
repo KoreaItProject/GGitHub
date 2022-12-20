@@ -102,4 +102,8 @@ public class RepoService {
         return mapper.repoMemCheck(repoVo);
     }
 
+    // 저장소 pin 클릭시 유저 정보와 저장소 정보를 insert하자
+    public int pinClick(RepoVo repoVo){
+        return mapper.pinClick(repoVo);
+    }
 }
