@@ -59,7 +59,7 @@
                         <strong class="commit_count_strong">{{push.commits}}</strong>
                         <span class="commit_count_sapn">commits</span>
                     </a> <!-- 커밋횟수 불러오기 -->
-                    <a class="repo_last_commit_time" href="#">{{push.push_date}}</a>
+                    <a class="repo_last_commit_time" href="#"><time-ago  :datetime="push.push_date" refresh tooltip long /></a>
                     <a class="repo_last_commit_token" href="#">{{push.push_token}}</a>
                 
 
@@ -87,7 +87,7 @@
                        <textarea v-if="data.state=='file'"  class="repo_file_content scrollBar" readonly="true">{{data.content}}</textarea>
                   </div>
                     <div class="repo_list_part2" v-if="data.state!='file'">{{data.push_message}}</div>
-                    <div class="repo_list_part3" v-if="data.state!='file'">{{data.push_date}}</div>
+                    <div class="repo_list_part3" v-if="data.state!='file'"><time-ago  :datetime="data.push_date" refresh tooltip long></time-ago> </div>
                  
                     
                 </div>
@@ -157,6 +157,7 @@
 <script>
 import axios from "axios";
 import marked from "marked";
+import { TimeAgo } from "vue2-timeago";
 
 export default {
   data() {
@@ -182,7 +183,9 @@ export default {
       path: this.$route.params.path,
     };
   },
-
+  components: {
+    TimeAgo,
+  },
   methods: {
     toggleOnOff: function () {
       this.isStatusOn = !this.isStatusOn;

@@ -23,17 +23,18 @@
             resultType="int" order="AFTER"> select LAST_INSERT_ID() </selectKey>
     </insert>
     <select id="selectHistory" resultType="com.ggit.vo.RepositoriesVO"> SELECT push.message as
-        push_message, push.token as push_token, DATE_FORMAT(push.date,'%Y/%m/%d') as
-        push_date,member.nick as member_nick, push.before_token as before_token,push.selected as
-        selected from push,member where push.repo =(select idx from repo where name= #{repo}) and
-        push.branch = ${member} and push.member=member.idx order by push.date desc </select>
+        push_message, push.token as push_token,push.date as push_date,member.nick as member_nick,
+        push.before_token as before_token,push.selected as selected from push,member where push.repo
+        =(select idx from repo where name= #{repo}) and push.branch = ${member} and
+        push.member=member.idx order by push.date desc </select>
     <select id="selectRepositories" resultType="com.ggit.vo.RepositoriesVO"> SELECT repo.idx as
         repo_idx, repo.name as repo_name, repo.createDate as repo_crateDate, repo.public as
         repo_publ, repo.owner as repo_owner, repo.fork as repo_fork, repomem.idx as repomem_idx,
         repomem.repo as repomem_repo, repomem.member as repomem_member, repomem.sort as
-        repomem_sort, member.idx as member_idx,member.nick as member_nick FROM repo,repomem,member
-        where repomem.repo=repo.idx and repo.owner=member.idx and repomem.member=(select idx from
-        member where nick = #{nick}) ORDER BY repomem.sort ASC ,repo.createDate desc </select>
+        repomem_sort, member.idx as member_idx,member.nick as member_nick ,(select date from push
+        where repo=repo.idx ORDER BY date DESC LIMIT 1) as push_date FROM repo,repomem,member where
+        repomem.repo=repo.idx and repo.owner=member.idx and repomem.member=(select idx from member
+        where nick = #{nick}) ORDER BY repomem.sort ASC ,repo.createDate desc </select>
 
     <select id="repoIdxByNickName" resultType="int"> select repo.idx from repo where
         repo.name=#{reponame} and owner=(select member.idx from member where member.nick =#{nick}) </select>
@@ -98,7 +99,5 @@
     <select id="repoMemCheck" resultType="com.ggit.vo.RepoVo"> select * from repomem where repo =
         #{repo_idx} and member = #{u_idx}; </select>
 
-    <insert id="pinClick">
-        insert into pin values(#{repo_idx},#{u_idx});
-    </insert>
+    <insert id="pinClick"> insert into pin values(#{repo_idx},#{u_idx}); </insert>
 </mapper>

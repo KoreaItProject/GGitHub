@@ -33,7 +33,7 @@
                       </div>
 
                       <div class="repo_update">
-                        <span>Update 날짜</span>
+                        <span><time-ago local="en" :datetime="data.push_date" refresh tooltip long  /></span>
                       </div>
                     </div>
                   </a>       
@@ -48,6 +48,7 @@
 import axios from "axios";
 import draggable from "vuedraggable";
 import store from "../../vuex/store";
+import { TimeAgo } from "vue2-timeago";
 export default {
   data() {
     return {
@@ -58,6 +59,7 @@ export default {
   },
   components: {
     draggable,
+    TimeAgo,
   },
   computed: {
     dragOptions() {
@@ -137,7 +139,6 @@ export default {
         // handle success
         this.repo = response.data;
         console.log(this.repo);
-        
       })
       .catch((error) => {
         // handle error

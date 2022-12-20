@@ -9,7 +9,7 @@
                     <div class="repo_history_con"  @click="clickIndex==index?clickIndex=-1:clickIndex=index">
                       <div class="history_message">
                         <font-awesome-icon icon="fa-regular fa-circle-check" v-if="data.selected==1"/>{{data.push_message}}</div>
-                      <div class="history_nick">{{data.push_date}}</div>
+                      <div class="history_nick"><time-ago local="en" :datetime="data.push_date" refresh tooltip long  /></div>
                       <div class="history_date">{{data.before_token}}</div>
                       <div class="history_token">{{data.push_token}}</div>
                     </div>
@@ -51,12 +51,16 @@
 import "@/assets/js/fontAwesomeIcon.js";
 import axios from "axios";
 import store from "@/vuex/store";
+import { TimeAgo } from "vue2-timeago";
 export default {
   data() {
     return {
       clickIndex: -1,
       history: { push_massge: "데이터가 없습니다." },
     };
+  },
+  components: {
+    TimeAgo,
   },
   methods: {
     click(idx) {
