@@ -13,12 +13,23 @@
               <div class="repository_btn_div">
                 <div v-if="idx != null"> <!-- idx가 null이 아닐때만! 즉, 로그인이 됐으면 보여주고 아니면 안보여주고 -->
                   <span v-if="pin_btn_state != false"> <!-- 내가 속한 저장소이면 보이고 아니면 안보이고 -->
-                    <button class="repository_btn_pin repository_btn" @click="pin_btn_click()">
-                        <svg aria-hidden="true" height="16" viewBox="0 -1 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-pin mr-2">
-                            <path fill-rule="evenodd" d="M4.456.734a1.75 1.75 0 012.826.504l.613 1.327a3.081 3.081 0 002.084 1.707l2.454.584c1.332.317 1.8 1.972.832 2.94L11.06 10l3.72 3.72a.75.75 0 11-1.061 1.06L10 11.06l-2.204 2.205c-.968.968-2.623.5-2.94-.832l-.584-2.454a3.081 3.081 0 00-1.707-2.084l-1.327-.613a1.75 1.75 0 01-.504-2.826L4.456.734zM5.92 1.866a.25.25 0 00-.404-.072L1.794 5.516a.25.25 0 00.072.404l1.328.613A4.582 4.582 0 015.73 9.63l.584 2.454a.25.25 0 00.42.12l5.47-5.47a.25.25 0 00-.12-.42L9.63 5.73a4.581 4.581 0 01-3.098-2.537L5.92 1.866z"></path>
-                        </svg>
-                        고정
-                    </button>
+                    <span v-if="pin_Check == false">
+                      <button class="repository_btn_pin repository_btn" @click="pin_btn_click()">
+                          <svg aria-hidden="true" height="16" viewBox="0 -1 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-pin mr-2">
+                              <path fill-rule="evenodd" d="M4.456.734a1.75 1.75 0 012.826.504l.613 1.327a3.081 3.081 0 002.084 1.707l2.454.584c1.332.317 1.8 1.972.832 2.94L11.06 10l3.72 3.72a.75.75 0 11-1.061 1.06L10 11.06l-2.204 2.205c-.968.968-2.623.5-2.94-.832l-.584-2.454a3.081 3.081 0 00-1.707-2.084l-1.327-.613a1.75 1.75 0 01-.504-2.826L4.456.734zM5.92 1.866a.25.25 0 00-.404-.072L1.794 5.516a.25.25 0 00.072.404l1.328.613A4.582 4.582 0 015.73 9.63l.584 2.454a.25.25 0 00.42.12l5.47-5.47a.25.25 0 00-.12-.42L9.63 5.73a4.581 4.581 0 01-3.098-2.537L5.92 1.866z"></path>
+                          </svg>
+                          고정
+                      </button>
+                    </span>
+                    <span v-if="pin_Check == true">
+                      <button class="repository_btn_pin repositoryOff_btn" @click="pin_off_btn_click()">
+                          <svg aria-hidden="true" height="16" viewBox="0 -1 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-pin mr-2">
+                              <path fill-rule="evenodd" d="M4.456.734a1.75 1.75 0 012.826.504l.613 1.327a3.081 3.081 0 002.084 1.707l2.454.584c1.332.317 1.8 1.972.832 2.94L11.06 10l3.72 3.72a.75.75 0 11-1.061 1.06L10 11.06l-2.204 2.205c-.968.968-2.623.5-2.94-.832l-.584-2.454a3.081 3.081 0 00-1.707-2.084l-1.327-.613a1.75 1.75 0 01-.504-2.826L4.456.734zM5.92 1.866a.25.25 0 00-.404-.072L1.794 5.516a.25.25 0 00.072.404l1.328.613A4.582 4.582 0 015.73 9.63l.584 2.454a.25.25 0 00.42.12l5.47-5.47a.25.25 0 00-.12-.42L9.63 5.73a4.581 4.581 0 01-3.098-2.537L5.92 1.866z"></path>
+                          </svg>
+                          고정해제
+                      </button>
+                    </span>
+
                   </span>
             
                   <button class="repository_btn_star repository_btn">
@@ -117,6 +128,7 @@ export default {
 
       pin_btn_state: "", //  pin 버튼 보일지 말지 여부 true/false
       repo_idx: "",
+      pin_Check: null,
     };
   },
   computed: {
@@ -160,14 +172,22 @@ export default {
   },
   methods: {
     pin_btn_click() {
-      //alert(this.repo_idx);
       axios
         .post("/api/pinClick", {
+          // DB(pin 테이블)에 해당 저장소정보를 저장
           u_idx: this.idx, // 로그인한 유저의 idx
           repo_idx: this.repo_idx, // 현재 저장소 idx
           sort_idx: 0,
         })
-        .then((response) => {});
+        .then((response) => {
+          if (
+            response.data != "" ||
+            response.data != null ||
+            response.data != undefined
+          ) {
+            this.pin_Check = true;
+          }
+        });
     },
     getRepoIdx_RepoMemCheck() {
       // 저장소 idx 가져오기
@@ -205,6 +225,45 @@ export default {
       // 내 저장소인지 확인해보자
       this.$route.params.repository; // 현재 저장소 이름
     },
+  },
+
+  pinCheck() {
+    // 고정이 되어있는 저장소라면 고정(pin)버튼을 바꿔주자
+    axios
+      .post("/api/pinCheck", {
+        repo_idx: this.repo_idx,
+        u_idx: this.idx,
+      })
+      .then((response) => {
+        // 조회된 데이터가 없을때
+        if (
+          response.data == "" ||
+          response.data == null ||
+          response.data == undefined
+        ) {
+          this.pin_Check = false;
+        } else if (
+          response.data != "" ||
+          response.data != null ||
+          response.data != undefined
+        ) {
+          // 조회된 데이터가 있을때
+          this.pin_Check = true;
+        }
+      });
+  },
+  pin_off_btn_click() {
+    // 고정해제 버튼 클릭시 pin 테이블에서 해당 데이터 삭제
+    axios
+      .post("/api/pinClickOff", {
+        repo_idx: this.repo_idx,
+        u_idx: this.idx,
+      })
+      .then((response) => {
+        if (response.data > 0) {
+          this.pin_Check = false;
+        }
+      });
   },
 };
 </script>
