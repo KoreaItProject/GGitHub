@@ -32,7 +32,7 @@ CREATE TABLE `repo` (
   `clone` varchar(45) DEFAULT NULL,
   `description` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`idx`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `repo` (
 
 LOCK TABLES `repo` WRITE;
 /*!40000 ALTER TABLE `repo` DISABLE KEYS */;
-INSERT INTO `repo` VALUES (1,'JavaProject','2022-10-21 05:09:54',1,1,0,'6l6pm2s8337d8yxqire71j947ue84xtb7mw','aaaa'),(2,'AMPProject','2022-10-21 05:09:54',1,2,0,'1sl47k1ja58e39313p9895xlef7b38m4uv4','bbbb'),(3,'GitProject','2022-10-21 05:09:54',1,3,0,'zhlwa0ezt6bc98u08twd4wnt87t2pxj94lz','ccccc'),(4,'test','2022-12-19 02:09:33',1,1,0,'ov4ysrjf4s80noknm3jv262z2lmxbw4dob0','test');
+INSERT INTO `repo` VALUES (1,'JavaProject','2022-10-21 05:09:54',1,1,0,'6l6pm2s8337d8yxqire71j947ue84xtb7mw','aaaa'),(2,'AMPProject','2022-10-21 05:09:54',1,2,0,'1sl47k1ja58e39313p9895xlef7b38m4uv4','bbbb'),(3,'GitProject','2022-10-21 05:09:54',1,3,0,'zhlwa0ezt6bc98u08twd4wnt87t2pxj94lz','ccccc'),(4,'test','2022-12-19 02:09:33',1,1,0,'ov4ysrjf4s80noknm3jv262z2lmxbw4dob0','test'),(50,'test2','2022-12-20 02:25:01',1,1,0,'gw9gs3yb304rsofpoj64bfi3348u93co6cg',''),(51,'README','2022-12-20 07:19:07',0,1,0,'qw826ma81hi5o1sbiq270g1g2kf9s5ng4g8','ㅇㅇ'),(52,'README','2022-12-21 01:47:03',1,2,0,'lg69st403f42461dps6848i23po6ho2l6ww','readme');
 /*!40000 ALTER TABLE `repo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-19 13:42:28
+-- Dump completed on 2022-12-21 15:12:30

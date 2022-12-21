@@ -28,7 +28,7 @@ CREATE TABLE `repomem` (
   `member` int NOT NULL COMMENT '회원번호',
   `sort` int DEFAULT '0',
   PRIMARY KEY (`idx`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +37,7 @@ CREATE TABLE `repomem` (
 
 LOCK TABLES `repomem` WRITE;
 /*!40000 ALTER TABLE `repomem` DISABLE KEYS */;
-INSERT INTO `repomem` VALUES (1,1,1,0),(2,1,2,0),(3,1,3,0),(4,2,1,1),(5,2,2,0),(6,2,3,0),(7,3,1,2),(8,3,2,0),(9,3,3,0),(10,4,1,3);
+INSERT INTO `repomem` VALUES (1,1,1,2),(2,1,2,0),(3,1,3,0),(4,2,1,3),(5,2,2,1),(6,2,3,0),(7,3,1,4),(8,3,2,3),(9,3,3,0),(10,4,1,5),(51,50,1,1),(52,51,1,0),(53,52,2,2);
 /*!40000 ALTER TABLE `repomem` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-19 13:42:28
+-- Dump completed on 2022-12-21 15:12:30

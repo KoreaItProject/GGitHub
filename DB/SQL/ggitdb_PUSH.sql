@@ -41,7 +41,7 @@ CREATE TABLE `push` (
 
 LOCK TABLES `push` WRITE;
 /*!40000 ALTER TABLE `push` DISABLE KEYS */;
-INSERT INTO `push` VALUES ('5k20hjf9k642g03',1,4,'저장소 생성','2022-12-19 02:09:33',0,NULL,'0'),('puhdj7wu628iety',1,1,'저장소 생성','2022-12-16 05:00:07',0,NULL,'0'),('siwlc45e1g45d87',2,2,'저장소 생성','2022-11-17 06:24:38',0,NULL,'0'),('za84vbed01blram',3,3,'저장소 생성','2022-10-21 05:21:19',0,NULL,'0');
+INSERT INTO `push` VALUES ('07a8c34k0a20ak9',1,2,'업데이트됨','2022-12-19 04:55:03',1,'siwlc45e1g45d87','0'),('1x0l85dg45f9150',2,52,'저장소 생성','2022-12-21 01:47:03',0,NULL,'0'),('28am69ujyt9pokv',1,2,'업데이트됨','2022-12-19 08:01:29',1,'siwlc45e1g45d87','1'),('4e76g094jppe4qj',2,1,'메인 저장소에서 가져옴','2022-12-21 03:41:08',2,'puhdj7wu628iety','1'),('5k20hjf9k642g03',1,4,'저장소 생성','2022-12-19 02:09:33',0,NULL,'0'),('67ak09q6sr38567',1,1,'메인 저장소에서 가져옴','2022-12-20 03:28:59',1,'puhdj7wu628iety','1'),('74lwghr5y4963pm',1,2,'dfsdf','2022-12-19 07:44:52',1,'siwlc45e1g45d87','0'),('89o4rt05i28p75n',1,2,'ggg','2022-12-19 07:29:36',1,'siwlc45e1g45d87','0'),('9k6p0bow1701ocr',1,2,'gggg','2022-12-19 07:22:21',1,'siwlc45e1g45d87','0'),('9vufu5e8f9zklyd',2,1,'메인 저장소에서 가져옴','2022-12-21 03:41:11',2,'puhdj7wu628iety','0'),('c0ac9n2dost56ih',1,2,'fgdfg','2022-12-19 07:21:22',1,'siwlc45e1g45d87','0'),('puhdj7wu628iety',1,1,'저장소 생성','2022-12-16 05:00:07',0,NULL,'0'),('sefg8yrz38r85r8',1,50,'저장소 생성','2022-12-20 02:25:01',0,NULL,'0'),('siwlc45e1g45d87',2,2,'저장소 생성','2022-11-17 06:24:38',0,NULL,'0'),('t309s7sm3x224i5',2,2,'메인 저장소에서 가져옴','2022-12-21 03:31:53',2,'siwlc45e1g45d87','1'),('tf1x83wn0oe084o',1,51,'저장소 생성','2022-12-20 07:19:07',0,NULL,'0'),('za84vbed01blram',3,3,'저장소 생성','2022-10-21 05:21:19',0,NULL,'0');
 /*!40000 ALTER TABLE `push` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-19 13:42:28
+-- Dump completed on 2022-12-21 15:12:30
