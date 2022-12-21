@@ -55,4 +55,8 @@ public interface RepoMapper {
     RepoVo repoMemCheck(RepoVo repoVo);
 
     int pinClick(RepoVo repoVo);
+
+    RepoVo pinCheck(RepoVo repoVo);
+
+    int pinClickOff(RepoVo repoVo);
 }

@@ -462,12 +462,21 @@ public class RepositoryController {
 
     // 저장소 pin 클릭시 유저 정보와 저장소정보를 insert
     @RequestMapping("pinClick")
-
-
     public int pinClick(@RequestBody RepoVo repoVo) {
         return repoService.pinClick(repoVo);
     }
 
+    // 고정이 되어있는 저장소인지 조회
+    @RequestMapping("pinCheck")
+    public RepoVo pinCheck(@RequestBody RepoVo repoVo){
+        return repoService.pinCheck(repoVo);
+    }
+
+    // pin 체크 해제(고정 해체)
+    @RequestMapping("pinClickOff")
+    public int pinCheckOff(@RequestBody RepoVo repoVo){
+        return repoService.pinClickOff(repoVo);
+    }
 }
 
 class SortData {
