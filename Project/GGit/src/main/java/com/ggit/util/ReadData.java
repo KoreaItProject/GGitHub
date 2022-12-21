@@ -4,10 +4,10 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
-public class ReadPushData {
+public class ReadData {
     private String content = "";
 
-    public ReadPushData(String path) {
+    public ReadData(String path) {
         BufferedReader reader;
 
         try {
