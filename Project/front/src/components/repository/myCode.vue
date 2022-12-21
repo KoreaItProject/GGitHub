@@ -65,10 +65,10 @@
 
                 </div>
                 <a :href="backURL"><div class="repo_list" style="display:block" v-show="!(path==undefined)">  . . </div></a>
-                <div class="repo_list" v-show="loading" style="display:block">데이터 불러오는 중...</div>
-                <div class="repo_list" v-for="data in file_list"  >
+                <div class="repo_list" v-show="loading" style="display:block" v-if="!isEmpty">데이터 불러오는 중...</div>
+                <div class="repo_list" v-for="data in file_list"  v-if="!isEmpty">
                   
-                  <div class="repo_list_part1">
+                  <div class="repo_list_part1" >
                     <a :href="thisURL+'/'+data.name+'?tab=myCode'" v-if="data.state!='file'">
                      <svg v-show="data.directory"  height="16" viewBox="0 0 16 16" version="1.1" width="16"  class="" style="fill:#3db9db">
                         <path d="M1.75 1A1.75 1.75 0 000 2.75v10.5C0 14.216.784 15 1.75 15h12.5A1.75 1.75 0 0016 13.25v-8.5A1.75 1.75 0 0014.25 3H7.5a.25.25 0 01-.2-.1l-.9-1.2C6.07 1.26 5.55 1 5 1H1.75z"></path>
@@ -179,6 +179,7 @@ export default {
       path: this.$route.params.path,
       profileImg: [],
       i: 0,
+      isEmpty: false,
     };
   },
   components: {
@@ -267,6 +268,10 @@ export default {
             if (this.file_list[0].name == "README.md") {
               this.changeMD(this.file_list[0].content);
             }
+          } else if (this.file_list[0].state == "notPath") {
+            window.location.href = "/pagenotfound";
+          } else if (this.file_list[0].state == "empty") {
+            this.isEmpty = true;
           } else {
             //현재 위치가 폴더인경우
             for (var i = 0; i < this.file_list.length; i++) {

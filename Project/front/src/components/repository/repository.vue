@@ -107,136 +107,164 @@ import axios from "axios";
 import store from "../../vuex/store";
 
 export default {
-data() {
-  return {
-    idx: store.getters.getUserIdx,
-    nick: this.$route.params.nick,
-    hrefNick: "/" + this.$route.params.nick,
-    repository: this.$route.params.repository,
-    hrefRepository:
-      "/" + this.$route.params.nick + "/" + this.$route.params.repository,
-    isCode: false,
-    isMyCode: false,
-    isHistory: false,
-    isPullrequest: false,
-    isSetting: false,
-    tab1_color: "0px",
-    tab2_color: "0px",
-    tab3_color: "0px",
-    tab4_color: "0px",
-    tab5_color: "0px",
-
-    pin_btn_state:"", //  pin 버튼 보일지 말지 여부 true/false
-    repo_idx: "",
-    pin_Check: null
-  };
-},
-computed: {
-  cssVariable() {
+  data() {
     return {
-      "--tab1_color": this.tab1_color,
-      "--tab2_color": this.tab2_color,
-      "--tab3_color": this.tab3_color,
-      "--tab4_color": this.tab4_color,
-      "--tab5_color": this.tab5_color,
+      idx: store.getters.getUserIdx,
+      nick: this.$route.params.nick,
+      hrefNick: "/" + this.$route.params.nick,
+      repository: this.$route.params.repository,
+      hrefRepository:
+        "/" + this.$route.params.nick + "/" + this.$route.params.repository,
+      isCode: false,
+      isMyCode: false,
+      isHistory: false,
+      isPullrequest: false,
+      isSetting: false,
+      tab1_color: "0px",
+      tab2_color: "0px",
+      tab3_color: "0px",
+      tab4_color: "0px",
+      tab5_color: "0px",
+
+      pin_btn_state: "", //  pin 버튼 보일지 말지 여부 true/false
+      repo_idx: "",
+      pin_Check: null,
     };
   },
-},
-components: {
-  "code-view": code,
-  "myCode-view": myCode,
-  "history-view": history,
-  "pullrequest-view": pullrequest,
-  "setting-view": setting,
-},
-mounted() {
-  let tab = this.$route.query.tab;
-  if (tab == "history") {
-    this.isHistory = true;
-    this.tab2_color = "4px";
-  } else if (tab == "pullrequest") {
-    this.isPullrequest = true;
-    this.tab3_color = "4px";
-  } else if (tab == "setting") {
-    this.isSetting = true;
-    this.tab4_color = "4px";
-  } else if (tab == "myCode") {
-    this.isMyCode = true;
-    this.tab5_color = "4px";
-  } else {
-    this.isCode = true;
-    this.tab1_color = "4px";
-  }
+  computed: {
+    cssVariable() {
+      return {
+        "--tab1_color": this.tab1_color,
+        "--tab2_color": this.tab2_color,
+        "--tab3_color": this.tab3_color,
+        "--tab4_color": this.tab4_color,
+        "--tab5_color": this.tab5_color,
+      };
+    },
+  },
+  components: {
+    "code-view": code,
+    "myCode-view": myCode,
+    "history-view": history,
+    "pullrequest-view": pullrequest,
+    "setting-view": setting,
+  },
+  mounted() {
+    let tab = this.$route.query.tab;
+    if (tab == "history") {
+      this.isHistory = true;
+      this.tab2_color = "4px";
+    } else if (tab == "pullrequest") {
+      this.isPullrequest = true;
+      this.tab3_color = "4px";
+    } else if (tab == "setting") {
+      this.isSetting = true;
+      this.tab4_color = "4px";
+    } else if (tab == "myCode") {
+      this.isMyCode = true;
+      this.tab5_color = "4px";
+    } else {
+      this.isCode = true;
+      this.tab1_color = "4px";
+    }
 
-  this.getRepoIdx_RepoMemCheck() // 저장소 idx 가져온 후 내가 속해있는 저장소인지 확인하자
-},
-methods: {
-  pin_btn_click(){
-    axios.post("/api/pinClick",{ // DB(pin 테이블)에 해당 저장소정보를 저장
-        u_idx : this.idx, // 로그인한 유저의 idx
-        repo_idx: this.repo_idx, // 현재 저장소 idx
-        sort_idx: 0
-    })
-    .then(response => {
-      if(response.data != "" || response.data != null || response.data != undefined){
-        this.pin_Check = true;
-      }
-      
-    })
+    this.getRepoIdx_RepoMemCheck(); // 저장소 idx 가져온 후 내가 속해있는 저장소인지 확인하자
   },
-  getRepoIdx_RepoMemCheck(){ // 저장소 idx 가져오기
-    axios.get("/api/repoIdxByNickName",{
-      params: {
-        nick: this.$route.params.nick,
-        reponame: this.$route.params.repository
-      }
-    })
-    .then(response => {
-      // 내가 속한 저장소인지 확인하자
-      this.repo_idx = response.data;
-      if(this.idx != null){
-        axios.post("/api/repoMemCheck",{
-            repo_idx : response.data, // response.data => 저장소 idx
-            u_idx : this.idx
+  methods: {
+    pin_btn_click() {
+      axios
+        .post("/api/pinClick", {
+          // DB(pin 테이블)에 해당 저장소정보를 저장
+          u_idx: this.idx, // 로그인한 유저의 idx
+          repo_idx: this.repo_idx, // 현재 저장소 idx
+          sort_idx: 0,
         })
-        .then(response => {
-           if(response.data.idx != undefined){
-              this.pin_btn_state = true;
-           }else{
-              this.pin_btn_state = false;
-           }
-           this.pinCheck(); // 고정이 되어있는 저장소라면 고정(pin)버튼을 바꿔주자
+        .then((response) => {
+          if (
+            response.data != "" ||
+            response.data != null ||
+            response.data != undefined
+          ) {
+            this.pin_Check = true;
+          }
+        });
+    },
+    getRepoIdx_RepoMemCheck() {
+      // 저장소 idx 가져오기
+      axios
+        .get("/api/repoIdxByNickName", {
+          params: {
+            nick: this.$route.params.nick,
+            reponame: this.$route.params.repository,
+          },
         })
-      } // if문 
-    })
+        .then((response) => {
+          // 내가 속한 저장소인지 확인하자
+          if (response.data == 0) {
+            window.location.href = "/pagenotfound";
+          }
+          this.repo_idx = response.data;
+          if (this.idx != null) {
+            axios
+              .post("/api/repoMemCheck", {
+                repo_idx: response.data, // response.data => 저장소 idx
+
+                u_idx: this.idx,
+              })
+              .then((response) => {
+                if (response.data.idx != undefined) {
+                  this.pin_btn_state = true;
+                } else {
+                  this.pin_btn_state = false;
+                }
+              });
+          } // if문
+        });
+    },
+    myRepoCheck() {
+      // 내 저장소인지 확인해보자
+      this.$route.params.repository; // 현재 저장소 이름
+    },
   },
-  pinCheck(){ // 고정이 되어있는 저장소라면 고정(pin)버튼을 바꿔주자
-    axios.post("/api/pinCheck", {
-      repo_idx: this.repo_idx,
-      u_idx: this.idx
-    })
-    .then(response => { // 조회된 데이터가 없을때
-      if(response.data == "" || response.data == null || response.data == undefined){
-        this.pin_Check = false;
-      }else if(response.data != "" || response.data != null || response.data != undefined){ // 조회된 데이터가 있을때
-        this.pin_Check = true;
-      }
-    })
+
+  pinCheck() {
+    // 고정이 되어있는 저장소라면 고정(pin)버튼을 바꿔주자
+    axios
+      .post("/api/pinCheck", {
+        repo_idx: this.repo_idx,
+        u_idx: this.idx,
+      })
+      .then((response) => {
+        // 조회된 데이터가 없을때
+        if (
+          response.data == "" ||
+          response.data == null ||
+          response.data == undefined
+        ) {
+          this.pin_Check = false;
+        } else if (
+          response.data != "" ||
+          response.data != null ||
+          response.data != undefined
+        ) {
+          // 조회된 데이터가 있을때
+          this.pin_Check = true;
+        }
+      });
   },
-  pin_off_btn_click(){ // 고정해제 버튼 클릭시 pin 테이블에서 해당 데이터 삭제
-    axios.post("/api/pinClickOff",{
-      repo_idx: this.repo_idx,
-      u_idx: this.idx
-    })
-    .then(response => {
-      if(response.data > 0){
-        this.pin_Check = false;
-      }
-    })
-      
-    
-  }
-}
+  pin_off_btn_click() {
+    // 고정해제 버튼 클릭시 pin 테이블에서 해당 데이터 삭제
+    axios
+      .post("/api/pinClickOff", {
+        repo_idx: this.repo_idx,
+        u_idx: this.idx,
+      })
+      .then((response) => {
+        if (response.data > 0) {
+          this.pin_Check = false;
+        }
+      });
+  },
 };
 </script>
 <style lang="sass">
