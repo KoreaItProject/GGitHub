@@ -165,10 +165,13 @@ public class RepositoryController {
     }
 
     @RequestMapping("/changeSelected")
-    public int changeSelected(String token, String repo, String member) {
+    public int changeSelected(String token, String repo, String member, String ownerNick) {
 
-        int repoidx = repoService.nameForIdx(repo);
         Map<String, String> map = new HashMap<>();
+        map.put("repoName", repo);
+        map.put("ownerNick", ownerNick);
+        int repoidx = repoService.nameForIdx(map);
+
         map.put("token", token);
         map.put("repo", repoidx + "");
         map.put("member", member);
@@ -180,9 +183,12 @@ public class RepositoryController {
     }
 
     @RequestMapping("/pushMainToMy")
-    public int pushMainToMy(String token, String repo, String member) {
+    public int pushMainToMy(String token, String repo, String member, String ownerNick) {
 
-        int repoidx = repoService.nameForIdx(repo);
+        Map<String, String> map = new HashMap<>();
+        map.put("repoName", repo);
+        map.put("ownerNick", ownerNick);
+        int repoidx = repoService.nameForIdx(map);
 
         String newToken = new RandStr(15).getResult();
         File targFile = new File(storage_dir + "repositorys/" + repoidx + "/" + newToken);
@@ -198,7 +204,7 @@ public class RepositoryController {
         pushVo.setBefore_token(token);
         pushService.push(pushVo);
 
-        return changeSelected(newToken, repo, member);
+        return changeSelected(newToken, repo, member, ownerNick);
     }
 
     @RequestMapping("/myRepositories")
@@ -446,14 +452,18 @@ public class RepositoryController {
     }
 
     @RequestMapping("/selectHistory")
-    public List<RepositoriesVO> selectHistory(String mode, String repo, int member) {
+    public List<RepositoriesVO> selectHistory(String mode, String repo, int member, String ownerNick) {
         List<RepositoriesVO> list = null;
         Map<String, String> map = new HashMap<String, String>();
         map.put("repo", repo);
+        map.put("ownerNick", ownerNick);
+        System.out.println(repo);
+        System.out.println(111 + ownerNick);
+        System.out.println(member);
         if (mode.equals("main")) {
-            map.put("member", 0 + "");
+            map.put("branch", 0 + "");
         } else {
-            map.put("member", member + "");
+            map.put("branch", member + "");
         }
         list = repoService.selectHistory(map);
 

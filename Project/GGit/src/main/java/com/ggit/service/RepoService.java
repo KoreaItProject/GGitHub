@@ -21,8 +21,8 @@ public class RepoService {
         return mapper.repo();
     }
 
-    public int nameForIdx(String name) {
-        return mapper.nameForIdx(name);
+    public int nameForIdx(Map map) {
+        return mapper.nameForIdx(map);
     }
 
     public RepositoriesVO clone(String clone) {
@@ -107,7 +107,7 @@ public class RepoService {
     }
 
     // 저장소 pin 클릭시 유저 정보와 저장소 정보를 insert하자
-    public int pinClick(RepoVo repoVo){
+    public int pinClick(RepoVo repoVo) {
         return mapper.pinClick(repoVo);
     }
 }

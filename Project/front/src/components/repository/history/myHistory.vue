@@ -70,6 +70,7 @@ export default {
             token: this.history[idx].push_token,
             repo: this.$route.params.repository,
             member: store.getters.getUserIdx,
+            ownerNick: this.$route.params.nick,
           },
         })
         .then((response) => {
@@ -83,6 +84,7 @@ export default {
             mode: "my",
             repo: this.$route.params.repository,
             member: store.getters.getUserIdx,
+            ownerNick: this.$route.params.nick,
           },
         })
         .then((response) => {
