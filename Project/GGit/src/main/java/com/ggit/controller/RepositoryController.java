@@ -320,8 +320,14 @@ public class RepositoryController {
             path = "";
         }
         String filePath = storage_dir + "repositorys/" + repoIdx + "/" + token + "/data/" + path;
+
         List<StorageVo> list = new ArrayList<StorageVo>();
         File folder = new File(filePath);
+        if (!folder.isDirectory() && !folder.isFile()) {// 틀린path라면
+            storageVo.setState("notPath");
+            list.add(storageVo);
+            return list;
+        }
         File files[] = folder.listFiles();
 
         String con = new ReadData(storage_dir + "repositorys/" + repoIdx + "/" + token + "/dump/pushData.txt")
@@ -342,6 +348,11 @@ public class RepositoryController {
                 file.setName(folder.getName());
                 list.add(file);
 
+                return list;
+            }
+            if (files.length == 0) {// 폴더에파일없음
+                storageVo.setState("empty");
+                list.add(storageVo);
                 return list;
             }
             try {

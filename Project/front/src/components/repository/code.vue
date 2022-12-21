@@ -65,8 +65,8 @@
 
                 </div>
                 <a :href="backURL"><div class="repo_list" style="display:block" v-show="!(path==undefined)">  . . </div></a>
-                <div class="repo_list" v-show="loading" style="display:block">데이터 불러오는 중...</div>
-                <div class="repo_list" v-for="data in file_list"  >
+                 <div class="repo_list" v-show="loading" style="display:block" v-if="!isEmpty">데이터 불러오는 중...</div>
+                <div class="repo_list" v-for="data in file_list"  v-if="!isEmpty">
                   
                   <div class="repo_list_part1">
                     <a :href="thisURL+'/'+data.name" v-if="data.state!='file'">
@@ -185,6 +185,7 @@ export default {
       path: this.$route.params.path,
       profileImg: [],
       i: 0,
+      isEmpty: false,
     };
   },
   components: {
@@ -273,6 +274,10 @@ export default {
             if (this.file_list[0].name == "README.md") {
               this.changeMD(this.file_list[0].content);
             }
+          } else if (this.file_list[0].state == "notPath") {
+            window.location.href = "/pagenotfound";
+          } else if (this.file_list[0].state == "empty") {
+            this.isEmpty = true;
           } else {
             //현재 위치가 폴더인경우
             for (var i = 0; i < this.file_list.length; i++) {
