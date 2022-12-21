@@ -139,11 +139,14 @@ export default {
       pins: [1, "", "", ""],
       contribution_top: "0px",
       contribution_data: [],
+      user_idx: "",
     };
   },
   mounted() {
     this.getContributionData();
     this.getMD();
+    this.getUserIdx();
+    
   },
   methods: {
     getContributionData() {
@@ -168,6 +171,20 @@ export default {
           this.mdText = response.data;
         });
     },
+    getUserIdx(){ // 닉네임으로 user의 idx 가져오기
+      axios.post("/api/getUserIdx",{
+        nick: this.$route.params.nick
+      })
+      .then(response => {
+        this.user_idx = response.data;
+        this.getPin();
+      })
+    },
+    getMyPin(){ // 고정되어있는 저장소 데이터 가져오기
+      axios.post("/api/getMyPin",{
+          user_idx: this.user_idx
+      })
+    }
   },
   computed: {
     cssVariable() {

@@ -23,9 +23,14 @@ public class OverViewController {
     OverViewService overViewService;
 
 
-    @RequestMapping("/getContributionData")
+    @RequestMapping("getContributionData")
     public List<OverViewVo> getContributionData(@RequestBody OverViewVo overViewVo){
         String idx = overViewService.getUserIdx(overViewVo);
         return overViewService.getContributionData(idx);
+    }
+
+    @RequestMapping("getUserIdx")
+    public String getUserIdx(@RequestBody OverViewVo overViewVo){
+        return overViewService.getUserIdx(overViewVo);
     }
 }

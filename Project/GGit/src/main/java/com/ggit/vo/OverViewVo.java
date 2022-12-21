@@ -6,6 +6,7 @@ import lombok.Data;
 @Component
 public class OverViewVo {
     String nick;
+    int idx;
     String date;
     int count;
 }

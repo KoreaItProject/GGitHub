@@ -515,6 +515,8 @@ public class RepositoryController {
     // pin 체크 해제(고정 해체)
     @RequestMapping("pinClickOff")
     public int pinCheckOff(@RequestBody RepoVo repoVo){
+        System.out.println(repoVo.getRepo_idx());
+        System.out.println(repoVo.getU_idx());
         return repoService.pinClickOff(repoVo);
     }
 }

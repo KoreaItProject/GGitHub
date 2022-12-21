@@ -12,7 +12,7 @@
               </div>
               <div class="repository_btn_div">
                 <div v-if="idx != null"> <!-- idx가 null이 아닐때만! 즉, 로그인이 됐으면 보여주고 아니면 안보여주고 -->
-                  <span v-if="pin_btn_state != false"> <!-- 내가 속한 저장소이면 보이고 아니면 안보이고 -->
+                  <span v-if="pin_btn_state == true"> <!-- 내가 속한 저장소이면 보이고 아니면 안보이고 -->
                     <span v-if="pin_Check == false">
                       <button class="repository_btn_pin repository_btn" @click="pin_btn_click()">
                           <svg aria-hidden="true" height="16" viewBox="0 -1 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-pin mr-2">
@@ -29,7 +29,6 @@
                           고정해제
                       </button>
                     </span>
-
                   </span>
             
                   <button class="repository_btn_star repository_btn">
@@ -128,7 +127,7 @@ export default {
 
       pin_btn_state: "", //  pin 버튼 보일지 말지 여부 true/false
       repo_idx: "",
-      pin_Check: null,
+      pin_Check: "",
     };
   },
   computed: {
@@ -177,22 +176,17 @@ export default {
           // DB(pin 테이블)에 해당 저장소정보를 저장
           u_idx: this.idx, // 로그인한 유저의 idx
           repo_idx: this.repo_idx, // 현재 저장소 idx
-          sort_idx: 0,
+          sort_idx: 0
         })
         .then((response) => {
-          if (
-            response.data != "" ||
-            response.data != null ||
-            response.data != undefined
-          ) {
+          if ( response.data != "" ||response.data != null || response.data != undefined ) {
             this.pin_Check = true;
           }
         });
     },
     getRepoIdx_RepoMemCheck() {
       // 저장소 idx 가져오기
-      axios
-        .get("/api/repoIdxByNickName", {
+      axios.get("/api/repoIdxByNickName", {
           params: {
             nick: this.$route.params.nick,
             reponame: this.$route.params.repository,
@@ -205,66 +199,48 @@ export default {
           }
           this.repo_idx = response.data;
           if (this.idx != null) {
-            axios
-              .post("/api/repoMemCheck", {
+            axios.post("/api/repoMemCheck", {
                 repo_idx: response.data, // response.data => 저장소 idx
-
                 u_idx: this.idx,
               })
-              .then((response) => {
+              .then(response => {
                 if (response.data.idx != undefined) {
                   this.pin_btn_state = true;
                 } else {
                   this.pin_btn_state = false;
                 }
-              });
+                this.pinCheck(); // 고정이 되어있는 저장소라면 고정(pin)버튼을 바꿔주자
+              })
           } // if문
+        })
+    },
+    pinCheck() { // 고정이 되어있는 저장소라면 고정(pin)버튼을 바꿔주자
+    axios.post("/api/pinCheck", {
+        repo_idx: this.repo_idx,
+        u_idx: this.idx,
+      })
+      .then((response) => { // 조회된 데이터가 없을때
+        if ( response.data == "" || response.data == null || response.data == undefined ) {
+          this.pin_Check = false; // 고정
+        } else if ( response.data != "" || response.data != null || response.data != undefined ) { // 조회된 데이터가 있을때
+          this.pin_Check = true; // 고정 해제
+        }
+      })
+    },
+    pin_off_btn_click() {
+      // 고정해제 버튼 클릭시 pin 테이블에서 해당 데이터 삭제
+      axios.post("/api/pinClickOff", {
+          repo_idx: this.repo_idx,
+          u_idx: this.idx,
+        })
+        .then((response) => {
+          if (response.data > 0) {
+            this.pin_Check = false;
+          }
         });
     },
-    myRepoCheck() {
-      // 내 저장소인지 확인해보자
-      this.$route.params.repository; // 현재 저장소 이름
-    },
-  },
-
-  pinCheck() {
-    // 고정이 되어있는 저장소라면 고정(pin)버튼을 바꿔주자
-    axios
-      .post("/api/pinCheck", {
-        repo_idx: this.repo_idx,
-        u_idx: this.idx,
-      })
-      .then((response) => {
-        // 조회된 데이터가 없을때
-        if (
-          response.data == "" ||
-          response.data == null ||
-          response.data == undefined
-        ) {
-          this.pin_Check = false;
-        } else if (
-          response.data != "" ||
-          response.data != null ||
-          response.data != undefined
-        ) {
-          // 조회된 데이터가 있을때
-          this.pin_Check = true;
-        }
-      });
-  },
-  pin_off_btn_click() {
-    // 고정해제 버튼 클릭시 pin 테이블에서 해당 데이터 삭제
-    axios
-      .post("/api/pinClickOff", {
-        repo_idx: this.repo_idx,
-        u_idx: this.idx,
-      })
-      .then((response) => {
-        if (response.data > 0) {
-          this.pin_Check = false;
-        }
-      });
-  },
+  }
+  
 };
 </script>
 <style lang="sass">
