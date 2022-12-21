@@ -14,7 +14,7 @@ import com.ggit.vo.RepositoriesVO;
 public interface RepoMapper {
     List<RepoVo> repo();
 
-    int nameForIdx(String name);
+    int nameForIdx(Map map);
 
     List<RepositoriesVO> selectRepositories(String nick);
 

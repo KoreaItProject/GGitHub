@@ -3,6 +3,7 @@ $width_value: 100%
 .overView_div
     border: 1px solid $line-color
     border-radius: 7px
+
 .overView_container
     width: 100%
     padding-left: 20px
@@ -12,19 +13,14 @@ $width_value: 100%
         margin-left: 5px
         margin-top: 25px
         padding: 30px 0
+
         @media screen and ( max-width:  1006px)
             width: 100%
 
-        .overView_readme_title
-            width: 100%
-            height: 20px
-            padding: 0 30px
-
-            .overView_readme_pencil
-                float: right
         .overView_readme_content
             width: 100%
-            text-align: center
+            padding: 0px 32px
+
     .overView_pinned_div
         max-width: 900px
         width: 100%
@@ -75,20 +71,18 @@ $width_value: 100%
                         color: #3f8be7
                         svg
                             fill: #3f8be7
-                            
 
-                        
                     .overView_pins_div_inner_first
                         display: flex
-                        
+
                         .overView_pins_div_inner_first_left
                             flex: 1
-                            a   
+                            a
                                 font-size: medium
                                 color: #3f8be7
                                 text-decoration: none
                                 font-weight: 550
-                            svg 
+                            svg
                                 vertical-align: text-bottom
                                 fill: rgb(87, 96, 106)
                             .mr-1

@@ -81,7 +81,7 @@
 
         <a href='/login'><button class="follow_button" v-if="!islogin" >Follow</button></a>
         <button class="follow_button" v-if="!isMy && followcount==0" @click="[insertFollow(),refreshAll()]">Follow</button>
-        <button class="unfollow_button" v-if="!isMy && followcount==1" @click="[deletefollowlist(),refreshAll()]">Unfollow</button>
+        <button class="follow_button" v-if="!isMy && followcount==1" @click="[deletefollowlist(),refreshAll()]">Unfollow</button>
 
       </div>
 

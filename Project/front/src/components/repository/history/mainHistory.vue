@@ -68,6 +68,7 @@ export default {
             mode: "main",
             repo: this.$route.params.repository,
             member: store.getters.getUserIdx,
+            ownerNick: this.$route.params.nick,
           },
         })
         .then((response) => {
@@ -84,6 +85,7 @@ export default {
             token: this.history[index].push_token,
             repo: this.$route.params.repository,
             member: store.getters.getUserIdx,
+            ownerNick: this.$route.params.nick,
           },
         })
         .then((response) => {

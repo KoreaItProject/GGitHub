@@ -7,10 +7,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
-public class WritePushData {
+public class WriteData {
     String path;
 
-    public WritePushData(String path) {
+    public WriteData(String path) {
         this.path = path;
 
     }

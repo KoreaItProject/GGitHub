@@ -221,6 +221,7 @@ export default {
       const copyText = document.getElementById("codeclone");
       copyText.select();
       document.execCommand("copy");
+      alert("코드가 복사 되었습니다.");
     },
     selectRepoClone() {
       axios

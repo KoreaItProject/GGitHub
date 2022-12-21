@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import org.apache.ibatis.binding.BindingException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -42,8 +43,8 @@ import com.ggit.service.RepoService;
 import com.ggit.service.RepomemService;
 import com.ggit.util.CopyFile;
 import com.ggit.util.RandStr;
-import com.ggit.util.ReadPushData;
-import com.ggit.util.WritePushData;
+import com.ggit.util.ReadData;
+import com.ggit.util.WriteData;
 import com.ggit.vo.FollowVo;
 import com.ggit.vo.PullreqVo;
 import com.ggit.vo.PushVo;
@@ -117,14 +118,14 @@ public class RepositoryController {
 
             new CopyFile().copy(new File(storage_dir + "def/"), file);
 
-            String con = new ReadPushData(
+            String con = new ReadData(
                     storage_dir + "repositorys/" + repoVo.getIdx() + "/" + token + "/dump/pushData.txt").getCon();
             JSONObject jObject = (JSONObject) new JSONParser().parse(con);
             JSONArray pushData = (JSONArray) jObject.get("data");
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String nowTime = sdf.format(new Date()).toString();
             ((JSONObject) (pushData.get(0))).replace("date", nowTime);
-            new WritePushData(storage_dir + "repositorys/" + repoVo.getIdx() + "/" + token + "/dump/pushData.txt")
+            new WriteData(storage_dir + "repositorys/" + repoVo.getIdx() + "/" + token + "/dump/pushData.txt")
                     .write(jObject.toString());
 
         } catch (ParseException e) {
@@ -145,11 +146,32 @@ public class RepositoryController {
         return repoService.checkRepo(map);
     }
 
-    @RequestMapping("/changeSelected")
-    public int changeSelected(String token, String repo, String member) {
+    @RequestMapping("getMD")
+    public String getMD(String nick) {
+        String con = null;
+        Map map = new HashMap<>();
+        map.put("nick", nick);
+        map.put("reponame", "README");
 
-        int repoidx = repoService.nameForIdx(repo);
+        int repoIdx = 0;
+        try {
+            repoIdx = repoService.repoIdxByNickName(map);
+        } catch (BindingException e) {
+            return con;
+        }
+        String token = repoService.selectRepositorycode(repoIdx).getPush_token();
+        con = new ReadData(storage_dir + "repositorys\\" + repoIdx + "\\" + token + "\\data\\README.md").getCon();
+        return con;
+    }
+
+    @RequestMapping("/changeSelected")
+    public int changeSelected(String token, String repo, String member, String ownerNick) {
+
         Map<String, String> map = new HashMap<>();
+        map.put("repoName", repo);
+        map.put("ownerNick", ownerNick);
+        int repoidx = repoService.nameForIdx(map);
+
         map.put("token", token);
         map.put("repo", repoidx + "");
         map.put("member", member);
@@ -161,9 +183,12 @@ public class RepositoryController {
     }
 
     @RequestMapping("/pushMainToMy")
-    public int pushMainToMy(String token, String repo, String member) {
+    public int pushMainToMy(String token, String repo, String member, String ownerNick) {
 
-        int repoidx = repoService.nameForIdx(repo);
+        Map<String, String> map = new HashMap<>();
+        map.put("repoName", repo);
+        map.put("ownerNick", ownerNick);
+        int repoidx = repoService.nameForIdx(map);
 
         String newToken = new RandStr(15).getResult();
         File targFile = new File(storage_dir + "repositorys/" + repoidx + "/" + newToken);
@@ -179,7 +204,7 @@ public class RepositoryController {
         pushVo.setBefore_token(token);
         pushService.push(pushVo);
 
-        return changeSelected(newToken, repo, member);
+        return changeSelected(newToken, repo, member, ownerNick);
     }
 
     @RequestMapping("/myRepositories")
@@ -299,7 +324,7 @@ public class RepositoryController {
         File folder = new File(filePath);
         File files[] = folder.listFiles();
 
-        String con = new ReadPushData(storage_dir + "repositorys/" + repoIdx + "/" + token + "/dump/pushData.txt")
+        String con = new ReadData(storage_dir + "repositorys/" + repoIdx + "/" + token + "/dump/pushData.txt")
                 .getCon();
 
         JSONParser parser = new JSONParser();
@@ -402,7 +427,7 @@ public class RepositoryController {
 
     @RequestMapping("selectRepoClone")
     public List<RepositoriesVO> selectRepoClone(int repoIdx) {
-        //System.out.println(repoIdx);
+        // System.out.println(repoIdx);
         List<RepositoriesVO> RepoClone = repoService.selectRepoClone(repoIdx);
         return RepoClone;
     }
@@ -416,7 +441,7 @@ public class RepositoryController {
     // 저장소 소개글 가져오기
     @RequestMapping("getrepomessage")
     public RepoVo getrepomessage(@RequestBody RepoVo repovo) {
-        //System.out.println("-=-=>" + repovo.getIdx());
+        // System.out.println("-=-=>" + repovo.getIdx());
         return repoService.getrepomessage(repovo);
     }
 
@@ -427,14 +452,18 @@ public class RepositoryController {
     }
 
     @RequestMapping("/selectHistory")
-    public List<RepositoriesVO> selectHistory(String mode, String repo, int member) {
+    public List<RepositoriesVO> selectHistory(String mode, String repo, int member, String ownerNick) {
         List<RepositoriesVO> list = null;
         Map<String, String> map = new HashMap<String, String>();
         map.put("repo", repo);
+        map.put("ownerNick", ownerNick);
+        System.out.println(repo);
+        System.out.println(111 + ownerNick);
+        System.out.println(member);
         if (mode.equals("main")) {
-            map.put("member", 0 + "");
+            map.put("branch", 0 + "");
         } else {
-            map.put("member", member + "");
+            map.put("branch", member + "");
         }
         list = repoService.selectHistory(map);
 
