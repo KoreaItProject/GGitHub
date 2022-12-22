@@ -14,15 +14,15 @@
         >
       </div>
       <div class="overView_pins_div">
-        <draggable  v-model="pins" @change ="checkMove" ghost-class="ghost" handle=".handle" class="list-group" tag="div" v-bind="dragOptions" @start="drag = true" @end="drag = false">             
-        <div class="overView_pins overView_div" v-for="pin in pins" v-bind:key="pin">
+        <draggable  v-model="pins" @change ="checkMove()" ghost-class="ghost" handle=".handle" class="list-group" tag="div" v-bind="dragOptions" @start="drag = true" @end="drag = false">             
+        <div class="overView_pins overView_div" v-for="pin in pins" v-bind:key="pin.idx">
             <div class="overView_pins_div_inner">
               <div class="overView_pins_div_inner_first">
                 <div class="overView_pins_div_inner_first_left">
                   <svg class="octicon mr-1" aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true">
                     <path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path>
                   </svg>
-                  <a class="mr-1" @click="test_click(pin.nick, pin.name)"><span>{{ pin.nick }} / {{pin.name}}</span></a>
+                  <a class="mr-1" @click="pin_click(pin.nick, pin.name)"><span>{{ pin.nick }} / {{pin.name}}</span></a>
                 </div>
                 <div class="overView_pins_div_inner_first_right">
                     <span class="repo_move_icon handle" >
@@ -141,8 +141,25 @@ export default {
         this.pins = response.data;
       })
     },
-    test_click(nick, name){
+    pin_click(nick, name){
       window.location.href = "/" + nick + "/" + name;
+    },
+    checkMove(){
+      console.log(this.pins);
+      axios.post("/api/pinSort", {
+          idx: store.getters.getUserIdx,
+          pins: this.pins
+        })
+        .then((response) => {
+          
+        })
+        .catch((error) => {
+          
+          console.log(error);
+        })
+        .finally(() => {
+          
+        });
     }
   },
   components:{

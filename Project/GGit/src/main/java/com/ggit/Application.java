@@ -3,7 +3,6 @@ package com.ggit;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.ggit.socket.ServerMain;
 
 @SpringBootApplication
 public class Application {

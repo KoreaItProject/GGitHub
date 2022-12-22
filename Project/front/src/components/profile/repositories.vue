@@ -91,8 +91,8 @@ export default {
   // },
   methods: {
     checkMove: function (e) {
-      axios
-        .post("/api/repoSort", {
+      console.log(this.repo);
+      axios.post("/api/repoSort", {
           repo: this.repo,
           idx: store.getters.getUserIdx,
         })

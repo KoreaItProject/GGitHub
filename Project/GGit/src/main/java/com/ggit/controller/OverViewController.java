@@ -57,4 +57,38 @@ public class OverViewController {
     public List<OverViewVo> getMyPin(@RequestBody OverViewVo overViewVo){
         return overViewService.getMyPin(overViewVo);
     }
+
+    @RequestMapping("/pinSort")
+    public void repoSort(@RequestBody PinSortData pinsSortData) {
+        
+
+        List<OverViewVo> list = pinsSortData.getpinsdata();
+        //System.out.println(list);
+
+        int u_idx = pinsSortData.getIdx();
+        //System.out.println("idx: " + u_idx);
+
+        for (int i = 0; i < list.size(); i++) {
+
+            overViewVo.setU_idx(u_idx);
+            overViewVo.setSort_idx(i);
+            overViewVo.setIdx(list.get(i).getIdx());
+            overViewService.pinSortUpdate(overViewVo);
+
+        }
+
+    }
+}
+
+class PinSortData {
+    private int idx;
+    public List<OverViewVo> pins;
+
+    public int getIdx() {
+        return idx;
+    }
+
+    public List<OverViewVo> getpinsdata() {
+        return pins;
+    }
 }

@@ -231,7 +231,7 @@ public class RepositoryController {
 
     @RequestMapping("/repoSort")
     public void repoSort(@RequestBody SortData sortData) {// https://wakestand.tistory.com/787 269번 줄
-
+        
         List<RepositoriesVO> list = sortData.getRepo();
         int idx = sortData.getIdx();
 

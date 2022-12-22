@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ggit.db.mapper.OverViewMapper;
-import com.ggit.vo.MemberVo;
 import com.ggit.vo.OverViewVo;
 
 @Service
@@ -45,6 +44,11 @@ public class OverViewService {
     // pin 데이터 조회
     public List<OverViewVo> getMyPin(OverViewVo overViewVo){
         return mapper.getMyPin(overViewVo);
+    }
+
+    // pin sort
+    public void pinSortUpdate(OverViewVo overViewVo){
+        mapper.pinSortUpdate(overViewVo);
     }
 
 }
