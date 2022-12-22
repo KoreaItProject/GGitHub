@@ -17,7 +17,7 @@
         </div>
       
           <div class="repo_list" id ="repo_list">
-            <draggable  v-model="repo" @change ="checkMove"   ghost-class="ghost" handle=".handle"  class="list-group"  tag="ul"     v-bind="dragOptions"    @start="drag = true"    @end="drag = false">             
+            <draggable  v-model="repo" @change ="checkMove"   ghost-class="ghost" handle=".handle"  class="list-group"  tag="ul"     v-bind="dragOptions"    @start="drag = true"    @end="drag = false" >             
               <li class="repo_li" v-for='data in repo' >
                 <a :href="'/'+data.member_nick + '/' + data.repo_name" > 
                   <div class="repo_info">
@@ -25,7 +25,7 @@
                         {{data.member_nick}} / {{data.repo_name}}
                         <span></span>
                         <span class="repo_public">public</span>
-                        <span class="repo_move_icon handle" >
+                        <span class="repo_move_icon handle" v-if="isdrag">
                           <svg  height="17px" viewBox="0 0 16 16" version="1.1" width="17px" >
                               <path d="M10 13a1 1 0 100-2 1 1 0 000 2zm-4 0a1 1 0 100-2 1 1 0 000 2zm1-5a1 1 0 11-2 0 1 1 0 012 0zm3 1a1 1 0 100-2 1 1 0 000 2zm1-5a1 1 0 11-2 0 1 1 0 012 0zM6 5a1 1 0 100-2 1 1 0 000 2z"></path>
                           </svg>
@@ -56,6 +56,7 @@ export default {
       enabled: true,
       dragging: false,
       newbtn: this.$route.params.nick == store.getters.getUserNick,
+      isdrag: this.$route.params.nick == store.getters.getUserNick,
     };
   },
   components: {
