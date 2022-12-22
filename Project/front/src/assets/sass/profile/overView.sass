@@ -34,12 +34,17 @@ $width_value: 100%
             .overView_pinned_top_right
                 float: right
                 font-size: 13px
+                
+
         .overView_pins_div
             width: 100%
             padding: 30px 0px
             //text-align: center
+            .ghost
+                opacity: 0.3
+                background: RGB(138, 221, 237)
             .overView_pins
-                overflow: auto
+                //overflow: auto
                 display: flex
                 justify-content: center
                 align-items: center
@@ -87,6 +92,11 @@ $width_value: 100%
                                 fill: rgb(87, 96, 106)
                             .mr-1
                                 margin-right: 4px
+                        .overView_pins_div_inner_first_right
+                            .repo_move_icon:hover
+                                cursor: grab
+                        
+
 
     .overView_contribution_div
         max-width: 886px
