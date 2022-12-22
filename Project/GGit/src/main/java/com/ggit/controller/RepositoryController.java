@@ -482,6 +482,27 @@ public class RepositoryController {
 
     }
 
+    @RequestMapping("/getHistoryChanged")
+    public JSONArray getHistoryChanged(int repo, String token) {
+
+        JSONArray changed = null;
+        String con = new ReadData(storage_dir + "repositorys\\" + repo + "\\" + token + "\\dump\\pushData.txt")
+                .getCon();
+        JSONObject obj;
+        try {
+            obj = (JSONObject) (new JSONParser()).parse(con);
+
+            changed = (JSONArray) obj.get("changed");
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        System.out.println(123);
+        return changed;
+
+    }
+
     // 존재하는 저장소인지 확인(저장소 이름으로 select)
     @RequestMapping("find_repo")
     public int find_repo(@RequestBody RepoVo repo) {

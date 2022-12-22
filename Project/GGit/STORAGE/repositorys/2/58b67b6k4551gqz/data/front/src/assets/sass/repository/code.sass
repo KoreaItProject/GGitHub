@@ -1,0 +1,297 @@
+$line-color: #d0d7de
+.code_top_container
+
+    min-height: 500px
+    display: flex
+    justify-content: center
+    padding: 25px
+    width: 100%
+
+    .code_middle_container_right
+
+        min-height: 565px
+        max-width: 896px
+        width: 100%
+        margin-right: 10px
+        .code_navigator
+
+            width: 100%
+            height: 26px
+            margin: 0px 0px 13px
+
+            .branch_btn
+
+                height: 32px
+                width: 105.27px
+                display: inline
+                float: left
+
+            .branch_select_btn
+                border-radius: 6px
+                border: 1px solid #d0d7de
+            .branch_select_btn
+                width: 100px
+                height: 27px
+
+            .code_btn
+
+                height: 29px
+                width: 76px
+                float: right
+                display: inline
+                color: #ffffff
+                background-color: #2da44e
+                border-color: rgb(27 31 36 / 15%)
+                border-radius: 6px
+                text-align: center
+
+        .code_menu_top_div
+
+            margin-top: 28px
+            width: 68px
+            height: 321px
+            position: relative
+            padding: 10px
+            right: -8px
+            .code_menu
+                // display: none
+                position: absolute
+                background-color: white
+                right: 0
+                border: 1px solid $line-color
+                border-radius: 6px
+                width: 400px
+                height: 145px
+                margin-top: -6px
+                .code_clone
+                    margin-top: 15px
+                    margin-left: 15px
+                    font-weight: bold
+                    font-size: 14px
+                    color: black
+                    float: left
+                    .clone_string
+                        display: inline
+                .code_input
+                    display: flex
+                    width: 100%
+
+                    justify-content: center
+
+                    .code_copy_btn
+
+                        display: block
+                        margin-top: 15px
+                        border: null
+                        border: 1px solid $line-color
+                        background-color: white
+                        height: 29.80px
+                        padding: 5px 8px
+
+                        border-top-right-radius: 6px
+                        border-bottom-right-radius: 6px
+                .code_input_box
+
+                    display: block
+                    width: 330px
+                    height: 30px
+                    padding: 3px 12px 5px 12px
+                    border: 1px solid $line-color
+                    border-top-left-radius: 6px
+                    border-bottom-left-radius: 6px
+                    margin-top: 15px
+                    border-right: 0px
+
+                .code_download_div
+                    margin-top: 0px
+                    border-top: 1px solid $line-color
+                    .code_download
+
+                        font-weight: bold
+                        font-size: 14px
+                        margin: 15px 0px 0px 15px
+                        color: black
+                        float: left
+
+        .repo_box
+
+            border-radius: 6px
+            border: 1px solid #d0d7de
+            margin: 0px 0px 16px
+
+            .repo_information
+
+                width: 100%
+                height: 46px
+                padding: 13px 15px
+                background-color: #f6f8fa
+                border-top-left-radius: 6px
+                border-top-right-radius: 6px
+                .owner_href
+
+                    height: 19px
+                    font-size: 14px
+                    font-weight: bold
+
+                .repo_last_commit_content
+
+                    height: 19px
+                    font-size: 14px
+
+                .repo_last_commit_token
+
+                    height: 10px
+                    float: right
+                    font-size: 12px
+                    color: #57606a
+                    margin: 5px 0px 0px 0
+
+                .repo_last_commit_time
+
+                    height: 10px
+                    float: right
+                    font-size: 12px
+                    margin: 5px 0px 0px 10px
+
+                .repo_commit_count
+
+                    height: 21px
+                    float: right
+                    font-size: 14px
+                    margin: 0px 0px 0px 16px
+                    .commit_count_strong
+                        color: #24292f
+                    .commit_count_sapn
+                        color: #57606a
+
+            .repo_list
+
+                width: 100%
+                min-height: 38px
+                background-color: white
+                border-top: 1px solid #d0d7de
+                padding: 8px 10px
+                border-bottom-left-radius: 6px
+                border-bottom-right-radius: 6px
+                display: flex
+                justify-content: center
+                .repo_list_part1
+                    width: 100%
+                    .repo_file_name
+                        border-bottom: 1px solid $line-color
+                        padding: 20px 3px 10px 3px
+                        margin-bottom: 10px
+                    .repo_file_content
+                        width: 100%
+                        border: none
+                        resize: none
+                        height: 460px
+                        outline: none
+                        padding: 10px 5px
+                .repo_list_part2
+                    width: 100%
+
+                .repo_list_part3
+                    float: right
+                    width: 100%
+                    text-align: right
+
+        .readme_container
+            border: 1px solid #d0d7de
+            border-radius: 6px
+            width: 100%
+            .readme_title
+                width: 100%
+                padding: 16px
+                font-size: 16px
+                font-weight: bold
+            .readme_content
+                width: 100%
+                padding: 16px 32px 32px
+                margin-bottom: 10px
+                .readme_h1_title
+                    margin: 0px 0px 16px
+                    padding: 0px 0px 9.6px
+                    border-bottom: 1px solid #d0d7de
+
+.code_middle_container_left
+
+    min-height: 500px
+    width: 296px
+    margin-left: 15px
+
+    .about_box
+
+        width: 296px
+        padding: 10px 15px 26px 15px
+        border-bottom: 1px solid hsl(210deg 18% 87%)
+        .about_string
+            margin-bottom: 18px
+            font-size: 16px
+            font-weight: bold
+        .about_setting_message
+            margin-top: 16px
+            margin-bottom: 16px
+        .readme_link
+            margin: 12px 0px 0px
+            .readme_link_href
+        .stars_link
+            margin: 12px 0px 0px
+            .stars_link_href
+        .fork_link
+            margin: 12px 0px 0px
+            .fork_link_href
+
+    .contributors_box
+
+        width: 296px
+        height: 209px
+        padding: 26px 15px 20px 15px
+
+        .contributor_h2
+            font-size: 16px
+            margin: 0px 0px 16px
+        .contributors_div
+            display: flex
+            justify-content: center
+            width: 100%
+
+        .contributor_member_img
+
+            width: 40px
+            height: 40px
+            border-radius: 10px
+            margin: 2px 0
+
+        .contributor_member_list
+            display: block
+            width: 100%
+            height: 40px
+            padding: 10px 8px
+
+        .contributor_member_count
+            font-size: 9px
+            padding: 1px 3px
+            border-radius: 15px
+            background-color: rgba(188,202,204,.2)
+.highlighted
+    background-color: yellow
+
+.highlight
+    background-color: #fff34d
+    -moz-border-radius: 5px
+     /* FF1+ */
+    -webkit-border-radius: 5px
+     /* Saf3-4 */
+    border-radius: 5px
+     /* Opera 10.5, IE 9, Saf5, Chrome */
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.7)
+     /* FF3.5+ */
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.7)
+     /* Saf3.0+, Chrome */
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.7)
+     /* Opera 10.5+, IE 9.0 */
+
+    &
+        padding: 1px 4px
+        margin: 0 -4px
