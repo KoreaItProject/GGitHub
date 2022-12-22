@@ -106,18 +106,5 @@ public class RepoService {
         return mapper.repoMemCheck(repoVo);
     }
 
-    // 저장소 pin 클릭시 유저 정보와 저장소 정보를 insert하자
-    public int pinClick(RepoVo repoVo) {
-        return mapper.pinClick(repoVo);
-    }
-
-    // pin이 체크 되어있는지 아닌지 조회
-    public RepoVo pinCheck(RepoVo repoVo){
-        return mapper.pinCheck(repoVo);
-    }
-
-    // pin 체크 해제(고정 해체)
-    public int pinClickOff(RepoVo repoVo){
-        return mapper.pinClickOff(repoVo);
-    }
+    
 }

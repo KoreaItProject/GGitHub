@@ -101,17 +101,6 @@
     <select id="repoMemCheck" resultType="com.ggit.vo.RepoVo"> select * from repomem where repo =
         #{repo_idx} and member = #{u_idx}; </select>
 
-    <insert id="pinClick"> insert into pin(member, repo, sort) values(#{u_idx}, #{repo_idx},
-        #{sort_idx}); </insert>
-
-    <select id="pinCheck" resultType="com.ggit.vo.RepoVo">
-        select * 
-        from pin
-        where repo=#{repo_idx} and member=#{u_idx}
-    </select>
-
-    <delete id="pinClickOff">
-        delete from pin where repo= #{repo_idx} and member= #{u_idx}
-    </delete>
+    
 
 </mapper>

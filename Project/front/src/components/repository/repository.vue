@@ -184,8 +184,7 @@ export default {
           }
         });
     },
-    getRepoIdx_RepoMemCheck() {
-      // 저장소 idx 가져오기
+    getRepoIdx_RepoMemCheck() { // 저장소 idx 가져오기
       axios.get("/api/repoIdxByNickName", {
           params: {
             nick: this.$route.params.nick,
@@ -197,9 +196,10 @@ export default {
           if (response.data == 0) {
             window.location.href = "/pagenotfound";
           }
-          this.repo_idx = response.data;
-          if (this.idx != null) {
-            axios.post("/api/repoMemCheck", {
+          this.repo_idx = response.data; // 저장소 idx 할당
+          this.pinCheck(); // 고정이 되어있는 저장소라면 고정(pin)버튼을 고정해제로 바꿔주자
+          if (this.idx != null) { // 로그인이 돼있는 상태라면
+            axios.post("/api/repoMemCheck", { // pin버튼 보일지 말지
                 repo_idx: response.data, // response.data => 저장소 idx
                 u_idx: this.idx,
               })
@@ -209,7 +209,6 @@ export default {
                 } else {
                   this.pin_btn_state = false;
                 }
-                this.pinCheck(); // 고정이 되어있는 저장소라면 고정(pin)버튼을 바꿔주자
               })
           } // if문
         })

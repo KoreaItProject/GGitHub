@@ -12,5 +12,14 @@ import com.ggit.vo.OverViewVo;
 @Mapper
 public interface OverViewMapper {
     String getUserIdx(String nick);
+
     List<OverViewVo> getContributionData(String idx);
+
+    int pinClick(OverViewVo overViewVo);
+
+    OverViewVo pinCheck(OverViewVo overViewVo);
+
+    int pinClickOff(OverViewVo overViewVo);
+
+    List<OverViewVo> getMyPin(OverViewVo overViewVo);
 }
