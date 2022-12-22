@@ -1,6 +1,9 @@
 <template lang="">
   <div class="profile_container" :style="cssVariable">
     <div class="profile_bar_top">
+
+
+   <div class="profile_bar_top_center" >
       <div class="profile_bar_top_block"></div>
 
       <div class="profile_tab_container">
@@ -65,7 +68,8 @@
         </a>
       </div>
     </div>
-
+  </div> 
+<div class="profile_middle">
     <div class="profile_bar_left">
       <div class="profile_img_div">
         <img class="profile_img" :src="profileImg" />
@@ -205,6 +209,7 @@
       <following v-if="isFollowing"/>
     </div>
   </div>
+</div>
 </template>
 
 <script>

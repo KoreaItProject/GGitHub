@@ -5,52 +5,61 @@ $line-color: #d0d7de
 
 .profile_container
     width: 100%
-    max-width: 1300px
-    padding: 0 24px
+
     margin: 0 auto
     margin-top: 22px
 
     .profile_bar_top
         width: 100%
-        height: 45px
+        height: 46px
         border-bottom: 1px solid $line-color
+        .profile_bar_top_center
+            width: 100%
+            max-width: 1300px
+            margin: auto
+            .profile_bar_top_block
+                width: $profile_bar_left_width
+                height: 1px
+                float: left
+            .profile_tab_container
 
-        .profile_bar_top_block
-            width: $profile_bar_left_width
-            height: 1px
-            float: left
-        .profile_tab_container
-            width: calc(100% - $profile_bar_left_width)
-            height: $profile_bar_top_height
-            padding: 0 29px
-            float: left
-            min-width: $profile_tab_fix
-            .profile_tab
-                line-height: $profile_bar_top_height
-                margin: 0 10px
-                padding: 8px 2px
-                font-size: 16px
+                width: calc(100% - $profile_bar_left_width)
+                margin-left: $profile_bar_left_width
+                height: $profile_bar_top_height
+                padding: 0 29px
+                float: left
+                min-width: $profile_tab_fix
+                .profile_tab
+                    line-height: $profile_bar_top_height
+                    margin: 0 10px
+                    padding: 8px 2px
+                    font-size: 16px
 
-            #profile_tab1
-                border-bottom: var(--tab1_color) solid pink
+                #profile_tab1
+                    border-bottom: var(--tab1_color) solid pink
 
-            #profile_tab2
-                border-bottom: var(--tab2_color) solid pink
+                #profile_tab2
+                    border-bottom: var(--tab2_color) solid pink
 
-            #profile_tab3
-                border-bottom: var(--tab3_color) solid pink
+                #profile_tab3
+                    border-bottom: var(--tab3_color) solid pink
 
-            .tabs
-                padding: 7px 7px
-                &:hover
-                    background-color: rgb(246, 248, 250,0.6 )
-                    border-radius: 12px
+                .tabs
+                    padding: 7px 7px
+                    &:hover
+                        background-color: rgb(246, 248, 250,0.6 )
+                        border-radius: 12px
+.profile_middle
+    width: 100%
+    max-width: 1300px
+    margin: 25px auto
 
     .profile_bar_left
         width: $profile_bar_left_width
         height: 500px
         float: left
         min-height: 10px
+        margin-top: -30px
         .profile_img_div
             width: 290px
             height: 290px
