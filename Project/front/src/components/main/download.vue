@@ -15,10 +15,10 @@
               class="btn_download_ggitsource"
               @click="ggitsourcDownload"
             >
-              낏소스 다운로드
+              낏소스 다운로드 Click!
             </button>
-             <p>GGit Hub는</p>
-             <p>GGIT SOURCE 프로그램을 사용하여</p><p>파일을 업로드합니다.</p>
+             <p>GGit 페이지는</p>
+             <p>GGIT SOURCE 프로그램을 사용하여</p><p>작업 저장소에 파일을 업로드합니다.</p>
           </div>
           <div class="download_container1_right">
               <img class="img1" src="@/assets/imgs/main/download/img1.png"></img>
@@ -55,7 +55,7 @@ export default {
   },
   mounted() {
     var typingBool = false;
-    var typingIdx = 1;
+    var typingIdx = 0;
 
     // 타이핑될 텍스트를 가져온다
     var typingTxt = "직관적인 UI와 높은 작동성  !  !    GGIT SOURCE";
@@ -65,10 +65,10 @@ export default {
     if (typingBool == false) {
       // 타이핑이 진행되지 않았다면
       typingBool = true;
-      var tyInt = setInterval(typing, 100); // 반복동작
+      var tyInt = setInterval(typing1, 100); // 반복동작
     }
 
-    function typing() {
+    function typing1() {
       if (typingIdx < typingTxt.length) {
         // 타이핑될 텍스트 길이만큼 반복
         $(".typing").append(typingTxt[typingIdx]);
