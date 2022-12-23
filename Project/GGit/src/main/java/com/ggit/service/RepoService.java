@@ -33,6 +33,10 @@ public class RepoService {
         return mapper.pulltoken(map);
     }
 
+    public int getPublic(Map map) {
+        return mapper.getPublic(map);
+    }
+
     public int checkRepo(Map map) {
         return mapper.checkRepo(map);
     }
@@ -106,5 +110,4 @@ public class RepoService {
         return mapper.repoMemCheck(repoVo);
     }
 
-    
 }

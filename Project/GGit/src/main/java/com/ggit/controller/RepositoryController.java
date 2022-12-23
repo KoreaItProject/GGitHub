@@ -136,6 +136,15 @@ public class RepositoryController {
         return 1;
     }
 
+    @RequestMapping("/getPublic")
+    public int getPublic(String nick, String repoName) {
+        Map map = new HashMap<>();
+        map.put("nick", nick);
+        map.put("repoName", repoName);
+
+        return repoService.getPublic(map);
+    }
+
     @RequestMapping("checkRepo")
     public int checkRepo(int owner, String repoName) {
 
@@ -231,7 +240,7 @@ public class RepositoryController {
 
     @RequestMapping("/repoSort")
     public void repoSort(@RequestBody SortData sortData) {// https://wakestand.tistory.com/787 269번 줄
-        
+
         List<RepositoriesVO> list = sortData.getRepo();
         int idx = sortData.getIdx();
 

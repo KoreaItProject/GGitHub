@@ -38,6 +38,8 @@ public interface RepoMapper {
 
     List<RepositoriesVO> selectRepoClone(int repoIdx);
 
+    int getPublic(Map map);
+
     int checkRepo(Map map);
 
     int createRepo(RepoVo repoVo);
@@ -54,5 +56,4 @@ public interface RepoMapper {
 
     RepoVo repoMemCheck(RepoVo repoVo);
 
-    
 }

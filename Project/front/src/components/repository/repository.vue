@@ -8,7 +8,8 @@
                   </svg>
                   <a class="repository_nick" :href='hrefNick'>{{$route.params.nick}}</a>/
                   <a class="repository_name" :href="hrefRepository"> {{$route.params.repository}}</a>
-                  <div class="repository_public"> public </div>
+                  <div class="repository_public" v-if="publ"> public </div>
+                  <div class="repository_public" v-if="!publ"> private </div>
               </div>
               <div class="repository_btn_div">
                 <div v-if="idx != null"> <!-- idx가 null이 아닐때만! 즉, 로그인이 됐으면 보여주고 아니면 안보여주고 -->
@@ -125,10 +126,11 @@ export default {
       tab4_color: "0px",
       tab5_color: "0px",
 
-      pin_btn_state: "", //  pin 버튼 보일지 말지 여부 true/false
-      repo_idx: "",
-      pin_Check: "",
+      pin_btn_state: false, //  pin 버튼 보일지 말지 여부 true/false
+      repo_idx: 0,
+      pin_Check: false,
       isLogin: store.getters.getIsLogin,
+      publ: true,
     };
   },
   computed: {
@@ -177,6 +179,28 @@ export default {
     this.getRepoIdx_RepoMemCheck(); // 저장소 idx 가져온 후 내가 속해있는 저장소인지 확인하자
   },
   methods: {
+    getPublic() {
+      axios
+        .get("/api/getPublic", {
+          params: {
+            nick: this.$route.params.nick,
+            repoName: this.$route.params.repository,
+          },
+        })
+        .then((response) => {
+          // 내가 속한 저장소인지 확인하자
+
+          if (response.data == 0 && !this.pin_btn_state) {
+            window.location.href = "/pagenotfound";
+          } else {
+            if (response.data == 0) {
+              this.publ = false;
+            } else {
+              this.publ = true;
+            }
+          }
+        });
+    },
     pin_btn_click() {
       axios
         .post("/api/pinClick", {
@@ -211,22 +235,25 @@ export default {
           }
           this.repo_idx = response.data; // 저장소 idx 할당
           this.pinCheck(); // 고정이 되어있는 저장소라면 고정(pin)버튼을 고정해제로 바꿔주자
-          if (this.idx != null) {
-            // 로그인이 돼있는 상태라면
-            axios
-              .post("/api/repoMemCheck", {
-                // pin버튼 보일지 말지
-                repo_idx: response.data, // response.data => 저장소 idx
-                u_idx: this.idx,
-              })
-              .then((response) => {
-                if (response.data.idx != undefined) {
-                  this.pin_btn_state = true;
-                } else {
-                  this.pin_btn_state = false;
-                }
-              });
-          } // if문
+          //if (this.idx != null) {
+          // 로그인이 돼있는 상태라면
+          //로그인이 안돼있는 상태에서도 public 인지 아닌지 판단할때 필요한 정보라 if문 뺐음 - 이태현
+          axios
+            .post("/api/repoMemCheck", {
+              // pin버튼 보일지 말지
+              repo_idx: response.data, // response.data => 저장소 idx
+              u_idx: this.idx,
+            })
+            .then((response) => {
+              if (response.data.idx != undefined) {
+                this.pin_btn_state = true;
+              } else {
+                this.pin_btn_state = false;
+              }
+
+              this.getPublic();
+            });
+          //}
         });
     },
     pinCheck() {

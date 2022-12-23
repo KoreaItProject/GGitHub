@@ -17,6 +17,8 @@
     repo,repomem,member where repomem.repo=repo.idx and repo.owner=member.idx and
     repomem.member=${member}; -->
 
+    <select id="getPublic" resultType="int"> select public from repo where owner = (select idx from
+        member where nick=#{nick}) and name = #{repoName} </select>
     <select id="checkRepo" resultType="int"> select count(idx) from repo where owner=${owner} and
         name = #{repoName} </select>
     <insert id="createRepo"> insert into repo(name,public,owner,clone,description)
