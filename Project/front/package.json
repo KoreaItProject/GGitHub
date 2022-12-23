@@ -17,6 +17,7 @@
     "console": "^0.7.2",
     "crypto-js": "^4.1.1",
     "http-proxy-middleware": "^2.0.6",
+    "jquery": "^3.6.3",
     "js-cookie": "^3.0.1",
     "local": "^0.3.3",
     "marked": "^3.0.8",

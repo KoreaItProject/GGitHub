@@ -4,8 +4,9 @@
 
           <div class="download_container1_left">
             <div>
-              <h2>직관적인 UI와 높은 작동성!</h2>
-              
+
+              <h2 class="typing"></h2> 
+             
             </div>
           
             <button
@@ -16,6 +17,8 @@
             >
               낏소스 다운로드
             </button>
+             <p>GGit Hub는</p>
+             <p>GGIT SOURCE 프로그램을 사용하여</p><p>파일을 업로드합니다.</p>
           </div>
           <div class="download_container1_right">
               <img class="img1" src="@/assets/imgs/main/download/img1.png"></img>
@@ -28,6 +31,7 @@
 </template>
 <script>
 import axios from "axios";
+import $ from "jquery";
 export default {
   methods: {
     ggitsourcDownload: function () {
@@ -48,6 +52,33 @@ export default {
           alert("파일 다운로드 실패");
         });
     },
+  },
+  mounted() {
+    var typingBool = false;
+    var typingIdx = 1;
+
+    // 타이핑될 텍스트를 가져온다
+    var typingTxt = "직관적인 UI와 높은 작동성  !  !    GGIT SOURCE";
+
+    typingTxt = typingTxt.split(""); // 한글자씩 자른다.
+
+    if (typingBool == false) {
+      // 타이핑이 진행되지 않았다면
+      typingBool = true;
+      var tyInt = setInterval(typing, 100); // 반복동작
+    }
+
+    function typing() {
+      if (typingIdx < typingTxt.length) {
+        // 타이핑될 텍스트 길이만큼 반복
+        $(".typing").append(typingTxt[typingIdx]);
+        // 한글자씩 이어준다.
+        typingIdx++;
+      } else {
+        //끝나면 반복종료
+        clearInterval(tyInt);
+      }
+    }
   },
 };
 </script>

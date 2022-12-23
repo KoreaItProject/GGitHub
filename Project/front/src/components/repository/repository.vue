@@ -152,33 +152,36 @@ export default {
     "setting-view": setting,
   },
   mounted() {
-    let tab = this.$route.query.tab;
-    if (tab == "history") {
-      if (!this.isLogin) {
-        window.location.href = "/login";
-      }
-      this.isHistory = true;
-      this.tab2_color = "4px";
-    } else if (tab == "pullrequest" && !this.isLogin && pin_btn_state) {
-      this.isPullrequest = true;
-      this.tab3_color = "4px";
-    } else if (tab == "setting" && !this.isLogin && pin_btn_state) {
-      this.isSetting = true;
-      this.tab4_color = "4px";
-    } else if (tab == "myCode") {
-      if (!this.isLogin) {
-        window.location.href = "/login";
-      }
-      this.isMyCode = true;
-      this.tab5_color = "4px";
-    } else {
-      this.isCode = true;
-      this.tab1_color = "4px";
-    }
+    this.getRepoIdx_RepoMemCheck();
 
-    this.getRepoIdx_RepoMemCheck(); // 저장소 idx 가져온 후 내가 속해있는 저장소인지 확인하자
+    // 저장소 idx 가져온 후 내가 속해있는 저장소인지 확인하자
   },
   methods: {
+    tabCheck() {
+      let tab = this.$route.query.tab;
+      if (tab == "history") {
+        if (!this.isLogin) {
+          window.location.href = "/login";
+        }
+        this.isHistory = true;
+        this.tab2_color = "4px";
+      } else if (tab == "pullrequest" && this.isLogin && true) {
+        this.isPullrequest = true;
+        this.tab3_color = "4px";
+      } else if (tab == "setting" && this.isLogin && true) {
+        this.isSetting = true;
+        this.tab4_color = "4px";
+      } else if (tab == "myCode") {
+        if (!this.isLogin) {
+          window.location.href = "/login";
+        }
+        this.isMyCode = true;
+        this.tab5_color = "4px";
+      } else {
+        this.isCode = true;
+        this.tab1_color = "4px";
+      }
+    },
     getPublic() {
       axios
         .get("/api/getPublic", {
@@ -198,6 +201,7 @@ export default {
             } else {
               this.publ = true;
             }
+            this.tabCheck();
           }
         });
     },
