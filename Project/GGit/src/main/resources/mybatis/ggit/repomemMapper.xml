@@ -6,10 +6,8 @@
     </select>
     <insert id="join">
         insert into repomem(repo,member) value(${repo},${member});
-
     </insert>
     <update id="repoSortUpdate">
         UPDATE repomem SET sort = ${sort} where repo=${repo} and member=${member}
-
     </update>
 </mapper>

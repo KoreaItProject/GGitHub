@@ -29,7 +29,7 @@
     </delete>
 
     <select id="getMyPin" resultType="com.ggit.vo.OverViewVo">
-        select repo.idx, repo.name, repo.public, repo.description, repo.nick
+        select pin.idx, repo.name, repo.public, repo.description, repo.nick
         from pin, (SELECT repo.idx, repo.name,
 						 repo.createDate, repo.public, 
                          repo.owner, repo.fork, 
@@ -37,6 +37,15 @@
                          member.nick
 				         FROM repo, member
 				         WHERE repo.owner = member.idx) as repo
-        where pin.repo = repo.idx and pin.member = #{u_idx};
+        where pin.repo = repo.idx and pin.member = #{u_idx}
+        order by sort;
     </select>
+
+    <update id="pinSortUpdate">
+        UPDATE pin SET sort = #{sort_idx} where idx = #{idx} and member=#{u_idx}
+    </update>
+
+    <update id="repoSortUpdate">
+        UPDATE repomem SET sort = ${sort} where repo=${repo} and member=${member}
+    </update>
 </mapper>

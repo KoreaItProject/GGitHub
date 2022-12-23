@@ -22,4 +22,6 @@ public interface OverViewMapper {
     int pinClickOff(OverViewVo overViewVo);
 
     List<OverViewVo> getMyPin(OverViewVo overViewVo);
+
+    void pinSortUpdate(OverViewVo overViewVo);
 }
