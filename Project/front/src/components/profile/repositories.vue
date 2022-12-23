@@ -14,12 +14,12 @@
       
           <div class="repo_list" id ="repo_list">
             <draggable  v-model="repo" @change ="checkMove"   ghost-class="ghost" handle=".handle"  class="list-group"  tag="ul"     v-bind="dragOptions"    @start="drag = true"    @end="drag = false" >             
-              <li class="repo_li" v-for='data in repo' >
-                <a :href="'/'+data.member_nick + '/' + data.repo_name" > 
-                  <div class="repo_info">
+              <li class="repo_li" v-for='data in repo'  >
+               <a :href="'/'+data.member_nick + '/' + data.repo_name"  v-if="!(!newbtn&&data.repo_publ==0)">   <!--내가 이페이지 주인이 아니고 private일때 안보인다 -->
+                  <div class="repo_info" >
                       <div class="repo_name_div" >
-                        {{data.member_nick}} / {{data.repo_name}}
-                        <span></span>
+                        <span class="repo_name">
+                              {{data.member_nick}} / {{data.repo_name}}</span>
                         <span class="repo_public" v-if="data.repo_publ==1">public</span>
                         <span class="repo_public" v-if="data.repo_publ==0">private</span>
                         <span class="repo_move_icon handle" v-if="isdrag">

@@ -1,14 +1,26 @@
 <template lang="">
     <div class="download_templeate">
         <div class = "download_container1">
+
+          <div class="download_container1_left">
+            <div>
+              <h2>직관적인 UI와 높은 작동성!</h2>
+              
+            </div>
+          
             <button
-          type="submit"
-          data-view-component="true"
-          class="btn_download_ggitsource"
-          @click="ggitsourcDownload"
-        >
-          낏소스 다운로드
-        </button>
+              type="submit"
+              data-view-component="true"
+              class="btn_download_ggitsource"
+              @click="ggitsourcDownload"
+            >
+              낏소스 다운로드
+            </button>
+          </div>
+          <div class="download_container1_right">
+              <img class="img1" src="@/assets/imgs/main/download/img1.png"></img>
+          </div>
+           
 
         </div>
         
