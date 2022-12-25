@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
@@ -205,12 +206,20 @@ public class RepositoryController {
         new CopyFile().copy(new File(storage_dir + "repositorys/" + repoidx + "/" + token),
                 targFile);
 
+        new File(storage_dir + "repositorys/" + repoidx + "/" + token + "/dump/pushChanged1.txt").delete();
+        new File(storage_dir + "repositorys/" + repoidx + "/" + token + "/dump/pushChanged2.txt").delete();
+        new WriteData(storage_dir + "repositorys/" + repoidx + "/" + token + "/dump/pushChanged1.txt")
+                .write("[]");
+        new WriteData(storage_dir + "repositorys/" + repoidx + "/" + token + "/dump/pushChanged2.txt")
+                .write("[]");
+
         pushVo.setToken(newToken);
         pushVo.setMember(Integer.parseInt(member));
         pushVo.setRepo(repoidx);
         pushVo.setMessage("메인 저장소에서 가져옴");
         pushVo.setBranch(Integer.parseInt(member));
         pushVo.setBefore_token(token);
+        pushVo.setFromMain(1);
         pushService.push(pushVo);
 
         return changeSelected(newToken, repo, member, ownerNick);
@@ -493,16 +502,11 @@ public class RepositoryController {
 
     @RequestMapping("/getHistoryChanged")
     public JSONArray getHistoryChanged(int repo, String token) {
-
         JSONArray changed = null;
-        String con = new ReadData(storage_dir + "repositorys\\" + repo + "\\" + token + "\\dump\\pushData.txt")
-                .getCon();
-        JSONObject obj;
         try {
-            obj = (JSONObject) (new JSONParser()).parse(con);
-
-            changed = (JSONArray) obj.get("changed");
-
+            String con = new ReadData(storage_dir + "repositorys\\" + repo + "\\" + token + "\\dump\\pushChanged1.txt")
+                    .getCon();
+            changed = (JSONArray) (new JSONParser()).parse(con);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

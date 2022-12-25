@@ -28,4 +28,6 @@ public class PushVo {
 
     int selected;
 
+    int fromMain = 0;
+
 }

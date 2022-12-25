@@ -398,33 +398,29 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
 
             }
             for (int i = 0; i < addPush.size(); i++) {
-                String str = "{\"date\":\"" + nowTime + "\",\"path\":\"" + addPush.get(i) + "\",\"message\": \""
-                        + pushMsg
-                                .getText()
-                        + "\",}";
-                JSONObject jsonObj1 = (JSONObject) parser.parse(str);
-                pushData.add(jsonObj1);
+
+                pushData.add((JSONObject) parser
+                        .parse("{\"date\":\"" + nowTime + "\",\"path\":\"" + addPush.get(i) + "\",\"message\": \""
+                                + pushMsg
+                                        .getText()
+                                + "\",}"));
+
                 pushChanged2
                         .add((JSONObject) parser.parse("{\"path\":\"" + addPush.get(i) + "\",\"state\":\"add\"}"));
             }
 
-            String changestr;
-            JSONObject jo;
-
             for (int i = 0; i < addPush.size(); i++) {
-                changestr = "{\"path\":\"" + addPush.get(i) + "\",\"state\":\"add\"}";
-                jo = (JSONObject) parser.parse(changestr);
-                pushChanged.add(jo);
+
+                pushChanged.add((JSONObject) parser.parse("{\"path\":\"" + addPush.get(i) + "\",\"state\":\"add\"}"));
             }
             for (int i = 0; i < changePush.size(); i++) {
-                changestr = "{\"path\":\"" + changePush.get(i) + "\",\"state\":\"change\"}";
-                jo = (JSONObject) parser.parse(changestr);
-                pushChanged.add(jo);
+
+                pushChanged.add(
+                        (JSONObject) parser.parse("{\"path\":\"" + changePush.get(i) + "\",\"state\":\"change\"}"));
             }
             for (int i = 0; i < delPush.size(); i++) {
-                changestr = "{\"path\":\"" + delPush.get(i) + "\",\"state\":\"del\"}";
-                jo = (JSONObject) parser.parse(changestr);
-                pushChanged.add(jo);
+
+                pushChanged.add((JSONObject) parser.parse("{\"path\":\"" + delPush.get(i) + "\",\"state\":\"del\"}"));
             }
 
             new WritePushData(clientPath + "/.ggit/.repo/file/dump/pushData.txt")

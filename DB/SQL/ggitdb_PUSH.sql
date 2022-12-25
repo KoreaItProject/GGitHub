@@ -31,6 +31,7 @@ CREATE TABLE `push` (
   `branch` int NOT NULL DEFAULT '0' COMMENT '브랜치 번호  (0은 메인)',
   `before_token` varchar(45) DEFAULT NULL COMMENT 'pull했던 토큰 값 / ex)sjg3125qs',
   `selected` varchar(45) DEFAULT '0',
+  `fromMain` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`token`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -41,7 +42,7 @@ CREATE TABLE `push` (
 
 LOCK TABLES `push` WRITE;
 /*!40000 ALTER TABLE `push` DISABLE KEYS */;
-INSERT INTO `push` VALUES ('07a8c34k0a20ak9',1,2,'업데이트됨','2022-12-19 04:55:03',1,'siwlc45e1g45d87','0'),('1x0l85dg45f9150',2,52,'저장소 생성','2022-12-21 01:47:03',0,NULL,'0'),('4e76g094jppe4qj',2,1,'메인 저장소에서 가져옴','2022-12-21 03:41:08',2,'puhdj7wu628iety','1'),('542de5i0fmzc36y',1,2,'dd','2022-12-22 02:22:21',1,'siwlc45e1g45d87','0'),('58b67b6k4551gqz',1,2,'제발','2022-12-22 02:28:47',1,'siwlc45e1g45d87','1'),('5k20hjf9k642g03',1,4,'저장소 생성','2022-12-19 02:09:33',0,NULL,'0'),('67ak09q6sr38567',1,1,'메인 저장소에서 가져옴','2022-12-20 03:28:59',1,'puhdj7wu628iety','1'),('9k6p0bow1701ocr',1,2,'gggg','2022-12-19 07:22:21',1,'siwlc45e1g45d87','0'),('9vufu5e8f9zklyd',2,1,'메인 저장소에서 가져옴','2022-12-21 03:41:11',2,'puhdj7wu628iety','0'),('c0ac9n2dost56ih',1,2,'fgdfg','2022-12-19 07:21:22',1,'siwlc45e1g45d87','0'),('puhdj7wu628iety',1,1,'저장소 생성','2022-12-16 05:00:07',0,NULL,'0'),('sefg8yrz38r85r8',1,50,'저장소 생성','2022-12-20 02:25:01',0,NULL,'0'),('siwlc45e1g45d87',2,2,'저장소 생성','2022-11-17 06:24:38',0,NULL,'0'),('t309s7sm3x224i5',2,2,'메인 저장소에서 가져옴','2022-12-21 03:31:53',2,'siwlc45e1g45d87','1'),('tf1x83wn0oe084o',1,51,'저장소 생성','2022-12-20 07:19:07',0,NULL,'0'),('za84vbed01blram',3,3,'저장소 생성','2022-10-21 05:21:19',0,NULL,'0');
+INSERT INTO `push` VALUES ('223hl46xfrpn6l3',1,1,'새폴더 안에 새폴더 삭제 텍스트 수정','2022-12-25 14:03:04',1,'puhdj7wu628iety','1',0),('36ocvtf40278t7d',1,1,'새폴더 안에 텍스트와 새폴더 추가','2022-12-25 14:02:34',1,'puhdj7wu628iety','0',0),('5k20hjf9k642g03',1,4,'저장소 생성','2022-12-19 02:09:33',0,NULL,'0',0),('8ty741l691243e9',1,60,'저장소 생성','2022-12-25 14:04:01',0,NULL,'0',0),('puhdj7wu628iety',1,1,'저장소 생성','2022-12-16 05:00:07',0,NULL,'0',0),('siwlc45e1g45d87',2,2,'저장소 생성','2022-11-17 06:24:38',0,NULL,'0',0),('t3nyt5313sumkiq',1,1,'새폴더 만듬','2022-12-25 14:02:13',1,'puhdj7wu628iety','0',0),('za84vbed01blram',3,3,'저장소 생성','2022-10-21 05:21:19',0,NULL,'0',0);
 /*!40000 ALTER TABLE `push` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-22 12:18:12
+-- Dump completed on 2022-12-25 23:06:31
