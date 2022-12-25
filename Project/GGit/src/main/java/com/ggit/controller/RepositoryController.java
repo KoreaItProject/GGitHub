@@ -120,13 +120,13 @@ public class RepositoryController {
 
             String con = new ReadData(
                     storage_dir + "repositorys/" + repoVo.getIdx() + "/" + token + "/dump/pushData.txt").getCon();
-            JSONObject jObject = (JSONObject) new JSONParser().parse(con);
-            JSONArray pushData = (JSONArray) jObject.get("data");
+
+            JSONArray pushData = (JSONArray) new JSONParser().parse(con);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String nowTime = sdf.format(new Date()).toString();
             ((JSONObject) (pushData.get(0))).replace("date", nowTime);
             new WriteData(storage_dir + "repositorys/" + repoVo.getIdx() + "/" + token + "/dump/pushData.txt")
-                    .write(jObject.toString());
+                    .write(pushData.toString());
 
         } catch (ParseException e) {
             // TODO Auto-generated catch block
@@ -344,8 +344,8 @@ public class RepositoryController {
 
         JSONParser parser = new JSONParser();
         try {
-            JSONObject obj = (JSONObject) parser.parse(con);
-            JSONArray data = (JSONArray) obj.get("data");
+            JSONArray data = (JSONArray) parser.parse(con);
+
             String searchStr = "/README.md";
 
             if (folder.isFile()) {

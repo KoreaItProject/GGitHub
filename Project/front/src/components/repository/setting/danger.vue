@@ -1,7 +1,6 @@
 <template lang="">
     <div>
-        <h1 style="margin-bottom: 26px"> 기타 설정 </h1>
-        <hr style="margin-bottom: 20px">
+  <div class="general_string">위험요소</div>
         <div class="danger_div_box">
             <li
             style="list-style:none;
@@ -52,9 +51,7 @@
     </div>
 </template>
 <script>
-export default {
-    
-}
+export default {};
 </script>
 <style lang="sass">
 @import 'src/assets/sass/repository/setting/danger'
