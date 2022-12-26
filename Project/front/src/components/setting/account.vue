@@ -53,125 +53,125 @@
 </template>
 <script>
 import axios from "axios";
-import { log } from 'console';
+import { log } from "console";
 import jsCookie from "js-cookie";
 import store from "../../vuex/store";
-import vue_cookie from 'vue-cookies';
-import router from '../../router';
+import vue_cookie from "vue-cookies";
+import router from "../../router";
 
 export default {
-    data(){
-        return{
-            pw_first: "", // 계정 탭 - 진입 전 비밀번호 입력 데이터
-            pw_second: "", // 계정 탭 - 진입 전 비밀번호 확인 입력 데이터
-            pw_check_ok: 1, // 비밀번호 일치시 1 (default : 0)
-            pw_update_input: '', // 비밀번호 변경 데이터(유저가 입력한 pw 데이터)
-            check_display: "display:none;", // 일치합니다 표시 데이터
-            pw_diff_check_bool: false
-        };
-    },
-    methods: {
-        pw_diff_check(e) {
-            if(e.target.value == ""){
-                this.check_display = "display:none;";
-                this.pw_diff_check_bool = false;
-            }else{
-                if(this.pw_first == e.target.value){
-                    this.check_display = "display:inline;";
-                    this.pw_diff_check_bool = true;
-                }else{
-                    this.check_display = "display:none;";
-                    this.pw_diff_check_bool = false;
-                }
-            }
-        },
-        pw_diff_check2(e){
-            if(e.target.value == ""){
-                this.check_display = "display:none;"
-                this.pw_diff_check_bool = false;
-            }else{
-                if(this.pw_second == e.target.value){
-                    this.check_display = "display:inline;"
-                    this.pw_diff_check_bool = true;
-                }else{
-                    this.check_display = "display:none;"
-                    this.pw_diff_check_bool = false;
-                }
-            }
-        },
-        onSubmitPasswordCheck(){
-            if(this.pw_first == "" || this.pw_second == ""){
-                alert("빈칸을 채워주세요");
-            }else if(this.pw_diff_check_bool == false){
-                alert("비밀번호가 일치하지 않습니다!");
-                this.$refs.ref_pw_second.focus();
-            }else{
-                console.log("---->" + this.pw_second);
-                axios.post('/api/setting_check_pw', {
-                    pw : this.pw_second,
-                    idx : store.getters.getUserIdx
-                })
-                .then( response =>{
-                    if(response.data.idx == null){
-                        alert("비밀번호 불일치");
-                        this.$refs.ref_pw_second.focus();
-                    }else{
-                        alert("비밀번호 일치");
-                        this.pw_check_ok = 1;
-                    }
-                    
-                })
-            }
-        },
-        user_del(){
-            if(confirm("탈퇴 하시겠습니까?") == true){
-                axios.post('/api/user_del', {
-                    idx: store.getters.getUserIdx
-                })
-                .then(response => {
-                    //console.log(response.data);
-                    if(response.data == 1){
-                        alert("정상 탈퇴");
-                        this.$cookies.remove('nick');
-                        this.$cookies.remove('isLogin');
-                        this.$cookies.remove('idx');
-                        location.href="/";
-                    }else{
-                        alert("탈퇴 안됨");
-                    }
-                })
-            }else{
-                alert("취소 누름");
-            }
-        },
-        onSubmitPasswordUpdate(){
-            if(this.pw_update_input == ""){
-                alert("빈칸을 채워주세요!");
-            }else{
-                if(confirm("비밀번호를 변경하시겠습니까?") == true){
-                    axios.post('/api/user_pw_update',{
-                        idx: store.getters.getUserIdx,
-                        pw: this.pw_update_input
-                    })
-                    .then(response => {
-                        if(response.data > 0){
-                            alert("비밀번호를 변경 성공!");
-                            this.pw_update_input = "";
-                        }else{
-                            alert("비밀번호 변경 실패");
-                            this.$refs.ref_pw_update_input.focus();
-                        }
-                    })
-                }else{ 
-                    // ...
-                }
-            }
-            
+  data() {
+    return {
+      pw_first: "", // 계정 탭 - 진입 전 비밀번호 입력 데이터
+      pw_second: "", // 계정 탭 - 진입 전 비밀번호 확인 입력 데이터
+      pw_check_ok: 1, // 비밀번호 일치시 1 (default : 0)
+      pw_update_input: "", // 비밀번호 변경 데이터(유저가 입력한 pw 데이터)
+      check_display: "display:none;", // 일치합니다 표시 데이터
+      pw_diff_check_bool: false,
+    };
+  },
+  methods: {
+    pw_diff_check(e) {
+      if (e.target.value == "") {
+        this.check_display = "display:none;";
+        this.pw_diff_check_bool = false;
+      } else {
+        if (this.pw_first == e.target.value) {
+          this.check_display = "display:inline;";
+          this.pw_diff_check_bool = true;
+        } else {
+          this.check_display = "display:none;";
+          this.pw_diff_check_bool = false;
         }
-     
-    }
+      }
+    },
+    pw_diff_check2(e) {
+      if (e.target.value == "") {
+        this.check_display = "display:none;";
+        this.pw_diff_check_bool = false;
+      } else {
+        if (this.pw_second == e.target.value) {
+          this.check_display = "display:inline;";
+          this.pw_diff_check_bool = true;
+        } else {
+          this.check_display = "display:none;";
+          this.pw_diff_check_bool = false;
+        }
+      }
+    },
+    onSubmitPasswordCheck() {
+      if (this.pw_first == "" || this.pw_second == "") {
+        alert("빈칸을 채워주세요");
+      } else if (this.pw_diff_check_bool == false) {
+        alert("비밀번호가 일치하지 않습니다!");
+        this.$refs.ref_pw_second.focus();
+      } else {
+        console.log("---->" + this.pw_second);
+        axios
+          .post("/api/setting_check_pw", {
+            pw: this.pw_second,
+            idx: store.getters.getUserIdx,
+          })
+          .then((response) => {
+            if (response.data.idx == null) {
+              alert("비밀번호 불일치");
+              this.$refs.ref_pw_second.focus();
+            } else {
+              alert("비밀번호 일치");
+              this.pw_check_ok = 1;
+            }
+          });
+      }
+    },
+    user_del() {
+      if (confirm("탈퇴 하시겠습니까?") == true) {
+        axios
+          .post("/api/user_del", {
+            idx: store.getters.getUserIdx,
+          })
+          .then((response) => {
+            //console.log(response.data);
+            if (response.data == 1) {
+              alert("정상 탈퇴");
+              this.$cookies.remove("nick");
+              this.$cookies.remove("isLogin");
+              this.$cookies.remove("idx");
+              location.href = "/";
+            } else {
+              alert("탈퇴 안됨");
+            }
+          });
+      } else {
+        alert("취소 누름");
+      }
+    },
+    onSubmitPasswordUpdate() {
+      if (this.pw_update_input == "") {
+        alert("빈칸을 채워주세요!");
+      } else {
+        if (confirm("비밀번호를 변경하시겠습니까?") == true) {
+          axios
+            .post("/api/user_pw_update", {
+              idx: store.getters.getUserIdx,
+              pw: this.pw_update_input,
+            })
+            .then((response) => {
+              if (response.data > 0) {
+                alert("비밀번호를 변경 성공!");
+                this.pw_update_input = "";
+              } else {
+                alert("비밀번호 변경 실패");
+                this.$refs.ref_pw_update_input.focus();
+              }
+            });
+        } else {
+          // ...
+        }
+      }
+    },
+  },
 };
 </script>
 <style lang="sass">
-    @import 'src/assets/sass/setting/account.sass'
+@import 'src/assets/sass/setting/account.sass'
 </style>

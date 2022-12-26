@@ -37,7 +37,8 @@
                    
                 </div>
                  <div style="text-align:center;;width:100%;padding:5px 0">
-                    <font-awesome-icon icon="fa-solid fa-arrow-up" />
+                    <font-awesome-icon icon="fa-solid fa-arrow-up" v-if="data.fromMain==0"/>
+                    <font-awesome-icon icon="fa-solid fa-arrow-right" v-if="data.fromMain==1"/>
                   </div> 
               </div>
               <div class="repository_history_table" style="padding:5px 0;text-align:center">

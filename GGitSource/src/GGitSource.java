@@ -354,11 +354,11 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String nowTime = sdf.format(new Date()).toString();
 
-            String con = new ReadPushData(clientPath + "/.ggit/.repo/file/dump/pushData.txt").getCon();
+            String pushDataCon = new ReadPushData(clientPath + "/.ggit/.repo/file/dump/pushData.txt").getCon();
+            JSONArray pushData = (JSONArray) parser.parse(pushDataCon);
+            String pushChanged2Con = new ReadPushData(clientPath + "/.ggit/.repo/file/dump/pushChanged2.txt").getCon();
+            JSONArray pushChanged2 = (JSONArray) parser.parse(pushChanged2Con);
 
-            JSONObject jsonObject = (JSONObject) parser.parse(con);
-
-            JSONArray pushData = (JSONArray) jsonObject.get("data");
             JSONArray pushChanged = new JSONArray();
 
             for (int i = 0; i < delPush.size(); i++) {
@@ -370,6 +370,14 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                     }
                 }
 
+                for (int j = 0; j < pushChanged2.size(); j++) {
+                    if (((JSONObject) pushChanged2.get(j)).get("path").equals(delPush.get(i))) {
+                        pushChanged2.remove(j);
+                    }
+                }
+                pushChanged2
+                        .add((JSONObject) parser.parse("{\"path\":\"" + delPush.get(i) + "\",\"state\":\"del\"}"));
+
             }
             for (int i = 0; i < changePush.size(); i++) {
 
@@ -380,40 +388,47 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                         ((JSONObject) pushData.get(j)).replace("message", pushMsg.getText());
                     }
                 }
+                for (int j = 0; j < pushChanged2.size(); j++) {
+                    if (((JSONObject) pushChanged2.get(j)).get("path").equals(changePush.get(i))) {
+                        pushChanged2.remove(j);
+                    }
+                }
+                pushChanged2
+                        .add((JSONObject) parser.parse("{\"path\":\"" + delPush.get(i) + "\",\"state\":\"change\"}"));
 
             }
             for (int i = 0; i < addPush.size(); i++) {
-                String str = "{\"date\":\"" + nowTime + "\",\"path\":\"" + addPush.get(i) + "\",\"message\": \""
-                        + pushMsg
-                                .getText()
-                        + "\",}";
-                JSONObject jsonObj1 = (JSONObject) parser.parse(str);
-                pushData.add(jsonObj1);
-            }
-            jsonObject.remove("changed");
 
-            String changestr;
-            JSONObject jo;
+                pushData.add((JSONObject) parser
+                        .parse("{\"date\":\"" + nowTime + "\",\"path\":\"" + addPush.get(i) + "\",\"message\": \""
+                                + pushMsg
+                                        .getText()
+                                + "\",}"));
+
+                pushChanged2
+                        .add((JSONObject) parser.parse("{\"path\":\"" + addPush.get(i) + "\",\"state\":\"add\"}"));
+            }
 
             for (int i = 0; i < addPush.size(); i++) {
-                changestr = "{\"path\":\"" + addPush.get(i) + "\",\"state\":\"add\"}";
-                jo = (JSONObject) parser.parse(changestr);
-                pushChanged.add(jo);
+
+                pushChanged.add((JSONObject) parser.parse("{\"path\":\"" + addPush.get(i) + "\",\"state\":\"add\"}"));
             }
             for (int i = 0; i < changePush.size(); i++) {
-                changestr = "{\"path\":\"" + changePush.get(i) + "\",\"state\":\"change\"}";
-                jo = (JSONObject) parser.parse(changestr);
-                pushChanged.add(jo);
+
+                pushChanged.add(
+                        (JSONObject) parser.parse("{\"path\":\"" + changePush.get(i) + "\",\"state\":\"change\"}"));
             }
             for (int i = 0; i < delPush.size(); i++) {
-                changestr = "{\"path\":\"" + delPush.get(i) + "\",\"state\":\"del\"}";
-                jo = (JSONObject) parser.parse(changestr);
-                pushChanged.add(jo);
+
+                pushChanged.add((JSONObject) parser.parse("{\"path\":\"" + delPush.get(i) + "\",\"state\":\"del\"}"));
             }
-            jsonObject.put("changed", pushChanged);
 
             new WritePushData(clientPath + "/.ggit/.repo/file/dump/pushData.txt")
-                    .write((jsonObject + ""));
+                    .write((pushData + ""));
+            new WritePushData(clientPath + "/.ggit/.repo/file/dump/pushChanged1.txt")
+                    .write((pushChanged + ""));
+            new WritePushData(clientPath + "/.ggit/.repo/file/dump/pushChanged2.txt")
+                    .write((pushChanged2 + ""));
 
             System.out.println(123);
 

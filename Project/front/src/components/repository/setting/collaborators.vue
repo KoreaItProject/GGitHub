@@ -2,8 +2,8 @@
   
 </template><template lang="">
       <div class="collaborators_main_layout">
-        <h1>구성원</h1>
-        <hr class="collabo_hr">
+        <div class="general_string">구성원</div>
+
         <div class="collaborators_invite">
             <div class="invite_string">
                 구성원 초대
@@ -51,27 +51,27 @@
 </template>
 <script>
 export default {
-    data(){
-        return{
-            collaborators_list: "display:none;",
-            repo_name:"",
-            repo_mem:["a"],
-            test1: false
-        };
+  data() {
+    return {
+      collaborators_list: "display:none;",
+      repo_name: "",
+      repo_mem: ["a"],
+      test1: false,
+    };
+  },
+  mounted() {
+    this.test();
+  },
+  methods: {
+    test() {
+      if (this.repo_mem.length == 0) {
+        this.collaborators_list = "display:none;";
+      } else {
+        this.collaborators_list = "display:inline;";
+      }
     },
-    mounted(){
-        this.test();
-    },
-    methods:{
-        test(){
-            if(this.repo_mem.length == 0){
-                this.collaborators_list = "display:none;";
-            }else{
-                this.collaborators_list = "display:inline;";
-            }
-        }
-    }
-}
+  },
+};
 </script>
 <style lang="sass">
 @import 'src/assets/sass/repository/setting/collaborators'

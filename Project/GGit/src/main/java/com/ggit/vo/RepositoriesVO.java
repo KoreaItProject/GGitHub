@@ -1,12 +1,8 @@
 package com.ggit.vo;
 
-import org.springframework.beans.factory.annotation.Autowire;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 @Data
 @Component
@@ -44,6 +40,7 @@ public class RepositoriesVO {
     String push_date;
     int selected;
     String before_token;
+    int fromMain = 0;
     // 커밋수
     int commits;
 

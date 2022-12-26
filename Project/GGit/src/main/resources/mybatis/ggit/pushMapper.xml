@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ggit.db.mapper.PushMapper">
-    <insert id="push">
-        insert into push(token,member,repo,message,branch,before_token) value(#{token},${member},${repo},#{message},${branch},#{before_token})
-    </insert>
+    <insert id="push"> insert into push(token,member,repo,message,branch,before_token,fromMain)
+        value(#{token},${member},${repo},#{message},${branch},#{before_token},${fromMain}) </insert>
 
-    <update id="delsel">
-        update push set selected = 0
-        where repo=${repo} and branch=${member} 
-    </update>
-    <update id="insel">
-         update push set selected = 1
-        where token = #{token}
-    </update>
+    <update id="delsel"> update push set selected = 0 where repo=${repo} and branch=${member} </update>
+    <update id="insel"> update push set selected = 1 where token = #{token} </update>
 
 </mapper>
