@@ -61,7 +61,7 @@ public class OverViewController {
     @RequestMapping("/pinSort")
     public void repoSort(@RequestBody PinSortData pinsSortData) {
         
-
+    
         List<OverViewVo> list = pinsSortData.getpinsdata();
         //System.out.println(list);
 
