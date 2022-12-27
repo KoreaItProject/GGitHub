@@ -86,8 +86,6 @@ public class SearchController {
 
         List<RepositoriesVO> list = null;
         if (member != null) {
-            System.out.println(member);
-            System.out.println(search);
 
             Map<String, String> map = new HashMap<String, String>();
             map.put("member", member);

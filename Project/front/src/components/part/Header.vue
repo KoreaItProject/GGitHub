@@ -14,10 +14,16 @@
               :value="searchText"
               placeholder="검색어를 입력하세요"
               @input="searchInput"
+              @focus="searchInput"
+              ref="search"
             />
             <input type="submit" hidden />
           </form>
-          <div class="header_search_info" v-show="searchInfo">
+          <div
+            class="header_search_info"
+            v-if="searchInfo"
+            @click="searchInfo = flase"
+          >
             <div
               class="header_search_info_div"
               v-for="data in searchInfoCon"
@@ -74,6 +80,11 @@ export default {
     };
   },
   methods: {
+    onClick(e) {
+      if (e.target != this.$refs.search) {
+        this.searchInfo = false;
+      }
+    },
     Logout: function () {
       this.$cookies.remove("idx");
       this.$cookies.remove("isLogin");
@@ -113,13 +124,6 @@ export default {
           // handle success
 
           this.nick = response.data;
-        })
-        .catch((error) => {
-          // handle error
-          console.log(error);
-        })
-        .finally(() => {
-          // always executed
         });
     },
     getImg() {
@@ -143,20 +147,14 @@ export default {
               this.profileImg = window.URL.createObjectURL(
                 new Blob([response.data])
               );
-              console.log(response.data);
             });
-        })
-        .catch((error) => {
-          // handle error
-          console.log(error);
-        })
-        .finally(() => {
-          // always executed
         });
     },
   },
   mounted() {
+    window.addEventListener("click", this.onClick);
     this.islogin = store.getters.getIsLogin;
+
     if (this.islogin) {
       this.getNick();
       this.getImg();
