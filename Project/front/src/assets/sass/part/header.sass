@@ -37,7 +37,7 @@ $line-color: #d0d7de
         .header_search
             border-radius: 6px
 
-            height: 28px
+            height: 30px
             width: 145px
             border: 0.25px solid $line-color
             margin: 8px 0px 0px 0px
@@ -55,6 +55,8 @@ $line-color: #d0d7de
                 color: white
             &:focus
                 width: 350px
+                ~ .header_search_info
+                    visibility: visible
 
         .header_search_info
             border-bottom-left-radius: 6px
@@ -64,13 +66,19 @@ $line-color: #d0d7de
             width: 350px
             margin-top: -5px
             background-color: white
-            padding-top: 10px
+            padding-top: 5px
             font-size: 15px
-
+            visibility: hidden
+            &:hover
+                visibility: visible
             .header_search_info_div
                 width: 100%
-                padding: 10px 10px
+                padding: 13px
                 border-top: 1px solid $line-color
+                display: block
+
+                &:hover
+                    background: rgb(246, 248, 250,0.5 )
 
     .header_right_div
 

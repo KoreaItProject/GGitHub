@@ -52,6 +52,11 @@ export default new Router({
       component: () => import("@/components/setting/setting")
     },
     {
+      path: "/search",
+      name: "search",
+      component: () => import("@/components/search/search")
+    },
+    {
       path: "/:nick",
       name: "profile",
       component: () => import("@/components/profile/profile")

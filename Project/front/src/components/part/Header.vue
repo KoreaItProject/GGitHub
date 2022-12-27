@@ -6,8 +6,8 @@
           <img class="logo" src="@/assets/imgs/logo/logo.png" />
           <span class="header_logo_text">GGit</span>
         </a>
-        <div class="header_search_div">
-          <form>
+        <form action="search">
+          <div class="header_search_div">
             <input
               class="header_search"
               type="search"
@@ -16,26 +16,27 @@
               @input="searchInput"
               @focus="searchInput"
               ref="search"
+              name="keyword"
+              autocomplete="off"
             />
             <input type="submit" hidden />
-          </form>
-          <div
-            class="header_search_info"
-            v-if="searchInfo"
-            @click="searchInfo = flase"
-          >
+
             <div
-              class="header_search_info_div"
-              v-for="data in searchInfoCon"
-              :key="data"
+              class="header_search_info"
+              v-if="searchInfo"
+              @click="searchInfo = flase"
             >
-              <a :href="'/' + data.member_nick + '/' + data.repo_name">
+              <a
+                class="header_search_info_div"
+                v-for="data in searchInfoCon"
+                :key="data"
+                :href="'/' + data.member_nick + '/' + data.repo_name"
+              >
                 {{ data.member_nick }} / {{ data.repo_name }}
               </a>
             </div>
           </div>
-        </div>
-
+        </form>
         <!-- 로그인 됐을때 -->
         <div class="header_right_div" v-if="islogin">
           <img :src="profileImg" class="header_profile_img" />
@@ -93,8 +94,6 @@ export default {
     },
     searchInput(e) {
       this.searchText = e.target.value;
-
-      this.searchInfo = false;
 
       axios
         .get("/api/searchSimple", {
