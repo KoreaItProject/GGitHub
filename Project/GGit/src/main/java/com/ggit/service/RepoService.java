@@ -110,4 +110,8 @@ public class RepoService {
         return mapper.repoMemCheck(repoVo);
     }
 
+    public List<RepositoriesVO> searchSimple(Map map) {
+        return mapper.searchSimple(map);
+    }
+
 }

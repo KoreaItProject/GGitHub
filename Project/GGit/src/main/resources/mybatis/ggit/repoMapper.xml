@@ -103,5 +103,10 @@
     <select id="repoMemCheck" resultType="com.ggit.vo.RepoVo"> select * from repomem where repo =
         #{repo_idx} and member = #{u_idx}; </select>
 
+    <select id="searchSimple" resultType="com.ggit.vo.RepositoriesVO"> select repo.name as
+        repo_name,member.nick as member_nick from repo,repomem,member where repo.idx = repomem.repo
+        and repomem.member = ${member} and repo.owner = member.idx and ( member.nick like
+        '%${search}%' or repo.name like '%${search}%') limit 10</select>
+
 
 </mapper>

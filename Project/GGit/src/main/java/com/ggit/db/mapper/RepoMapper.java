@@ -56,4 +56,6 @@ public interface RepoMapper {
 
     RepoVo repoMemCheck(RepoVo repoVo);
 
+    List<RepositoriesVO> searchSimple(Map map);
+
 }

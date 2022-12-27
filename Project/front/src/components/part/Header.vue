@@ -6,6 +6,29 @@
           <img class="logo" src="@/assets/imgs/logo/logo.png" />
           <span class="header_logo_text">GGit</span>
         </a>
+        <div class="header_search_div">
+          <form>
+            <input
+              class="header_search"
+              type="search"
+              :value="searchText"
+              placeholder="검색어를 입력하세요"
+              @input="searchInput"
+            />
+            <input type="submit" hidden />
+          </form>
+          <div class="header_search_info" v-show="searchInfo">
+            <div
+              class="header_search_info_div"
+              v-for="data in searchInfoCon"
+              :key="data"
+            >
+              <a :href="'/' + data.member_nick + '/' + data.repo_name">
+                {{ data.member_nick }} / {{ data.repo_name }}
+              </a>
+            </div>
+          </div>
+        </div>
 
         <!-- 로그인 됐을때 -->
         <div class="header_right_div" v-if="islogin">
@@ -42,9 +65,12 @@ import store from "../../vuex/store";
 export default {
   data() {
     return {
+      searchInfoCon: {},
       islogin: false,
       nick: "",
       profileImg: null,
+      searchText: "",
+      searchInfo: false,
     };
   },
   methods: {
@@ -53,6 +79,27 @@ export default {
       this.$cookies.remove("isLogin");
       this.$cookies.remove("nick");
       window.location.href = "";
+    },
+    searchInput(e) {
+      this.searchText = e.target.value;
+      if (this.searchText == "" || store.getters.getUserIdx == null) {
+        this.searchInfo = false;
+      } else {
+        this.searchInfo = true;
+        axios
+          .get("/api/searchSimple", {
+            params: {
+              member: store.getters.getUserIdx,
+              search: this.searchText,
+            },
+          })
+          .then((response) => {
+            this.searchInfoCon = response.data;
+            if (response.data == "") {
+              this.searchInfo = false;
+            }
+          });
+      }
     },
 
     getNick() {
