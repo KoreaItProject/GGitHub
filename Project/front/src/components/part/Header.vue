@@ -93,24 +93,24 @@ export default {
     },
     searchInput(e) {
       this.searchText = e.target.value;
-      if (this.searchText == "" || store.getters.getUserIdx == null) {
-        this.searchInfo = false;
-      } else {
-        this.searchInfo = true;
-        axios
-          .get("/api/searchSimple", {
-            params: {
-              member: store.getters.getUserIdx,
-              search: this.searchText,
-            },
-          })
-          .then((response) => {
-            this.searchInfoCon = response.data;
-            if (response.data == "") {
-              this.searchInfo = false;
-            }
-          });
-      }
+
+      this.searchInfo = false;
+
+      axios
+        .get("/api/searchSimple", {
+          params: {
+            member: store.getters.getUserIdx,
+            search: this.searchText,
+          },
+        })
+        .then((response) => {
+          this.searchInfoCon = response.data;
+          if (response.data == "") {
+            this.searchInfo = false;
+          } else {
+            this.searchInfo = true;
+          }
+        });
     },
 
     getNick() {
