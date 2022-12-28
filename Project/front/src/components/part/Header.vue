@@ -6,7 +6,7 @@
           <img class="logo" src="@/assets/imgs/logo/logo.png" />
           <span class="header_logo_text">GGit</span>
         </a>
-        <form action="search">
+        <form :action="'search?tab=' + tab">
           <div class="header_search_div">
             <input
               class="header_search"
@@ -78,6 +78,7 @@ export default {
       profileImg: null,
       searchText: "",
       searchInfo: false,
+      tab: this.$route.query.tab,
     };
   },
   methods: {
