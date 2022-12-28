@@ -6,7 +6,7 @@
           <img class="logo" src="@/assets/imgs/logo/logo.png" />
           <span class="header_logo_text">GGit</span>
         </a>
-        <form :action="'search?tab=' + tab">
+        <form :action="'/search?tab=' + tab">
           <div class="header_search_div">
             <input
               class="header_search"
@@ -82,11 +82,6 @@ export default {
     };
   },
   methods: {
-    onClick(e) {
-      if (e.target != this.$refs.search) {
-        this.searchInfo = false;
-      }
-    },
     Logout: function () {
       this.$cookies.remove("idx");
       this.$cookies.remove("isLogin");

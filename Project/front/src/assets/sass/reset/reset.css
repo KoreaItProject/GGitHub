@@ -425,3 +425,8 @@ body::-webkit-scrollbar-track , .scrollBar::-webkit-scrollbar-track{
   
  }
 
+ .blue_point{
+    color:#4f6c9c !important;
+    font-family: 'Noto Sans KR', sans-serif
+ }
+

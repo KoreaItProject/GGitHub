@@ -28,7 +28,7 @@
         </div>
 
         <div class="search_right_container">
-
+            <my/>
         </div>
         
     </div>
@@ -36,6 +36,7 @@
 <script>
 import axios from "axios";
 import store from "../../vuex/store";
+import my from "@/components/search/my";
 export default {
   computed: {
     cssVariable() {
@@ -51,6 +52,9 @@ export default {
   },
   data() {
     return {
+      my: false,
+      all: false,
+      member: false,
       li1: "white",
       li2: "white",
       li3: "white",
@@ -62,6 +66,9 @@ export default {
       isLogin: store.getters.getIsLogin,
       searchResult: {},
     };
+  },
+  components: {
+    my,
   },
   methods: {
     tabChange() {
