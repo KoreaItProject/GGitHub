@@ -17,8 +17,8 @@ public class StarService {
         return mapper.star();
     }
 
-    public List<StarVo> selectStarlist(String nick){
-        return mapper.selectStarlist(nick);
+    public List<StarVo> selectStarlist(String nick, int idx){
+        return mapper.selectStarlist(nick, idx);
     }
     public int selectstarcount(String reponame, int idx){
         return mapper.selectstarcount(reponame, idx);

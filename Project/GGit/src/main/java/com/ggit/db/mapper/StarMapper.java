@@ -13,7 +13,7 @@ import com.ggit.vo.StarVo;
 public interface StarMapper {
     public List<StarVo> star();
     
-    public List<StarVo> selectStarlist(String nick);
+    public List<StarVo> selectStarlist(String nick, int idx);
 
     public int selectstarcount(String reponame, int idx);
     
