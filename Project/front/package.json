@@ -31,6 +31,7 @@
     "vue2-timeago": "^2.0.9",
     "vuedraggable": "^2.24.3",
     "vuejs-heatmap": "^1.1.7",
+    "vuejs-paginate": "^1.9.5",
     "vuex": "2.0",
     "webstomp-client": "^1.2.6"
   },

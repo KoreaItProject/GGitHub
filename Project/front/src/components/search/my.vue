@@ -7,41 +7,84 @@
                    <svg aria-hidden="true" height="15px" viewBox="0 -1 16 16" version="1.1" width="15px" data-view-component="true" class="octicon octicon-repo color-fg-muted mr-2">
                       <path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path>
                   </svg>
-                <span class="blue_point repo_name">{{data.member_nick}} / {{data.repo_name}}</span>
-                    <div class="repository_public" v-if="data.publ"> public </div>
-                    <div class="repository_public" v-if="!data.publ"> private </div>
-                <div class="repo_date_div">
-                   100day ago
-                </div>
+                <span class="blue_point repo_name"><span v-html="data.member_nick"></span> / <span v-html="data.repo_name"></span></span>
+                    <div class="repository_public" v-if="data.repo_publ==1"> public </div>
+                    <div class="repository_public" v-if="data.repo_publ==0"> private </div>
+               
             </div>
 
-            <div class="repo_description_div">
-                description
+            <div class="repo_description_div" v-html="data.description"></div>
+            <div class="repo_info_div">
+
+                <span class="repo_star_div">
+                    <svg aria-label="star" role="img" height="13" viewBox="0 0 16 16" version="1.1" width="13" data-view-component="true" class="octicon octicon-star">
+                      <path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path>
+                    </svg>{{data.star_count}}
+                </span>
+                 <span class="repo_down_div">
+                  <font-awesome-icon icon="fa-regular fa-circle-down" />
+                  {{data.repo_download}}
+                </span>
+                 <span class="repo_up_div">
+                 <font-awesome-icon icon="fa-regular fa-circle-up" />
+                 {{data.commits}}
+                </span>
+                <span class="repo_date_div">
+                  <font-awesome-icon icon="fa-solid fa-arrows-rotate" />
+                  <time-ago local="en" :datetime="data.push_date" refresh tooltip long  />
+                </span>
+               
+              
             </div>
+
            
             
         </a>
 
-       
+        <div class="page_div">
+          <!-- https://www.npmjs.com/package/vuejs-paginate/v/1.9.5 -->
+          <paginate
+                    :page-count="pageCount"
+                    :page-range="5"
+                    :margin-pages="2"
+                    :click-handler="changePage"
+                    :prev-text="'이전'"
+                    :next-text="'다음'"
+                    :container-class="'pagination'"
+                    :page-class="'page-item'"
+                    :hide-prev-next="true"
+                    >
+            </paginate>
+        </div>
 
     </div>
 </template>
 <script>
 import axios from "axios";
 import store from "../../vuex/store";
+import { TimeAgo } from "vue2-timeago";
+
+import Paginate from "vuejs-paginate";
 export default {
   data() {
     return {
       searchResult: {},
+      page: 1,
+      pageCount: 10,
     };
+  },
+  components: {
+    TimeAgo,
+    paginate: Paginate,
   },
   methods: {
     getMyResuet() {
       axios
-        .get("/api/searchSimple", {
+        .get("/api/search", {
           params: {
             member: store.getters.getUserIdx,
             search: this.$route.query.keyword,
+            page: this.page,
           },
         })
         .then((response) => {
@@ -49,8 +92,25 @@ export default {
           console.log(this.searchResult);
         });
     },
+
+    changePage: function (pageNum) {
+      this.page = pageNum;
+      this.getMyResuet();
+      window.scrollTo(0,0)
+    },
   },
   mounted() {
+    axios
+      .get("/api/searchPageCount", {
+        params: {
+          member: store.getters.getUserIdx,
+          search: this.$route.query.keyword,
+        },
+      })
+      .then((response) => {
+        this.pageCount = Math.trunc(response.data/10)+1;
+
+      });
     this.getMyResuet();
   },
 };

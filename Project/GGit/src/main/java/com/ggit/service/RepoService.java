@@ -114,4 +114,12 @@ public class RepoService {
         return mapper.searchSimple(map);
     }
 
+    public List<RepositoriesVO> search(Map map) {
+        return mapper.search(map);
+    }
+
+    public int searchPageCount(Map map) {
+        return mapper.searchPageCount(map);
+    }
+
 }

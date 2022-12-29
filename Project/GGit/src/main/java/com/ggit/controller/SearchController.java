@@ -96,4 +96,50 @@ public class SearchController {
 
         return list;
     }
+
+    @RequestMapping("/searchPageCount")
+    public int searchPageCount(String member, String search) {
+
+        List<RepositoriesVO> list = null;
+        if (member != null) {
+
+            Map<String, String> map = new HashMap<String, String>();
+            map.put("member", member);
+            map.put("search", search);
+            return repoService.searchPageCount(map);
+
+        }
+
+        return 0;
+    }
+
+    @RequestMapping("/search")
+    public List<RepositoriesVO> search(String member, String search, int page, String sort) {
+
+        int count = 10;
+        int start = (page - 1) * count;
+
+        List<RepositoriesVO> list = null;
+        Map<String, String> map = new HashMap<String, String>();
+        if (member != null) {
+
+            map.put("member", member);
+            map.put("search", search);
+            map.put("start", start + "");
+            map.put("count", count + "");
+            list = repoService.search(map);
+
+        }
+        for (int i = 0; i < list.size(); i++) {
+            RepositoriesVO rv = list.get(i);
+            rv.setMember_nick(
+                    rv.getMember_nick().replaceAll("(?i)" + search, "<span class='pink_back'>" + search + "</span>"));
+            rv.setRepo_name(
+                    rv.getRepo_name().replaceAll("(?i)" + search, "<span class='pink_back'>" + search + "</span>"));
+            rv.setDescription(
+                    rv.getDescription().replaceAll("(?i)" + search, "<span class='pink_back'>" + search + "</span>"));
+        }
+
+        return list;
+    }
 }

@@ -18,6 +18,7 @@ public class RepositoriesVO {
     int repo_count;
     String repo_clone;
     String description;
+    int repo_download;
 
     // repomem
     int repomem_idx;
@@ -49,5 +50,6 @@ public class RepositoriesVO {
     int star_idx;
     int star_repo;
     int star_member;
+    int star_count;
 
 }

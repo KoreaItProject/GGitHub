@@ -34,7 +34,7 @@ $line-color: #d0d7de
 
         max-width: 800px
         width: 100%
-        padding: 55px 10px
+        padding: 55px 15px
 
         .con_container
             width: 100%
@@ -43,7 +43,7 @@ $line-color: #d0d7de
             .repo_div
                 width: 100%
                 border-top: 1px solid $line-color
-                padding: 20px 20px
+                padding: 15px 20px
                 display: block
                 &:hover
                     background-color: rgb(246, 248, 250,0.6 )
@@ -57,14 +57,56 @@ $line-color: #d0d7de
                         display: inline
                         border-radius: 11px
                         padding: 1px 7px 4px 7px
-                        font-size: 14px
+                        font-size: 13px
                         margin-left: 5px
                         border: 1px solid $line-color
-                    .repo_date_div
-                        float: right
-                        font-size: 15px
+
                 .repo_description_div
-                    margin-top: 7px
+                    margin-top: 8px
                     width: 100%
-                    font-size: 14px
+                    font-size: 16px
                     max-height: 50px
+                .repo_info_div
+                    font-size: 13px
+                    margin-top: 9px
+                    span
+                        margin-right: 10px
+                    .repo_star_div
+                        display: inline
+                    .repo_date_div
+                        display: inline
+            .page_div
+                border-top: 1px solid $line-color
+                width: 100%
+                text-align: center
+
+                .pagination
+                    margin: 24px auto
+
+                .pagination li
+                    display: inline
+                .pagination li:hover
+
+                .page-item a:hover
+                    background: #E4DBD6
+                .page-item a
+                    min-width: 32px
+                    padding: 2px 7px 3px 7px
+                    text-align: center
+                    margin: 0 3px
+                    border-radius: 8px
+                    border: 1px solid $line-color
+                    color: #666
+                    display: inline
+                    color: #666
+                    text-decoration: none
+
+                .pagination li.active
+
+                    color: #4f6c9c
+
+                .pagination li.active a
+                    background-color: pink
+                    color: #4f6c9c
+.pink_back
+    background-color:  pink
