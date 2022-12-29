@@ -10,13 +10,11 @@
         </a>
 
         <span style="margin-left: 40px"> © 2022 GGit, Inc. </span>
-        <h3 class="sr-only" id="sr-footer-heading" style="margin-left: 15px">
-          웹프로젝트
-        </h3>
+        <h3 style="margin-left: 16px">웹프로젝트</h3>
       </div>
     </div>
     <div>
-      <ul class="" style="color: #2a65d1">
+      <ul class="" style="color: #2a65d1; margin: 20px">
         <li class="footer_members">
           <a href="https://github.com/eak00700">민준성</a>
         </li>

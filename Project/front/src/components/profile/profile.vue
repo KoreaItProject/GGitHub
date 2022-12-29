@@ -1,10 +1,14 @@
 <template lang="">
   <div class="profile_container" :style="cssVariable">
     <div class="profile_bar_top">
+
+
+   <div class="profile_bar_top_center" >
       <div class="profile_bar_top_block"></div>
 
       <div class="profile_tab_container">
         <a id="profile_tab1" class="profile_tab" href="?tab=overview">
+          <span class="tabs">
           <svg
             aria-hidden="true"
             height="16"
@@ -20,8 +24,10 @@
             ></path>
           </svg>
           오버뷰
+          </span>
         </a>
         <a id="profile_tab2" class="profile_tab" href="?tab=repositories">
+          <span class="tabs">
           <svg
             aria-hidden="true"
             height="16"
@@ -38,8 +44,10 @@
           </svg>
           저장소
           <span title="13" data-view-component="true" class="Counter">{{repocount}}</span>
+          </span>
         </a>
         <a id="profile_tab3" class="profile_tab" href="?tab=stars">
+          <span class="tabs">
           <svg
             aria-hidden="true"
             height="16"
@@ -56,10 +64,12 @@
           </svg>
           즐겨찾기
           <span title="5" data-view-component="true" class="Counter">{{starcount}}</span>
+          </span>
         </a>
       </div>
     </div>
-
+  </div> 
+<div class="profile_middle">
     <div class="profile_bar_left">
       <div class="profile_img_div">
         <img class="profile_img" :src="profileImg" />
@@ -75,7 +85,7 @@
 
         <a href='/login'><button class="follow_button" v-if="!islogin" >Follow</button></a>
         <button class="follow_button" v-if="!isMy && followcount==0" @click="[insertFollow(),refreshAll()]">Follow</button>
-        <button class="unfollow_button" v-if="!isMy && followcount==1" @click="[deletefollowlist(),refreshAll()]">Unfollow</button>
+        <button class="follow_button" v-if="!isMy && followcount==1" @click="[deletefollowlist(),refreshAll()]">Unfollow</button>
 
       </div>
 
@@ -199,6 +209,7 @@
       <following v-if="isFollowing"/>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -234,13 +245,12 @@ export default {
       tab3_color: "0px",
       profileImg: "",
       userInfo: [],
-      followcount:3,
-      repocount:0,
-      starcount:0,
-      user_email_div:"",
-      isMy: store.getters.getUserNick==this.$route.params.nick,
-      islogin:false,
-
+      followcount: 3,
+      repocount: 0,
+      starcount: 0,
+      user_email_div: "",
+      isMy: store.getters.getUserNick == this.$route.params.nick,
+      islogin: false,
     };
   },
   components: {
@@ -253,15 +263,15 @@ export default {
   },
   methods: {
     refreshAll() {
-            // 새로고침
-            this.$router.go();
-        },
-    selectfollowcount(){
+      // 새로고침
+      this.$router.go();
+    },
+    selectfollowcount() {
       axios
-      .get("/api/selectfollowcount", {
+        .get("/api/selectfollowcount", {
           params: {
-            nick:this.$route.params.nick,
-            idx:store.getters.getUserIdx,
+            nick: this.$route.params.nick,
+            idx: store.getters.getUserIdx,
           },
         })
         .then((response) => {
@@ -276,21 +286,18 @@ export default {
         .finally(() => {
           // always executed
         });
-       
-    },  
-    
-    deletefollowlist(){
+    },
+
+    deletefollowlist() {
       axios
-      .get("/api/deletefollowlist", {
+        .get("/api/deletefollowlist", {
           params: {
-            nick:this.$route.params.nick,
-            idx:store.getters.getUserIdx,
+            nick: this.$route.params.nick,
+            idx: store.getters.getUserIdx,
           },
         })
         .then((response) => {
           // handle success
-         
-         
         })
         .catch((error) => {
           // handle error
@@ -299,20 +306,17 @@ export default {
         .finally(() => {
           // always executed
         });
-       
-    },  
-    insertFollow(){
+    },
+    insertFollow() {
       axios
-      .get("/api/insertFollow", {
+        .get("/api/insertFollow", {
           params: {
-            nick:this.$route.params.nick,
-            idx:store.getters.getUserIdx,
+            nick: this.$route.params.nick,
+            idx: store.getters.getUserIdx,
           },
         })
         .then((response) => {
           // handle success
-         
-         
         })
         .catch((error) => {
           // handle error
@@ -321,8 +325,7 @@ export default {
         .finally(() => {
           // always executed
         });
-       
-    },  
+    },
     getProfileImg() {
       axios
         .get("/api/getProfileImg", {
@@ -379,11 +382,11 @@ export default {
           // handle success
           this.userInfo = response.data;
 
-          
-          if(this.userInfo.email_check == 1){ // 이메일 공개 여부가 1이라면
-              this.user_email_div = "display: inline";
-          }else if(this.userInfo.email_check == 0){
-              this.user_email_div = "display: none";
+          if (this.userInfo.email_check == 1) {
+            // 이메일 공개 여부가 1이라면
+            this.user_email_div = "display: inline";
+          } else if (this.userInfo.email_check == 0) {
+            this.user_email_div = "display: none";
           }
           if (this.userInfo.con != null && this.userInfo.con != "") {
             this.userInfo.con = this.userInfo.con.replace(
@@ -412,7 +415,6 @@ export default {
         .then((response) => {
           // handle success
           this.repocount = response.data;
-         
         })
         .catch((error) => {
           // handle error
@@ -432,7 +434,6 @@ export default {
         .then((response) => {
           // handle success
           this.starcount = response.data;
-         
         })
         .catch((error) => {
           // handle error
@@ -442,9 +443,6 @@ export default {
           // always executed
         });
     },
-    
-    
-    
   },
 
   mounted() {
@@ -453,15 +451,11 @@ export default {
     this.selectRepositorystarcount();
     this.getMemberInfo();
     this.islogin = store.getters.getIsLogin;
-        if (this.islogin) {
-            
-        this.selectfollowcount();
-        }
-    
-    
+    if (this.islogin) {
+      this.selectfollowcount();
+    }
 
     let tab = this.$route.query.tab;
-
 
     if (tab == "repositories") {
       this.isRepositories = true;
@@ -471,14 +465,14 @@ export default {
       this.tab3_color = "4px";
     } else if (tab == "setting") {
       this.isSetting = true;
-    } else if (tab == "followers"){
+    } else if (tab == "followers") {
       this.isFollowers = true;
-    } else if (tab == "following"){
+    } else if (tab == "following") {
       this.isFollowing = true;
     } else {
       this.isOverview = true;
       this.tab1_color = "4px";
-    } 
+    }
   },
 };
 </script>

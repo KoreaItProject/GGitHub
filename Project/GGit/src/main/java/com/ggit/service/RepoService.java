@@ -21,8 +21,8 @@ public class RepoService {
         return mapper.repo();
     }
 
-    public int nameForIdx(String name) {
-        return mapper.nameForIdx(name);
+    public int nameForIdx(Map map) {
+        return mapper.nameForIdx(map);
     }
 
     public RepositoriesVO clone(String clone) {
@@ -31,6 +31,14 @@ public class RepoService {
 
     public RepositoriesVO pulltoken(Map map) {
         return mapper.pulltoken(map);
+    }
+
+    public int getPublic(Map map) {
+        return mapper.getPublic(map);
+    }
+
+    public int checkRepo(Map map) {
+        return mapper.checkRepo(map);
     }
 
     public int createRepo(RepoVo RepoVo) {
@@ -90,6 +98,28 @@ public class RepoService {
     // 저장소 소개글 업데이트
     public int repo_remessage_func(RepoVo repovo) {
         return mapper.repo_remessage_func(repovo);
+    }
+
+    // 저장소 이름으로 저장소 존재 여부 확인
+    public int find_repo(String name) {
+        return mapper.find_repo(name);
+    }
+
+    // 저장소에 속해있는지 확인
+    public RepoVo repoMemCheck(RepoVo repoVo) {
+        return mapper.repoMemCheck(repoVo);
+    }
+
+    public List<RepositoriesVO> searchSimple(Map map) {
+        return mapper.searchSimple(map);
+    }
+
+    public List<RepositoriesVO> search(Map map) {
+        return mapper.search(map);
+    }
+
+    public int searchPageCount(Map map) {
+        return mapper.searchPageCount(map);
     }
 
 }

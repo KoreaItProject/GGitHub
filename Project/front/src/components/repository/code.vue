@@ -31,7 +31,7 @@
                         
                           <br>
                           <div class="code_download_div">
-                            <div class="code_download">
+                            <div class="code_download" @click="fileDown">
                               <a>
                                 <svg aria-hidden="true" height="14" viewBox="0 -0.5 16 16" version="1.1" width="14" data-view-component="true" class="octicon octicon-file-zip mr-2">
                                     <path fill-rule="evenodd" d="M3.5 1.75a.25.25 0 01.25-.25h3a.75.75 0 000 1.5h.5a.75.75 0 000-1.5h2.086a.25.25 0 01.177.073l2.914 2.914a.25.25 0 01.073.177v8.586a.25.25 0 01-.25.25h-.5a.75.75 0 000 1.5h.5A1.75 1.75 0 0014 13.25V4.664c0-.464-.184-.909-.513-1.237L10.573.513A1.75 1.75 0 009.336 0H3.75A1.75 1.75 0 002 1.75v11.5c0 .649.353 1.214.874 1.515a.75.75 0 10.752-1.298.25.25 0 01-.126-.217V1.75zM8.75 3a.75.75 0 000 1.5h.5a.75.75 0 000-1.5h-.5zM6 5.25a.75.75 0 01.75-.75h.5a.75.75 0 010 1.5h-.5A.75.75 0 016 5.25zm2 1.5A.75.75 0 018.75 6h.5a.75.75 0 010 1.5h-.5A.75.75 0 018 6.75zm-1.25.75a.75.75 0 000 1.5h.5a.75.75 0 000-1.5h-.5zM8 9.75A.75.75 0 018.75 9h.5a.75.75 0 010 1.5h-.5A.75.75 0 018 9.75zm-.75.75a1.75 1.75 0 00-1.75 1.75v3c0 .414.336.75.75.75h2.5a.75.75 0 00.75-.75v-3a1.75 1.75 0 00-1.75-1.75h-.5zM7 12.25a.25.25 0 01.25-.25h.5a.25.25 0 01.25.25v2.25H7v-2.25z"></path>
@@ -59,14 +59,14 @@
                         <strong class="commit_count_strong">{{push.commits}}</strong>
                         <span class="commit_count_sapn">commits</span>
                     </a> <!-- 커밋횟수 불러오기 -->
-                    <a class="repo_last_commit_time" href="#">{{push.push_date}}</a>
+                    <a class="repo_last_commit_time" href="#"><time-ago  :datetime="push.push_date" refresh tooltip long /></a>
                     <a class="repo_last_commit_token" href="#">{{push.push_token}}</a>
                 
 
                 </div>
                 <a :href="backURL"><div class="repo_list" style="display:block" v-show="!(path==undefined)">  . . </div></a>
-                <div class="repo_list" v-show="loading" style="display:block">데이터 불러오는 중...</div>
-                <div class="repo_list" v-for="data in file_list"  >
+                 <div class="repo_list" v-show="loading" style="display:block" v-if="!isEmpty">데이터 불러오는 중...</div>
+                <div class="repo_list" v-for="data in file_list"  v-if="!isEmpty">
                   
                   <div class="repo_list_part1">
                     <a :href="thisURL+'/'+data.name" v-if="data.state!='file'">
@@ -84,13 +84,15 @@
                       </svg>
                       {{data.name}} / {{data.totalLine}}줄
                     </div>
+                       <textarea v-if="data.state=='file'"  class="repo_file_content scrollBar" readonly="true">{{data.content}}</textarea>
                   </div>
-                    <div class="repo_list_part2">{{data.push_message}}</div>
-                    <div class="repo_list_part3">{{data.push_date}}</div>
-                    
-                    <textarea v-if="data.state=='file'"  class="repo_file_content scrollBar" readonly="true">{{data.content}}</textarea>
+                    <div class="repo_list_part2" v-if="data.state!='file'">{{data.push_message}}</div>
+                    <div class="repo_list_part3" v-if="data.state!='file'"><time-ago  :datetime="data.push_date" refresh tooltip long></time-ago> </div>
+                 
                     
                 </div>
+              
+                
             </div>
             
             <div class="readme_container"  v-for="data in file_list" v-if="data.state=='readme'||(data.state=='file'&&data.name=='README.md')" >
@@ -140,9 +142,11 @@
                 </h2>
                 
                 <ul>
-                    <div v-for="contributor in contributors">
-                    <span><li class="contributor_member_img">{{contributor.member_img}}</li></span>
-                    <span><li class="contributor_member_list">{{contributor.member_nick}}</li></span>
+                    <div v-for="contributor,idx in contributors" class="contributors_div">
+             
+                      <div><a :href="'/'+contributor.member_nick"><img :src="profileImg[idx]"  class="contributor_member_img"/>   </a></div>
+                      <div class="contributor_member_list"><a :href="'/'+contributor.member_nick">{{contributor.member_nick}}  </a></div>
+                   
                     </div>
                 </ul>
             </div>
@@ -155,6 +159,7 @@
 <script>
 import axios from "axios";
 import marked from "marked";
+import { TimeAgo } from "vue2-timeago";
 
 export default {
   data() {
@@ -178,18 +183,46 @@ export default {
       loading: true,
       isStatusOn: false,
       path: this.$route.params.path,
+      profileImg: [],
+      i: 0,
+      isEmpty: false,
     };
   },
-
+  components: {
+    TimeAgo,
+  },
   methods: {
     toggleOnOff: function () {
       this.isStatusOn = !this.isStatusOn;
+    },
+    fileDown: function () {
+      axios
+        .get("/api/download", {
+          responseType: "blob",
+          params: {
+            repo: this.repoIdx,
+            token: this.push.push_token,
+          },
+        })
+        .then((response) => {
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", response.headers.filename); //or any other extension
+          console.log(response.headers.filename);
+          document.body.appendChild(link);
+          link.click();
+        })
+        .catch((exception) => {
+          alert("파일 다운로드 실패");
+        });
     },
 
     copy: function (val) {
       const copyText = document.getElementById("codeclone");
       copyText.select();
       document.execCommand("copy");
+      alert("코드가 복사 되었습니다.");
     },
     selectRepoClone() {
       axios
@@ -241,6 +274,10 @@ export default {
             if (this.file_list[0].name == "README.md") {
               this.changeMD(this.file_list[0].content);
             }
+          } else if (this.file_list[0].state == "notPath") {
+            window.location.href = "/pagenotfound";
+          } else if (this.file_list[0].state == "empty") {
+            this.isEmpty = true;
           } else {
             //현재 위치가 폴더인경우
             for (var i = 0; i < this.file_list.length; i++) {
@@ -252,6 +289,7 @@ export default {
           }
           this.loading = false;
           // alert(this.star)
+          this.getContriImg();
         });
     },
 
@@ -278,6 +316,7 @@ export default {
         })
         .then((response) => {
           this.contributors = response.data;
+
           // console.log(this.contributors)
           // alert(this.contributors)
           this.selectRepositorystar();
@@ -323,6 +362,25 @@ export default {
         .then((response) => {
           console.log(response.data);
           this.discription = response.data.description;
+        });
+    },
+    getContriImg() {
+      axios
+        .get("/api/getProfileImg", {
+          responseType: "blob",
+          params: {
+            img: this.contributors[this.i].member_img,
+          },
+        })
+        .then((response) => {
+          // handle success
+          this.profileImg.push(
+            window.URL.createObjectURL(new Blob([response.data]))
+          );
+          this.i++;
+          if (this.i < this.contributors.length) {
+            this.getContriImg();
+          }
         });
     },
   },

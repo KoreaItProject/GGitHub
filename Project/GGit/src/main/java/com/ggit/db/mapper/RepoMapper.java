@@ -14,7 +14,7 @@ import com.ggit.vo.RepositoriesVO;
 public interface RepoMapper {
     List<RepoVo> repo();
 
-    int nameForIdx(String name);
+    int nameForIdx(Map map);
 
     List<RepositoriesVO> selectRepositories(String nick);
 
@@ -38,6 +38,10 @@ public interface RepoMapper {
 
     List<RepositoriesVO> selectRepoClone(int repoIdx);
 
+    int getPublic(Map map);
+
+    int checkRepo(Map map);
+
     int createRepo(RepoVo repoVo);
 
     List<RepositoriesVO> selectHistory(Map map);
@@ -47,5 +51,15 @@ public interface RepoMapper {
     RepoVo getrepomessage(RepoVo repoVo);
 
     int repo_remessage_func(RepoVo repoVo);
+
+    int find_repo(String name);
+
+    RepoVo repoMemCheck(RepoVo repoVo);
+
+    List<RepositoriesVO> searchSimple(Map map);
+
+    List<RepositoriesVO> search(Map map);
+
+    int searchPageCount(Map map);
 
 }

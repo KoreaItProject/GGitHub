@@ -1,12 +1,8 @@
 package com.ggit.vo;
 
-import org.springframework.beans.factory.annotation.Autowire;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 @Data
 @Component
@@ -22,6 +18,7 @@ public class RepositoriesVO {
     int repo_count;
     String repo_clone;
     String description;
+    int repo_download;
 
     // repomem
     int repomem_idx;
@@ -44,6 +41,7 @@ public class RepositoriesVO {
     String push_date;
     int selected;
     String before_token;
+    int fromMain = 0;
     // 커밋수
     int commits;
 
@@ -52,5 +50,9 @@ public class RepositoriesVO {
     int star_idx;
     int star_repo;
     int star_member;
+    int star_count;
+
+    // 검색기능에서 사용
+    String s_nick, s_name, s_description;
 
 }

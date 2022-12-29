@@ -387,7 +387,7 @@ ol {
   padding: 0;
 }
 #app_content{
-  min-height: 800px;
+  min-height: 1200px;
 }
 table {
   border-spacing: 0px;
@@ -400,6 +400,7 @@ table {
 }
 body::-webkit-scrollbar , .scrollBar::-webkit-scrollbar{
   width: 9px;
+  height: 9px;
   /* 스크롤바의 너비 */
 }
 
@@ -417,4 +418,15 @@ body::-webkit-scrollbar-track , .scrollBar::-webkit-scrollbar-track{
   /*스크롤바 뒷 배경 색상*/
 }
 /* 임의의 영역 생성 */
+ .markdown-body::after{
+  display: block !important;
+  clear: none !important;
+  content:none !important;
+  
+ }
+
+ .blue_point{
+    color:#4f6c9c !important;
+    font-family: 'Noto Sans KR', sans-serif
+ }
 

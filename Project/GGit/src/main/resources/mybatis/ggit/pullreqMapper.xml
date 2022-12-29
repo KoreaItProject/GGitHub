@@ -4,4 +4,7 @@
     <select id="pullreq"  resultType="com.ggit.vo.PullreqVo">
         SELECT * FROM pullreq;
     </select>
+    <select id="pullreq_select" resultType="com.ggit.vo.PullreqVo">
+        SELECT * FROM pullreq where repo = #{idx}
+    </select>
 </mapper>

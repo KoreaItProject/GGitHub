@@ -10,7 +10,42 @@
         ) as s1
         group by date_format(push.date, '%Y-%m-%d') order by date;
     </select>
+
     <select id="getUserIdx" resultType="string">
         SELECT idx FROM member WHERE nick=#{nick}
     </select>
+
+    <insert id="pinClick"> insert into pin(member, repo, sort) values(#{u_idx}, #{repo_idx},
+        #{sort_idx}); </insert>
+
+    <select id="pinCheck" resultType="com.ggit.vo.OverViewVo">
+        select * 
+        from pin
+        where repo=#{repo_idx} and member=#{u_idx}
+    </select>
+
+    <delete id="pinClickOff">
+        delete from pin where repo= #{repo_idx} and member= #{u_idx}
+    </delete>
+
+    <select id="getMyPin" resultType="com.ggit.vo.OverViewVo">
+        select pin.idx, repo.name, repo.public, repo.description, repo.nick
+        from pin, (SELECT repo.idx, repo.name,
+						 repo.createDate, repo.public, 
+                         repo.owner, repo.fork, 
+                         repo.clone, repo.description, 
+                         member.nick
+				         FROM repo, member
+				         WHERE repo.owner = member.idx) as repo
+        where pin.repo = repo.idx and pin.member = #{u_idx}
+        order by sort;
+    </select>
+
+    <update id="pinSortUpdate">
+        UPDATE pin SET sort = #{sort_idx} where idx = #{idx} and member=#{u_idx}
+    </update>
+
+    <update id="repoSortUpdate">
+        UPDATE repomem SET sort = ${sort} where repo=${repo} and member=${member}
+    </update>
 </mapper>

@@ -176,7 +176,7 @@ $line-color: #d0d7de
                 display: flex
                 justify-content: center
                 .repo_list_part1
-                    width: 35%
+                    width: 100%
                     .repo_file_name
                         border-bottom: 1px solid $line-color
                         padding: 20px 3px 10px 3px
@@ -189,10 +189,12 @@ $line-color: #d0d7de
                         outline: none
                         padding: 10px 5px
                 .repo_list_part2
-                    width: 55%
+                    width: 100%
+
                 .repo_list_part3
                     float: right
-                    width: 100px
+                    width: 100%
+                    text-align: right
 
         .readme_container
             border: 1px solid #d0d7de
@@ -214,16 +216,17 @@ $line-color: #d0d7de
 
 .code_middle_container_left
 
-    height: 500px
+    min-height: 500px
     width: 296px
+    margin-left: 15px
 
     .about_box
 
         width: 296px
-        padding: 24px
+        padding: 10px 15px 26px 15px
         border-bottom: 1px solid hsl(210deg 18% 87%)
         .about_string
-            margin-bottom: 16px
+            margin-bottom: 18px
             font-size: 16px
             font-weight: bold
         .about_setting_message
@@ -243,16 +246,29 @@ $line-color: #d0d7de
 
         width: 296px
         height: 209px
-        padding: 24px
+        padding: 26px 15px 20px 15px
 
         .contributor_h2
             font-size: 16px
             margin: 0px 0px 16px
+        .contributors_div
+            display: flex
+            justify-content: center
+            width: 100%
+
         .contributor_member_img
-            display: inline
+
+            width: 40px
+            height: 40px
+            border-radius: 10px
+            margin: 2px 0
+
         .contributor_member_list
-            display: inline
-            margin: 0px 0px 8px
+            display: block
+            width: 100%
+            height: 40px
+            padding: 10px 8px
+
         .contributor_member_count
             font-size: 9px
             padding: 1px 3px

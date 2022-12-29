@@ -8,6 +8,7 @@ import VueCookies from "vue-cookies"; // npm install --save js-cookie
 import store from "./vuex/store"; //1. store 추가
 import VuejsHeatmap from 'vuejs-heatmap' // npm install --save vuejs-heatmap
 import "@/assets/js/fontAwesomeIcon.js"
+
 export default VuejsHeatmap
 
 
@@ -17,15 +18,16 @@ Vue.prototype.$store = store;
 Vue.prototype.$axios = axios;
 Vue.config.productionTip = false;
 
-Vue.config.productionTip = false;
+
 
 
 import '@fortawesome/fontawesome-free/js/all.js'
+
 /* eslint-disable no-new */
 new Vue({
   el: "#app",
   router,
   store,
-  components: { App },
+  components: { App,},
   template: "<App/>"
 });

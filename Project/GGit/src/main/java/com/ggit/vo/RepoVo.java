@@ -28,4 +28,8 @@ public class RepoVo {
     String clone;
     String description;
 
+    int repo_idx;
+    int u_idx;
+    int sort_idx;
+
 }

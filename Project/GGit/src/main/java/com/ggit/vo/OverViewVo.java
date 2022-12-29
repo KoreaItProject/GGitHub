@@ -5,7 +5,21 @@ import lombok.Data;
 @Data
 @Component
 public class OverViewVo {
-    String nick;
-    String date;
-    int count;
+    int idx; //
+    int count;//
+    int publ;//
+    int owner;//
+    int fork; //
+    int repo_idx;//
+    int u_idx;//
+    int sort_idx;//
+
+    String date;//
+    String nick;//
+    String name; //
+    String createDate;//
+    String repo_rename;//
+    String clone;//
+    String description; //
+   
 }

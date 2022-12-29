@@ -1,28 +1,33 @@
 <template>
-  <div class="create_reposiroty_contanier">
+  <div class="create_reposiroty_contanier" :style="cssVariable">
     <div class="create_repository_div">
       <div>
         <p class="create_message">저장소 생성</p>
         <div class="create_message_margin">
           <p class="create_message_sub">
-            하나의 저장소는 메인 저장소와 작업 저장소를 가집니다.
+            하나의 저장소는 메인 저장소와 작업 저장소를 가집니다. -저장소
+            README의 README.md파일은 프로필 오버뷰에 게시됩니다.-
           </p>
         </div>
 
         <div class="user_name_repo_name">
           <div class="user_nickname">
             <div class="Owner_font">소유자</div>
-            <div class="user_nick_input">dddddddddddddd</div>
+            <div class="user_nick_input">{{ nick }}</div>
           </div>
           <span class="user_name_repo_name_span">/</span>
           <div class="repo_name">
             <div class="Repository_name">저장소 이름</div>
 
-            <input class="repo_name_input" v-model="repoName" />
+            <input
+              class="repo_name_input"
+              v-model="repoName"
+              v-on="checkRepo()"
+            />
           </div>
         </div>
-        <div class="repo_intro">
-          좋은 저장소 이름은 짧고 이해하기 편해야 합니다.
+        <div class="repo_intro intro_check">
+          {{ intro }}
         </div>
 
         <div class="repo_description">
@@ -123,12 +128,15 @@ export default {
       repoName: "",
       description: "",
       pub: 1,
-      readme: true,
+      nick: store.getters.getUserNick,
+      intro: "좋은 저장소 이름은 짧고 이해하기 편해야 합니다",
+      intro_color: "#57606a",
+      check: false,
     };
   },
   methods: {
     create: function () {
-      if (this.repoName == "") {
+      if (!this.check) {
         alert("정확하게 입력해주세요");
       } else {
         axios
@@ -136,7 +144,6 @@ export default {
             repoName: this.repoName,
             description: this.description,
             pub: this.pub,
-            readme: this.readme,
             owner: store.getters.getUserIdx,
           })
           .then((response) => {
@@ -148,6 +155,53 @@ export default {
             }
           });
       }
+    },
+    checkRepo() {
+      this.check = false;
+      let blank_pattern = /[\s]/g;
+      let special_pattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
+      if (this.repoName.length == 0) {
+        this.intro = "좋은 저장소 이름은 짧고 이해하기 편해야 합니다";
+        this.intro_color = "#57606a";
+      } else if (blank_pattern.test(this.repoName) == true) {
+        this.intro = "공백을 포함할 수 없습니다.";
+        this.intro_color = "red";
+      } else if (special_pattern.test(this.repoName) == true) {
+        this.intro = "특수문자를 포함할 수 없습니다.";
+        this.intro_color = "red";
+      } else {
+        axios
+          .get("/api/checkRepo", {
+            params: {
+              repoName: this.repoName,
+              owner: store.getters.getUserIdx,
+            },
+          })
+          .then((response) => {
+            if (response.data == 1) {
+              this.intro = "사용중인 저장소 이름입니다";
+              this.intro_color = "red";
+            } else {
+              if (this.repoName == "README") {
+                this.intro =
+                  "저장소 README의 README.md파일은 프로필 오버뷰에 게시됩니다.";
+                this.intro_color = "green";
+                this.check = true;
+              } else {
+                this.intro = "사용가능한 저장소 이름입니다";
+                this.intro_color = "green";
+                this.check = true;
+              }
+            }
+          });
+      }
+    },
+  },
+  computed: {
+    cssVariable() {
+      return {
+        "--intro_color": this.intro_color,
+      };
     },
   },
 };

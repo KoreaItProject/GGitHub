@@ -1,19 +1,11 @@
-{
-    "data":[
+
+    [
         {
-            "path":"/README.md",
-            "message":"create project"
+            "path":"\/README.md",
+            "message":"저장소 생성"
             "date":"2022/10/13",
             
         },
         
-    ],
-    "changed":[
-        {
-            "path":"/README.md",
-            "state":"add"
-
-        },
-      
     ]
-}
+ 
