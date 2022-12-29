@@ -132,11 +132,11 @@ public class SearchController {
         }
         for (int i = 0; i < list.size(); i++) {
             RepositoriesVO rv = list.get(i);
-            rv.setMember_nick(
+            rv.setS_nick(
                     rv.getMember_nick().replaceAll("(?i)" + search, "<span class='pink_back'>" + search + "</span>"));
-            rv.setRepo_name(
+            rv.setS_name(
                     rv.getRepo_name().replaceAll("(?i)" + search, "<span class='pink_back'>" + search + "</span>"));
-            rv.setDescription(
+            rv.setS_description(
                     rv.getDescription().replaceAll("(?i)" + search, "<span class='pink_back'>" + search + "</span>"));
         }
 

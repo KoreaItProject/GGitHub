@@ -52,4 +52,7 @@ public class RepositoriesVO {
     int star_member;
     int star_count;
 
+    // 검색기능에서 사용
+    String s_nick, s_name, s_description;
+
 }
