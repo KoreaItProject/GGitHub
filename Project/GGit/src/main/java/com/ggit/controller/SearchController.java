@@ -101,11 +101,16 @@ public class SearchController {
     public int searchPageCount(String member, String search) {
 
         List<RepositoriesVO> list = null;
+        String publ = "repo.public";
         if (member != null) {
 
             Map<String, String> map = new HashMap<String, String>();
+            if (member.equals("member")) {
+                publ = "1";
+            }
             map.put("member", member);
             map.put("search", search);
+            map.put("publ", publ);
             return repoService.searchPageCount(map);
 
         }
@@ -121,12 +126,17 @@ public class SearchController {
 
         List<RepositoriesVO> list = null;
         Map<String, String> map = new HashMap<String, String>();
-        if (member != null) {
+        String publ = "repo.public";
 
+        if (member != null) {
+            if (member.equals("member")) {
+                publ = "1";
+            }
             map.put("member", member);
             map.put("search", search);
             map.put("start", start + "");
             map.put("count", count + "");
+            map.put("publ", publ);
             list = repoService.search(map);
 
         }

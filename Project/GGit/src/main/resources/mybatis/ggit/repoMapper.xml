@@ -109,15 +109,15 @@
         '%${search}%' or repo.name like '%${search}%') limit 10</select>
     <select id="searchPageCount" resultType="int"> 
     select count(repo.idx) 
-    from repo,repomem,member where repo.idx = repomem.repo and
+    from repo,repomem,member where repo.idx = repomem.repo and 
     repomem.member = ${member} and repo.owner = member.idx and ( member.nick like '%${search}%' or
-    repo.name like '%${search}%')</select>
+    repo.name like '%${search}%') and repo.public =${publ} </select>
     <select id="search" resultType="com.ggit.vo.RepositoriesVO"> select repo.name as repo_name,member.nick as
     member_nick ,(select count(push.token) from push where push.repo = repo.idx and push.branch = 0
     ) as commits ,repo.download as repo_download,(select count(star.idx) from star where star.repo =
     repo.idx ) as star_count, (select push.date from push where push.repo = repo.idx and
     push.branch=0 limit 1) as push_date , repo.public as repo_publ, repo.description as description
-    from repo,repomem,member where repo.idx = repomem.repo and repomem.member = ${member} and
+    from repo,repomem,member where repo.idx = repomem.repo and repomem.member = ${member} and repo.public =${publ} and
     repo.owner = member.idx and ( member.nick like '%${search}%' or repo.name like '%${search}%' or
     repo.description like '%${search}%') order by push_date desc limit ${start} , ${count} </select>
 
