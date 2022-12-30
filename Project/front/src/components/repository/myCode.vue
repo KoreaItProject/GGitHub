@@ -6,13 +6,8 @@
               <div class="branch_btn">
                 <h3>작업 저장소</h3>
               </div>
-              
-                 
-                
-
-
                 <div class="code_btn">
-                  <button class="code_btn" @click="toggleOnOff">code </button>
+                  <button class="code_btn_btn" @click="toggleOnOff">code </button>
                     <div class="code_menu_top_div"> <!--  -->
                       <div class="code_menu" v-if="isStatusOn">
                           <div class="code_clone">
@@ -24,7 +19,7 @@
 
                           <br>
                           
-                            <div class="code_input"><input type="text" id="codeclone" class="code_input_box" data-autoselect :value="clone" readonly></input>
+                            <div class="code_input"><input type="text" id="codeclone" class="code_input_box" data-autoselect :value="clone" readonly/>
                               <button class="code_copy_btn" id="clonebutton" v-on:click="copy"> 
                                 <svg aria-hidden="true" height="15" viewBox="0 0 16 16" version="1.1" width="15" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon d-inline-block">
                                     <path fill-rule="evenodd" d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"></path><path fill-rule="evenodd" d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z"></path>
@@ -48,13 +43,14 @@
                     </div>  <!-- -->
                   </div>
                   
-                <div class="merge_btn">
-                  <button class="merge_btn" @click="merge_func()" v-bind:style="inMem">병합 요청</button>
+                <div class="">
+                  <button class="merge_btn" @click="merge_request()">
+                    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-git-pull-request UnderlineNav-octicon d-none d-sm-inline">
+                      <path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"></path>
+                    </svg>
+                    병합 요청
+                  </button>
                 </div>
-                <div class="merge_btn2">
-                  <button class="merge_btn2" @click="merge_func()" v-bind:style="noMem">병합 요청</button>
-                </div>
-              
             </div>
             
             <div class="repo_box">
@@ -189,9 +185,6 @@ export default {
       profileImg: [],
       i: 0,
       isEmpty: false,
-      repoMem: "",
-      inMem: "display:none",
-      noMem: "display:none",
     };
   },
   components: {
@@ -352,7 +345,7 @@ export default {
         })
         .then((response) => {
           this.repoIdx = response.data;
-          this.selectByRepoMem(); // 저장소에 속해있는 유저인지 조회하는 메소드
+          // this.selectByRepoMem(); // 저장소에 속해있는 유저인지 조회하는 메소드
           this.selectRepositorycode();
           this.selectRepoClone();
           //
@@ -384,15 +377,20 @@ export default {
       })
       .then(response => {
         if(response.data.idx == undefined){
-          //this.repoMem = false;
-          //alert("noMem");
           this.noMem = "display:inline"; // 저장소에 멤버가 아닌 경우
         }else{
-          //this.repoMem = true;
-          //alert("inMem");
           this.inMem = "display:inline"; // 저장소 멤버인 경우
         }
         
+      })
+    },
+    merge_request(){
+      axios.post("/api/merge_request", {
+        u_idx : store.getters.getUserIdx,
+        repo_idx : this.repoIdx
+      })
+      .then(response => {
+        console.log(response.data);
       })
     }
   }, // method
