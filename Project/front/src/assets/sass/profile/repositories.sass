@@ -1,80 +1,77 @@
-.repo
+$line-color: #d0d7de
+.con_container
+    width: 100%
+    min-height: 900px
+    padding: 10px 25px
 
-    margin-top: 9px
-    margin-left: 30px
+    .repo_div
+        width: 100%
+        border-top: 1px solid $line-color
+        padding: 20px 20px
+        display: block
+        &:hover
+            background-color: rgb(246, 248, 250,0.6 )
+        .repo_name_div
+            width: 100%
 
-.repo_search_main
+            .repo_name
+                font-family: 'Noto Sans KR', sans-serif
+                font-size: 16px
+            .repository_public
+                display: inline
+                border-radius: 11px
+                padding: 1px 7px 4px 7px
+                font-size: 13px
+                margin-left: 5px
+                border: 1px solid $line-color
 
-    padding-top: 5px
-    padding-bottom: 48px
-    border-bottom: 1px solid #d0d7de
+        .repo_description_div
+            margin-top: 8px
+            width: 100%
+            font-size: 16px
+            max-height: 50px
 
-.octicon_octicon_repo
-    fill: white
+        .repo_info_div
+            font-size: 14px
+            margin-top: 10px
+            span
+                margin-right: 13px
+            .repo_star_div
+                display: inline
+            .repo_date_div
+                display: inline
+    .page_div
+        border-top: 1px solid $line-color
+        width: 100%
+        text-align: center
 
-.repo_search
-    border: 1px solid #d0d7de
-    border-radius: 7px
-    width: 300px
-    height: 35px
-    float: right
-    margin-right: 5px
-    padding: 5px 7px
+        .pagination
+            margin: 24px auto
 
-.new_repo
-    border: 1px solid #2da44e
-    width: 90px
-    height: 35px
-    background-color: #2da44e
-    color: white
-    border-radius: 7px
-    float: right
-    border-bottom: 1px solid #d0d7de
+        .pagination li
+            display: inline
+        .pagination li:hover
 
-.repo_list
-.ghost
-    opacity: 0.3
-    background: RGB(138, 221, 237)
+        .page-item a:hover
+            background: #E4DBD6
+        .page-item a
+            min-width: 32px
+            padding: 2px 7px 3px 7px
+            text-align: center
+            margin: 0 3px
+            border-radius: 8px
+            border: 1px solid $line-color
+            color: #666
+            display: inline
+            color: #666
+            text-decoration: none
 
-.repo_name_div
-    font-size: 18px
-    color: #2a65d1
+        .pagination li.active
 
-.repo_name
-    font-size: 18px
-    color: #2a65d1
-    display: inline
+            color: #4f6c9c
 
-.repo_public
-
-    border: 1px solid #d0d7de
-    font-size: 10px
-    vertical-align: middle
-    border-radius: 9px
-    padding: 1px 6px 4px 6px
-    display: inline
-    margin-left: 2px
-
-.repo_upate
-    display: inline
-    font-size: 12px
-
-.repo_move_icon
-
-    float: right
-    text-align: center
-    padding: 5px 8px 8px 5px
-    margin-top: -9px
-    margin-right: 15px
-    border-radius: 9px
-    font-size: 20px
-
-    &:hover
-        cursor: grab
-
-.repo_info
-    padding-top: 20px
-    padding-bottom: 27px
-    border-bottom: 1px solid #d0d7de
-    &:hover
-        background: rgb(246, 248, 250,0.5 )
+        .pagination li.active a
+            background-color: pink
+            color: #4f6c9c
+.pink_back
+    background-color: #f2e3e5

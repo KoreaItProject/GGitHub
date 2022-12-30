@@ -125,6 +125,5 @@ export default {
   },
 };
 </script>
-<style lang="sass">
-@import "src/assets/sass/profile/repositories"
+<style lang="">
 </style>
