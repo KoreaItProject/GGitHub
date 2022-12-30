@@ -40,7 +40,7 @@
             
         </a>
 
-        <div class="page_div">
+        <div class="page_div"  v-if="pageCount!=1">
           <!-- https://www.npmjs.com/package/vuejs-paginate/v/1.9.5 -->
           <paginate
                     :page-count="pageCount"
