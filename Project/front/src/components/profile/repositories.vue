@@ -87,7 +87,18 @@ export default {
         })
         .then((response) => {
           this.idx = response.data.idx;
-          this.getMyResuet();
+          axios
+            .get("/api/searchPageCount", {
+              params: {
+                member: this.idx,
+                search: this.$route.query.keyword,
+                mine: this.idx == store.getters.getUserIdx,
+              },
+            })
+            .then((response) => {
+              this.pageCount = Math.trunc(response.data / 10) + 1;
+              this.getMyResuet();
+            });
         });
     },
     getMyResuet() {
@@ -97,6 +108,7 @@ export default {
             member: this.idx,
             search: this.$route.query.keyword,
             page: this.page,
+            mine: this.idx == store.getters.getUserIdx,
           },
         })
         .then((response) => {
@@ -111,16 +123,6 @@ export default {
     },
   },
   mounted() {
-    axios
-      .get("/api/searchPageCount", {
-        params: {
-          member: store.getters.getUserIdx,
-          search: this.$route.query.keyword,
-        },
-      })
-      .then((response) => {
-        this.pageCount = Math.trunc(response.data / 10) + 1;
-      });
     this.getidx();
   },
 };
