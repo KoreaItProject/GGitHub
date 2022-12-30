@@ -28,7 +28,8 @@
         </div>
 
         <div class="search_right_container">
-            <my/>
+            <my v-if="my"/>
+            <all v-if="all"/>
         </div>
         
     </div>
@@ -37,6 +38,7 @@
 import axios from "axios";
 import store from "../../vuex/store";
 import my from "@/components/search/my";
+import all from "@/components/search/all";
 export default {
   computed: {
     cssVariable() {
@@ -68,21 +70,19 @@ export default {
     };
   },
   components: {
-    my,
+    my,all
   },
   methods: {
     tabChange() {
-      if (this.tab == "my") {
-        (this.li1 = "pink"), (this.span1 = "rgb(188, 204, 202,0.2)");
-      } else if (this.tab == "all") {
-        (this.li2 = "pink"), (this.span2 = "rgb(188, 204, 202,0.2)");
+   if (this.tab == "all") {
+        (this.li2 = "pink"), (this.span2 = "rgb(188, 204, 202,0.2)"),this.all=true;
       } else if (this.tab == "member") {
         (this.li3 = "pink"), (this.span3 = "rgb(188, 204, 202,0.2)");
       } else {
         if (this.isLogin) {
-          (this.li1 = "pink"), (this.span1 = "rgb(188, 204, 202,0.2)");
+          (this.li1 = "pink"), (this.span1 = "rgb(188, 204, 202,0.2)"),this.my=true;
         } else {
-          (this.li2 = "pink"), (this.span2 = "rgb(188, 204, 202,0.2)");
+          (this.li2 = "pink"), (this.span2 = "rgb(188, 204, 202,0.2)"),this.all=true;
         }
       }
     },

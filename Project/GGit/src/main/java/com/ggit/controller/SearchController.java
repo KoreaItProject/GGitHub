@@ -96,4 +96,60 @@ public class SearchController {
 
         return list;
     }
+
+    @RequestMapping("/searchPageCount")
+    public int searchPageCount(String member, String search) {
+
+        List<RepositoriesVO> list = null;
+        String publ = "repo.public";
+        if (member != null) {
+
+            Map<String, String> map = new HashMap<String, String>();
+            if (member.equals("member")) {
+                publ = "1";
+            }
+            map.put("member", member);
+            map.put("search", search);
+            map.put("publ", publ);
+            return repoService.searchPageCount(map);
+
+        }
+
+        return 0;
+    }
+
+    @RequestMapping("/search")
+    public List<RepositoriesVO> search(String member, String search, int page, String sort) {
+
+        int count = 10;
+        int start = (page - 1) * count;
+
+        List<RepositoriesVO> list = null;
+        Map<String, String> map = new HashMap<String, String>();
+        String publ = "repo.public";
+
+        if (member != null) {
+            if (member.equals("member")) {
+                publ = "1";
+            }
+            map.put("member", member);
+            map.put("search", search);
+            map.put("start", start + "");
+            map.put("count", count + "");
+            map.put("publ", publ);
+            list = repoService.search(map);
+
+        }
+        for (int i = 0; i < list.size(); i++) {
+            RepositoriesVO rv = list.get(i);
+            rv.setS_nick(
+                    rv.getMember_nick().replaceAll("(?i)" + search, "<span class='pink_back'>" + search + "</span>"));
+            rv.setS_name(
+                    rv.getRepo_name().replaceAll("(?i)" + search, "<span class='pink_back'>" + search + "</span>"));
+            rv.setS_description(
+                    rv.getDescription().replaceAll("(?i)" + search, "<span class='pink_back'>" + search + "</span>"));
+        }
+
+        return list;
+    }
 }

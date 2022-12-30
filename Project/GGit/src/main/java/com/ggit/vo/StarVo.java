@@ -14,6 +14,8 @@ public class StarVo {
     int star_repo;
     int star_member;
     int star_count;
+    int isMy;
+
     //member
     String member_nick;
     

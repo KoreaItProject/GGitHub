@@ -58,4 +58,8 @@ public interface RepoMapper {
 
     List<RepositoriesVO> searchSimple(Map map);
 
+    List<RepositoriesVO> search(Map map);
+
+    int searchPageCount(Map map);
+
 }
