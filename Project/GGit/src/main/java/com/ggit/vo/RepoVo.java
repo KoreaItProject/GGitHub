@@ -12,24 +12,24 @@ import lombok.Setter;
 @Component
 public class RepoVo {
 
-    int idx;
+    private int idx;
 
-    String name;
+    private String name;
 
-    String createDate;
+    private String createDate;
 
-    int publ;
+    private int publ;
 
-    int owner;
+    private int owner;
 
-    int fork;
-    String repo_rename;
+    private int fork;
+    private String repo_rename;
 
-    String clone;
-    String description;
+    private String clone;
+    private String description;
 
-    int repo_idx;
-    int u_idx;
-    int sort_idx;
+    private int repo_idx;
+    private int u_idx;
+    private int sort_idx;
 
 }

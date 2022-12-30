@@ -5,25 +5,22 @@ import java.sql.Timestamp;
 import org.springframework.stereotype.Component;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 @Data
 @Component
 public class PullreqVo {
-    int idx;
+    private int idx;
 
-    int repo;
+    private int repo;
 
-    int member;
+    private int member;
 
-    String message;
+    private String message;
 
-    String token;
+    private String token;
 
-    Timestamp date;
+    private Timestamp date;
 
-    Integer marged;
+    private Integer marged;
 
-    
 }

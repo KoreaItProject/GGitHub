@@ -12,30 +12,28 @@ import lombok.Setter;
 @Data
 @Component
 public class MemberVo {
-    String nick;
+    private String nick;
 
-    String email;
+    private String email;
 
-    String pw;
+    private String pw;
 
-    String img;
+    private String img;
 
-    int idx;
+    private int idx;
 
-    int auth;
+    private int auth;
 
-    String date;
-    String con;
-    String url;
-    String company;
-    String location;
-    int email_check;
-
-    
+    private String date;
+    private String con;
+    private String url;
+    private String company;
+    private String location;
+    private int email_check;
 
     // 팔로우수
-    int followers, following;
-    int follow_idx;
-    //팔로우 여부 확인
-    int count;
+    private int followers, following;
+    private int follow_idx;
+    // 팔로우 여부 확인
+    private int count;
 }
