@@ -40,7 +40,7 @@
             
         </a>
 
-        <div class="page_div">
+        <div class="page_div"  v-if="pageCount!=1">
           <!-- https://www.npmjs.com/package/vuejs-paginate/v/1.9.5 -->
           <paginate
                     :page-count="pageCount"
@@ -84,6 +84,7 @@ export default {
             member: store.getters.getUserIdx,
             search: this.$route.query.keyword,
             page: this.page,
+            mine: true,
           },
         })
         .then((response) => {
@@ -95,7 +96,7 @@ export default {
     changePage: function (pageNum) {
       this.page = pageNum;
       this.getMyResuet();
-      window.scrollTo(0,0)
+      window.scrollTo(0, 0);
     },
   },
   mounted() {
@@ -104,11 +105,11 @@ export default {
         params: {
           member: store.getters.getUserIdx,
           search: this.$route.query.keyword,
+          mine: true,
         },
       })
       .then((response) => {
-        this.pageCount = Math.trunc(response.data/10)+1;
-
+        this.pageCount = Math.trunc(response.data / 10) + 1;
       });
     this.getMyResuet();
   },

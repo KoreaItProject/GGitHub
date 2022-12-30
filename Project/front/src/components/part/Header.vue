@@ -6,7 +6,7 @@
           <img class="logo" src="@/assets/imgs/logo/logo.png" />
           <span class="header_logo_text">GGit</span>
         </a>
-        <form :action="'/search?tab=' + tab">
+        <form action="/search">
           <div class="header_search_div">
             <input
               class="header_search"
@@ -19,6 +19,7 @@
               name="keyword"
               autocomplete="off"
             />
+            <input name="tab" v-model="tab" hidden />
             <input type="submit" hidden />
 
             <div
@@ -142,12 +143,12 @@ export default {
               this.profileImg = window.URL.createObjectURL(
                 new Blob([response.data])
               );
+              this.tab = this.$route.query.tab;
             });
         });
     },
   },
   mounted() {
-    window.addEventListener("click", this.onClick);
     this.islogin = store.getters.getIsLogin;
 
     if (this.islogin) {
@@ -155,6 +156,7 @@ export default {
       this.getImg();
     }
   },
+  updated() {},
 };
 </script>
 

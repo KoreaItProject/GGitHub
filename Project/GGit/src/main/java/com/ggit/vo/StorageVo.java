@@ -7,15 +7,15 @@ import lombok.Data;
 @Data
 @Component
 public class StorageVo {
-    String name;
-    boolean isDirectory;
-    String commit;
-    String state;
-    String date;
-    String content;
-    int totalLine;
-    String push_message;
-    String push_date;
+    private String name;
+    private boolean isDirectory;
+    private String commit;
+    private String state;
+    private String date;
+    private String content;
+    private int totalLine;
+    private String push_message;
+    private String push_date;
 
     public boolean getDirectory() {
         return isDirectory;

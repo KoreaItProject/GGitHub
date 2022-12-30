@@ -4,28 +4,24 @@ import org.springframework.stereotype.Component;
 
 import lombok.Data;
 
-
 @Data
 @Component
 public class StarVo {
-    
-    //star
-    int star_idx;
-    int star_repo;
-    int star_member;
-    int star_count;
-    int isMy;
 
-    //member
-    String member_nick;
-    
-    //repo
-    String repo_name;
+    // star
+    private int star_idx;
+    private int star_repo;
+    private int star_member;
+    private int star_count;
+    private int isMy;
 
-    //push
-    String push_date;
-    
-    
-    
+    // member
+    private String member_nick;
+
+    // repo
+    private String repo_name;
+
+    // push
+    private String push_date;
+
 }
-    
