@@ -19,9 +19,10 @@ public class StarController {
     StarService starService;
 
     @RequestMapping("selectStarlist")
-    public List<StarVo> selectStarlist(String nick){
-        System.out.println(nick);
-        List<StarVo> Starlist = starService.selectStarlist(nick);
+    public List<StarVo> selectStarlist(String nick, int idx){
+       
+
+        List<StarVo> Starlist = starService.selectStarlist(nick, idx);
         return Starlist;
     }
 

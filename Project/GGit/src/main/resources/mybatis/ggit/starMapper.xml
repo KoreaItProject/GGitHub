@@ -6,11 +6,11 @@
     </select>
 
     <select id="selectStarlist"  resultType="com.ggit.vo.StarVo">
-        SELECT (select member.nick as repo_owner from member where repo.owner=member.idx ) as repo_owner,
+        select s.idx, s.repo, s.member, (select member.nick as repo_owner from member where repo.owner=member.idx ) as repo_owner,
         member.nick as member_nick,repo.name as repo_name,(SELECT TIMESTAMPDIFF(DAY, push.date, CURDATE()) from push where push.repo = repo.idx limit 1) as push_date,
-        (select count(star.repo)from star where star.repo=repo.idx) as star_count
-        FROM member,repo, star
-        WHERE member.idx = star.member and star.repo = repo.idx and  member.nick=#{nick};
+        (select count(star.repo)from star where star.repo=repo.idx) as star_count,
+        (select count(star.idx) from star where s.repo=star.repo and star.member=${idx}) as isMy
+        from ggitdb.star s, ggitdb.repo, ggitdb.member where s.member=(select member.idx from member where member.nick=#{nick})and member.idx = s.member and s.repo = repo.idx; 
     </select>
 
     <select id="selectstarcount" resultType="int">

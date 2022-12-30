@@ -3,13 +3,17 @@
         <div class="code_middle_container_right">
            
             <div class="code_navigator">
-                <div class="branch_btn">
-                   <h3>작업 저장소</h3>
-                </div>
+              <div class="branch_btn">
+                <h3>작업 저장소</h3>
+              </div>
+              
+                 
+                
+
+
                 <div class="code_btn">
-                  
                   <button class="code_btn" @click="toggleOnOff">code </button>
-                    <div class="code_menu_top_div">
+                    <div class="code_menu_top_div"> <!--  -->
                       <div class="code_menu" v-if="isStatusOn">
                           <div class="code_clone">
                             <svg aria-hidden="true" height="14" viewBox="0 -1 16 16" version="1.1" width="14" data-view-component="true" class="octicon octicon-terminal mr-2">
@@ -41,11 +45,16 @@
                           </div>
                         </div>  
                       </div>
-                    </div>
-                 
+                    </div>  <!-- -->
+                  </div>
                   
+                <div class="merge_btn">
+                  <button class="merge_btn" @click="merge_func()" v-bind:style="inMem">병합 요청</button>
                 </div>
-                
+                <div class="merge_btn2">
+                  <button class="merge_btn2" @click="merge_func()" v-bind:style="noMem">병합 요청</button>
+                </div>
+              
             </div>
             
             <div class="repo_box">
@@ -180,6 +189,9 @@ export default {
       profileImg: [],
       i: 0,
       isEmpty: false,
+      repoMem: "",
+      inMem: "display:none",
+      noMem: "display:none",
     };
   },
   components: {
@@ -330,7 +342,7 @@ export default {
           this.selectRepositorycontributors();
         });
     },
-    repoIdxByNickName() {
+    repoIdxByNickName() { // 저장소 idx 조회하기
       axios
         .get("/api/repoIdxByNickName", {
           params: {
@@ -340,11 +352,9 @@ export default {
         })
         .then((response) => {
           this.repoIdx = response.data;
-
+          this.selectByRepoMem(); // 저장소에 속해있는 유저인지 조회하는 메소드
           this.selectRepositorycode();
-
           this.selectRepoClone();
-
           //
         });
     },
@@ -367,7 +377,25 @@ export default {
           }
         });
     },
-  },
+    selectByRepoMem(){
+      axios.post("/api/repoMemCheck",{
+        repo_idx : this.repoIdx,
+        u_idx: store.getters.getUserIdx
+      })
+      .then(response => {
+        if(response.data.idx == undefined){
+          //this.repoMem = false;
+          //alert("noMem");
+          this.noMem = "display:inline"; // 저장소에 멤버가 아닌 경우
+        }else{
+          //this.repoMem = true;
+          //alert("inMem");
+          this.inMem = "display:inline"; // 저장소 멤버인 경우
+        }
+        
+      })
+    }
+  }, // method
 
   mounted() {
     this.repoIdxByNickName();
