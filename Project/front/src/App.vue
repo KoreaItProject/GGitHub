@@ -11,10 +11,10 @@
 <script>
 import Header from "./components/part/Header.vue";
 import Footer from "./components/part/Footer.vue";
-import Vue from 'vue'
-import VueCalendarHeatmap from 'vue-calendar-heatmap'
+import Vue from "vue";
+import VueCalendarHeatmap from "vue-calendar-heatmap";
 
-Vue.use(VueCalendarHeatmap)
+Vue.use(VueCalendarHeatmap);
 
 export default {
   name: "App",
