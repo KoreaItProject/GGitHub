@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ggit.vo.MemberVo;
+import com.ggit.vo.RepositoriesVO;
 
 /**
  * MemberMapper
@@ -40,8 +41,8 @@ public interface MemberMapper {
 
         void delectProfileImg(int idx);
 
-        //팔로워 목록
-    
-        
+        int countMember(String search);
+
+        List<RepositoriesVO> searchMember(Map<String, String> map);
 
 }

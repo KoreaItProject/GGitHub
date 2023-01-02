@@ -34,6 +34,7 @@ public class RepositoriesVO {
     private String member_img;
     private int member_auth;
     private String member_date;
+    private String member_con;
 
     // push
     private String push_message;
@@ -52,6 +53,9 @@ public class RepositoriesVO {
     private int star_member;
     private int star_count;
 
+    // follow
+    private int followingCount;
+    private int followerCount;
     // 검색기능에서 사용
     private String s_nick, s_name, s_description;
 
