@@ -71,7 +71,10 @@ public class MemberController {
 
     @RequestMapping("/getProfileImg")
     public void getProfileImg(HttpServletResponse response, HttpServletRequest req, String img) {
-        System.out.println(img);
+        if (img == null) {
+            img = "profileDef.png";
+        }
+
         try {
             String path = storage_dir + "profile/img/" + img;
 

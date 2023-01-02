@@ -1,8 +1,8 @@
 <template lang="">
     <div class="member_container">
-        <a class="member_div" v-for="data in searchResult" :href="'./'+data.member_nick">
+        <a class="member_div" v-for="data,idx in searchResult" :href="'./'+data.member_nick">
             <div class="member_div_top">
-                <span>사진</span>
+                <img :src="profileImg[idx]"  class="member_img"/> 
                 <span class="nick blue_point" v-html="data.s_nick"></span>
                 
             </div>
@@ -29,33 +29,6 @@
             </div>
 
         </a>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         <div class="page_div"  v-if="pageCount!=1">
@@ -87,6 +60,8 @@ export default {
       searchResult: {},
       page: 1,
       pageCount: 10,
+      profileImg: [],
+      i: 0,
     };
   },
   components: {
@@ -94,6 +69,25 @@ export default {
     paginate: Paginate,
   },
   methods: {
+    getContriImg() {
+      axios
+        .get("/api/getProfileImg", {
+          responseType: "blob",
+          params: {
+            img: this.searchResult[this.i].member_img,
+          },
+        })
+        .then((response) => {
+          // handle success
+          this.profileImg.push(
+            window.URL.createObjectURL(new Blob([response.data]))
+          );
+          this.i++;
+          if (this.i < this.searchResult.length) {
+            this.getContriImg();
+          }
+        });
+    },
     getMyResuet() {
       axios
         .get("/api/searchMember", {
@@ -104,7 +98,8 @@ export default {
         })
         .then((response) => {
           this.searchResult = response.data;
-          console.log(this.searchResult);
+
+          this.getContriImg();
         });
     },
 
