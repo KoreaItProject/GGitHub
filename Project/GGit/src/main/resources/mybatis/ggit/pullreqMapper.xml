@@ -5,6 +5,18 @@
         SELECT * FROM pullreq;
     </select>
     <select id="pullreq_select" resultType="com.ggit.vo.PullreqVo">
-        SELECT * FROM pullreq where repo = #{idx}
+        select distinct pullreq.*
+        FROM pullreq
+        where pullreq.repo = #{idx} and pullreq.member not in(select member from repomem where repo = #{idx});
+    </select>
+    <select id="pullreq_select_mem" resultType="com.ggit.vo.PullreqVo">
+        select pullreq.*
+        FROM pullreq, (select member from repomem where repo = #{idx}) as repomem
+        where pullreq.repo = #{idx} and repomem.member = pullreq.member;
+    </select>
+    <select id="repoInMem" resultType="com.ggit.vo.RepomemVo">
+        select *
+        from ggitdb.repomem
+        where repo = #{repo_idx} and member = #{u_idx};
     </select>
 </mapper>
