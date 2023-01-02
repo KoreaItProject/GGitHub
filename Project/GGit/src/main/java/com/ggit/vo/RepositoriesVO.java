@@ -9,50 +9,50 @@ import lombok.Data;
 public class RepositoriesVO {
 
     // repo
-    int repo_idx;
-    String repo_name;
-    String repo_createDate;
-    int repo_publ;
-    int repo_owner;
-    int repo_fork;
-    int repo_count;
-    String repo_clone;
-    String description;
-    int repo_download;
+    private int repo_idx;
+    private String repo_name;
+    private String repo_createDate;
+    private int repo_publ;
+    private int repo_owner;
+    private int repo_fork;
+    private int repo_count;
+    private String repo_clone;
+    private String description;
+    private int repo_download;
 
     // repomem
-    int repomem_idx;
-    int repomem_repo;
-    int repomem_member;
-    int repomem_sort;
+    private int repomem_idx;
+    private int repomem_repo;
+    private int repomem_member;
+    private int repomem_sort;
 
     // member
-    int member_idx;
-    String member_nick;
-    String member_email;
-    String member_pw;
-    String member_img;
-    int member_auth;
-    String member_date;
+    private int member_idx;
+    private String member_nick;
+    private String member_email;
+    private String member_pw;
+    private String member_img;
+    private int member_auth;
+    private String member_date;
 
     // push
-    String push_message;
-    String push_token;
-    String push_date;
-    int selected;
-    String before_token;
-    int fromMain = 0;
+    private String push_message;
+    private String push_token;
+    private String push_date;
+    private int selected;
+    private String before_token;
+    private int fromMain = 0;
     // 커밋수
-    int commits;
+    private int commits;
 
     // star
 
-    int star_idx;
-    int star_repo;
-    int star_member;
-    int star_count;
+    private int star_idx;
+    private int star_repo;
+    private int star_member;
+    private int star_count;
 
     // 검색기능에서 사용
-    String s_nick, s_name, s_description;
+    private String s_nick, s_name, s_description;
 
 }

@@ -8,9 +8,9 @@ import lombok.Data;
 @Component
 public class RepomemVo {
 
-    int idx;
-    int repo;
-    int member;
-    int sort;
+    private int idx;
+    private int repo;
+    private int member;
+    private int sort;
 
 }

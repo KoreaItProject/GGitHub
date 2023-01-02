@@ -12,22 +12,22 @@ import lombok.Setter;
 @Component
 public class PushVo {
 
-    String token;
+    private String token;
 
-    int member;
+    private int member;
 
-    int repo;
+    private int repo;
 
-    String message;
+    private String message;
 
-    Timestamp date;
+    private Timestamp date;
 
-    int branch;
+    private int branch;
 
-    String before_token;
+    private String before_token;
 
-    int selected;
+    private int selected;
 
-    int fromMain = 0;
+    private int fromMain = 0;
 
 }

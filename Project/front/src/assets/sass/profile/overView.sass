@@ -38,7 +38,6 @@ $width_value: 100%
         .overView_pins_div
             width: 100%
             padding: 30px 0px
-            //text-align: center
             .ghost
                 opacity: 0.3
                 background: RGB(138, 221, 237)
@@ -65,6 +64,9 @@ $width_value: 100%
                     .overView_pins_second
                         margin-top: 10px
                         font-size: 12px
+                        overflow: hidden
+                        text-overflow: ellipsis
+                        white-space: nowrap
                     .overView_pins_third
                         margin-top: 10px
                         color: #57606a
@@ -116,6 +118,14 @@ $width_value: 100%
             svg
                 width: 843px
                 height: 152px
+                
 
-.vch__day__square has-tooltip
-    border-radius: 20px
+rect
+    fill: #ebedf0
+    rx:2
+    ry:2
+    width: 8.6px
+    height: 8.6px
+    outline: 1px solid rgba(27, 31, 35, 0.06)
+    outline-offset: -1px
+

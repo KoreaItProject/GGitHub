@@ -7,18 +7,18 @@ import lombok.Setter;
  * BranchVo
  */
 
- @Getter
- @Setter
- 
+@Getter
+@Setter
+
 public class BranchVo {
 
-    int idx;
+    private int idx;
 
-    int repo;
+    private int repo;
 
-    Integer post;
+    private Integer post;
 
-    String name;
+    private String name;
 
     public BranchVo(int idx, int repo, Integer post, String name) {
         this.idx = idx;
@@ -27,5 +27,4 @@ public class BranchVo {
         this.name = name;
     }
 
-    
 }
