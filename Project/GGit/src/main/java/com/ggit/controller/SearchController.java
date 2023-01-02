@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.ggit.service.FollowService;
+import com.ggit.service.MemberService;
 import com.ggit.service.PullreqService;
 import com.ggit.service.PushService;
 import com.ggit.service.RepoService;
@@ -48,6 +49,8 @@ public class SearchController {
     FollowService followService;
     @Autowired
     PullreqService pullreqService;
+    @Autowired
+    MemberService memberService;
 
     @Value("${storage_dir}")
     String storage_dir;
@@ -141,5 +144,24 @@ public class SearchController {
         }
 
         return list;
+    }
+
+    @RequestMapping("/searchMember")
+    public List<RepositoriesVO> searchMember(String search, int page) {
+        List<RepositoriesVO> list = null;
+        int count = 10;
+        int start = (page - 1) * count;
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("search", search);
+        map.put("count", count + "");
+        map.put("start", start + "");
+        list = memberService.searchMember(map);
+
+        return list;
+    }
+
+    @RequestMapping("/countMember")
+    public int countMember(String search) {
+        return memberService.countMember(search);
     }
 }
