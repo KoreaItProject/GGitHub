@@ -24,7 +24,7 @@
     </insert>
 
     <delete id="deleteStar">
-         DELETE FROM star WHERE member=${idx} and (select repo.idx from repo where repo.name=#{reponame})
+         DELETE FROM star WHERE member=${idx} and star.repo=(select repo.idx from repo where repo.name=#{reponame})
     </delete>
    
     
