@@ -156,6 +156,12 @@ public class SearchController {
         map.put("count", count + "");
         map.put("start", start + "");
         list = memberService.searchMember(map);
+        for (int i = 0; i < list.size(); i++) {
+            RepositoriesVO rv = list.get(i);
+            rv.setS_nick(
+                    rv.getMember_nick().replaceAll("(?i)" + search, "<span class='pink_back'>" + search + "</span>"));
+
+        }
 
         return list;
     }

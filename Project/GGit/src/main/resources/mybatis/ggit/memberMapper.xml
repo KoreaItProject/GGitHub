@@ -71,10 +71,9 @@
    ,(select count(repomem.idx) from repomem  where repomem.member = member.idx ) as repo_count,
    (select  count(f.idx) from follow f where f.member=member.idx) as followerCount,
    (select  count(f.idx) from follow f where f.follower=member.idx) as followingCount
-
-
     from member
     where (member.nick like "%${search}%")
+    limit ${start} , ${count}
 
 
     

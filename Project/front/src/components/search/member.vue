@@ -3,7 +3,7 @@
         <a class="member_div" v-for="data in searchResult" :href="'./'+data.member_nick">
             <div class="member_div_top">
                 <img></img>
-                <span class="nick blue_point">{{data.member_nick}}</span>
+                <span class="nick blue_point" v-html="data.s_nick"></span>
                 
             </div>
       
@@ -20,7 +20,7 @@
                   <span class="member_div_mid_span">                 
                     <font-awesome-icon icon="fa-regular fa-circle-up" />
                     {{data.commits}}</span>
-                <span class="member_div_mid_span">
+                <span class="member_div_mid_span" v-if="data.push_date!=null">
                 <font-awesome-icon icon="fa-solid fa-arrows-rotate" /> <time-ago local="en" :datetime="data.push_date" refresh tooltip long  /></span>
 
             </div>
@@ -73,7 +73,7 @@ export default {
         })
         .then((response) => {
           this.searchResult = response.data;
-            console.log(this.searchResult)
+          console.log(this.searchResult);
         });
     },
 
@@ -92,7 +92,6 @@ export default {
       })
       .then((response) => {
         this.pageCount = Math.trunc(response.data / 10) + 1;
-    
       });
     this.getMyResuet();
   },
