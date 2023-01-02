@@ -1,8 +1,7 @@
 <template lang="">
-    
     <div class="pullreq_top_div" :style="cssVariable">
         <div class="merge_request_div">
-            <div class="setting_left_container">
+            <div class="pullrequest_left_container">
                 <ul>
                     <li class="setting_left_li setting_left_li2">
                         <a @click="changetab('pullreq')">
@@ -26,15 +25,13 @@
                     </li>  
                 </ul>
             </div>
-
             <div class="pullreq_main_div">                
                 <div id="pullreq_main">
                     <pullreqnomem v-if="ispullreq"/>
                 </div>
-            </div>
+            </div> 
         </div>
 
-        
     </div>
 </template>
 <script>

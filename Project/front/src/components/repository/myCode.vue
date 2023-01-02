@@ -115,7 +115,7 @@
         <div class="code_middle_container_left"  >
             <div class="about_box">
                 <h2 class="about_string">About</h2>
-                <p class="about_setting_message">협업, 형상 관리 프로그램</p>
+                <p class="about_setting_message">{{push.push_message}}</p>
                 <div class="readme_link">
                     <a href="#" class="readme_link_href">
                     <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-book mr-2">
@@ -385,13 +385,18 @@ export default {
       })
     },
     merge_request(){
-      axios.post("/api/merge_request", {
-        u_idx : store.getters.getUserIdx,
-        repo_idx : this.repoIdx
-      })
-      .then(response => {
-        console.log(response.data);
-      })
+      if(confirm("병합 요청을 하시겠습니까?")){
+        axios.post("/api/merge_request", {
+          u_idx : store.getters.getUserIdx,
+          repo_idx : this.repoIdx
+        })
+        .then(response => {
+          console.log(response.data);
+        })  
+      }else{
+
+      }
+      
     }
   }, // method
 
