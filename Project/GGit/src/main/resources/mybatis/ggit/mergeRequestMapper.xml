@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ggit.db.mapper.MergeRequestMapper">
-    <select id="repoInMem" resultType="com.ggit.vo.RepomemVo">
-        select *
-        from ggitdb.repomem
-        where repo = #{repo_idx} and member = #{u_idx};
-    </select>
-</mapper>

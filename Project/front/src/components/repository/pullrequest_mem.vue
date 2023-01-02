@@ -1,7 +1,7 @@
 <template lang="">
     <div class="pullrequest_nomem_container">
         <div class="pullrequest_nomem_name">
-            병합 요청
+            병합 요청(멤버)
         </div>
         <div class="pullreq_main_list">
             <div class="pullreq_main_header">
@@ -62,7 +62,7 @@ export default {
                 if(response.data == ""){
                     location.href="/pagenotfound";
                 }else{
-                    axios.post("/api/pullreq_select", {
+                    axios.post("/api/pullreq_select_mem", {
                         idx : response.data
                     })
                     .then(response => {
