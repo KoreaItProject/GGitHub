@@ -2,7 +2,7 @@
     <div class="member_container">
         <a class="member_div" v-for="data in searchResult" :href="'./'+data.member_nick">
             <div class="member_div_top">
-                <img></img>
+                <span>사진</span>
                 <span class="nick blue_point" v-html="data.s_nick"></span>
                 
             </div>
@@ -23,9 +23,40 @@
                 <span class="member_div_mid_span" v-if="data.push_date!=null">
                 <font-awesome-icon icon="fa-solid fa-arrows-rotate" /> <time-ago local="en" :datetime="data.push_date" refresh tooltip long  /></span>
 
+                <div class="member_con" v-if="data.member_con!=''">
+                    {{data.member_con}}
+                </div>
             </div>
 
         </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         <div class="page_div"  v-if="pageCount!=1">
           <!-- https://www.npmjs.com/package/vuejs-paginate/v/1.9.5 -->
