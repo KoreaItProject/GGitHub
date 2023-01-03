@@ -358,8 +358,6 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             JSONArray pushChanged = new JSONArray();
             CopyFile copyFile = new CopyFile();
 
-            System.out.println("------------------");
-            System.out.println(delPush.size());
             for (int i = 0; i < delPush.size(); i++) {
 
                 for (int j = 0; j < pushData.size(); j++) {
@@ -378,14 +376,13 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                 pushChanged2
                         .add((JSONObject) parser.parse("{\"path\":\"" + delPush.get(i) + "\",\"state\":\"del\"}"));
                 File file = new File(clientPath + "/.ggit/.repo/file/data" + delPush.get(i));
-                System.out.println(file.getPath() + "!!!!!!!!!!!!!!!!!!");
 
                 if (file.isDirectory() && file.listFiles() != null) {
-                    System.out.println(file.getPath());
+
                     new AllDelete(clientPath + "/.ggit/.repo/file/data" + delPush.get(i) + "/");
 
-                } else if (file.isFile()) {
-                    System.out.println(file.getPath());
+                } else {
+
                     file.delete();
                 }
 
@@ -511,7 +508,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                         toptxt.setText("이메일 패스워드가 다릅니다");
                     } else if (infoDTO.getMessage().equals("true")) {
                         this.memberIdx = infoDTO.getIdx() + "";
-                        System.out.println(this.memberIdx);
+
                         loginPan.setVisible(false);
                         cp.setMemberIdx(memberIdx);
                         toptxt.setText("접속코드를 입력하세요");
@@ -636,7 +633,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             Files.setAttribute(p, "dos:hidden", Boolean.TRUE, LinkOption.NOFOLLOW_LINKS);
             new File(clientPath + "/.ggit/.repo/").mkdirs();
             File file = new File(clientPath + "/.ggit/user/info.gt");
-            System.out.println(file.getPath());
+
             file.createNewFile();
 
             FileWriter fw = new FileWriter(file);
@@ -646,7 +643,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             String con = "\"memberIdx\" : \"" + memberIdx + "\", \"repo\" : \"" + repo
                     + "\",\"token\" : \"" + token + "\",\"lasttoken\":\"" + lastToken
                     + "\",";
-            System.out.println(con);
+
             String conResult = "";
             for (int i = 0; i < con.length(); i++) {
                 conResult += (int) con.charAt(i) + (i * 100 + 11) * con.length() + "\n";
