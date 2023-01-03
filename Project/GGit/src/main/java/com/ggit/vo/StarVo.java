@@ -23,6 +23,7 @@ public class StarVo {
     private int repo_down;
     private int commits;
     private String repo_description;
+    private String repo_owner;
     
     // push
     private String push_date;
