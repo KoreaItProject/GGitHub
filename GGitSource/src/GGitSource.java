@@ -327,15 +327,12 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
         canbtn = false;
         try {
             fileState.setRunning(false);
-            Thread.sleep(300);
-
+            Thread.sleep(600);
             JSONParser parser = new JSONParser();
             InfoDTO dto = new InfoDTO();
             dto.setCommand(Info.PUSH);
             dto.setIdx(repo);// 레포인덱스
-            System.out.println(repo);
             dto.setId(memberIdx + "");// 로그인된 회원 인덱스
-            System.out.println(dto.getId());
             dto.setMessage(pushMsg.getText());// commit시 메시지
             if (pushMsg.getText().equals("전송할 메시지를 입력해주세요")) {
                 dto.setMessage("업데이트됨");// commit시 메시지
@@ -350,7 +347,6 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             List<String> addPush = fileState.getAddPush();
             List<String> changePush = fileState.getChangePush();
             List<String> delPush = fileState.getDelPush();
-
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String nowTime = sdf.format(new Date()).toString();
 
@@ -410,14 +406,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
 
                 copyFile.copy(new File(clientPath + "/project" + changePush.get(i)),
                         file);// 지금 파일을 보낼 파일로 옮김
-                // File file1 = new File(clientPath + "/project" + changePush.get(i));
-                // File file2 = new File(clientPath + "/.ggit/.repo/file/data" +
-                // changePush.get(i));
-                // file2.mkdir();
-                // System.out.println(file1.getPath());
-                // if (file1.listFiles() != null) {
-                // copyFile.copy(file1, file2);// 지금 파일을 보낼 파일로 옮김
-                // }
+
             }
             for (int i = 0; i < addPush.size(); i++) {
 
@@ -436,28 +425,12 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
 
             }
 
-            // for (int i = 0; i < addPush.size(); i++) {
-
-            // }
-            // for (int i = 0; i < changePush.size(); i++) {
-
-            // }
-            // for (int i = 0; i < delPush.size(); i++) {
-
-            // }
-
             new WritePushData(clientPath + "/.ggit/.repo/file/dump/pushData.txt")
                     .write((pushData + ""));
             new WritePushData(clientPath + "/.ggit/.repo/file/dump/pushChanged1.txt")
                     .write((pushChanged + ""));
             new WritePushData(clientPath + "/.ggit/.repo/file/dump/pushChanged2.txt")
                     .write((pushChanged2 + ""));
-
-            // File data = new File(clientPath + "/.ggit/.repo/file/data/");//
-            // if (data.isDirectory()) {
-            // new AllDelete(clientPath + "/.ggit/.repo/file/data/");
-            // }
-            // data.mkdir();
 
             System.out.println("-1--");
             File zip = new File(clientPath + "/.ggit/.repo/file/");// 폴더 압축
