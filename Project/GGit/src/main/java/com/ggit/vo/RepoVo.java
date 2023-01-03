@@ -32,4 +32,6 @@ public class RepoVo {
     private int u_idx;
     private int sort_idx;
 
+    private String token;
+
 }

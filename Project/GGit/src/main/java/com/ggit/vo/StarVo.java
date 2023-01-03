@@ -20,7 +20,10 @@ public class StarVo {
 
     // repo
     private String repo_name;
-
+    private int repo_down;
+    private int commits;
+    private String repo_description;
+    
     // push
     private String push_date;
 

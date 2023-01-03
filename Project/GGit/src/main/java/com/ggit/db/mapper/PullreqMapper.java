@@ -21,6 +21,7 @@ public interface PullreqMapper {
 
     List<PullreqVo> pullreq_select_mem(int idx);
     
-    RepomemVo repoInMem(RepoVo repovo);
+    RepomemVo repoInMem(RepoVo repoVo);
 
+    int pullrequest(RepoVo repoVo);
 }

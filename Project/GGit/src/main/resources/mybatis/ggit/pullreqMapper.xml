@@ -19,4 +19,7 @@
         from ggitdb.repomem
         where repo = #{repo_idx} and member = #{u_idx};
     </select>
+    <insert id="pullrequest">
+        insert into
+    </insert>
 </mapper>

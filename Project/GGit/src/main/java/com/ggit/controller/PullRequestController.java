@@ -27,11 +27,12 @@ public class PullRequestController {
         // 저장소에 속하지 않은 멤버이면 : 병합 요청만 ~되고 저장소 주인 또는 권한이 있는 멤버가 병합 가능
 
         // 저장소에 속해 있는지 확인
-        System.out.println("==>" + pullreqService.repoInMem(repoVo));
+        //System.out.println("==>" + pullreqService.repoInMem(repoVo));
         if(pullreqService.repoInMem(repoVo) == null){ // 저장소 멤버가 아닐때
-            System.out.println("저장소 멤버아님");
+            //System.out.println("저장소 멤버아님");
         }else{ // 저장소 멤버일때
-            System.out.println("저장소 멤버");
+            //System.out.println("==>" + repoVo);
+           pullreqService.pullrequest(repoVo);
         }
     }
 

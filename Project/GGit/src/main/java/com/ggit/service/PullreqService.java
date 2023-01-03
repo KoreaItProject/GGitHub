@@ -38,4 +38,8 @@ public class PullreqService {
     public RepomemVo repoInMem(RepoVo repoVo){
         return mapper.repoInMem(repoVo);
     }
+
+    public int pullrequest(RepoVo repoVo){
+        return mapper.pullrequest(repoVo);
+    }
 }
