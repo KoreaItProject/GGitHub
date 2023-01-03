@@ -358,6 +358,8 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             JSONArray pushChanged = new JSONArray();
             CopyFile copyFile = new CopyFile();
 
+            System.out.println("------------------");
+            System.out.println(delPush.size());
             for (int i = 0; i < delPush.size(); i++) {
 
                 for (int j = 0; j < pushData.size(); j++) {
@@ -376,9 +378,14 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                 pushChanged2
                         .add((JSONObject) parser.parse("{\"path\":\"" + delPush.get(i) + "\",\"state\":\"del\"}"));
                 File file = new File(clientPath + "/.ggit/.repo/file/data" + delPush.get(i));
-                if (file.isDirectory()) {
+                System.out.println(file.getPath() + "!!!!!!!!!!!!!!!!!!");
+
+                if (file.isDirectory() && file.listFiles() != null) {
+                    System.out.println(file.getPath());
                     new AllDelete(clientPath + "/.ggit/.repo/file/data" + delPush.get(i) + "/");
+
                 } else if (file.isFile()) {
+                    System.out.println(file.getPath());
                     file.delete();
                 }
 
