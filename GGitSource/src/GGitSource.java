@@ -327,15 +327,12 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
         canbtn = false;
         try {
             fileState.setRunning(false);
-            Thread.sleep(300);
-
+            Thread.sleep(600);
             JSONParser parser = new JSONParser();
             InfoDTO dto = new InfoDTO();
             dto.setCommand(Info.PUSH);
             dto.setIdx(repo);// 레포인덱스
-            System.out.println(repo);
             dto.setId(memberIdx + "");// 로그인된 회원 인덱스
-            System.out.println(dto.getId());
             dto.setMessage(pushMsg.getText());// commit시 메시지
             if (pushMsg.getText().equals("전송할 메시지를 입력해주세요")) {
                 dto.setMessage("업데이트됨");// commit시 메시지
@@ -350,7 +347,6 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             List<String> addPush = fileState.getAddPush();
             List<String> changePush = fileState.getChangePush();
             List<String> delPush = fileState.getDelPush();
-
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String nowTime = sdf.format(new Date()).toString();
 
@@ -360,6 +356,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             JSONArray pushChanged2 = (JSONArray) parser.parse(pushChanged2Con);
 
             JSONArray pushChanged = new JSONArray();
+            CopyFile copyFile = new CopyFile();
 
             for (int i = 0; i < delPush.size(); i++) {
 
@@ -375,8 +372,15 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                         pushChanged2.remove(j);
                     }
                 }
+                pushChanged.add((JSONObject) parser.parse("{\"path\":\"" + delPush.get(i) + "\",\"state\":\"del\"}"));
                 pushChanged2
                         .add((JSONObject) parser.parse("{\"path\":\"" + delPush.get(i) + "\",\"state\":\"del\"}"));
+                File file = new File(clientPath + "/.ggit/.repo/file/data" + delPush.get(i));
+                if (file.isDirectory()) {
+                    new AllDelete(clientPath + "/.ggit/.repo/file/data" + delPush.get(i) + "/");
+                } else if (file.isFile()) {
+                    file.delete();
+                }
 
             }
             for (int i = 0; i < changePush.size(); i++) {
@@ -393,8 +397,15 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                         pushChanged2.remove(j);
                     }
                 }
+                pushChanged.add(
+                        (JSONObject) parser.parse("{\"path\":\"" + changePush.get(i) + "\",\"state\":\"change\"}"));
                 pushChanged2
-                        .add((JSONObject) parser.parse("{\"path\":\"" + delPush.get(i) + "\",\"state\":\"change\"}"));
+                        .add((JSONObject) parser
+                                .parse("{\"path\":\"" + changePush.get(i) + "\",\"state\":\"change\"}"));
+                File file = new File(clientPath + "/.ggit/.repo/file/data" + changePush.get(i));
+
+                copyFile.copy(new File(clientPath + "/project" + changePush.get(i)),
+                        file);// 지금 파일을 보낼 파일로 옮김
 
             }
             for (int i = 0; i < addPush.size(); i++) {
@@ -404,23 +415,14 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                                 + pushMsg
                                         .getText()
                                 + "\",}"));
-
+                pushChanged.add((JSONObject) parser.parse("{\"path\":\"" + addPush.get(i) + "\",\"state\":\"add\"}"));
                 pushChanged2
                         .add((JSONObject) parser.parse("{\"path\":\"" + addPush.get(i) + "\",\"state\":\"add\"}"));
-            }
 
-            for (int i = 0; i < addPush.size(); i++) {
+                File file = new File(clientPath + "/.ggit/.repo/file/data" + addPush.get(i));
+                copyFile.copy(new File(clientPath + "/project" + addPush.get(i)),
+                        file);// 지금 파일을 보낼 파일로 옮김
 
-                pushChanged.add((JSONObject) parser.parse("{\"path\":\"" + addPush.get(i) + "\",\"state\":\"add\"}"));
-            }
-            for (int i = 0; i < changePush.size(); i++) {
-
-                pushChanged.add(
-                        (JSONObject) parser.parse("{\"path\":\"" + changePush.get(i) + "\",\"state\":\"change\"}"));
-            }
-            for (int i = 0; i < delPush.size(); i++) {
-
-                pushChanged.add((JSONObject) parser.parse("{\"path\":\"" + delPush.get(i) + "\",\"state\":\"del\"}"));
             }
 
             new WritePushData(clientPath + "/.ggit/.repo/file/dump/pushData.txt")
@@ -430,15 +432,6 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             new WritePushData(clientPath + "/.ggit/.repo/file/dump/pushChanged2.txt")
                     .write((pushChanged2 + ""));
 
-            System.out.println(123);
-
-            File data = new File(clientPath + "/.ggit/.repo/file/data/");//
-            if (data.isDirectory()) {
-                new AllDelete(clientPath + "/.ggit/.repo/file/data/");
-            }
-            data.mkdir();
-            new CopyFile().copy(new File(clientPath + "/project/"),
-                    new File(clientPath + "/.ggit/.repo/file/data/"));// 지금 파일을 보낼 파일로 옮김
             System.out.println("-1--");
             File zip = new File(clientPath + "/.ggit/.repo/file/");// 폴더 압축
             ZipUtil.pack(zip, new File(clientPath + "/.ggit/.repo/file.zip"), 0);// 파일 보내기 위해 압축
@@ -552,7 +545,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                     if (projectFolder.isDirectory()) {
                         new AllDelete(clientPath + "/" + projectName + "/");
                     }
-                    projectFolder.mkdir();
+                    projectFolder.mkdirs();
                     new CopyFile().copy(new File(clientPath + "/.ggit/.repo/file/data/"),
                             new File(clientPath + "/" + projectName + "/"));
 
@@ -634,7 +627,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             dir.mkdirs();
             Path p = Paths.get(clientPath + "/.ggit");
             Files.setAttribute(p, "dos:hidden", Boolean.TRUE, LinkOption.NOFOLLOW_LINKS);
-            new File(clientPath + "/.ggit/.repo/").mkdir();
+            new File(clientPath + "/.ggit/.repo/").mkdirs();
             File file = new File(clientPath + "/.ggit/user/info.gt");
             System.out.println(file.getPath());
             file.createNewFile();

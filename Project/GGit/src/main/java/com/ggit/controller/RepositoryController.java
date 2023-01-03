@@ -522,12 +522,6 @@ public class RepositoryController {
         return repoService.find_repo(repo.getName());
     }
 
-    // 저장소 idx로 풀 리퀘스트 조회
-    @RequestMapping("pullreq_select")
-    public List<PullreqVo> pullreq_select(@RequestBody PullreqVo pullreqVo) {
-        return pullreqService.pullreq_select(pullreqVo.getIdx());
-    }
-
     // 저장소에 속해있는지 확인
     @RequestMapping("repoMemCheck")
     public RepoVo repoMemCheck(@RequestBody RepoVo repoVo) {

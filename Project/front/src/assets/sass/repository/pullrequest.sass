@@ -1,4 +1,4 @@
-$setting_left_container_width: 272px
+$pullrequest_left_container_width: 272px
 $line-color: #d0d7de
 .pullrequest_nomem_name
     font-size: 24px
@@ -6,21 +6,23 @@ $line-color: #d0d7de
     padding-bottom: 15px
     border-bottom: 1px solid #d0d7de
     margin-bottom: 20px
-
 .pullreq_top_div
-    //border: 1px solid black
     width: 100%
     .merge_request_div
+        max-width: 1280px
+        width: 100%
+        margin: auto
+        min-height: 500px
+        
         display: flex
-        margin-top: 40px
         padding: 0px 16px
-        //border: 1px solid blue
         margin-top: 40px
-        .setting_left_container
-            width: $setting_left_container_width
+        .pullrequest_left_container
+            width: $pullrequest_left_container_width
             padding: 0px 24px 15px 0
             float: left
             font-size: 17px
+            min-width: 280px
             .setting_left_li
                 margin: 7px 0px
                 padding: 0px 5px
@@ -38,11 +40,9 @@ $line-color: #d0d7de
                     background: var(--span2)
         .pullreq_main_div
             //border: 1px solid red
-            max-width: 900px
+            max-width: 800px
+            min-width: 600px
             width: 90%
-            margin: 24px 79.5px 0px
-            padding: 0px 32px
-            margin: 0 auto
             .pullreq_main_list
                 margin-right: 0
                 margin-left: 0

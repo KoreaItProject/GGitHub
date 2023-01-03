@@ -1,7 +1,7 @@
 <template lang="">
     <div class="pullrequest_nomem_container">
         <div class="pullrequest_nomem_name">
-            풀 리퀘스트 요청
+            병합 요청
         </div>
         <div class="pullreq_main_list">
             <div class="pullreq_main_header">
@@ -16,7 +16,7 @@
                     {{pullreqData.length}}
                 </div>
                 <div>
-                    개의 풀 리퀘스트 요청
+                    개의 병합 요청
                 </div>
             </div>
 

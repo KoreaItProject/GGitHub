@@ -41,19 +41,19 @@ public class FileState extends Thread {
 
     @Override
     public void run() {
-        int i = 0;
+
         while (true) {
             try {
 
                 if (running) {
-
+                    System.out.println(123);
                     addPush = new ArrayList<String>();
                     changePush = new ArrayList<String>();
                     delPush = new ArrayList<String>();
                     jlist.setListData(check());// check()에서 가져온 배열로 리스트의 데이터를 바꿔준다.
 
                 }
-                Thread.sleep(500);
+                Thread.sleep(400);
 
             } catch (Exception e) {
                 // TODO Auto-generated catch block
@@ -120,7 +120,7 @@ public class FileState extends Thread {
                                     "/"));
                         }
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        System.out.println("느낌적인 오류");
                     }
 
                 }

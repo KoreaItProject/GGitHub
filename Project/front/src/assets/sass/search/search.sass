@@ -66,7 +66,9 @@ $line-color: #d0d7de
                     width: 100%
                     font-size: 16px
                     max-height: 50px
-                 
+                    overflow: hidden
+                    text-overflow: ellipsis
+                    white-space: nowrap
                 .repo_info_div
                     font-size: 14px
                     margin-top: 10px
@@ -76,36 +78,75 @@ $line-color: #d0d7de
                         display: inline
                     .repo_date_div
                         display: inline
-            .page_div
-                border-top: 1px solid $line-color
-                width: 100%
-                text-align: center
+.page_div
+    border-top: 1px solid $line-color
+    width: 100%
+    text-align: center
 
-                .pagination
-                    margin: 24px auto
+    .pagination
+        margin: 24px auto
 
-                .pagination li
-                    display: inline
-                .page-item a:hover
-                    background: #E4DBD6
-                .page-item a
-                    min-width: 32px
-                    padding: 2px 7px 3px 7px
-                    text-align: center
-                    margin: 0 3px
-                    border-radius: 8px
-                    border: 1px solid $line-color
-                    color: #666
-                    display: inline
-                    color: #666
-                    text-decoration: none
+    .pagination li
+        display: inline
+    .page-item a:hover
+        background: #E4DBD6
+    .page-item a
+        min-width: 32px
+        padding: 2px 7px 3px 7px
+        text-align: center
+        margin: 0 3px
+        border-radius: 8px
+        border: 1px solid $line-color
+        color: #666
+        display: inline
+        color: #666
+        text-decoration: none
 
-                .pagination li.active
+    .pagination li.active
 
-                    color: #4f6c9c
+        color: #4f6c9c
 
-                .pagination li.active a
-                    background-color: pink
-                    color: #4f6c9c
+    .pagination li.active a
+        background-color: pink
+        color: #4f6c9c
 .pink_back
-    background-color:  #f2e3e5
+    background-color: #f2e3e5
+.member_container
+    width: 100%
+    min-height: 700px
+
+    .member_div
+        width: 100%
+        max-width: 800px
+        border-top: 1px solid $line-color
+        display: block
+        padding: 20px
+        &:hover
+            background-color: rgb(246, 248, 250,0.6 )
+
+        .member_div_top
+
+            width: 100%
+            padding: 2px
+            .member_img
+                width: 35px
+                height: 35px
+                border-radius: 9px
+            .nick
+                font-size: 16px
+                font-family: 'Noto Sans KR', sans-serif
+                display: block
+                margin: -31px 0 10px 45px
+
+        .member_div_mid
+
+            width: 100%
+
+            padding: 2px
+.member_div_mid_span
+
+    font-size: 14px
+    margin-right: 13px
+.member_con
+    font-size: 14px
+    margin-top: 8px

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.ggit.db.mapper.MemberMapper;
 import com.ggit.vo.MemberVo;
+import com.ggit.vo.RepositoriesVO;
 
 @Service
 public class MemberService {
@@ -78,8 +79,12 @@ public class MemberService {
     public void delectProfileImg(int idx) {
         mapper.delectProfileImg(idx);
     }
-    
-    
-    
 
+    public int countMember(String search) {
+        return mapper.countMember(search);
+    }
+
+    public List<RepositoriesVO> searchMember(Map<String, String> map) {
+        return mapper.searchMember(map);
+    }
 }

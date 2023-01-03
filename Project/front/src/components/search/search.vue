@@ -30,6 +30,7 @@
         <div class="search_right_container">
             <my v-if="my"/>
             <all v-if="all"/>
+            <member v-if="member"/>
         </div>
         
     </div>
@@ -39,6 +40,7 @@ import axios from "axios";
 import store from "../../vuex/store";
 import my from "@/components/search/my";
 import all from "@/components/search/all";
+import member from "@/components/search/member";
 export default {
   computed: {
     cssVariable() {
@@ -70,19 +72,29 @@ export default {
     };
   },
   components: {
-    my,all
+    my,
+    all,
+    member,
   },
   methods: {
     tabChange() {
-   if (this.tab == "all") {
-        (this.li2 = "pink"), (this.span2 = "rgb(188, 204, 202,0.2)"),this.all=true;
+      if (this.tab == "all") {
+        (this.li2 = "pink"),
+          (this.span2 = "rgb(188, 204, 202,0.2)"),
+          (this.all = true);
       } else if (this.tab == "member") {
-        (this.li3 = "pink"), (this.span3 = "rgb(188, 204, 202,0.2)");
+        (this.li3 = "pink"),
+          (this.span3 = "rgb(188, 204, 202,0.2)"),
+          (this.member = true);
       } else {
         if (this.isLogin) {
-          (this.li1 = "pink"), (this.span1 = "rgb(188, 204, 202,0.2)"),this.my=true;
+          (this.li1 = "pink"),
+            (this.span1 = "rgb(188, 204, 202,0.2)"),
+            (this.my = true);
         } else {
-          (this.li2 = "pink"), (this.span2 = "rgb(188, 204, 202,0.2)"),this.all=true;
+          (this.li2 = "pink"),
+            (this.span2 = "rgb(188, 204, 202,0.2)"),
+            (this.all = true);
         }
       }
     },
