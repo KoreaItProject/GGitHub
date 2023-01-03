@@ -7,22 +7,21 @@ import java.nio.file.Paths;
 import java.nio.file.attribute.FileTime;
 
 public class CopyFile {
+    private FileInputStream fis = null;
+    private FileOutputStream fos = null;
+
     public void copy(File sourceF, File targetF) {
         if (sourceF.isFile()) {
-            int i = 0;
             while (true) {
-
-                File temp = new File(targetF.getAbsolutePath() + File.separator);
-                File mk = new File(temp.getParent());
+                File mk = new File(targetF.getParent());
 
                 mk.mkdirs();
-                FileInputStream fis = null;
-                FileOutputStream fos = null;
+
                 try {
 
                     fis = new FileInputStream(sourceF);
-                    fos = new FileOutputStream(temp);
-                    byte[] b = new byte[4096];
+                    fos = new FileOutputStream(targetF);
+                    byte[] b = new byte[409600];
                     int cnt = 0;
                     while ((cnt = fis.read(b)) != -1) {
                         fos.write(b, 0, cnt);
@@ -30,11 +29,8 @@ public class CopyFile {
 
                 } catch (Exception e) {
                     try {
-                        Thread.sleep(100);
                         mk.mkdirs();
-                        System.out.println(i++);
                         Thread.sleep(100);
-
                     } catch (InterruptedException e1) {
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
@@ -62,13 +58,12 @@ public class CopyFile {
                         temp.mkdirs();
                         copy(file, temp);
                     } else {
-                        FileInputStream fis = null;
-                        FileOutputStream fos = null;
+
                         try {
 
                             fis = new FileInputStream(file);
                             fos = new FileOutputStream(temp);
-                            byte[] b = new byte[4096];
+                            byte[] b = new byte[409600];
                             int cnt = 0;
                             while ((cnt = fis.read(b)) != -1) {
                                 fos.write(b, 0, cnt);
