@@ -1,40 +1,54 @@
 <template lang="">
-    <div class="stars_container">
-        <div class="stars_div" v-for="(star,idx) in stars" v-bind:key="idx">
-            <div>
-              <button type="button" class="star_btn" v-if="star.isMy==0" @click="[insertStar(star.repo_name),refreshAll()]">
-                <svg aria-hidden="true" height="16" viewBox="0 -2 16 16" version="1.1" width="16" data-view-component="true" class="star_svg">
-                        <path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path>
-                </svg> 
-                Star
-              </button>
-              <button type="button" class="starred_btn" v-if="star.isMy==1" @click="[deleteStar(star.repo_name),refreshAll()]">
-                <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="starred_svg">
-                    <path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"></path>
-                </svg>
-                Starred
-              </button>
-            </div>
-            <div class="stars_repository">
-              
-                <a :href="'/'+star.member_nick+'/'+star.repo_name">{{star.member_nick}} / {{star.repo_name}}</a>
-            </div>
-
-           
-
-            <div class="stars_repository_detail">
-                협업 사이트
-            </div>
+    <div class="stars_container" >
+      <div>
+        <template v-for="(star,idx) in stars">
+          
+          <div class="stars_div" >
+              <div>
+                <button type="button" class="star_btn" v-if="starcount==false" @click="insertStar(star.repo_name)">
+                  <font-awesome-icon icon="fa-regular fa-star" />
+                  즐겨찾기
+                </button>
+                
+                <button type="button" class="starred_btn" v-if="starcount==true" @click="deleteStar(star.repo_name)">
+                  <font-awesome-icon icon="fa-solid fa-star" />
+                  즐겨찾기 해제
+                </button>
+              </div>
+              <div class="stars_repository">
+                    <svg aria-hidden="true" height="15px" viewBox="0 0 16 16" version="1.1" width="15px" data-view-component="true" class="octicon octicon-repo color-fg-muted mr-2">
+                        <path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path>
+                    </svg>
+                  <a :href="'/'+star.member_nick+'/'+star.repo_name" class="repo_txt">{{star.member_nick}} / {{star.repo_name}}</a>
+              </div>
 
             
-         
-            <svg aria-label="star" role="img" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-star">
-                <path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path>
-            </svg> 
-            <span class="stars_sub">{{star.star_count}} </span>
-            <span class="stars_sub">{{star.push_date==0?"오늘":+star.push_date+'일 전'}} </span>
-        
-        </div>
+
+              <div class="stars_repository_detail">
+                  {{star.repo_description}}
+              </div>
+
+              
+              <div>
+                <span class="repo_star_div">
+                    <font-awesome-icon icon="fa-regular fa-star" />
+                    {{star.star_count}}
+                </span>
+                <span class="repo_down_div">
+                    <font-awesome-icon icon="fa-regular fa-circle-down" />
+                    {{star.repo_down}}
+                </span>
+               
+
+                <span class="repo_update_div">
+                  <font-awesome-icon icon="fa-solid fa-arrows-rotate" />
+                  <time-ago local="en" :datetime="star.push_date" refresh tooltip long />
+                </span>
+              </div>
+              
+          </div>
+        </template>
+      </div>  
         
     </div>
 
@@ -42,16 +56,23 @@
 <script>
 import axios from 'axios';
 import store from '../../vuex/store';
+import { TimeAgo } from "vue2-timeago";
+
 export default {
   data() {
     return {
       stars: [],
-      
+      starcount:false,
      
       
     };
   },
+  components:{
+    TimeAgo,
+
+  },
   methods:{
+   
     refreshAll() {
             // 새로고침
             this.$router.go();
@@ -69,8 +90,8 @@ export default {
       .then((response) => {
         this.stars = response.data;
         console.log(this.stars)
-
         
+
       })
       
       
@@ -86,7 +107,7 @@ export default {
                 })
                 .then((response) => {
                 // handle success
-                
+                this.selectstarcount(reponame);
                 
                 })
                 .catch((error) => {
@@ -109,7 +130,7 @@ export default {
                 })
                 .then((response) => {
                 // handle success
-                
+                this.selectstarcount(reponame);
                 
                 })
                 .catch((error) => {
@@ -121,7 +142,37 @@ export default {
                 });
                 
             },
+            selectstarcount(reponame){
+          axios
+          .get("/api/selectstarcount",{
+            params:{
+              reponame: reponame,
+              idx: store.getters.getUserIdx,
+            
+            
+            },
+          })
+          .then((response) => {
+            this.starcount = response.data;
+            alert(this.starcount)
+            if (
+                response.data == 0
+              ) {
+                this.starcount = false; // 즐겨찾기
+              } else if (
+                response.data != 0 ||
+                response.data == 1
+               
+              ) {
+                // 조회된 데이터가 있을때
+                this.starcount = true; // 즐겨찾기 해제
+              }
 
+          })
+          
+          
+        },
+      
             
   
 

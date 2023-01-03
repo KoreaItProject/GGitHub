@@ -6,25 +6,25 @@
     </select>
 
     <select id="selectfollowerlist" resultType="com.ggit.vo.MemberVo">
-        SELECT member.nick as nick, (select count(follow.idx) from follow where follower=${idx} and member.idx= follow.member) as count
+        SELECT member.img as member_img, member.nick as nick, (select count(follow.idx) from follow where follower=${idx} and member.idx= follow.member) as count
         FROM member,follow
         WHERE follow.follower=(select idx from member where nick=#{nick}) and member.idx=follow.member;
     </select>
 
     <select id="followerlist" resultType="com.ggit.vo.MemberVo">
-        SELECT member.nick as nick
+        SELECT member.img as member_img, member.nick as nick
         FROM member, follow
         WHERE follow.follower=(select idx from member where nick=#{nick}) and member.idx=follow.member;
     </select>
     
     <select id="selectfollowinglist" resultType="com.ggit.vo.MemberVo">
-       SELECT member.nick as nick, (select count(follow.idx) from follow where follower=${idx} and member.idx= follow.member) as count
+        SELECT member.img as member_img, member.nick as nick, (select count(follow.idx) from follow where follower=${idx} and member.idx= follow.member) as count
         FROM member,follow
         WHERE follow.follower=member.idx and (select idx from member where nick=#{nick})= follow.member;
     </select>
 
     <select id="followinglist" resultType="com.ggit.vo.MemberVo">
-        SELECT member.nick as nick
+        SELECT member.img as member_img, member.nick as nick
         FROM member,follow
         WHERE follow.follower=member.idx and (select idx from member where nick=#{nick})= follow.member;
     </select>
