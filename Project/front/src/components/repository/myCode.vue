@@ -388,7 +388,8 @@ export default {
       if(confirm("병합 요청을 하시겠습니까?")){
         axios.post("/api/merge_request", {
           u_idx : store.getters.getUserIdx,
-          repo_idx : this.repoIdx
+          repo_idx : this.repoIdx,
+          token : this.push.push_token
         })
         .then(response => {
           console.log(response.data);
