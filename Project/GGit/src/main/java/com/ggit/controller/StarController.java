@@ -28,6 +28,7 @@ public class StarController {
 
     @RequestMapping("selectstarcount")
     public int selectstarcount(String reponame, int idx){
+        System.out.println(reponame);
         int selectstarcount = starService.selectstarcount(reponame, idx);
         return selectstarcount;
     }

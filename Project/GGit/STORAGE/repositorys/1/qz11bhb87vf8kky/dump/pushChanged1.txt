@@ -1,0 +1,1 @@
+[{"path":"\/새 폴더","state":"del"},{"path":"\/새 폴더","state":"del"},{"path":"\/새 폴더","state":"del"},{"path":"\/새 폴더","state":"del"},{"path":"\/새 폴더","state":"del"},{"path":"\/새 폴더","state":"del"},{"path":"\/새 폴더","state":"del"},{"path":"\/새 폴더","state":"del"},{"path":"\/새 폴더","state":"del"}]
