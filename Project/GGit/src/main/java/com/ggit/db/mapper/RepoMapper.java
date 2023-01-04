@@ -24,7 +24,7 @@ public interface RepoMapper {
 
     RepositoriesVO pulltoken(Map map);
 
-    RepositoriesVO selectRepositorycode(int repoIdx);
+    RepositoriesVO selectRepositorycode(Map<String, String> map);
 
     RepositoriesVO selectRepositoryMyCode(Map map);
 

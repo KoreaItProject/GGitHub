@@ -159,7 +159,7 @@ public class RepositoryController {
     @RequestMapping("getMD")
     public String getMD(String nick) {
         String con = null;
-        Map map = new HashMap<>();
+        Map<String, String> map = new HashMap<>();
         map.put("nick", nick);
         map.put("reponame", "README");
 
@@ -169,7 +169,9 @@ public class RepositoryController {
         } catch (BindingException e) {
             return con;
         }
-        String token = repoService.selectRepositorycode(repoIdx).getPush_token();
+        map.put("repoIdx", repoIdx + "");
+        map.put("token", "push.token");
+        String token = repoService.selectRepositorycode(map).getPush_token();
         con = new ReadData(storage_dir + "repositorys\\" + repoIdx + "\\" + token + "\\data\\README.md").getCon();
         return con;
     }
@@ -296,9 +298,16 @@ public class RepositoryController {
     }
 
     @RequestMapping("/selectRepositorycode")
-    public RepositoriesVO selectRepositorycode(int repoIdx) {
+    public RepositoriesVO selectRepositorycode(int repoIdx, String token) {
+        Map<String, String> map = new HashMap<>();
+        map.put("repoIdx", repoIdx + "");
+        if (token != null && !token.equals("")) {
+            map.put("token", "\'" + token + "\'");
+        } else {
 
-        RepositoriesVO Repositorycode = repoService.selectRepositorycode(repoIdx);
+            map.put("token", "push.token");
+        }
+        RepositoriesVO Repositorycode = repoService.selectRepositorycode(map);
         return Repositorycode;
     }
 
@@ -311,7 +320,10 @@ public class RepositoryController {
         map.put("member", member);
         repositoriesVO = repoService.selectRepositoryMyCode(map);
         if (repositoriesVO == null) {
-            repositoriesVO = repoService.selectRepositorycode(repoIdx);
+            HashMap<String, String> map1 = new HashMap<>();
+            map1.put("repoIdx", repoIdx + "");
+            map1.put("token", "push.token");
+            repositoriesVO = repoService.selectRepositorycode(map1);
         }
 
         return repositoriesVO;

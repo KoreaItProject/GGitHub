@@ -58,8 +58,8 @@ public class RepoService {
         return mapper.repoIdxByNickName(map);
     }
 
-    public RepositoriesVO selectRepositorycode(int repoIdx) {
-        return mapper.selectRepositorycode(repoIdx);
+    public RepositoriesVO selectRepositorycode(Map<String, String> map) {
+        return mapper.selectRepositorycode(map);
     }
 
     public RepositoriesVO selectRepositoryMyCode(Map map) {

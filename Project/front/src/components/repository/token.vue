@@ -328,6 +328,7 @@ export default {
         .get("/api/selectRepositorycode", {
           params: {
             repoIdx: this.repoIdx,
+            token: this.token,
           },
         })
         .then((response) => {
