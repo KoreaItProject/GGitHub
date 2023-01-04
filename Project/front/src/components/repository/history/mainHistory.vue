@@ -31,9 +31,11 @@
                           
                       </div>
                       <div class="history_info_right scrollBar">
-                          <div v-for="data in changed" class="history_info_right_div">
-                            <div class="history_info_right_divs1">{{data.path}}</div><div class="history_info_right_divs2">{{data.state}}</div>
-                          </div>
+                          <a v-for="data in changed" class="history_info_right_div">
+                            <del class="history_info_right_divs history_info_right_del" v-if="data.state=='del'">{{data.path}}</del>
+                            <ins class="history_info_right_divs history_info_right_add" v-if="data.state=='add'">{{data.path}}</ins>
+                            <div class="history_info_right_divs history_info_right_change" v-if="data.state=='change'">{{data.path}}</div>
+                          </a>
                       </div>
                     </div>
                    
