@@ -54,7 +54,6 @@
 import axios from "axios";
 import store from "@/vuex/store";
 import { TimeAgo } from "vue2-timeago";
-import router from "../../../../../GGit/STORAGE/repositorys/2/076f2zqv990qd20/data/front/src/router";
 
 export default {
   data() {
