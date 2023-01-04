@@ -17,6 +17,9 @@ public class PullreqService {
     RepoVo repoVo;
 
     @Autowired
+    PullreqVo pullreqVo;
+
+    @Autowired
     RepomemVo repomemVo;
 
     @Autowired
@@ -35,11 +38,11 @@ public class PullreqService {
     }
 
     // 저장소 멤버인지 확인
-    public RepomemVo repoInMem(RepoVo repoVo){
-        return mapper.repoInMem(repoVo);
+    public RepomemVo repoInMem(PullreqVo pullreqVo){
+        return mapper.repoInMem(pullreqVo);
     }
 
-    public int pullrequest(RepoVo repoVo){
-        return mapper.pullrequest(repoVo);
+    public int pullrequest(PullreqVo pullreqVo){
+        return mapper.pullrequest(pullreqVo);
     }
 }

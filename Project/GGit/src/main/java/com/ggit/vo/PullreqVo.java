@@ -25,4 +25,6 @@ public class PullreqVo {
 
     private int u_idx;
 
+    private int repo_idx;
+
 }
