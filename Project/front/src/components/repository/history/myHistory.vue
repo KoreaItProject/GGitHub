@@ -7,11 +7,11 @@
                 <div class="repository_history_table">    
                   <div class="repo_history_div">
                     <div class="repo_history_con" @click="clickDiv(index,data.repo_idx)">
-                      <div class="history_message">
+                      <div class="history_message blue_point">
                         <font-awesome-icon icon="fa-regular fa-circle-check" v-if="data.selected==1"/>{{data.push_message}}</div>
-                      <div class="history_nick"><time-ago local="en" :datetime="data.push_date" refresh tooltip long  /></div>
-                      <div class="history_date">{{data.before_token}}</div>
-                      <div class="history_token">{{data.push_token}}</div>
+                      <div class="history_nick">  <font-awesome-icon icon="fa-solid fa-arrows-rotate" /> <time-ago local="en" :datetime="data.push_date" refresh tooltip long  /></div>
+                      <div class="history_date"><font-awesome-icon icon="fa-regular fa-file-code" /> {{data.before_token}}</div>
+                      <div class="history_token"><font-awesome-icon icon="fa-regular fa-copy" /> {{data.push_token}}</div>
                     </div>
                     <div class="repo_history_btn" @click="click(index)" title="현재 상태로 지정">
                       

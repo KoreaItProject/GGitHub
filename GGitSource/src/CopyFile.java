@@ -50,7 +50,7 @@ public class CopyFile {
         } else {
             new File(targetF.getAbsolutePath() + File.separator).mkdirs();
             File[] target_file = sourceF.listFiles();
-            System.out.println(sourceF.getPath());
+
             if (target_file != null) {
 
                 for (File file : target_file) {

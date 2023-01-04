@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 import store from "../vuex/store";
+import login_router from "./login_router";
 
 import test_router from "./test_router";
 
@@ -9,6 +10,7 @@ Vue.use(Router);
 export default new Router({
   routes: [
     ...test_router,
+    ...login_router,
     {
       path: "/",
       name: "main",
@@ -26,16 +28,7 @@ export default new Router({
       },
       component: () => import("@/components/main/main")
     },
-    {
-      path: "/find_password",
-      name: "find_password",
-      component: () => import("@/components/login/find_password")
-    },
-    {
-      path: "/login",
-      name: "login",
-      component: () => import("@/components/login/login")
-    },
+   
     {
       path: "/create",
       name: "create",
@@ -62,9 +55,16 @@ export default new Router({
       component: () => import("@/components/profile/profile")
     },
     {
+      path: "/token/:nick/:repository/:token/:path*",
+      name: "token",
+      component: () => import("@/components/repository/repository"),
+
+    },
+    {
       path: "/:nick/:repository/:path*",
       name: "reopsitory",
-      component: () => import("@/components/repository/repository")
+      component: () => import("@/components/repository/repository"),
+
     }
   ],
   mode: "history"

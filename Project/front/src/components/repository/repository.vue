@@ -57,18 +57,14 @@
           <div class="repository_tab_div" :style="cssVariable" >
               <a :href="'/'+nick+'/'+repository+'?tab=code'">
                  <span class="repository_tab repository_tab1">
-                <svg aria-hidden="true" height="16" viewBox="0 -1 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-code UnderlineNav-octicon d-none d-sm-inline">
-                      <path fill-rule="evenodd" d="M4.72 3.22a.75.75 0 011.06 1.06L2.06 8l3.72 3.72a.75.75 0 11-1.06 1.06L.47 8.53a.75.75 0 010-1.06l4.25-4.25zm6.56 0a.75.75 0 10-1.06 1.06L13.94 8l-3.72 3.72a.75.75 0 101.06 1.06l4.25-4.25a.75.75 0 000-1.06l-4.25-4.25z"></path>
-                  </svg>
+              <font-awesome-icon icon="fa-regular fa-file-code" />
                   저장소
                   </span>
               </a>
               
               <a :href="'/'+nick+'/'+repository+'?tab=myCode'">
                   <span class="repository_tab repository_tab5">
-                  <svg aria-hidden="true" height="16" viewBox="0 -1 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-code UnderlineNav-octicon d-none d-sm-inline">
-                      <path fill-rule="evenodd" d="M4.72 3.22a.75.75 0 011.06 1.06L2.06 8l3.72 3.72a.75.75 0 11-1.06 1.06L.47 8.53a.75.75 0 010-1.06l4.25-4.25zm6.56 0a.75.75 0 10-1.06 1.06L13.94 8l-3.72 3.72a.75.75 0 101.06 1.06l4.25-4.25a.75.75 0 000-1.06l-4.25-4.25z"></path>
-                  </svg>
+                  <font-awesome-icon icon="fa-regular fa-copy" />
                   작업 저장소
                   </span>
               </a>
@@ -100,11 +96,12 @@
 
       </div>
       <div class="repository_content_container">
-          <code-view v-if="isCode"/>
-          <myCode-view v-if="isMyCode"/>
-          <history-view v-if="isHistory"/>
-          <pullrequest-view v-if="isPullrequest"/>
-          <setting-view v-if="isSetting"/>
+          <token v-if="token"/>
+          <code-view v-if="isCode&&!token"/>
+          <myCode-view v-if="isMyCode&&!token"/>
+          <history-view v-if="isHistory&&!token"/>
+          <pullrequest-view v-if="isPullrequest&&!token"/>
+          <setting-view v-if="isSetting&&!token"/>
       </div>
   </div>
 </template>
@@ -112,6 +109,7 @@
 <script>
 import code from "@/components/repository/code.vue";
 import myCode from "@/components/repository/myCode.vue";
+import token from "@/components/repository/token.vue";
 
 import history from "@/components/repository/history/history.vue";
 import pullrequest from "@/components/repository/pullrequest.vue";
@@ -124,6 +122,7 @@ export default {
     return {
       idx: store.getters.getUserIdx,
       nick: this.$route.params.nick,
+      token: this.$route.params.token,
       hrefNick: "/" + this.$route.params.nick,
       repository: this.$route.params.repository,
       hrefRepository:
@@ -144,7 +143,7 @@ export default {
       pin_Check: false,
       isLogin: store.getters.getIsLogin,
       publ: true,
-      starcount:false,
+      starcount: false,
     };
   },
   computed: {
@@ -164,6 +163,7 @@ export default {
     "history-view": history,
     "pullrequest-view": pullrequest,
     "setting-view": setting,
+    token,
   },
   mounted() {
     this.getRepoIdx_RepoMemCheck();
@@ -252,8 +252,9 @@ export default {
           }
           this.repo_idx = response.data; // 저장소 idx 할당
           this.pinCheck(); // 고정이 되어있는 저장소라면 고정(pin)버튼을 고정해제로 바꿔주자
+
           this.selectstarcount();
-          
+
           //if (this.idx != null) {
           // 로그인이 돼있는 상태라면
           //로그인이 안돼있는 상태에서도 public 인지 아닌지 판단할때 필요한 정보라 if문 뺐음 - 이태현
@@ -313,83 +314,67 @@ export default {
           }
         });
     },
-    insertStar(){
-        
-        axios
+    insertStar() {
+      axios
         .get("/api/insertStar", {
-            params: {
-                reponame:this.$route.params.repository,
-                idx:store.getters.getUserIdx,
-            },
-            })
-            .then((response) => {
-            // handle success
-            // alert("추가되었습니다.")
-            this.selectstarcount(); 
-            })
-            .catch((error) => {
-            // handle error
-            console.log(error);
-            })
-            .finally(() => {
-            // always executed
-            });
-            
-        },
-    deleteStar(){
-      
-        axios
+          params: {
+            reponame: this.$route.params.repository,
+            idx: store.getters.getUserIdx,
+          },
+        })
+        .then((response) => {
+          // handle success
+          // alert("추가되었습니다.")
+          this.selectstarcount();
+        })
+        .catch((error) => {
+          // handle error
+          console.log(error);
+        })
+        .finally(() => {
+          // always executed
+        });
+    },
+    deleteStar() {
+      axios
         .get("/api/deleteStar", {
-            params: {
-                reponame:this.$route.params.repository,
-                idx:store.getters.getUserIdx,
-            },
-            })
-            .then((response) => {
-            // handle success
-            // alert("해제되었습니다.")
-            this.selectstarcount(); 
-            })
-            .catch((error) => {
-            // handle error
-            console.log(error);
-            })
-            .finally(() => {
-            // always executed
-            });
-            
-            
-        },
-        selectstarcount(){
-          axios
-          .get("/api/selectstarcount",{
-            params:{
-              reponame: this.$route.params.repository,
-              idx: store.getters.getUserIdx,
-            
-            
-            },
-          })
-          .then((response) => {
-            this.starcount = response.data;
-            // alert(this.starcount)
-            if (
-                response.data == 0
-              ) {
-                this.starcount = false; // 즐겨찾기
-              } else if (
-                response.data == 1
-               
-              ) {
-                // 조회된 데이터가 있을때
-                this.starcount = true; // 즐겨찾기 해제
-              }
-
-          })
-          
-          
-        },
-      
+          params: {
+            reponame: this.$route.params.repository,
+            idx: store.getters.getUserIdx,
+          },
+        })
+        .then((response) => {
+          // handle success
+          // alert("해제되었습니다.")
+          this.selectstarcount();
+        })
+        .catch((error) => {
+          // handle error
+          console.log(error);
+        })
+        .finally(() => {
+          // always executed
+        });
+    },
+    selectstarcount() {
+      axios
+        .get("/api/selectstarcount", {
+          params: {
+            reponame: this.$route.params.repository,
+            idx: store.getters.getUserIdx,
+          },
+        })
+        .then((response) => {
+          this.starcount = response.data;
+          // alert(this.starcount)
+          if (response.data == 0) {
+            this.starcount = false; // 즐겨찾기
+          } else if (response.data == 1) {
+            // 조회된 데이터가 있을때
+            this.starcount = true; // 즐겨찾기 해제
+          }
+        });
+    },
   },
 };
 </script>
