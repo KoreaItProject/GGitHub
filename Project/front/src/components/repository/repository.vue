@@ -253,6 +253,8 @@ export default {
           this.repo_idx = response.data; // 저장소 idx 할당
           this.pinCheck(); // 고정이 되어있는 저장소라면 고정(pin)버튼을 고정해제로 바꿔주자
 
+          this.selectstarcount();
+
           //if (this.idx != null) {
           // 로그인이 돼있는 상태라면
           //로그인이 안돼있는 상태에서도 public 인지 아닌지 판단할때 필요한 정보라 if문 뺐음 - 이태현

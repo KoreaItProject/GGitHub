@@ -5,12 +5,12 @@
           
           <div class="stars_div" >
               <div>
-                <button type="button" class="star_btn" v-if="starcount==false" @click="insertStar(star.repo_name)">
+                <button type="button" class="star_btn"v-if="star.isMy==0" @click="insertStar(star.repo_name)">
                   <font-awesome-icon icon="fa-regular fa-star" />
                   즐겨찾기
                 </button>
                 
-                <button type="button" class="starred_btn" v-if="starcount==true" @click="deleteStar(star.repo_name)">
+                <button type="button" class="starred_btn" v-if="star.isMy==1" @click="deleteStar(star.repo_name)">
                   <font-awesome-icon icon="fa-solid fa-star" />
                   즐겨찾기 해제
                 </button>
@@ -19,7 +19,7 @@
                     <svg aria-hidden="true" height="15px" viewBox="0 0 16 16" version="1.1" width="15px" data-view-component="true" class="octicon octicon-repo color-fg-muted mr-2">
                         <path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path>
                     </svg>
-                  <a :href="'/'+star.member_nick+'/'+star.repo_name" class="repo_txt">{{star.member_nick}} / {{star.repo_name}}</a>
+                  <a :href="'/'+star.repo_owner+'/'+star.repo_name" class="repo_txt">{{star.repo_owner}} / {{star.repo_name}}</a>
               </div>
 
             

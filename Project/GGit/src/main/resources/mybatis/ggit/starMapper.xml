@@ -6,7 +6,7 @@
     </select>
 
     <select id="selectStarlist"  resultType="com.ggit.vo.StarVo">
-        SELECT DISTINCT s.repo,s.idx, s.member, (select member.nick as repo_owner from member where repo.owner=member.idx ) as repo_owner,
+        SELECT DISTINCT s.repo,s.idx, s.member, (select member.nick from member where repo.owner=member.idx ) as repo_owner,
         member.nick as member_nick,repo.name as repo_name, description as repo_description,
         (select count(star.repo)from star where star.repo=repo.idx) as star_count,
         (select count(star.idx) from star where s.repo=star.repo and star.member=${idx}) as isMy,
