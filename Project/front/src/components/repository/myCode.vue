@@ -8,48 +8,65 @@
               </div>
                 <div class="code_btn">
                   <button class="code_btn_btn" @click="toggleOnOff">code </button>
-                    <div class="code_menu_top_div"> <!--  -->
-                      <div class="code_menu" v-if="isStatusOn">
-                          <div class="code_clone">
-                            <svg aria-hidden="true" height="14" viewBox="0 -1 16 16" version="1.1" width="14" data-view-component="true" class="octicon octicon-terminal mr-2">
-                                <path fill-rule="evenodd" d="M0 2.75C0 1.784.784 1 1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75zm1.75-.25a.25.25 0 00-.25.25v10.5c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V2.75a.25.25 0 00-.25-.25H1.75zM7.25 8a.75.75 0 01-.22.53l-2.25 2.25a.75.75 0 11-1.06-1.06L5.44 8 3.72 6.28a.75.75 0 111.06-1.06l2.25 2.25c.141.14.22.331.22.53zm1.5 1.5a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z"></path>
-                            </svg> 
-                            <div class="clone_string">Clone</div>
-                          </div>
+                  <div class="code_menu_top_div"> <!--  -->
+                    <div class="code_menu" v-if="isStatusOn">
+                        <div class="code_clone">
+                          <svg aria-hidden="true" height="14" viewBox="0 -1 16 16" version="1.1" width="14" data-view-component="true" class="octicon octicon-terminal mr-2">
+                              <path fill-rule="evenodd" d="M0 2.75C0 1.784.784 1 1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75zm1.75-.25a.25.25 0 00-.25.25v10.5c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V2.75a.25.25 0 00-.25-.25H1.75zM7.25 8a.75.75 0 01-.22.53l-2.25 2.25a.75.75 0 11-1.06-1.06L5.44 8 3.72 6.28a.75.75 0 111.06-1.06l2.25 2.25c.141.14.22.331.22.53zm1.5 1.5a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z"></path>
+                          </svg> 
+                          <div class="clone_string">Clone</div>
+                        </div>
 
-                          <br>
-                          
-                            <div class="code_input"><input type="text" id="codeclone" class="code_input_box" data-autoselect :value="clone" readonly/>
-                              <button class="code_copy_btn" id="clonebutton" v-on:click="copy"> 
-                                <svg aria-hidden="true" height="15" viewBox="0 0 16 16" version="1.1" width="15" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon d-inline-block">
-                                    <path fill-rule="evenodd" d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"></path><path fill-rule="evenodd" d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z"></path>
-                                </svg>
-                              </button>
-                            </div>
-                            
+                        <br>
                         
-                          <br>
-                          <div class="code_download_div">
-                            <div class="code_download" @click="fileDown">
-                              <a>
-                                <svg aria-hidden="true" height="14" viewBox="0 -0.5 16 16" version="1.1" width="14" data-view-component="true" class="octicon octicon-file-zip mr-2">
-                                    <path fill-rule="evenodd" d="M3.5 1.75a.25.25 0 01.25-.25h3a.75.75 0 000 1.5h.5a.75.75 0 000-1.5h2.086a.25.25 0 01.177.073l2.914 2.914a.25.25 0 01.073.177v8.586a.25.25 0 01-.25.25h-.5a.75.75 0 000 1.5h.5A1.75 1.75 0 0014 13.25V4.664c0-.464-.184-.909-.513-1.237L10.573.513A1.75 1.75 0 009.336 0H3.75A1.75 1.75 0 002 1.75v11.5c0 .649.353 1.214.874 1.515a.75.75 0 10.752-1.298.25.25 0 01-.126-.217V1.75zM8.75 3a.75.75 0 000 1.5h.5a.75.75 0 000-1.5h-.5zM6 5.25a.75.75 0 01.75-.75h.5a.75.75 0 010 1.5h-.5A.75.75 0 016 5.25zm2 1.5A.75.75 0 018.75 6h.5a.75.75 0 010 1.5h-.5A.75.75 0 018 6.75zm-1.25.75a.75.75 0 000 1.5h.5a.75.75 0 000-1.5h-.5zM8 9.75A.75.75 0 018.75 9h.5a.75.75 0 010 1.5h-.5A.75.75 0 018 9.75zm-.75.75a1.75 1.75 0 00-1.75 1.75v3c0 .414.336.75.75.75h2.5a.75.75 0 00.75-.75v-3a1.75 1.75 0 00-1.75-1.75h-.5zM7 12.25a.25.25 0 01.25-.25h.5a.25.25 0 01.25.25v2.25H7v-2.25z"></path>
-                                </svg>
-                                Download ZIP
-                              </a>
+                          <div class="code_input"><input type="text" id="codeclone" class="code_input_box" data-autoselect :value="clone" readonly/>
+                            <button class="code_copy_btn" id="clonebutton" v-on:click="copy"> 
+                              <svg aria-hidden="true" height="15" viewBox="0 0 16 16" version="1.1" width="15" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon d-inline-block">
+                                  <path fill-rule="evenodd" d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"></path><path fill-rule="evenodd" d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z"></path>
+                              </svg>
+                            </button>
                           </div>
-                        </div>  
-                      </div>
-                    </div>  <!-- -->
-                  </div>
+                          
+                      
+                        <br>
+                        <div class="code_download_div">
+                          <div class="code_download" @click="fileDown">
+                            <a>
+                              <svg aria-hidden="true" height="14" viewBox="0 -0.5 16 16" version="1.1" width="14" data-view-component="true" class="octicon octicon-file-zip mr-2">
+                                  <path fill-rule="evenodd" d="M3.5 1.75a.25.25 0 01.25-.25h3a.75.75 0 000 1.5h.5a.75.75 0 000-1.5h2.086a.25.25 0 01.177.073l2.914 2.914a.25.25 0 01.073.177v8.586a.25.25 0 01-.25.25h-.5a.75.75 0 000 1.5h.5A1.75 1.75 0 0014 13.25V4.664c0-.464-.184-.909-.513-1.237L10.573.513A1.75 1.75 0 009.336 0H3.75A1.75 1.75 0 002 1.75v11.5c0 .649.353 1.214.874 1.515a.75.75 0 10.752-1.298.25.25 0 01-.126-.217V1.75zM8.75 3a.75.75 0 000 1.5h.5a.75.75 0 000-1.5h-.5zM6 5.25a.75.75 0 01.75-.75h.5a.75.75 0 010 1.5h-.5A.75.75 0 016 5.25zm2 1.5A.75.75 0 018.75 6h.5a.75.75 0 010 1.5h-.5A.75.75 0 018 6.75zm-1.25.75a.75.75 0 000 1.5h.5a.75.75 0 000-1.5h-.5zM8 9.75A.75.75 0 018.75 9h.5a.75.75 0 010 1.5h-.5A.75.75 0 018 9.75zm-.75.75a1.75 1.75 0 00-1.75 1.75v3c0 .414.336.75.75.75h2.5a.75.75 0 00.75-.75v-3a1.75 1.75 0 00-1.75-1.75h-.5zM7 12.25a.25.25 0 01.25-.25h.5a.25.25 0 01.25.25v2.25H7v-2.25z"></path>
+                              </svg>
+                              Download ZIP
+                            </a>
+                        </div>
+                      </div>  
+                    </div>
+                  </div>  <!-- -->
+              </div>
                   
-                <div class="">
-                  <button class="merge_btn" @click="merge_request()">
+                <div class="pullreq_div">
+                  <button class="merge_btn" @click="pullreqToggleOnOff">
                     <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-git-pull-request UnderlineNav-octicon d-none d-sm-inline">
                       <path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"></path>
                     </svg>
                     병합 요청
                   </button>
+                  <div class="pullreq_menu" v-if="isStatusOn2">
+                    <div class="pullreq_menu_2">
+                      <div class="pullreq_menu_2_1">
+                        <svg height="16" width="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                          <path d="M64 112c-8.8 0-16 7.2-16 16v22.1L220.5 291.7c20.7 17 50.4 17 71.1 0L464 150.1V128c0-8.8-7.2-16-16-16H64zM48 212.2V384c0 8.8 7.2 16 16 16H448c8.8 0 16-7.2 16-16V212.2L322 328.8c-38.4 31.5-93.7 31.5-132 0L48 212.2zM0 128C0 92.7 28.7 64 64 64H448c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128z"/>
+                        </svg>
+                        메시지
+                      </div>
+                      <div class="pullreq_menu_2_2">
+                        <input class="pullreq_menu_input" ref="pullreq_menu_input" type="text" @input="pullreq_menu_input" placeholder="메시지를 입력해주세요">
+                      </div>
+                    </div>
+                    <div class="pullreq_menu_3">
+                      <button class="pullreq_menu_3_no" @click="pullreqToggleOnOff">취소</button>
+                      <button class="pullreq_menu_3_ok" @click="merge_request()">요청</button>
+                    </div>
+                  </div>
                 </div>
             </div>
             
@@ -181,18 +198,29 @@ export default {
       readmeContent: "",
       loading: true,
       isStatusOn: false,
+      isStatusOn2: false,
       path: this.$route.params.path,
       profileImg: [],
       i: 0,
       isEmpty: false,
+      pullreq_menu_input_keyword: '',
     };
   },
   components: {
     TimeAgo,
   },
   methods: {
-    toggleOnOff: function () {
+    toggleOnOff : function () {
       this.isStatusOn = !this.isStatusOn;
+      if(this.isStatusOn2 == true){
+        this.isStatusOn2 = !this.isStatusOn2;
+      }
+    },
+    pullreqToggleOnOff : function () {
+      this.isStatusOn2 = !this.isStatusOn2;
+      if(this.isStatusOn == true){
+        this.isStatusOn = !this.isStatusOn;
+      }
     },
     fileDown: function () {
       axios
@@ -386,18 +414,28 @@ export default {
     },
     merge_request(){
       if(confirm("병합 요청을 하시겠습니까?")){
-        axios.post("/api/merge_request", {
-          u_idx : store.getters.getUserIdx,
-          repo_idx : this.repoIdx,
-          token : this.push.push_token
-        })
-        .then(response => {
-          console.log(response.data);
-        })  
+        if(this.pullreq_menu_input_keyword.trim() == ""){
+          alert("메시지를 작성해주세요");
+          this.$refs.pullreq_menu_input.focus();
+        }else{
+          axios.post("/api/merge_request", {
+            u_idx : store.getters.getUserIdx,
+            repo_idx : this.repoIdx,
+            token : this.push.push_token,
+            message : this.pullreq_menu_input_keyword,
+          })
+          .then(response => {
+            console.log(response.data);
+          })  
+        }
+        
       }else{
 
       }
       
+    },
+    pullreq_menu_input(e){
+      this.pullreq_menu_input_keyword = e.target.value;
     }
   }, // method
 

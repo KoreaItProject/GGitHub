@@ -31,8 +31,8 @@ public class PullRequestController {
         if(pullreqService.repoInMem(repoVo) == null){ // 저장소 멤버가 아닐때
             //System.out.println("저장소 멤버아님");
         }else{ // 저장소 멤버일때
-            //System.out.println("==>" + repoVo);
-           pullreqService.pullrequest(repoVo);
+            //System.out.println(repoVo);
+            pullreqService.pullrequest(repoVo);
         }
     }
 
