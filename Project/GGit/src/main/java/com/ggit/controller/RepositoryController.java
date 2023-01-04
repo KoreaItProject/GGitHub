@@ -454,8 +454,16 @@ public class RepositoryController {
     }
 
     @RequestMapping("selectRepositorycount")
-    public int selectRepositorycount(String nick) {
-        int Repositorycount = repoService.selectRepositorycount(nick);
+    public int selectRepositorycount(String nick, boolean isMy) {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("nick", nick);
+        String publ = "1";
+        if (isMy) {
+            publ = "repo.public";
+        }
+        map.put("publ", publ);
+        int Repositorycount = repoService.selectRepositorycount(map);
         return Repositorycount;
 
     }

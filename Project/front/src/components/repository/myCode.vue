@@ -7,7 +7,7 @@
                 <h3>작업 저장소</h3>
               </div>
                 <div class="code_btn">
-                  <button class="code_btn_btn" @click="toggleOnOff">code </button>
+                  <button class="code_btn" @click="toggleOnOff">code </button>
                   <div class="code_menu_top_div"> <!--  -->
                     <div class="code_menu" v-if="isStatusOn">
                         <div class="code_clone">

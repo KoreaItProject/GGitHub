@@ -32,7 +32,7 @@ public interface RepoMapper {
 
     List<RepositoriesVO> selectRepositorystar(int repoIdx);
 
-    int selectRepositorycount(String nick);
+    int selectRepositorycount(Map<String, String> map);
 
     int selectRepositorystarcount(String nick);
 

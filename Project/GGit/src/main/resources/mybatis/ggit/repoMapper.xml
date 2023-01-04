@@ -80,8 +80,11 @@
     <select id="selectRepositorystar" resultType="com.ggit.vo.RepositoriesVO"> SELECT star.repo as
         star_repo, star.member as star_member FROM star WHERE star.repo = ${repoIdx}; </select>
 
-    <select id="selectRepositorycount" resultType="int"> SELECT count(repomem.idx) FROM repomem
-        WHERE repomem.member=(select member.idx from member where member.nick =#{nick}); </select>
+    <select id="selectRepositorycount" resultType="int"> 
+        SELECT count(repomem.idx) 
+        FROM repomem , repo
+        WHERE repomem.member=(select member.idx from member where member.nick =#{nick}) 
+        and repomem.repo = repo.idx and repo.public = ${publ}; </select>
 
     <select id="selectRepositorystarcount" resultType="int"> SELECT count(star.member) FROM star
         WHERE star.member = (select member.idx from member where member.nick=#{nick}) </select>
