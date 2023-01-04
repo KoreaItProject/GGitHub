@@ -46,14 +46,13 @@ public class FileState extends Thread {
             try {
 
                 if (running) {
-                    System.out.println(123);
                     addPush = new ArrayList<String>();
                     changePush = new ArrayList<String>();
                     delPush = new ArrayList<String>();
                     jlist.setListData(check());// check()에서 가져온 배열로 리스트의 데이터를 바꿔준다.
 
                 }
-                Thread.sleep(400);
+                Thread.sleep(500);
 
             } catch (Exception e) {
                 // TODO Auto-generated catch block
@@ -132,15 +131,16 @@ public class FileState extends Thread {
 
     }
 
-    public void deldirectory(File file, ArrayList list) {
+    public void deldirectory(File file, ArrayList list, File targetF) {
         for (File sorce : file.listFiles()) {
+            File temp = new File(targetF.getAbsolutePath() + File.separator + sorce.getName());
             if (sorce.isDirectory()) {
-                deldirectory(sorce, list);
+                deldirectory(sorce, list, temp);
             }
 
-            list.add(delete + sorce.getName() + "     " + sorce.getPath());
+            list.add(delete + sorce.getName() + "     " + temp.getPath());
             delPush.add(
-                    sorce.getPath().replace(clientPath + "\\.ggit\\.repo\\file\\data\\", "/")
+                    temp.getPath().replace(clientPath + "\\project\\", "/")
                             .replaceAll("\\\\",
                                     "/"));
         }
@@ -159,12 +159,12 @@ public class FileState extends Thread {
                 }
 
                 if (!temp.isDirectory() && !temp.isFile()) {// 삭제기록
-                    list.add(delete + file.getName() + "     " + file.getPath());
+                    list.add(delete + temp.getName() + "     " + temp.getPath());
                     delPush.add(temp.getPath().replace(clientPath + "\\project\\", "/").replaceAll("\\\\",
                             "/"));
                     if (file.isDirectory()) {// 폴더 자체가 삭제되었을때 안에 있는 파일들도 삭제로 기록
 
-                        deldirectory(file, list);
+                        deldirectory(file, list, temp);
                     }
 
                 }

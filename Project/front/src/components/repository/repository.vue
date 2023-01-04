@@ -34,13 +34,23 @@
                       </button>
                     </span>
                   </span>
-            
-                  <button class="repository_btn_star repository_btn">
-                      <svg aria-hidden="true" height="16" viewBox="0 -1 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-star d-inline-block mr-2">
-                          <path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path>
-                      </svg>
-                      즐겨찾기
-                  </button>
+                  
+                  <sapn v-if="starcount==false">
+                    <button class="repository_btn_star repository_btn"  @click="insertStar()">
+                        <svg aria-hidden="true" height="16" viewBox="0 -1 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-star d-inline-block mr-2">
+                            <path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path>
+                        </svg>
+                        즐겨찾기
+                    </button>
+                  </sapn>
+                  <span v-if="starcount==true">
+                    <button class="repository_btn_star repository_btn"  @click="deleteStar()">
+                        <svg aria-hidden="true" height="16" viewBox="0 -1 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-star d-inline-block mr-2">
+                            <path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path>
+                        </svg>
+                        즐겨찾기 해제
+                    </button>
+                  </span>
                 </div>
               </div>
           </div>
@@ -134,6 +144,7 @@ export default {
       pin_Check: false,
       isLogin: store.getters.getIsLogin,
       publ: true,
+      starcount:false,
     };
   },
   computed: {
@@ -156,7 +167,6 @@ export default {
   },
   mounted() {
     this.getRepoIdx_RepoMemCheck();
-
     // 저장소 idx 가져온 후 내가 속해있는 저장소인지 확인하자
   },
   methods: {
@@ -242,6 +252,8 @@ export default {
           }
           this.repo_idx = response.data; // 저장소 idx 할당
           this.pinCheck(); // 고정이 되어있는 저장소라면 고정(pin)버튼을 고정해제로 바꿔주자
+          this.selectstarcount();
+          
           //if (this.idx != null) {
           // 로그인이 돼있는 상태라면
           //로그인이 안돼있는 상태에서도 public 인지 아닌지 판단할때 필요한 정보라 if문 뺐음 - 이태현
@@ -301,6 +313,83 @@ export default {
           }
         });
     },
+    insertStar(){
+        
+        axios
+        .get("/api/insertStar", {
+            params: {
+                reponame:this.$route.params.repository,
+                idx:store.getters.getUserIdx,
+            },
+            })
+            .then((response) => {
+            // handle success
+            // alert("추가되었습니다.")
+            this.selectstarcount(); 
+            })
+            .catch((error) => {
+            // handle error
+            console.log(error);
+            })
+            .finally(() => {
+            // always executed
+            });
+            
+        },
+    deleteStar(){
+      
+        axios
+        .get("/api/deleteStar", {
+            params: {
+                reponame:this.$route.params.repository,
+                idx:store.getters.getUserIdx,
+            },
+            })
+            .then((response) => {
+            // handle success
+            // alert("해제되었습니다.")
+            this.selectstarcount(); 
+            })
+            .catch((error) => {
+            // handle error
+            console.log(error);
+            })
+            .finally(() => {
+            // always executed
+            });
+            
+            
+        },
+        selectstarcount(){
+          axios
+          .get("/api/selectstarcount",{
+            params:{
+              reponame: this.$route.params.repository,
+              idx: store.getters.getUserIdx,
+            
+            
+            },
+          })
+          .then((response) => {
+            this.starcount = response.data;
+            // alert(this.starcount)
+            if (
+                response.data == 0
+              ) {
+                this.starcount = false; // 즐겨찾기
+              } else if (
+                response.data == 1
+               
+              ) {
+                // 조회된 데이터가 있을때
+                this.starcount = true; // 즐겨찾기 해제
+              }
+
+          })
+          
+          
+        },
+      
   },
 };
 </script>

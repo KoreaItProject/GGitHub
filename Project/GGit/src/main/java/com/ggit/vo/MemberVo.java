@@ -30,6 +30,7 @@ public class MemberVo {
     private String company;
     private String location;
     private int email_check;
+    private String member_img;
 
     // 팔로우수
     private int followers, following;

@@ -1,28 +1,30 @@
 <template lang="">
-    <div class="followers_main_div">
-        <div v-if="islogin">
-            <template v-for="follower,idx in followers">
-                <div class="followers_box"> 
-                    <div class="follower_profile_img">
-                        img~
+    <div class="following_main_div">
+         <div v-if="islogin">
+            <template v-for="following,idx in followings">
+                <div class="following_box"> 
+                    <div class="following_profile_img">
+                        <img :src="profileImg[idx]"  class="following_member_img"/>
                     </div>
-                    <a class="follower_profile_go" :href="'/'+follower.nick">
-                        <span class="follower_nick">
-                            {{follower.nick}}
+                    <a class="following_profile_go" :href="'/'+following.nick">
+                        <span class="following_nick">
+                            {{following.nick}}
+                            
                         </span>
                         
                     </a>
-                    <div class="unfollow" v-if="!isMy(follower.nick)">
-                        <button class="unfollow_btn" v-if="follower.count==1" @click="[deletefollowlist(follower.nick),refreshAll()]">
+                     <div class="unfollow" v-if="!isMy(following.nick)">
+                        <button class="unfollow_btn" v-if="following.count==1" @click="[deletefollowlist(following.nick),refreshAll()]">
                             Unfollow
                         </button>
 
-                        <button class="follow_btn" v-if="follower.count==0" @click="[insertFollow(follower.nick),refreshAll()]">
+                        <button class="follow_btn" v-if="following.count==0" @click="[insertFollow(following.nick),refreshAll()]">
                             follow
                         </button>
 
+
                         <button class="follow_btn" v-if="!islogin" @click="location.href='login'">
-                            follow
+                                follow
                         </button>
 
                     </div>
@@ -30,15 +32,14 @@
             </template>
         </div>
         <div v-if="!islogin">
-            <template v-for="Lfollower,idx in Lfollowers">
-                <div class="followers_box"> 
-                    <div class="follower_profile_img">
-                        img~
+            <template v-for="Lfollowing,idx in Lfollowings">
+                <div class="following_box"> 
+                    <div class="following_profile_img">
+                        <img :src="profileImg[idx]"  class="following_member_img"/>
                     </div>
-                    <a class="follower_profile_go" href="#">
-                        <span class="follower_nick">
-                            {{Lfollower.nick}}
-                            
+                    <a class="following_profile_go" href="#">
+                        <span class="following_nick">
+                            {{Lfollowing.nick}}
                         </span>
                         
                     </a>
@@ -50,7 +51,7 @@
                 </div>
             </template>
         </div>
-        
+      
         
     </div>
 </template>
@@ -60,25 +61,58 @@ import store from '../../vuex/store';
 export default {
     data(){
         return{
-            followers:[],
-            Lfollowers:[],
-            islogin:false,
-            
-            
-        };
-    },
+        followings:[],
+        Lfollowings:[],
+        islogin:false,
+        profileImg: [],
+
+
+    };
+},
     methods:{
         isMy(nick){
           
-            return store.getters.getUserNick==nick
-            
+          return store.getters.getUserNick==nick
+          
+      },
+        selectfollowinglist(){
+            axios
+                .get("/api/selectfollowinglist",{
+                    params:{
+                        nick:this.$route.params.nick,
+                        idx: store.getters.getUserIdx,
+                    },
+                })
+                .then((response) => {
+                    this.followings = response.data;
+                    // alert(this.followings)
+                    console.log(this.followinglist)
+                    this.getProfileImg()
+                })
         },
+        followinglist(){
+            axios
+                .get("/api/followinglist",{
+                    params:{
+                        nick:this.$route.params.nick,
+                       
+                    },
+                })
+                .then((response) => {
+                    this.Lfollowings = response.data;
+                    // alert(this.Lfollowings)
+                    console.log(this.Lfollowinglist)
+                 
+                    this.getProfileImg()
+                })
+                
+        },
+        
         refreshAll() {
             // 새로고침
             this.$router.go();
         },
         insertFollow(nick){
-            
             axios
             .get("/api/insertFollow", {
                 params: {
@@ -101,34 +135,6 @@ export default {
             
             },  
         
-            selectfollowerlist(){
-            
-                axios
-                .get("/api/selectfollowerlist",{
-                    params:{
-                        nick:this.$route.params.nick,
-                        idx:store.getters.getUserIdx,
-                    },
-                })
-                .then((response) => {
-                    this.followers = response.data;
-                    
-                })
-                // alert(this.followers)
-        },
-        followerlist(){
-            axios
-            .get("/api/followerlist",{
-                params:{
-                    nick:this.$route.params.nick,
-                   
-                },
-            })
-            .then((response) => {
-                this.Lfollowers = response.data;
-                
-            })
-        },
        
         deletefollowlist(nick){
             axios
@@ -151,22 +157,39 @@ export default {
                 // always executed
                 });
             
-    }
     },
+    getProfileImg() {
+      axios
+        .get("/api/getProfileImg", {
+          responseType: "blob",
+          params: {
+            img: this.followings[ this.i].member_img,
+          },
+        })
+        .then((response) => {
+          // handle success
+          this.profileImg.push(
+            window.URL.createObjectURL(new Blob([response.data]))
+          );
+          this.i++;
+          if (this.i < this.followings.length) {
+            this.getProfileImg();
+          }
+        });
+    },
+        },
     mounted(){
         this.islogin = store.getters.getIsLogin;
-        if (this.islogin) { 
-            this.selectfollowerlist();
+        if(this.islogin){
+            this.selectfollowinglist();
         }
-        this. followerlist();
-
-     
-        
+        this.followinglist();
     }
+
 
     
 }
 </script>
 <style lang="sass">
-@import "src/assets/sass/profile/followers"
+@import "src/assets/sass/profile/following"
 </style>
