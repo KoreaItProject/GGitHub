@@ -7,11 +7,14 @@
                 <div class="repository_history_table">    
                   <div class="repo_history_div">
                     <div class="repo_history_con"  @click="clickDiv(index,data.repo_idx)">
-                      <div class="history_message"><font-awesome-icon icon="fa-check " v-if="data.selected==1"/>{{data.push_message}}</div>
+                      <div class="history_message blue_point"><font-awesome-icon icon="fa-check " v-if="data.selected==1"/>{{data.push_message}}</div>
                       <div class="history_nick">{{data.member_nick}}</div>
-                      <div class="history_date"><time-ago local="en" :datetime="data.push_date" refresh tooltip long/></div>
-                      <div class="history_token">{{data.push_token}}</div>
+                      <div class="history_date"><font-awesome-icon icon="fa-solid fa-arrows-rotate" /> <time-ago local="en" :datetime="data.push_date" refresh tooltip long/></div>
+                      <div class="history_token"><font-awesome-icon icon="fa-regular fa-file-code" /> {{data.push_token}}</div>
                     </div>
+                    <div class="repo_history_btn" title="저장소 보기" @click="goToken(data.push_token)">
+                      <font-awesome-icon icon="fa-regular fa-eye" />
+                      </div>
                     <div class="repo_history_btn" title="작업 저장소로 가져오기" @click="click(index)">
                       
                       <font-awesome-icon icon="fa-solid fa-arrow-right" />
@@ -51,6 +54,7 @@
 import axios from "axios";
 import store from "@/vuex/store";
 import { TimeAgo } from "vue2-timeago";
+import router from "../../../../../GGit/STORAGE/repositorys/2/076f2zqv990qd20/data/front/src/router";
 
 export default {
   data() {
@@ -64,6 +68,16 @@ export default {
     TimeAgo,
   },
   methods: {
+    goToken(token) {
+      window.location.href =
+        "/token/" +
+        this.$route.params.nick +
+        "/" +
+        this.$route.params.repository +
+        "/" +
+        token +
+        "";
+    },
     clickDiv(index, repo) {
       this.clickIndex == index
         ? (this.clickIndex = -1)
