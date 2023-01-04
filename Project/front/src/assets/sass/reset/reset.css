@@ -399,8 +399,8 @@ table {
   overflow-y: scroll;
 }
 body::-webkit-scrollbar , .scrollBar::-webkit-scrollbar{
-  width: 9px;
-  height: 9px;
+  width: 8px;
+  height: 8px;
   /* 스크롤바의 너비 */
 }
 
