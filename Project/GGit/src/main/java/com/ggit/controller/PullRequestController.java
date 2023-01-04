@@ -17,22 +17,24 @@ public class PullRequestController {
     RepoVo repoVo;
 
     @Autowired
+    PullreqVo pullreqVo;
+
+    @Autowired
     PullreqService pullreqService;
 
 
     @RequestMapping("merge_request")
-    public void merge_request(@RequestBody RepoVo repoVo){
+    public int merge_request(@RequestBody PullreqVo pullreqVo){
         // 저장소 idx와 user idx를 가지고 
         // 저장소에 속한 멤버이면 : 저장소 멤버 병합 요청 후 ~병합
         // 저장소에 속하지 않은 멤버이면 : 병합 요청만 ~되고 저장소 주인 또는 권한이 있는 멤버가 병합 가능
 
         // 저장소에 속해 있는지 확인
         //System.out.println("==>" + pullreqService.repoInMem(repoVo));
-        if(pullreqService.repoInMem(repoVo) == null){ // 저장소 멤버가 아닐때
-            //System.out.println("저장소 멤버아님");
+        if(pullreqService.repoInMem(pullreqVo) == null){ // 저장소 멤버가 아닐때
+            return pullreqService.pullrequest(pullreqVo);
         }else{ // 저장소 멤버일때
-            //System.out.println(repoVo);
-            pullreqService.pullrequest(repoVo);
+            return pullreqService.pullrequest(pullreqVo);
         }
     }
 

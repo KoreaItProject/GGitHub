@@ -20,6 +20,6 @@
         where repo = #{repo_idx} and member = #{u_idx};
     </select>
     <insert id="pullrequest">
-        insert into pullreq values()
+        insert into pullreq(repo, member, message, token) values(#{repo_idx}, #{u_idx}, #{message}, #{token});
     </insert>
 </mapper>

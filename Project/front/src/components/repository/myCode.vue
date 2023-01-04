@@ -41,7 +41,7 @@
                       </div>  
                     </div>
                   </div>  <!-- -->
-              </div>
+                </div>
                   
                 <div class="pullreq_div">
                   <button class="merge_btn" @click="pullreqToggleOnOff">
@@ -413,7 +413,6 @@ export default {
       })
     },
     merge_request(){
-      if(confirm("병합 요청을 하시겠습니까?")){
         if(this.pullreq_menu_input_keyword.trim() == ""){
           alert("메시지를 작성해주세요");
           this.$refs.pullreq_menu_input.focus();
@@ -426,12 +425,17 @@ export default {
           })
           .then(response => {
             console.log(response.data);
+            if(response.data >= 1){
+              alert("요청 완료");
+              this.isStatusOn2 = false;
+            }else{
+              alert("요청 에러");
+            }
+            
           })  
         }
         
-      }else{
-
-      }
+      
       
     },
     pullreq_menu_input(e){
