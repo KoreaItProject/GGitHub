@@ -28,14 +28,14 @@
                           {{data.push_message}}
                           
                       </div>
-                      <div class="history_info_right scrollBar">
+                      <a class="history_info_right scrollBar">
                           <div v-for="data in changed" class="history_info_right_div">
                             <del class="history_info_right_divs history_info_right_del" v-if="data.state=='del'">{{data.path}}</del>
                             <ins class="history_info_right_divs history_info_right_add" v-if="data.state=='add'">{{data.path}}</ins>
                             <div class="history_info_right_divs history_info_right_change" v-if="data.state=='change'">{{data.path}}</div>
 
                           </div>
-                      </div>
+                        </a>
                     </div>
                    
                 </div>
@@ -98,6 +98,7 @@ export default {
           },
         })
         .then((response) => {
+          alert("작업 저장소 상태가 변경 되었습니다.");
           this.getHistory();
         });
     },

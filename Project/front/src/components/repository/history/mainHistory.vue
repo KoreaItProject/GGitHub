@@ -115,18 +115,20 @@ export default {
         });
     },
     click(index) {
-      axios
-        .get("/api/pushMainToMy", {
-          params: {
-            token: this.history[index].push_token,
-            repo: this.$route.params.repository,
-            member: store.getters.getUserIdx,
-            ownerNick: this.$route.params.nick,
-          },
-        })
-        .then((response) => {
-          window.location.href = window.location.href;
-        });
+      if (confirm("작업 저장소에 복사하시겠습니까")) {
+        axios
+          .get("/api/pushMainToMy", {
+            params: {
+              token: this.history[index].push_token,
+              repo: this.$route.params.repository,
+              member: store.getters.getUserIdx,
+              ownerNick: this.$route.params.nick,
+            },
+          })
+          .then((response) => {
+            window.location.href = window.location.href;
+          });
+      }
     },
   },
   mounted() {
