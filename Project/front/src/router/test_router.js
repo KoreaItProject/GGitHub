@@ -19,7 +19,7 @@ export default[
         component: () => import('@/components/test/test2')
     },{
       path: '/download/:repo/:token',
-      name: 'ggitsource',
+      name: 'downloadRepo',
       component: () => import('@/components/test/testfiledown')
   },
     {
@@ -28,7 +28,7 @@ export default[
       component: () => import('@/components/test/testfiledown')
   },{
       path: '/download',
-      name: 'ggitsource',
+      name: 'download',
       component: () => import('@/components/main/download')
   }
     ,{

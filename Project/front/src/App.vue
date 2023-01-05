@@ -22,6 +22,7 @@ export default {
     "header-view": Header,
     "footer-view": Footer,
   },
+
 };
 </script>
 

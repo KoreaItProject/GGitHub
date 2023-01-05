@@ -31,11 +31,20 @@
                         
                           <br>
                           <div class="code_download_div">
-                            <div class="code_download " @click="fileDown">
-                              <a>
+                            <div class="code_download " v-show="!downloading">
+                              <a  @click="fileDown">
                                 <font-awesome-icon icon="fa-regular fa-circle-down" />
                                 다운로드
+                                
                               </a>
+                          </div>
+                           <div class="code_download " v-show="downloading">
+                       
+                                <font-awesome-icon icon="fa-regular fa-circle-down" />
+                                다운로드중
+                                
+                                <img v-show="downloading" src="@/assets/imgs/main/download/loading2.gif" width="15px" height="15px"/>
+                     
                           </div>
                         </div>  
                       </div>
@@ -62,8 +71,10 @@
                 
 
                 </div>
+                <div class="repo_list" v-show="downloading" style="display:block" >다운로드 중...</div>
                 <a :href="backURL"><div class="repo_list" style="display:block" v-show="!(path==undefined)">  . . </div></a>
                  <div class="repo_list" v-show="loading" style="display:block" v-if="!isEmpty">데이터 불러오는 중...</div>
+               
                 <div class="repo_list" v-for="data in file_list"  v-if="!isEmpty">
                   
                   <div class="repo_list_part1">
@@ -184,6 +195,7 @@ export default {
       profileImg: [],
       i: 0,
       isEmpty: false,
+      downloading: false,
     };
   },
   components: {
@@ -194,12 +206,14 @@ export default {
       this.isStatusOn = !this.isStatusOn;
     },
     fileDown: function () {
+      this.downloading = true;
       axios
         .get("/api/download", {
           responseType: "blob",
           params: {
             repo: this.repoIdx,
             token: this.push.push_token,
+            fileName: this.$route.params.repository,
           },
         })
         .then((response) => {
@@ -207,12 +221,13 @@ export default {
           const link = document.createElement("a");
           link.href = url;
           link.setAttribute("download", response.headers.filename); //or any other extension
-          console.log(response.headers.filename);
           document.body.appendChild(link);
           link.click();
+          this.downloading = false;
         })
         .catch((exception) => {
           alert("파일 다운로드 실패");
+          this.downloading = false;
         });
     },
 

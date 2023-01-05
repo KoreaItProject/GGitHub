@@ -506,9 +506,7 @@ public class RepositoryController {
         Map<String, String> map = new HashMap<String, String>();
         map.put("repo", repo);
         map.put("ownerNick", ownerNick);
-        System.out.println(repo);
-        System.out.println(111 + ownerNick);
-        System.out.println(member);
+
         if (mode.equals("main")) {
             map.put("branch", 0 + "");
         } else {
