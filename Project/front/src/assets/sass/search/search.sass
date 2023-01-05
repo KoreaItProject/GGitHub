@@ -121,28 +121,32 @@ $line-color: #d0d7de
         border-top: 1px solid $line-color
         display: block
         padding: 20px
-        &:hover
-            background-color: rgb(246, 248, 250,0.6 )
+        display: flex
+        justify-content: center
+        align-items: center
 
         .member_div_top
 
             width: 100%
             padding: 2px
+
             .member_img
                 width: 35px
                 height: 35px
                 border-radius: 9px
+                cursor: pointer
             .nick
                 font-size: 16px
                 font-family: 'Noto Sans KR', sans-serif
                 display: block
-                margin: -31px 0 10px 45px
+                margin: -32px 0 10px 45px
+                cursor: pointer
 
         .member_div_mid
 
             width: 100%
-
             padding: 2px
+
 .member_div_mid_span
 
     font-size: 14px
@@ -150,3 +154,8 @@ $line-color: #d0d7de
 .member_con
     font-size: 14px
     margin-top: 8px
+.follow_div
+    width: 150px
+    text-align: center
+
+.follow

@@ -31,11 +31,20 @@
                         
                           <br>
                           <div class="code_download_div">
-                            <div class="code_download " @click="fileDown">
-                              <a>
+                            <div class="code_download " v-show="!downloading">
+                              <a  @click="fileDown">
                                 <font-awesome-icon icon="fa-regular fa-circle-down" />
                                 다운로드
+                                
                               </a>
+                          </div>
+                           <div class="code_download " v-show="downloading">
+                       
+                                <font-awesome-icon icon="fa-regular fa-circle-down" />
+                                다운로드중
+                                
+                                <img v-show="downloading" src="@/assets/imgs/main/download/loading2.gif" width="15px" height="15px"/>
+                     
                           </div>
                         </div>  
                       </div>
@@ -62,8 +71,10 @@
                 
 
                 </div>
+                <div class="repo_list" v-show="downloading" style="display:block" >다운로드 중...</div>
                 <a :href="backURL"><div class="repo_list" style="display:block" v-show="!(path==undefined)">  . . </div></a>
                  <div class="repo_list" v-show="loading" style="display:block" v-if="!isEmpty">데이터 불러오는 중...</div>
+               
                 <div class="repo_list" v-for="data in file_list"  v-if="!isEmpty">
                   
                   <div class="repo_list_part1">
@@ -123,14 +134,7 @@
                         </svg> {{star.length}} stars
                     </a>    
                 </div>
-                <div class="fork_link">
-                    <a href="#" class="fork_link_href">
-                        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-repo-forked mr-2">
-                            <path fill-rule="evenodd" d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z"></path>
-                        </svg>
-                         {{push.repo_fork}} fork
-                    </a>
-                </div>
+                
 
             </div>
             <div class="contributors_box">
@@ -184,6 +188,7 @@ export default {
       profileImg: [],
       i: 0,
       isEmpty: false,
+      downloading: false,
     };
   },
   components: {
@@ -194,12 +199,14 @@ export default {
       this.isStatusOn = !this.isStatusOn;
     },
     fileDown: function () {
+      this.downloading = true;
       axios
         .get("/api/download", {
           responseType: "blob",
           params: {
             repo: this.repoIdx,
             token: this.push.push_token,
+            fileName: this.$route.params.repository,
           },
         })
         .then((response) => {
@@ -207,12 +214,13 @@ export default {
           const link = document.createElement("a");
           link.href = url;
           link.setAttribute("download", response.headers.filename); //or any other extension
-          console.log(response.headers.filename);
           document.body.appendChild(link);
           link.click();
+          this.downloading = false;
         })
         .catch((exception) => {
           alert("파일 다운로드 실패");
+          this.downloading = false;
         });
     },
 

@@ -147,14 +147,20 @@ public class SearchController {
     }
 
     @RequestMapping("/searchMember")
-    public List<RepositoriesVO> searchMember(String search, int page) {
+    public List<RepositoriesVO> searchMember(String search, int page, String memberIdx) {
         List<RepositoriesVO> list = null;
         int count = 10;
         int start = (page - 1) * count;
+        String member = "0";
         Map<String, String> map = new HashMap<String, String>();
         map.put("search", search);
         map.put("count", count + "");
         map.put("start", start + "");
+        if (memberIdx != null && !memberIdx.equals("")) {
+            member = memberIdx;
+
+        }
+        map.put("member", member);
         list = memberService.searchMember(map);
         for (int i = 0; i < list.size(); i++) {
             RepositoriesVO rv = list.get(i);

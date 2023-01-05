@@ -1,10 +1,12 @@
 <template lang="">
     <div class="member_container">
-        <a class="member_div" v-for="data,idx in searchResult" :href="'./'+data.member_nick">
-            <div class="member_div_top">
-                <img :src="profileImg[idx]"  class="member_img"/> 
-                <span class="nick blue_point" v-html="data.s_nick"></span>
-                
+        <div class="member_div" v-for="data,idx in searchResult" >
+             
+        <div style="display:block;width:100%">
+            <div class="member_div_top" >
+                  <img :src="profileImg[idx]"  class="member_img" @click="go(data.member_nick)"> 
+                  <span class="nick blue_point" v-html="data.s_nick" @click="go(data.member_nick)"></span>
+              
             </div>
       
             <div class="member_div_mid">
@@ -26,9 +28,19 @@
                 <div class="member_con" v-if="data.member_con!=''">
                     {{data.member_con}}
                 </div>
-            </div>
+            
+             
 
-        </a>
+              
+         
+            </div>
+        </div>
+        <div class="follow_div" v-if="isLogin&&data.member_nick !=nick">
+          <a class="btns follow" v-if="data.isFollow==0" @click="[insertFollow(data.member_nick),data.isFollow=1]">팔로우</a>  
+          <a class="btns follow" v-if="data.isFollow==1" @click="[deletefollowlist(data.member_nick),data.isFollow=0]">언팔로우</a>  
+        </div>
+          
+      </div>
 
 
         <div class="page_div"  v-if="pageCount!=1">
@@ -62,6 +74,8 @@ export default {
       pageCount: 10,
       profileImg: [],
       i: 0,
+      isLogin: store.getters.getIsLogin,
+      nick: store.getters.getUserNick,
     };
   },
   components: {
@@ -69,6 +83,47 @@ export default {
     paginate: Paginate,
   },
   methods: {
+    go(nick) {
+      window.location.href = "./" + nick;
+    },
+    deletefollowlist(nick) {
+      axios
+        .get("/api/deletefollowlist", {
+          params: {
+            nick: nick,
+            idx: store.getters.getUserIdx,
+          },
+        })
+        .then((response) => {
+          // handle success
+        })
+        .catch((error) => {
+          // handle error
+          console.log(error);
+        })
+        .finally(() => {
+          // always executed
+        });
+    },
+    insertFollow(nick) {
+      axios
+        .get("/api/insertFollow", {
+          params: {
+            nick: nick,
+            idx: store.getters.getUserIdx,
+          },
+        })
+        .then((response) => {
+          // handle success
+        })
+        .catch((error) => {
+          // handle error
+          console.log(error);
+        })
+        .finally(() => {
+          // always executed
+        });
+    },
     getContriImg() {
       axios
         .get("/api/getProfileImg", {
@@ -79,6 +134,7 @@ export default {
         })
         .then((response) => {
           // handle success
+
           this.profileImg.push(
             window.URL.createObjectURL(new Blob([response.data]))
           );
@@ -94,6 +150,7 @@ export default {
           params: {
             search: this.$route.query.keyword,
             page: this.page,
+            memberIdx: store.getters.getUserIdx,
           },
         })
         .then((response) => {
@@ -105,6 +162,9 @@ export default {
 
     changePage: function (pageNum) {
       this.page = pageNum;
+      this.profileImg.splice(0);
+
+      this.i = 0;
       this.getMyResuet();
       window.scrollTo(0, 0);
     },

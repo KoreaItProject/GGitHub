@@ -31,9 +31,11 @@
                           
                       </div>
                       <div class="history_info_right scrollBar">
-                          <div v-for="data in changed" class="history_info_right_div">
-                            <div class="history_info_right_divs1">{{data.path}}</div><div class="history_info_right_divs2">{{data.state}}</div>
-                          </div>
+                          <a v-for="data in changed" class="history_info_right_div">
+                            <del class="history_info_right_divs history_info_right_del" v-if="data.state=='del'">{{data.path}}</del>
+                            <ins class="history_info_right_divs history_info_right_add" v-if="data.state=='add'">{{data.path}}</ins>
+                            <div class="history_info_right_divs history_info_right_change" v-if="data.state=='change'">{{data.path}}</div>
+                          </a>
                       </div>
                     </div>
                 </div>
@@ -112,18 +114,20 @@ export default {
         });
     },
     click(index) {
-      axios
-        .get("/api/pushMainToMy", {
-          params: {
-            token: this.history[index].push_token,
-            repo: this.$route.params.repository,
-            member: store.getters.getUserIdx,
-            ownerNick: this.$route.params.nick,
-          },
-        })
-        .then((response) => {
-          window.location.href = window.location.href;
-        });
+      if (confirm("작업 저장소에 복사하시겠습니까")) {
+        axios
+          .get("/api/pushMainToMy", {
+            params: {
+              token: this.history[index].push_token,
+              repo: this.$route.params.repository,
+              member: store.getters.getUserIdx,
+              ownerNick: this.$route.params.nick,
+            },
+          })
+          .then((response) => {
+            window.location.href = window.location.href;
+          });
+      }
     },
   },
   mounted() {

@@ -66,14 +66,16 @@
     select count(idx) from member where nick like "%${search}%"
 </select>
 <select id="searchMember"  resultType="com.ggit.vo.RepositoriesVO">
-        select member.nick as member_nick,(select count(token) from push where member.idx =
+        select member.idx as member_idx,
+        member.nick as member_nick,(select count(token) from push where member.idx =
         push.member) as commits
         ,(select date from push where member.idx = push.member order by date DESC limit 1) as
         push_date
         ,(select count(repomem.idx) from repomem where repomem.member = member.idx ) as repo_count,
         (select count(f.idx) from follow f where f.member=member.idx) as followerCount,
         (select count(f.idx) from follow f where f.follower=member.idx) as followingCount,
-        member.con as member_con,member.img as member_img
+        member.con as member_con,member.img as member_img,
+        (select count(follow.idx) from follow where follow.follower = ${member} and follow.member = member.idx) as isFollow
         from member
         where (member.nick like "%${search}%")
         limit ${start} , ${count}

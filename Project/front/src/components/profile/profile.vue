@@ -410,6 +410,7 @@ export default {
         .get("/api/selectRepositorycount", {
           params: {
             nick: this.$route.params.nick,
+            isMy: this.$route.params.nick == store.getters.getUserNick,
           },
         })
         .then((response) => {
