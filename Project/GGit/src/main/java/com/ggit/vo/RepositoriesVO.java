@@ -56,6 +56,7 @@ public class RepositoriesVO {
     // follow
     private int followingCount;
     private int followerCount;
+    private int isFollow;
     // 검색기능에서 사용
     private String s_nick, s_name, s_description;
 

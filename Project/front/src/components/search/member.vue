@@ -1,10 +1,12 @@
 <template lang="">
     <div class="member_container">
         <a class="member_div" v-for="data,idx in searchResult" :href="'./'+data.member_nick">
+             
+        <div style="display:block;width:100%">
             <div class="member_div_top">
-                <img :src="profileImg[idx]"  class="member_img"/> 
-                <span class="nick blue_point" v-html="data.s_nick"></span>
-                
+                  <img :src="profileImg[idx]"  class="member_img"/> 
+                  <span class="nick blue_point" v-html="data.s_nick"></span>
+              
             </div>
       
             <div class="member_div_mid">
@@ -26,8 +28,18 @@
                 <div class="member_con" v-if="data.member_con!=''">
                     {{data.member_con}}
                 </div>
-            </div>
+            
+             
 
+              
+         
+            </div>
+        </div>
+        <div class="follow_div" v-if="isLogin&&data.member_nick !=nick">
+          <div class="btns follow" v-if="data.isFollow==0">팔로우</div>  
+          <div class="btns follow" v-if="data.isFollow==1">언팔로우</div>  
+        </div>
+          
         </a>
 
 
@@ -62,6 +74,8 @@ export default {
       pageCount: 10,
       profileImg: [],
       i: 0,
+      isLogin: store.getters.getIsLogin,
+      nick: store.getters.getUserNick
     };
   },
   components: {
@@ -70,8 +84,10 @@ export default {
   },
   methods: {
     getContriImg() {
+  
       axios
         .get("/api/getProfileImg", {
+         
           responseType: "blob",
           params: {
             img: this.searchResult[this.i].member_img,
@@ -79,6 +95,7 @@ export default {
         })
         .then((response) => {
           // handle success
+       
           this.profileImg.push(
             window.URL.createObjectURL(new Blob([response.data]))
           );
@@ -94,17 +111,21 @@ export default {
           params: {
             search: this.$route.query.keyword,
             page: this.page,
+            memberIdx:store.getters.getUserIdx
           },
         })
         .then((response) => {
           this.searchResult = response.data;
-
+        
           this.getContriImg();
         });
     },
 
     changePage: function (pageNum) {
       this.page = pageNum;
+      this.profileImg.splice(0);
+
+      this.i=0;
       this.getMyResuet();
       window.scrollTo(0, 0);
     },
