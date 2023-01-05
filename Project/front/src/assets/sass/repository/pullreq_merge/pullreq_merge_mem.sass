@@ -1,0 +1,118 @@
+$scroll-color: #ffc0cb
+$scroll-color-hover: #e398a5
+.pullreq_merge_name
+    height: 68px
+    
+.pullreq_merge_container
+    //border: 1px solid red
+    height: 1000px
+    display: flex
+    justify-content: center
+    @media screen and ( max-width:1100px  )
+        height: 1500px
+    .pullreq_merge_div_left
+        flex: none
+        //border: 1px solid green
+        width: 300px
+        .pullreq_merge_div_left2
+            padding: 10px
+            .pullreq_merge_div_left_data
+                border: 1px solid yellow
+                height: 100px    
+                margin-bottom: 10px
+                border-radius: 10px  
+    .pullreq_merge_div_right
+        border: 1px solid green
+        width: 1200px
+        flex-direction: column
+        .pullreq_merge_div_right_top
+            border: 1px solid red
+            height: 30%
+            display: flex
+            @media (max-width: 1100px)
+                flex-direction: column
+                height: 40%
+            .pullreq_merge_div_right_top_left
+                flex: none
+                border: 1px solid green
+                width: 50%
+                margin: 10px
+                border-radius: 10px
+                word-break: break-all
+                overflow: auto
+                @media (max-width: 1100px)
+                    width: 97%
+                    height: 46.7%
+                    margin: 10px
+            .pullreq_merge_div_right_top_right
+                border: 1px solid green
+                width: 50%
+                margin: 10px
+                border-radius: 10px
+                word-break: break-all
+                overflow: auto
+                @media (max-width: 1100px)
+                    width: 97%
+                    height: 50%
+        .pullreq_merge_div_right_bottom
+            border: 1px solid blue
+            height: 70%
+            padding-bottom: 20px
+            @media (max-width: 1100px)
+                height: 60%
+            .pullreq_merge_div_right_bottom_changecode
+                border: 1px solid black
+                height: 100%
+                word-break: break-all
+                overflow: auto
+                margin: 10px 10px 0px 10px
+                border-radius: 10px
+                
+                
+.pullreq_merge_div_right_top_left
+  &::-webkit-scrollbar
+    width: 8px
+    height: 8px
+    background: #ffffff
+  
+  &::-webkit-scrollbar-thumb 
+    border-radius: 3.5px
+    background-color: $scroll-color
+    &:hover 
+      background-color: $scroll-color-hover
+    
+  &::-webkit-scrollbar-track 
+    background: #ffffff
+
+
+.pullreq_merge_div_right_top_right
+  &::-webkit-scrollbar
+    width: 8px
+    height: 8px
+    background: #ffffff
+  
+  &::-webkit-scrollbar-thumb 
+    border-radius: 3.5px
+    background-color: $scroll-color
+    &:hover 
+      background-color: $scroll-color-hover
+    
+  &::-webkit-scrollbar-track 
+    background: #ffffff
+
+.pullreq_merge_div_right_bottom_changecode
+  &::-webkit-scrollbar
+    width: 8px
+    height: 8px
+    background: #ffffff
+  
+  &::-webkit-scrollbar-thumb 
+    border-radius: 3.5px
+    background-color: $scroll-color
+    &:hover 
+      background-color: $scroll-color-hover
+    
+  &::-webkit-scrollbar-track 
+    background: #ffffff
+  
+         

@@ -36,11 +36,10 @@
                           </div>
                       </div>
                     </div>
-                   
                 </div>
-                 <div style="text-align:center;;width:100%;padding:5px 0">
-                    <font-awesome-icon icon="fa-solid fa-arrow-up" />
-                  </div> 
+                <div style="text-align:center;;width:100%;padding:5px 0">
+                  <font-awesome-icon icon="fa-solid fa-arrow-up" />
+                </div> 
               </div>
               <div class="repository_history_table" style="padding:5px 0;text-align:center">
                 저장소 생성
@@ -54,7 +53,6 @@
 import axios from "axios";
 import store from "@/vuex/store";
 import { TimeAgo } from "vue2-timeago";
-import router from "../../../../../GGit/STORAGE/repositorys/2/076f2zqv990qd20/data/front/src/router";
 
 export default {
   data() {

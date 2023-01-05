@@ -1,53 +1,45 @@
 <template lang="">
-    <div>
-    
-          <div class="repository_history_table_div scrollBar">
+  <div>
+    <div class="repository_history_table_div scrollBar">
+      <div v-for="(data,index) in history" >
+        <div class="repository_history_table">    
+          <div class="repo_history_div">
+            <div class="repo_history_con" @click="clickDiv(index,data.repo_idx)">
+              <div class="history_message blue_point">
+                <font-awesome-icon icon="fa-regular fa-circle-check" v-if="data.selected==1"/>{{data.push_message}}
+              </div>
+              <div class="history_nick">  <font-awesome-icon icon="fa-solid fa-arrows-rotate" /> <time-ago local="en" :datetime="data.push_date" refresh tooltip long  /></div>
+              <div class="history_date"><font-awesome-icon icon="fa-regular fa-file-code" /> {{data.before_token}}</div>
+              <div class="history_token"><font-awesome-icon icon="fa-regular fa-copy" /> {{data.push_token}}</div>
+            </div>
+            <div class="repo_history_btn" @click="click(index)" title="현재 상태로 지정">
+              <font-awesome-icon icon="fa-check" />
+            </div>
+          </div>       
             
-              <div v-for="(data,index) in history" >
-                <div class="repository_history_table">    
-                  <div class="repo_history_div">
-                    <div class="repo_history_con" @click="clickDiv(index,data.repo_idx)">
-                      <div class="history_message blue_point">
-                        <font-awesome-icon icon="fa-regular fa-circle-check" v-if="data.selected==1"/>{{data.push_message}}</div>
-                      <div class="history_nick">  <font-awesome-icon icon="fa-solid fa-arrows-rotate" /> <time-ago local="en" :datetime="data.push_date" refresh tooltip long  /></div>
-                      <div class="history_date"><font-awesome-icon icon="fa-regular fa-file-code" /> {{data.before_token}}</div>
-                      <div class="history_token"><font-awesome-icon icon="fa-regular fa-copy" /> {{data.push_token}}</div>
-                    </div>
-                    <div class="repo_history_btn" @click="click(index)" title="현재 상태로 지정">
-                      
-                      <font-awesome-icon icon="fa-check" />
-                    </div>
-                  </div>       
-                 
-             
-                
-                   
-                      <div class="history_info_div" v-if="clickIndex==index">
-
-                      <div class="history_info_left">
-                          {{data.push_message}}
-                          
-                      </div>
-                      <div class="history_info_right scrollBar">
-                          <div v-for="data in changed" class="history_info_right_div">
-                            <div class="history_info_right_divs1">{{data.path}}</div><div class="history_info_right_divs2">{{data.state}}</div>
-                          </div>
-                      </div>
-                    </div>
-                   
-                </div>
-                 <div style="text-align:center;;width:100%;padding:5px 0">
-                    <font-awesome-icon icon="fa-solid fa-arrow-up" v-if="data.fromMain==0"/>
-                    <font-awesome-icon icon="fa-solid fa-arrow-right" v-if="data.fromMain==1"/>
-                  </div> 
+          <div class="history_info_div" v-if="clickIndex==index">
+            <div class="history_info_left">{{data.push_message}}</div>
+            <div class="history_info_right scrollBar">
+              <div v-for="data in changed" class="history_info_right_div">
+                <div class="history_info_right_divs1">{{data.path}}</div>
+                <div class="history_info_right_divs2">{{data.state}}</div>
               </div>
-              <div class="repository_history_table" style="padding:5px 0;text-align:center">
-                저장소 생성
-              </div>
-           
+            </div>
+          </div>
+        </div>
 
+        <div style="text-align:center;;width:100%;padding:5px 0">
+          <font-awesome-icon icon="fa-solid fa-arrow-up" v-if="data.fromMain==0"/>
+          <font-awesome-icon icon="fa-solid fa-arrow-right" v-if="data.fromMain==1"/>
+        </div> 
       </div>
+      <div class="repository_history_table" style="padding:5px 0;text-align:center">
+        저장소 생성
       </div>
+          
+
+    </div>
+  </div>
 </template>
 
 <script>
@@ -68,11 +60,8 @@ export default {
   },
   methods: {
     clickDiv(index, repo) {
-      this.clickIndex == index
-        ? (this.clickIndex = -1)
-        : (this.clickIndex = index);
-      axios
-        .get("/api/getHistoryChanged", {
+      this.clickIndex == index ? (this.clickIndex = -1) : (this.clickIndex = index);
+      axios.get("/api/getHistoryChanged", {
           params: {
             repo: repo,
             token: this.history[index].push_token,

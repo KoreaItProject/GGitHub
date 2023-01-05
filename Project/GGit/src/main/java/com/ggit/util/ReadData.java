@@ -12,8 +12,7 @@ public class ReadData {
 
         try {
             reader = new BufferedReader(
-                    new InputStreamReader(new FileInputStream(
-                            path), "UTF-8"));
+                    new InputStreamReader(new FileInputStream(path), "UTF-8"));
             String str = "";
 
             while ((str = reader.readLine()) != null) {

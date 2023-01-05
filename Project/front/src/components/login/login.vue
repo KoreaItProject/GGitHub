@@ -6,8 +6,6 @@
                     <a href="/">
                         <img class="logo" src="static/imgs/login/logoblack.png" />
                     </a>
-                    
-                    
                 </div>
             </div>
         </div>
