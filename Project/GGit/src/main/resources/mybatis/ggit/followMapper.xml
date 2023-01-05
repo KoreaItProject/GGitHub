@@ -11,10 +11,21 @@
         WHERE follow.follower=(select idx from member where nick=#{nick}) and member.idx=follow.member;
     </select>
 
-    <select id="followerlist" resultType="com.ggit.vo.MemberVo">
-        SELECT member.img as member_img, member.nick as nick
-        FROM member, follow
-        WHERE follow.follower=(select idx from member where nick=#{nick}) and member.idx=follow.member;
+    <select id="followerlist" resultType="com.ggit.vo.RepositoriesVO">
+        select fol.follower as member_idx,
+        (select count(token) from push where fol.follower =push.member) as commits
+        ,(select date from push where fol.follower = push.member order by date DESC limit 1) as
+        push_date
+        ,(select count(repomem.idx) from repomem where repomem.member = fol.follower ) as repo_count,
+        (select count(f.idx) from follow f where f.member=fol.follower) as followerCount,
+        (select count(f.idx) from follow f where f.follower=fol.follower) as followingCount,
+        (select member.con   from member where member.idx = fol.follower) as member_con,
+        (select member.img  from member where member.idx = fol.follower) as member_img,
+        (select member.nick  from member where member.idx = fol.follower) as member_nick,
+        (select count(follow.idx) from follow where follow.follower = ${member} and follow.member = fol.follower) as isFollow
+        from member mem,follow fol
+        where mem.nick = #{nick} and fol.member = mem.idx
+        limit ${start} , ${count}
     </select>
     
     <select id="selectfollowinglist" resultType="com.ggit.vo.MemberVo">
@@ -23,12 +34,30 @@
         WHERE follow.follower=member.idx and (select idx from member where nick=#{nick})= follow.member;
     </select>
 
-    <select id="followinglist" resultType="com.ggit.vo.MemberVo">
-        SELECT member.img as member_img, member.nick as nick
-        FROM member,follow
-        WHERE follow.follower=member.idx and (select idx from member where nick=#{nick})= follow.member;
-    </select>
+    <select id="followinglist"  resultType="com.ggit.vo.RepositoriesVO">
+     
 
+        select fol.member as member_idx,
+        (select count(token) from push where fol.member =push.member) as commits
+        ,(select date from push where fol.member = push.member order by date DESC limit 1) as
+        push_date
+        ,(select count(repomem.idx) from repomem where repomem.member = fol.member ) as repo_count,
+        (select count(f.idx) from follow f where f.member=fol.member) as followerCount,
+        (select count(f.idx) from follow f where f.follower=fol.member) as followingCount,
+        (select member.con   from member where member.idx = fol.member) as member_con,
+        (select member.img  from member where member.idx = fol.member) as member_img,
+        (select member.nick  from member where member.idx = fol.member) as member_nick,
+        (select count(follow.idx) from follow where follow.follower = ${member} and follow.member = fol.member) as isFollow
+        from member mem,follow fol
+        where mem.nick = #{nick} and fol.follower = mem.idx
+        limit ${start} , ${count}
+    </select>
+   <select id="followCount" resultType="com.ggit.vo.RepositoriesVO">
+        SELECT 
+        (select count(follow.idx) from follow,member where member.nick = #{nick} and follow.follower = member.idx) as followingCount,
+        (select count(follow.idx) from follow,member where member.nick = #{nick} and follow.member = member.idx) as followerCount
+       
+    </select>
     <insert id="insertFollow">
         INSERT INTO follow(member,follower) VALUES((select member.idx from member where member.nick=#{nick}),${idx})
     </insert>
@@ -36,6 +65,7 @@
     <select id="selectfollowcount" resultType="int">
         SELECT count(idx) FROM follow  WHERE follower=${idx} and (select member.idx from member where member.nick=#{nick}) = member;
     </select>
+ 
 
     <delete id="deletefollowlist">
         DELETE FROM follow WHERE follower=${idx} and member=(select member.idx from member where member.nick=#{nick})

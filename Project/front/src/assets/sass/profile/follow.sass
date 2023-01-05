@@ -3,11 +3,12 @@ $line-color: #d0d7de
 .member_container
     width: 100%
     min-height: 700px
+    margin-left: 25px
 
     .member_div
         width: 100%
-        max-width: 800px
-        border-top: 1px solid $line-color
+        max-width: 900px
+        border-bottom: 1px solid $line-color
         display: block
         padding: 20px
         display: flex
@@ -47,4 +48,36 @@ $line-color: #d0d7de
     width: 150px
     text-align: center
 
-.follow
+.page_div
+
+    width: 100%
+    text-align: center
+    max-width: 900px
+    margin-bottom: 100px
+
+    .pagination
+        margin: 24px auto
+
+    .pagination li
+        display: inline
+    .page-item a:hover
+        background: #E4DBD6
+    .page-item a
+        min-width: 32px
+        padding: 2px 7px 3px 7px
+        text-align: center
+        margin: 0 3px
+        border-radius: 8px
+        border: 1px solid $line-color
+        color: #666
+        display: inline
+        color: #666
+        text-decoration: none
+
+    .pagination li.active
+
+        color: #4f6c9c
+
+    .pagination li.active a
+        background-color: pink
+        color: #4f6c9c
