@@ -1,5 +1,14 @@
 package com.ggit.controller;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +57,30 @@ public class PullRequestController {
     @RequestMapping("pullreq_select_mem")
     public List<PullreqVo> pullreq_select_mem(@RequestBody PullreqVo pullreqVo) {
         return pullreqService.pullreq_select_mem(pullreqVo.getIdx());
+    }
+
+    @RequestMapping("testcon")
+    public ArrayList<String> testcon(){
+        
+
+        ArrayList<String> test_line = new ArrayList<String>();
+        
+        try{
+            BufferedReader inFiles = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/java/com/ggit/config/testfile.txt"), StandardCharsets.UTF_8));
+
+            String line = "";
+            while((line = inFiles.readLine()) != null){
+                test_line.add(line);
+            }
+            //.readLine()은 끝에 개행문자를 읽지 않는다.            
+            inFiles.close();
+        }catch (FileNotFoundException e) {
+            // TODO: handle exception
+        }catch(IOException e){
+            System.out.println(e);
+        }
+        return test_line;
+        
     }
     
 }
