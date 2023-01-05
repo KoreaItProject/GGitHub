@@ -39,6 +39,9 @@
 </template>
 <script>
 import axios from 'axios';
+
+
+
 export default {
     data(){
         return{
@@ -51,8 +54,8 @@ export default {
         // this.mergeRequest()
     },
     methods: {
-        pullreqUserData(u_data){
-            alert(u_data);
+        pullreqUserData(token){
+            this.$emit("merge_func", token);
         },
         find_repo(){ // 존재하는 저장소인지 확인하자
             axios.post("/api/find_repo",{

@@ -38,11 +38,10 @@
                           </a>
                       </div>
                     </div>
-                   
                 </div>
-                 <div style="text-align:center;;width:100%;padding:5px 0">
-                    <font-awesome-icon icon="fa-solid fa-arrow-up" />
-                  </div> 
+                <div style="text-align:center;;width:100%;padding:5px 0">
+                  <font-awesome-icon icon="fa-solid fa-arrow-up" />
+                </div> 
               </div>
               <div class="repository_history_table" style="padding:5px 0;text-align:center">
                 저장소 생성
