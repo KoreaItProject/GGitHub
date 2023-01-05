@@ -122,4 +122,8 @@ public class RepoService {
         return mapper.searchPageCount(map);
     }
 
+    public void repoDown(int idx) {
+        mapper.repoDown(idx);
+    }
+
 }

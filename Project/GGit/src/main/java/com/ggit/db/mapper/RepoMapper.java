@@ -62,4 +62,6 @@ public interface RepoMapper {
 
     int searchPageCount(Map map);
 
+    void repoDown(int idx);
+
 }

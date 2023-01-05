@@ -124,5 +124,9 @@
         member.idx and ( member.nick like '%${search}%' or repo.name like '%${search}%' or
         repo.description like '%${search}%') order by push_date desc limit ${start} , ${count} </select>
 
-
+    <update id="repoDown">
+        update repo set 
+        download = download+1 
+        where idx = ${idx}
+    </update>
 </mapper>
