@@ -429,11 +429,10 @@ body::-webkit-scrollbar-track , .scrollBar::-webkit-scrollbar-track{
     color:#4f6c9c !important;
     font-family: 'Noto Sans KR', sans-serif
  }
-
  .btns{
   cursor: pointer !important;
   border: 1px solid #d0d7de !important;
-  padding: 4px 11px !important;
+  padding: 4px 9px !important;
   border-radius: 7px!important;
   display: inline !important;
   background-color: 1px solid #d0d7de!important;
@@ -446,12 +445,12 @@ body::-webkit-scrollbar-track , .scrollBar::-webkit-scrollbar-track{
    /* 위치 조정시 .btns를 다른 div 로 감싸서 거기서 조정할것 */
   /* 버튼으로 만들지 말고 div로 만들것 */
  }
-  .btns:hover{
-    
-    background-color: white!important;
-    border: 1px solid #99a1a9 !important;
-    
-
-  }
+    .btns:hover{
+     
+      background-color: white!important;
+      border: 1px solid #99a1a9 !important;
+     
+  
+    }
   
 

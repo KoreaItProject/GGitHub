@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ggit.service.FollowService;
 import com.ggit.service.MemberService;
 import com.ggit.vo.MemberVo;
+import com.ggit.vo.RepositoriesVO;
 
 @RestController
 public class MemberController {
@@ -151,15 +152,48 @@ public class MemberController {
     }
 
     @RequestMapping("followinglist")
-    public List<MemberVo> followlist(String nick) {
-        List<MemberVo> followlist = followService.followinglist(nick);
-        return followlist;
+    public List<RepositoriesVO> followinglist(String nick, int page, String memberIdx) {
+        List<RepositoriesVO> list = null;
+        int count = 10;
+        int start = (page - 1) * count;
+        String member = "00";
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("count", count + "");
+        map.put("start", start + "");
+        if (memberIdx != null && !memberIdx.equals("")) {
+            member = memberIdx;
+
+        }
+        map.put("nick", nick);
+        map.put("member", member);
+        list = followService.followinglist(map);
+
+        return list;
     }
 
     @RequestMapping("followerlist")
-    public List<MemberVo> followerlist(String nick) {
-        List<MemberVo> followerlist = followService.followerlist(nick);
-        return followerlist;
+    public List<RepositoriesVO> followerlist(String nick, int page, String memberIdx) {
+        List<RepositoriesVO> list = null;
+        int count = 10;
+        int start = (page - 1) * count;
+        String member = "00";
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("count", count + "");
+        map.put("start", start + "");
+        if (memberIdx != null && !memberIdx.equals("")) {
+            member = memberIdx;
+
+        }
+        map.put("nick", nick);
+        map.put("member", member);
+        list = followService.followerlist(map);
+
+        return list;
     }
 
+    @RequestMapping("followCount")
+    public RepositoriesVO followCount(String nick) {
+
+        return followService.followCount(nick);
+    }
 }
