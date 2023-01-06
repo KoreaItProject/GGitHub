@@ -6,103 +6,58 @@
         <div class="pullreq_merge_container">
             <div class="pullreq_merge_div_left">
                 <div class="pullreq_merge_div_left2">
-                    <div class="pullreq_merge_div_left_data" v-for="data in test_data">
-
+                    <div class="pullreq_merge_div_left_data" v-for="(data, index) in test_data">
+                        {{index}}
                     </div>
                 </div> 
             </div>
             <div class="pullreq_merge_div_right">
-                <div class="pullreq_merge_div_right_top">
-                    <div class="pullreq_merge_div_right_top_left">
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        vaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                <div class="test">
+                    <div v-if="pullreq_merge_right_top_state == true">
+                        <button class @click="pullreq_merge_right_top_state_func()">-</button>
                     </div>
-                    <div class="pullreq_merge_div_right_top_right">
-                        bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-                        bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-                        bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-                        bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-                        bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-                        bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-                        bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-                        bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-                        bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+                    <div v-if="pullreq_merge_right_top_state == false">
+                        <button @click="pullreq_merge_right_top_state_func()">+</button>
+                    </div>
+                </div>
+                <div class="pullreq_merge_div_right_top" v-if="pullreq_merge_right_top_state == true">
+                    <!-- <span>111</span> -->
+                    <div class="pullreq_merge_div_right_top_left">
+                        <table>
+                            <tr v-for="(data,index) in test_line">
+                                <td class="td1"></td>
+                                <td class="td2">{{index+1}}</td>
+                                <td class="td3">
+                                    <span class="td3_span" data-code-marker="+">{{data}}</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
 
-                        bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-                        bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-                        bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-                        bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-                        bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-                        bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-                        
+                    <!-- <span>222</span> -->
+                    <div class="pullreq_merge_div_right_top_right">
+                        <table>
+                            <tr v-for="(data,index) in test_line">
+                                <td class="td1"></td>
+                                <td class="td2">{{index+1}}</td>
+                                <td class="td3">
+                                    <span class="td3_span" data-code-marker="+">{{data}}</span>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
                 <div class="pullreq_merge_div_right_bottom">
                     <div class="pullreq_merge_div_right_bottom_changecode">
-                        cccccccccccccccccccccccccccccccc
-                        cccccccccccccccccccccccccccccccc
-                        cccccccccccccccccccccccccccccccc
-                        cccccccccccccccccccccccccccccccc
-                        cccccccccccccccccccccccccccccccc
-                        cccccccccccccccccccccccccccccccc
-                        cccccccccccccccccccccccccccccccc
-                        cccccccccccccccccccccccccccccccc
-                        cccccccccccccccccccccccccccccccc
-                        cccccccccccccccccccccccccccccccc
-                        cccccccccccccccccccccccccccccccc
-                        cccccccccccccccccccccccccccccccc
-                        cccccccccccccccccccccccccccccccc
-                        cccccccccccccccccccccccccccccccc
-                        cccccccccccccccccccccccccccccccc
-                        cccccccccccccccccccccccccccccccc
-                        cccccccccccccccccccccccccccccccc
-                        cccccccccccccccccccccccccccccccc
-                        cccccccccccccccccccccccccccccccc
-                        cccccccccccccccccccccccccccccccc
-                        cccccccccccccccccccccccccccccccc
-                        cccccccccccccccccccccccccccccccc
-                        cccccccccccccccccccccccccccccccc
-                        cccccccccccccccccccccccccccccccc
-                        cccccccccccccccccccccccccccccccc
-                        cccccccccccccccccccccccccccccccc
-                        cccccccccccccccccccccccccccccccc
-                        cccccccccccccccccccccccccccccccc
-                        cccccccccccccccccccccccccccccccc
-                        cccccccccccccccccccccccccccccccc
-                        cccccccccccccccccccccccccccccccc
-                        cccccccccccccccccccccccccccccccc
-
+                        <table>
+                            <tr v-for="(data,index) in test_line">
+                                <td class="td1"></td>
+                                <td class="td2">{{index+1}}</td>
+                                <td class="td3">
+                                    <span class="td3_span" data-code-marker="+">{{data}}</span>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -110,17 +65,33 @@
     </div>
 </template>
 <script>
+import axios from 'axios';
+
 export default {
     data(){
         return{
             test_data:["","",""],
+            test_line:[],
+
+            pullreq_merge_right_top_state: true,
         }
     },
     mounted(){
-
+        this.test();
     },
     methods: {
-        
+        test(){
+            axios.post("/api/testcon", {
+
+            })
+            .then(response => {
+                console.log(response);
+                this.test_line = response.data
+            })
+        },
+        pullreq_merge_right_top_state_func(){
+            this.pullreq_merge_right_top_state = !this.pullreq_merge_right_top_state;
+        }
     },
 }
 </script>

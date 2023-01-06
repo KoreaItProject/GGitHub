@@ -10,9 +10,10 @@
         where pullreq.repo = #{idx} and pullreq.member not in(select member from repomem where repo = #{idx});
     </select>
     <select id="pullreq_select_mem" resultType="com.ggit.vo.PullreqVo">
-        select pullreq.*
-        FROM pullreq, (select member from repomem where repo = #{idx}) as repomem
-        where pullreq.repo = #{idx} and repomem.member = pullreq.member;
+        SELECT pullreq.*
+        FROM pullreq, (SELECT member FROM repomem WHERE repo = #{idx}) as repomem
+        WHERE pullreq.repo = #{idx} and repomem.member = pullreq.member
+        ORDER BY date desc;
     </select>
     <select id="repoInMem" resultType="com.ggit.vo.RepomemVo">
         select *
