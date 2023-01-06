@@ -45,6 +45,9 @@ $line-color: #d0d7de
             font-size: 13px
             background-color: RGB(36,41,47)
             color: white
+            &:hover
+                &::placeholder
+                    color: pink
             &::placeholder
                 color: white
 
@@ -56,7 +59,7 @@ $line-color: #d0d7de
             &:focus
                 width: 350px
                 ~ .header_search_info
-                    visibility: visible
+                    display: block
 
         .header_search_info
             border-bottom-left-radius: 6px
@@ -68,7 +71,7 @@ $line-color: #d0d7de
             background-color: white
             padding-top: 5px
             font-size: 15px
-            visibility: hidden
+            display: none
             &:hover
                 visibility: visible
             .header_search_info_div

@@ -462,5 +462,13 @@ body::-webkit-scrollbar-track , .scrollBar::-webkit-scrollbar-track{
      
   
     }
+ .repository_public{
+display: inline; 
+border-radius: 11px; 
+padding: 1px 7px 3px 7px; 
+font-size: 13px; margin-left: 5px; 
+border: 1px solid #d0d7de;
+ }
+               
   
 
