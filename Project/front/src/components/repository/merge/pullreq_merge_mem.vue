@@ -6,13 +6,22 @@
         <div class="pullreq_merge_container">
             <div class="pullreq_merge_div_left">
                 <div class="pullreq_merge_div_left2">
-                    <div class="pullreq_merge_div_left_data" v-for="data in test_data">
-
+                    <div class="pullreq_merge_div_left_data" v-for="(data, index) in test_data">
+                        {{index}}
                     </div>
                 </div> 
             </div>
             <div class="pullreq_merge_div_right">
-                <div class="pullreq_merge_div_right_top">
+                <div class="test">
+                    <div v-if="pullreq_merge_right_top_state == true">
+                        <button class @click="pullreq_merge_right_top_state_func()">-</button>
+                    </div>
+                    <div v-if="pullreq_merge_right_top_state == false">
+                        <button @click="pullreq_merge_right_top_state_func()">+</button>
+                    </div>
+                </div>
+                <div class="pullreq_merge_div_right_top" v-if="pullreq_merge_right_top_state == true">
+                    <!-- <span>111</span> -->
                     <div class="pullreq_merge_div_right_top_left">
                         <table>
                             <tr v-for="(data,index) in test_line">
@@ -24,6 +33,8 @@
                             </tr>
                         </table>
                     </div>
+
+                    <!-- <span>222</span> -->
                     <div class="pullreq_merge_div_right_top_right">
                         <table>
                             <tr v-for="(data,index) in test_line">
@@ -61,6 +72,8 @@ export default {
         return{
             test_data:["","",""],
             test_line:[],
+
+            pullreq_merge_right_top_state: true,
         }
     },
     mounted(){
@@ -75,6 +88,9 @@ export default {
                 console.log(response);
                 this.test_line = response.data
             })
+        },
+        pullreq_merge_right_top_state_func(){
+            this.pullreq_merge_right_top_state = !this.pullreq_merge_right_top_state;
         }
     },
 }
