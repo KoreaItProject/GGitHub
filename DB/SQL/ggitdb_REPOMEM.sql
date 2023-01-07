@@ -28,7 +28,7 @@ CREATE TABLE `repomem` (
   `member` int NOT NULL COMMENT '회원번호',
   `sort` int DEFAULT '0',
   PRIMARY KEY (`idx`)
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +37,7 @@ CREATE TABLE `repomem` (
 
 LOCK TABLES `repomem` WRITE;
 /*!40000 ALTER TABLE `repomem` DISABLE KEYS */;
-INSERT INTO `repomem` VALUES (1,1,1,2),(2,1,2,0),(3,1,3,0),(4,2,1,3),(5,2,2,1),(6,2,3,0),(7,3,1,4),(8,3,2,3),(9,3,3,0),(10,4,1,5),(51,50,1,1),(52,51,1,0),(53,52,2,2);
+INSERT INTO `repomem` VALUES (1,1,1,0),(2,1,2,3),(3,1,3,1),(4,2,1,2),(5,2,2,0),(6,2,3,0),(7,3,1,3),(8,3,2,2),(9,3,3,2),(10,4,1,4),(61,60,1,1),(62,61,1,0),(63,62,1,0),(64,63,1,0),(65,64,1,0),(66,65,1,0),(67,66,1,0),(68,67,1,0),(69,68,1,0),(70,69,1,0),(71,70,1,0),(72,71,2,0),(73,72,1,0),(77,76,3,0),(78,77,3,0),(79,78,3,0),(80,79,3,0),(81,80,3,0),(82,81,3,0),(83,82,3,0),(84,83,3,0),(85,84,3,0),(86,85,3,0),(87,86,3,0);
 /*!40000 ALTER TABLE `repomem` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-21 15:12:30
+-- Dump completed on 2023-01-07 16:31:16

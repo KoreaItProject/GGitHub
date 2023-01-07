@@ -43,6 +43,7 @@ import com.ggit.service.PushService;
 import com.ggit.service.RepoService;
 import com.ggit.service.RepomemService;
 import com.ggit.util.CopyFile;
+import com.ggit.util.PushZip;
 import com.ggit.util.RandStr;
 import com.ggit.util.ReadData;
 import com.ggit.util.WriteData;
@@ -108,11 +109,6 @@ public class RepositoryController {
             repomemService.join(repomemVo);// repomem insert
 
             String token = new RandStr(15).getResult();
-            pushVo.setToken(token);
-            pushVo.setMember(owner);
-            pushVo.setMessage("저장소 생성");
-            pushVo.setRepo(repoVo.getIdx());
-            pushService.push(pushVo);
 
             File file = new File(storage_dir + "repositorys/" + repoVo.getIdx() + "/" + token);
             file.mkdirs();
@@ -128,6 +124,15 @@ public class RepositoryController {
             ((JSONObject) (pushData.get(0))).replace("date", nowTime);
             new WriteData(storage_dir + "repositorys/" + repoVo.getIdx() + "/" + token + "/dump/pushData.txt")
                     .write(pushData.toString());
+
+            new PushZip(storage_dir + "repositorys/" + repoVo.getIdx() + "/" + token).run();// 다운로드와 pull을 위한
+                                                                                            // zip파일을 미리
+                                                                                            // 만들어둔다.
+            pushVo.setToken(token);
+            pushVo.setMember(owner);
+            pushVo.setMessage("저장소 생성");
+            pushVo.setRepo(repoVo.getIdx());
+            pushService.push(pushVo);
 
         } catch (ParseException e) {
             // TODO Auto-generated catch block
@@ -215,6 +220,7 @@ public class RepositoryController {
         new WriteData(storage_dir + "repositorys/" + repoidx + "/" + token + "/dump/pushChanged2.txt")
                 .write("[]");
 
+        new PushZip(storage_dir + "repositorys/" + repoidx + "/" + token).run();
         pushVo.setToken(newToken);
         pushVo.setMember(Integer.parseInt(member));
         pushVo.setRepo(repoidx);

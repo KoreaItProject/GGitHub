@@ -342,7 +342,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             String newToken = new RandStr(15).getResult();
             dto.setToken(newToken);// 새로운 토큰 이 push에 대한 토큰
             token = newToken; // 토큰 바꾸고
-            fileW();// info.gt에도 써줌
+            infoWrite();// info.gt에도 써줌
 
             List<String> addPush = fileState.getAddPush();
             List<String> changePush = fileState.getChangePush();
@@ -530,7 +530,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
 
                     this.token = infoDTO.getToken();
                     this.lastToken = infoDTO.getLastToken();
-                    fileW();
+                    infoWrite();
 
                     String result = fileWrite();
 
@@ -582,13 +582,11 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
             File file = new File(clientPath + "/.ggit/.repo/file.zip");
             fos = new FileOutputStream(file);
             bos = new BufferedOutputStream(fos);
-            System.out.println("file.zip을 생성하였습니다.");
 
             // 바이트 데이터를 전송받으면서 기록
             int len = 0;
-            int size = 100000;
-            byte[] Object = new byte[size];
-            int i = 0;
+            byte[] Object = new byte[4096000];
+
             while ((len = reader.read(Object)) > 0) {
 
                 bos.write(Object, 0, len);
@@ -623,7 +621,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
         return result;
     }
 
-    public void fileW() {
+    public void infoWrite() {
         try {
 
             // 1. 파일 객체 생성
