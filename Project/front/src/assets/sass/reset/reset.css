@@ -407,10 +407,20 @@ body::-webkit-scrollbar , .scrollBar::-webkit-scrollbar{
 body::-webkit-scrollbar-thumb , .scrollBar::-webkit-scrollbar-thumb{
 
   /* 스크롤바의 길이 */
-  background: pink;
+  background: #777777;
   /* 스크롤바의 색상 */
 
   border-radius: 8px;
+    cursor: default;
+}
+body::-webkit-scrollbar-thumb:hover , .scrollBar::-webkit-scrollbar-thumb:hover{
+
+  /* 스크롤바의 길이 */
+  background: #adadad;
+  /* 스크롤바의 색상 */
+
+  border-radius: 8px;
+  cursor:default;
 }
 
 body::-webkit-scrollbar-track , .scrollBar::-webkit-scrollbar-track{
@@ -436,7 +446,7 @@ body::-webkit-scrollbar-track , .scrollBar::-webkit-scrollbar-track{
   border-radius: 7px!important;
   display: inline !important;
   background-color: 1px solid #d0d7de!important;
-  font-size: 15px !important;
+  font-size: 14px !important;
   width: auto !important;
   height: auto !important;
    /* inline으로 해서 padding으로만 크기가 정해짐*/
@@ -452,5 +462,13 @@ body::-webkit-scrollbar-track , .scrollBar::-webkit-scrollbar-track{
      
   
     }
+ .repository_public{
+display: inline; 
+border-radius: 11px; 
+padding: 1px 7px 3px 7px; 
+font-size: 13px; margin-left: 5px; 
+border: 1px solid #d0d7de;
+ }
+               
   
 

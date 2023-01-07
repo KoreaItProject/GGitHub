@@ -1,5 +1,5 @@
 <template lang="">
-    <div class="code_top_container">
+    <div class="code_top_container" :style="cssVariable">
         <div class="code_middle_container_right">
            
             <div class="code_navigator">
@@ -8,8 +8,8 @@
               </div>
                 <div class="code_btn">
                   <button class="code_btn" @click="toggleOnOff">code </button>
-                  <div class="code_menu_top_div"> <!--  -->
-                    <div class="code_menu" v-if="isStatusOn">
+                  <div class="code_menu_top_div" v-if="isStatusOn"> <!--  -->
+                    <div class="code_menu" >
                         <div class="code_clone">
                           <svg aria-hidden="true" height="14" viewBox="0 -1 16 16" version="1.1" width="14" data-view-component="true" class="octicon octicon-terminal mr-2">
                               <path fill-rule="evenodd" d="M0 2.75C0 1.784.784 1 1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75zm1.75-.25a.25.25 0 00-.25.25v10.5c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V2.75a.25.25 0 00-.25-.25H1.75zM7.25 8a.75.75 0 01-.22.53l-2.25 2.25a.75.75 0 11-1.06-1.06L5.44 8 3.72 6.28a.75.75 0 111.06-1.06l2.25 2.25c.141.14.22.331.22.53zm1.5 1.5a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z"></path>
@@ -112,7 +112,7 @@
                        <svg v-show="!data.directory" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" >
                         <path fill-rule="evenodd" d="M3.75 1.5a.25.25 0 00-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 00.25-.25V6h-2.75A1.75 1.75 0 019 4.25V1.5H3.75zm6.75.062V4.25c0 .138.112.25.25.25h2.688a.252.252 0 00-.011-.013l-2.914-2.914a.272.272 0 00-.013-.011zM2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0113.25 16h-9.5A1.75 1.75 0 012 14.25V1.75z"></path>
                       </svg>
-                      {{data.name}} / {{data.totalLine}}줄
+                                           <a @click="goTarget"> {{data.name}} / {{data.totalLine}}줄 </a> 
                     </div>
                        <textarea v-if="data.state=='file'"  class="repo_file_content scrollBar" readonly="true">{{data.content}}</textarea>
                   </div>
@@ -186,6 +186,13 @@ import store from "../../vuex/store";
 import { TimeAgo } from "vue2-timeago";
 
 export default {
+  computed: {
+    cssVariable() {
+      return {
+        "--file_line_height": this.file_line_height,
+      };
+    },
+  },
   data() {
     return {
       file_list: [],
@@ -213,12 +220,16 @@ export default {
       isEmpty: false,
       pullreq_menu_input_keyword: "",
       downloading: false,
+      file_line_height: "0px",
     };
   },
   components: {
     TimeAgo,
   },
   methods: {
+    goTarget() {
+      window.scrollTo(0, 255);
+    },
     toggleOnOff: function () {
       this.isStatusOn = !this.isStatusOn;
       if (this.isStatusOn2 == true) {
@@ -310,6 +321,7 @@ export default {
           console.log(this.file_list);
 
           if (this.file_list[0].state == "file") {
+            this.file_line_height = this.file_list[0].totalLine * 19 + "px";
             //현재 위치가 파일인경우
             if (this.file_list[0].name == "README.md") {
               this.changeMD(this.file_list[0].content);
@@ -343,6 +355,7 @@ export default {
         .then((response) => {
           this.star = response.data;
           this.getFile();
+          this.getContriImg();
           // console.log(this.star)
           // alert(this.star)
         });
