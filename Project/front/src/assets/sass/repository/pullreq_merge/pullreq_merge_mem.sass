@@ -8,7 +8,7 @@ $td3_font_size: 12px
     
 .pullreq_merge_container
     //border: 1px solid red
-    height: 2000px
+    height: var(--test1)
     display: flex
     justify-content: center
     @media screen and ( max-width:1100px  )
@@ -170,15 +170,19 @@ $td3_font_size: 12px
                     @media (max-width: 1100px)
                         width: 97%
                         height: 500px
+        .pullreq_merge_div_right_bottom_span
+            @media (max-width: 1100px)
+                margin-top: var(--pullreq_merge_div_right_bottom_span)
         .pullreq_merge_div_right_bottom
             //border: 1px solid blue
             height: 60%
             padding-bottom: 20px
             @media (max-width: 1100px)
+                margin-top: -290px
                 height: 60%
             .pullreq_merge_div_right_bottom_changecode
                 border: 1px solid #d0d7de
-                height: 80%
+                height: var(--test3)
                 word-break: break-all
                 overflow: auto
                 margin: 10px 10px 0px 10px
@@ -186,7 +190,7 @@ $td3_font_size: 12px
                 //font-family: $font
                 white-space: pre-wrap
                 @media (max-width: 1100px)
-                    height: 70%
+                    height: var(--test3)
                     margin-top: 300px
                 table
                     .td1
@@ -195,15 +199,12 @@ $td3_font_size: 12px
                         min-width: $td_left
                         padding-right: 10px
                         padding-left: 10px
-                        //font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace
                         font-size: 12px
                         line-height: 20px
-                        //color: var(--color-fg-subtle)
                         text-align: right
                         white-space: nowrap
                         vertical-align: top
                         cursor: pointer
-                        //-webkit-user-select: none
                         user-select: none
                     .td2
                         position: relative
@@ -211,15 +212,12 @@ $td3_font_size: 12px
                         min-width: $td_left
                         padding-right: 10px
                         padding-left: 10px
-                        //font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace
                         font-size: 12px
                         line-height: 20px
-                        //color: var(--color-fg-subtle);
                         text-align: right
                         white-space: nowrap
                         vertical-align: top
                         cursor: pointer
-                        //-webkit-user-select: none;
                         user-select: none
                         border-right: 1px solid #d0d7de
                     .td3
@@ -231,13 +229,12 @@ $td3_font_size: 12px
                         .td3_span
                             display: table-cell
                             overflow: visible
-                            //font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace
                             font-size: $td3_font_size
                             color: #24292f
                             word-wrap: anywhere
                             white-space: pre-wrap
     @media screen and ( max-width: 1100px )
-        height: 2000px
+        height: var(--test1)
 
 
 
