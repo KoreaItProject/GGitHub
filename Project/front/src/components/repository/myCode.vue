@@ -160,8 +160,8 @@
             </div>
            <div class="contributors_box">
                 <h2 class="contributor_h2">
-                    Contributor
-                    <span class="contributor_member_count">{{contributors.length}}</span>
+                    구성원
+                    <span class="r_count">{{contributors.length}}</span>
                 </h2>
                 
                 <ul>
@@ -340,7 +340,7 @@ export default {
             }
           }
           this.loading = false;
-          this.getContriImg();
+
           // alert(this.star)
         });
     },
@@ -354,8 +354,10 @@ export default {
         })
         .then((response) => {
           this.star = response.data;
-          this.getFile();
+          this.profileImg.splice(0);
           this.getContriImg();
+          this.getFile();
+
           // console.log(this.star)
           // alert(this.star)
         });
