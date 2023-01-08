@@ -43,6 +43,7 @@ import com.ggit.service.PushService;
 import com.ggit.service.RepoService;
 import com.ggit.service.RepomemService;
 import com.ggit.util.CopyFile;
+import com.ggit.util.PushZip;
 import com.ggit.util.RandStr;
 import com.ggit.util.ReadData;
 import com.ggit.util.WriteData;
@@ -109,11 +110,6 @@ public class RepositoryController {
             repomemService.join(repomemVo);// repomem insert
 
             String token = new RandStr(15).getResult();
-            pushVo.setToken(token);
-            pushVo.setMember(owner);
-            pushVo.setMessage("저장소 생성");
-            pushVo.setRepo(repoVo.getIdx());
-            pushService.push(pushVo);
 
             File file = new File(storage_dir + "repositorys/" + repoVo.getIdx() + "/" + token);
             file.mkdirs();
@@ -129,6 +125,15 @@ public class RepositoryController {
             ((JSONObject) (pushData.get(0))).replace("date", nowTime);
             new WriteData(storage_dir + "repositorys/" + repoVo.getIdx() + "/" + token + "/dump/pushData.txt")
                     .write(pushData.toString());
+
+            new PushZip(storage_dir + "repositorys/" + repoVo.getIdx() + "/" + token).run();// 다운로드와 pull을 위한
+                                                                                            // zip파일을 미리
+                                                                                            // 만들어둔다.
+            pushVo.setToken(token);
+            pushVo.setMember(owner);
+            pushVo.setMessage("저장소 생성");
+            pushVo.setRepo(repoVo.getIdx());
+            pushService.push(pushVo);
 
         } catch (ParseException e) {
             // TODO Auto-generated catch block
@@ -160,7 +165,7 @@ public class RepositoryController {
     @RequestMapping("getMD")
     public String getMD(String nick) {
         String con = null;
-        Map map = new HashMap<>();
+        Map<String, String> map = new HashMap<>();
         map.put("nick", nick);
         map.put("reponame", "README");
 
@@ -170,7 +175,9 @@ public class RepositoryController {
         } catch (BindingException e) {
             return con;
         }
-        String token = repoService.selectRepositorycode(repoIdx).getPush_token();
+        map.put("repoIdx", repoIdx + "");
+        map.put("token", "push.token");
+        String token = repoService.selectRepositorycode(map).getPush_token();
         con = new ReadData(storage_dir + "repositorys\\" + repoIdx + "\\" + token + "\\data\\README.md").getCon();
         return con;
     }
@@ -214,6 +221,7 @@ public class RepositoryController {
         new WriteData(storage_dir + "repositorys/" + repoidx + "/" + token + "/dump/pushChanged2.txt")
                 .write("[]");
 
+        new PushZip(storage_dir + "repositorys/" + repoidx + "/" + token).run();
         pushVo.setToken(newToken);
         pushVo.setMember(Integer.parseInt(member));
         pushVo.setRepo(repoidx);
@@ -297,9 +305,16 @@ public class RepositoryController {
     }
 
     @RequestMapping("/selectRepositorycode")
-    public RepositoriesVO selectRepositorycode(int repoIdx) {
+    public RepositoriesVO selectRepositorycode(int repoIdx, String token) {
+        Map<String, String> map = new HashMap<>();
+        map.put("repoIdx", repoIdx + "");
+        if (token != null && !token.equals("")) {
+            map.put("token", "\'" + token + "\'");
+        } else {
 
-        RepositoriesVO Repositorycode = repoService.selectRepositorycode(repoIdx);
+            map.put("token", "push.token");
+        }
+        RepositoriesVO Repositorycode = repoService.selectRepositorycode(map);
         return Repositorycode;
     }
 
@@ -312,7 +327,10 @@ public class RepositoryController {
         map.put("member", member);
         repositoriesVO = repoService.selectRepositoryMyCode(map);
         if (repositoriesVO == null) {
-            repositoriesVO = repoService.selectRepositorycode(repoIdx);
+            HashMap<String, String> map1 = new HashMap<>();
+            map1.put("repoIdx", repoIdx + "");
+            map1.put("token", "push.token");
+            repositoriesVO = repoService.selectRepositorycode(map1);
         }
 
         return repositoriesVO;
@@ -443,8 +461,16 @@ public class RepositoryController {
     }
 
     @RequestMapping("selectRepositorycount")
-    public int selectRepositorycount(String nick) {
-        int Repositorycount = repoService.selectRepositorycount(nick);
+    public int selectRepositorycount(String nick, boolean isMy) {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("nick", nick);
+        String publ = "1";
+        if (isMy) {
+            publ = "repo.public";
+        }
+        map.put("publ", publ);
+        int Repositorycount = repoService.selectRepositorycount(map);
         return Repositorycount;
 
     }
@@ -487,9 +513,7 @@ public class RepositoryController {
         Map<String, String> map = new HashMap<String, String>();
         map.put("repo", repo);
         map.put("ownerNick", ownerNick);
-        System.out.println(repo);
-        System.out.println(111 + ownerNick);
-        System.out.println(member);
+
         if (mode.equals("main")) {
             map.put("branch", 0 + "");
         } else {
@@ -514,7 +538,6 @@ public class RepositoryController {
         }
         System.out.println(123);
         return changed;
-
     }
 
     // 존재하는 저장소인지 확인(저장소 이름으로 select)

@@ -1,37 +1,50 @@
 $line-color: #d0d7de
 
-.following_main_div
-    max-width: 896px
+.member_container
     width: 100%
-    height: 100%
-    margin-left: 35px 
-    .following_box
-        max-width: 896px
-        width: 100%
-        height: 100px
-        border-bottom: 1px solid $line-color
-        padding: 24px 0px 24px 0px
-        .following_profile_img
-            display: inline
-            width: 50px
-            height: 50px
-        .following_nick
-            color: #24292f
-        .following_email
-            color:#57606a
+    min-height: 700px
 
-        .unfollow
-            .unfollow_btn
-                float: right
-                border: 1px solid $line-color
-                border-radius: 6px
-                padding: 7px 12px
-                font-size: 12px
-                font-weight: bold
-            .follow_btn
-                float: right
-                border: 1px solid $line-color
-                border-radius: 6px
-                padding: 7px 12px
-                font-size: 12px
-                font-weight: bold
+    .member_div
+        width: 100%
+        max-width: 800px
+        border-top: 1px solid $line-color
+        display: block
+        padding: 20px
+        display: flex
+        justify-content: center
+        align-items: center
+
+        .member_div_top
+
+            width: 100%
+            padding: 2px
+
+            .member_img
+                width: 35px
+                height: 35px
+                border-radius: 9px
+                cursor: pointer
+            .nick
+                font-size: 16px
+                font-family: 'Noto Sans KR', sans-serif
+                display: block
+                margin: -32px 0 10px 45px
+                cursor: pointer
+
+        .member_div_mid
+
+            width: 100%
+            padding: 2px
+
+.member_div_mid_span
+
+    font-size: 14px
+    margin-right: 13px
+.member_con
+    font-size: 14px
+    margin-top: 8px
+.follow_div
+    width: 150px
+    text-align: center
+
+.follow

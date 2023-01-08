@@ -31,8 +31,9 @@ CREATE TABLE `repo` (
   `fork` tinyint NOT NULL DEFAULT '0' COMMENT '포크한 저장소(Repo-idx) / 0일경우 포크저장소가 아니다.',
   `clone` varchar(45) DEFAULT NULL,
   `description` varchar(200) DEFAULT NULL,
+  `download` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`idx`)
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +42,7 @@ CREATE TABLE `repo` (
 
 LOCK TABLES `repo` WRITE;
 /*!40000 ALTER TABLE `repo` DISABLE KEYS */;
-INSERT INTO `repo` VALUES (1,'JavaProject','2022-10-21 05:09:54',0,1,0,'6l6pm2s8337d8yxqire71j947ue84xtb7mw','aaaa'),(2,'AMPProject','2022-10-21 05:09:54',0,2,0,'1sl47k1ja58e39313p9895xlef7b38m4uv4','bbbb'),(3,'GitProject','2022-10-21 05:09:54',1,3,0,'zhlwa0ezt6bc98u08twd4wnt87t2pxj94lz','ccccc'),(4,'test','2022-12-19 02:09:33',1,1,0,'ov4ysrjf4s80noknm3jv262z2lmxbw4dob0','test'),(60,'README','2022-12-25 14:04:01',1,1,0,'833ty55hj67y39tebeu9ndsy9ujw49kxdm7','README');
+INSERT INTO `repo` VALUES (1,'JavaProject','2023-01-07 05:00:47',1,1,0,'6yg4hw3bf029kuh8qzl732d87f9ai25d3t0','javaproject\n',0),(2,'AMProject','2023-01-07 05:09:25',1,2,0,'o35hi43d8hft5uzq790xt3xxtqk8t76y69a','학원관리프로젝트',3),(3,'GGitProject','2023-01-07 05:10:31',1,3,0,'6ahda8yts1pipc827p3m1p1i2zxvlx4l8g2','깃허브 협업 관리 프로그램',0),(4,'test','2022-12-19 02:09:33',1,1,0,'ov4ysrjf4s80noknm3jv262z2lmxbw4dob0','test',0),(60,'README','2022-12-25 14:04:01',1,1,0,'833ty55hj67y39tebeu9ndsy9ujw49kxdm7','README',0),(61,'test1','2022-12-29 05:49:16',1,1,0,'9070x8c4ovzd01u0qzo1855lo5s12wt2v61','test1',0),(62,'test2','2022-12-29 05:49:29',1,1,0,'61689gm03813gjn32tf2ctf6te127861380','test2',0),(63,'test3','2022-12-29 05:49:36',1,1,0,'aa79zrq04tp8xv0n18x466f526y194kq2r3','test3',0),(64,'test4','2022-12-29 05:49:43',1,1,0,'1f60e9t4h0221j6bl9u444p276w5in4ui8l','test4',0),(65,'test5','2022-12-29 05:49:49',1,1,0,'2e051ji51tto61nb8hpns49v0e608kr9c57','test5',0),(66,'test6','2022-12-29 05:49:57',1,1,0,'23456a73m84spoqx8e7y9i03pxby1aefz04','test6',0),(67,'test7','2022-12-29 05:50:04',1,1,0,'17v8n228qf7t1o64h0l2jt60ku9s19wf3ow','test7',0),(68,'test8','2022-12-29 05:50:14',1,1,0,'1j5h68mo334th68j4am5j7j8768caz0jx70','test8',0),(69,'test9','2022-12-29 05:50:22',1,1,0,'0r78x2w28t593hj0g77n285ewql465k8016','test9',0),(70,'test10','2022-12-29 05:50:31',1,1,0,'b1f90i6m1f90g1h8t5c4vp2nbhk6wc0c0p8','ty\nt\nt\n',0),(71,'ff','2022-12-29 06:59:49',1,2,0,'l37478ha4s19rs1we31d0dq7jv2i49g26ql','ff',0),(72,'gg','2023-01-07 04:25:14',1,1,0,'xb03b25r7t4rhjut61jg35p1vqaz5h425g3','gg',0);
 /*!40000 ALTER TABLE `repo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-25 23:06:31
+-- Dump completed on 2023-01-07 16:31:16

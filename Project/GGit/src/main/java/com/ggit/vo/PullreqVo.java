@@ -23,4 +23,8 @@ public class PullreqVo {
 
     private Integer marged;
 
+    private int u_idx;
+
+    private int repo_idx;
+
 }

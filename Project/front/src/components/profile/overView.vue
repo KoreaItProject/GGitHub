@@ -236,7 +236,6 @@ export default {
         tables: true,
         breaks: true,
         pedantic: false,
-        sanitize: true,
         smartLists: true,
         smartypants: false,
       });

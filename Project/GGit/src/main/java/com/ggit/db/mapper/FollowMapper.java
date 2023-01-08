@@ -1,19 +1,21 @@
 package com.ggit.db.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import com.ggit.vo.FollowVo;
 import com.ggit.vo.MemberVo;
+import com.ggit.vo.RepositoriesVO;
 
 @Repository
 @Mapper
 public interface FollowMapper {
     List<FollowVo> follow();
 
-    List<MemberVo> selectfollowerlist(String nick,int idx);
+    List<MemberVo> selectfollowerlist(String nick, int idx);
 
     List<MemberVo> selectfollowinglist(String nick, int idx);
 
@@ -23,7 +25,9 @@ public interface FollowMapper {
 
     int deletefollowlist(int idx, String nick);
 
-    List<MemberVo> followinglist(String nick);
+    List<RepositoriesVO> followinglist(Map<String, String> map);
 
-    List<MemberVo> followerlist(String nick);
+    List<RepositoriesVO> followerlist(Map<String, String> map);
+
+    RepositoriesVO followCount(String nick);
 }

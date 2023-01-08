@@ -58,8 +58,8 @@ public class RepoService {
         return mapper.repoIdxByNickName(map);
     }
 
-    public RepositoriesVO selectRepositorycode(int repoIdx) {
-        return mapper.selectRepositorycode(repoIdx);
+    public RepositoriesVO selectRepositorycode(Map<String, String> map) {
+        return mapper.selectRepositorycode(map);
     }
 
     public RepositoriesVO selectRepositoryMyCode(Map map) {
@@ -74,8 +74,8 @@ public class RepoService {
         return mapper.selectRepositorystar(repoIdx);
     }
 
-    public int selectRepositorycount(String nick) {
-        return mapper.selectRepositorycount(nick);
+    public int selectRepositorycount(Map<String, String> map) {
+        return mapper.selectRepositorycount(map);
     }
 
     public int selectRepositorystarcount(String nick) {
@@ -120,6 +120,10 @@ public class RepoService {
 
     public int searchPageCount(Map map) {
         return mapper.searchPageCount(map);
+    }
+
+    public void repoDown(int idx) {
+        mapper.repoDown(idx);
     }
 
 }

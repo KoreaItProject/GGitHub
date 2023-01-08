@@ -3,7 +3,7 @@
         <div class ="repository_history_div">
             <div class="repository_history_left">
               <div class="repository_history_head">
-                <div class="repository_history_tit"><h3>메인 히스토리</h3></div>
+                <div class="repository_history_tit"><h3><font-awesome-icon icon="fa-regular fa-file-code" /> 메인 히스토리</h3></div>
                 
               </div>
                 
@@ -12,7 +12,7 @@
             </div>
             <div class="repository_history_right" @click="false">
 
-              <h3>작업 히스토리</h3>
+              <h3><font-awesome-icon icon="fa-regular fa-copy" /> 작업 히스토리</h3>
               <div class="history_right">
 
               <myHistory />

@@ -7,11 +7,14 @@
                 <div class="repository_history_table">    
                   <div class="repo_history_div">
                     <div class="repo_history_con"  @click="clickDiv(index,data.repo_idx)">
-                      <div class="history_message"><font-awesome-icon icon="fa-check " v-if="data.selected==1"/>{{data.push_message}}</div>
+                      <div class="history_message blue_point"><font-awesome-icon icon="fa-check " v-if="data.selected==1"/>{{data.push_message}}</div>
                       <div class="history_nick">{{data.member_nick}}</div>
-                      <div class="history_date"><time-ago local="en" :datetime="data.push_date" refresh tooltip long/></div>
-                      <div class="history_token">{{data.push_token}}</div>
+                      <div class="history_date"><font-awesome-icon icon="fa-solid fa-arrows-rotate" /> <time-ago local="en" :datetime="data.push_date" refresh tooltip long/></div>
+                      <div class="history_token"><font-awesome-icon icon="fa-regular fa-file-code" /> {{data.push_token}}</div>
                     </div>
+                    <div class="repo_history_btn" title="저장소 보기" @click="goToken(data.push_token)">
+                      <font-awesome-icon icon="fa-regular fa-eye" />
+                      </div>
                     <div class="repo_history_btn" title="작업 저장소로 가져오기" @click="click(index)">
                       
                       <font-awesome-icon icon="fa-solid fa-arrow-right" />
@@ -28,16 +31,17 @@
                           
                       </div>
                       <div class="history_info_right scrollBar">
-                          <div v-for="data in changed" class="history_info_right_div">
-                            <div class="history_info_right_divs1">{{data.path}}</div><div class="history_info_right_divs2">{{data.state}}</div>
-                          </div>
+                          <a v-for="data in changed" class="history_info_right_div">
+                            <del class="history_info_right_divs history_info_right_del" v-if="data.state=='del'">{{data.path}}</del>
+                            <ins class="history_info_right_divs history_info_right_add" v-if="data.state=='add'">{{data.path}}</ins>
+                            <div class="history_info_right_divs history_info_right_change" v-if="data.state=='change'">{{data.path}}</div>
+                          </a>
                       </div>
                     </div>
-                   
                 </div>
-                 <div style="text-align:center;;width:100%;padding:5px 0">
-                    <font-awesome-icon icon="fa-solid fa-arrow-up" />
-                  </div> 
+                <div style="text-align:center;;width:100%;padding:5px 0">
+                  <font-awesome-icon icon="fa-solid fa-arrow-up" />
+                </div> 
               </div>
               <div class="repository_history_table" style="padding:5px 0;text-align:center">
                 저장소 생성
@@ -64,6 +68,16 @@ export default {
     TimeAgo,
   },
   methods: {
+    goToken(token) {
+      window.location.href =
+        "/token/" +
+        this.$route.params.nick +
+        "/" +
+        this.$route.params.repository +
+        "/" +
+        token +
+        "";
+    },
     clickDiv(index, repo) {
       this.clickIndex == index
         ? (this.clickIndex = -1)
@@ -100,18 +114,20 @@ export default {
         });
     },
     click(index) {
-      axios
-        .get("/api/pushMainToMy", {
-          params: {
-            token: this.history[index].push_token,
-            repo: this.$route.params.repository,
-            member: store.getters.getUserIdx,
-            ownerNick: this.$route.params.nick,
-          },
-        })
-        .then((response) => {
-          window.location.href = window.location.href;
-        });
+      if (confirm("작업 저장소에 복사하시겠습니까")) {
+        axios
+          .get("/api/pushMainToMy", {
+            params: {
+              token: this.history[index].push_token,
+              repo: this.$route.params.repository,
+              member: store.getters.getUserIdx,
+              ownerNick: this.$route.params.nick,
+            },
+          })
+          .then((response) => {
+            window.location.href = window.location.href;
+          });
+      }
     },
   },
   mounted() {

@@ -1,0 +1,348 @@
+$scroll-color: #ffc0cb
+$scroll-color-hover: #e398a5
+$font: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace
+$td_left: 25px
+$td3_font_size: 12px
+.pullreq_merge_name
+    height: 36px
+    
+.pullreq_merge_container
+    //border: 1px solid red
+    height: var(--test1)
+    display: flex
+    justify-content: center
+    @media screen and ( max-width:1100px  )
+        height: 1500px
+    .pullreq_merge_div_left
+        flex: none
+        width: 300px
+        margin-top: 25px
+        .pullreq_merge_div_left2
+            padding: 10px
+            float: right
+            .pullreq_merge_div_left2_div
+                //margin-bottom: 20px
+                margin-top: -35px
+                .pullreq_merge_div_left2_backBtn
+                    margin-bottom: 20px
+                    text-align: center
+                    border: 1px solid #d0d7de
+                    background-color: #f6f8fa
+                    width: 35px
+                    height: 35px
+            .pullreq_merge_div_left_data
+                height: 80px    
+                //margin-top: -20px
+                margin-bottom: 10px
+                border-radius: 6px  
+                width: 260px
+                background-color: #f6f8fa
+                border: 1px solid #d0d7de
+                &:hover
+                    background-color: #e2e2e2
+                    cursor: pointer
+                .left_data_top
+                    height: 50%
+                    .left_data_top_filename
+                        margin: 10px
+                        margin: 15px 10px 10px 20px
+                        span
+                            font-weight: 400
+                            font-family: Arial, sans-serif
+                .left_data_bottom
+                    height: 50%
+                    .left_data_bottom_filepath
+                        margin: -10px 10px 10px 20px
+                        span
+                            font-size: 12.5px
+                            color: #797777
+                            font-weight: 400
+                            font-family: Arial, sans-serif
+    .pullreq_merge_div_right
+        //border: 1px solid #d0d7de
+        width: 1400px
+        flex-direction: column
+        .plus_minus_div
+            text-align: right
+            margin-right: 10px
+            //border: 1px solid red
+            .plus_div
+                text-align: center
+                display: inline-block
+                border: 1px solid #d0d7de
+                background-color: #f6f8fa
+                width: 35px
+                height: 35px
+                margin-bottom: -10px
+                &:hover
+                    background-color: #e2e2e2
+                .plus_div_a
+                    position: relative
+                    top: 5px
+            .minus_div
+                text-align: center
+                vertical-align: middle
+                display: inline-block
+                border: 1px solid #d0d7de
+                background-color: #f6f8fa
+                width: 35px
+                height: 35px
+                margin-bottom: -10px
+                &:hover
+                    background-color: #e2e2e2
+                .minus_div_a
+                    position: relative
+                    top: 5px
+        .pullreq_merge_div_right_top
+            //border: 1px solid red
+            height: 40%
+            display: flex
+            @media (max-width: 1100px)
+                flex-direction: column
+                height: 40%
+            .pullreq_merge_div_right_top_left_contain
+                .pullreq_merge_div_right_top_left
+                    flex: none
+                    border: 1px solid #d0d7de
+                    // width: 50%
+                    height: 95%
+                    margin: 10px
+                    border-radius: 6px
+                    word-break: break-all
+                    overflow: auto
+                    //font-family: $font
+                    table
+                        .td1
+                            position: relative
+                            width: 1%
+                            min-width: $td_left
+                            padding-right: 10px
+                            padding-left: 10px
+                            //font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace
+                            font-size: 12px
+                            line-height: 20px
+                            //color: var(--color-fg-subtle)
+                            text-align: right
+                            white-space: nowrap
+                            vertical-align: top
+                            cursor: pointer
+                            //-webkit-user-select: none
+                            user-select: none
+                        .td2
+                            position: relative
+                            width: 1%
+                            min-width: $td_left
+                            padding-right: 10px
+                            padding-left: 10px
+                            //font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace
+                            font-size: 12px
+                            line-height: 20px
+                            //color: var(--color-fg-subtle);
+                            text-align: right
+                            white-space: nowrap
+                            vertical-align: top
+                            cursor: pointer
+                            //-webkit-user-select: none;
+                            user-select: none
+                            border-right: 1px solid #d0d7de
+                        .td3
+                            position: relative
+                            padding-right: 10px
+                            padding-left: 10px
+                            line-height: 20px
+                            vertical-align: top
+                            .td3_span
+                                    display: table-cell
+                                    overflow: visible
+                                    //font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace
+                                    font-size: $td3_font_size
+                                    //font-weight: 
+                                    color: #24292f
+                                    word-wrap: anywhere
+                                    white-space: pre-wrap
+                    
+                    @media (max-width: 1100px)
+                        width: 97%
+                        height: 500px
+                        margin: 10px
+            .pullreq_merge_div_right_top_right_contain
+                .pullreq_merge_div_right_top_right
+                    border: 1px solid #d0d7de
+                    // width: 50%
+                    height: 95%
+                    margin: 10px
+                    border-radius: 6px
+                    word-break: break-all
+                    overflow: auto
+                    //font-family: $font
+                    table
+                        .td1
+                            position: relative
+                            width: 1%
+                            min-width: $td_left
+                            padding-right: 10px
+                            padding-left: 10px
+                            //font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace
+                            font-size: 12px
+                            line-height: 20px
+                            //color: var(--color-fg-subtle)
+                            text-align: right
+                            white-space: nowrap
+                            vertical-align: top
+                            cursor: pointer
+                            //-webkit-user-select: none
+                            user-select: none
+                        .td2
+                            position: relative
+                            width: 1%
+                            min-width: $td_left
+                            padding-right: 10px
+                            padding-left: 10px
+                            //font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace
+                            font-size: 12px
+                            line-height: 20px
+                            //color: var(--color-fg-subtle);
+                            text-align: right
+                            white-space: nowrap
+                            vertical-align: top
+                            cursor: pointer
+                            //-webkit-user-select: none;
+                            user-select: none
+                            border-right: 1px solid #d0d7de
+                        .td3
+                            position: relative
+                            padding-right: 10px
+                            padding-left: 10px
+                            line-height: 20px
+                            vertical-align: top
+                            .td3_span
+                                    display: table-cell
+                                    overflow: visible
+                                    //font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace
+                                    font-size: $td3_font_size
+                                    color: #24292f
+                                    word-wrap: anywhere
+                                    white-space: pre-wrap
+                    @media (max-width: 1100px)
+                        width: 97%
+                        height: 500px
+        .pullreq_merge_div_right_bottom_span
+            margin-top: -20px
+            @media (max-width: 1100px)
+                margin-top: var(--pullreq_merge_div_right_bottom_span)
+        .pullreq_merge_div_right_bottom
+            //border: 1px solid blue
+            height: 60%
+            padding-bottom: 20px
+            @media (max-width: 1100px)
+                margin-top: -290px
+                height: 60%
+            .pullreq_merge_div_right_bottom_changecode
+                border: 1px solid #d0d7de
+                height: var(--test3)
+                word-break: break-all
+                overflow: auto
+                margin: 10px 10px 0px 10px
+                border-radius: 6px
+                //font-family: $font
+                white-space: pre-wrap
+                @media (max-width: 1100px)
+                    height: var(--test3)
+                    margin-top: 300px
+                table
+                    .td1
+                        position: relative
+                        width: 1%
+                        min-width: $td_left
+                        padding-right: 10px
+                        padding-left: 10px
+                        font-size: 12px
+                        line-height: 20px
+                        text-align: right
+                        white-space: nowrap
+                        vertical-align: top
+                        cursor: pointer
+                        user-select: none
+                    .td2
+                        position: relative
+                        width: 1%
+                        min-width: $td_left
+                        padding-right: 10px
+                        padding-left: 10px
+                        font-size: 12px
+                        line-height: 20px
+                        text-align: right
+                        white-space: nowrap
+                        vertical-align: top
+                        cursor: pointer
+                        user-select: none
+                        border-right: 1px solid #d0d7de
+                    .td3
+                        position: relative
+                        padding-right: 10px
+                        padding-left: 10px
+                        line-height: 20px
+                        vertical-align: top
+                        .td3_span
+                            display: table-cell
+                            overflow: visible
+                            font-size: $td3_font_size
+                            color: #24292f
+                            word-wrap: anywhere
+                            white-space: pre-wrap
+    @media screen and ( max-width: 1100px )
+        height: var(--test1)
+
+
+
+.pullreq_merge_div_right_top_left
+  &::-webkit-scrollbar
+    width: 8px
+    height: 8px
+    background: #ffffff
+  
+  &::-webkit-scrollbar-thumb 
+    border-radius: 3.5px
+    background-color: $scroll-color
+    opacity: 1
+    &:hover 
+      background-color: $scroll-color-hover
+    
+  &::-webkit-scrollbar-track 
+    //background: #ffffff
+    opacity: 1
+
+    
+
+
+.pullreq_merge_div_right_top_right
+  &::-webkit-scrollbar
+    width: 8px
+    height: 8px
+    background: #ffffff
+  
+  &::-webkit-scrollbar-thumb 
+    border-radius: 3.5px
+    background-color: $scroll-color
+    &:hover 
+      background-color: $scroll-color-hover
+    
+  &::-webkit-scrollbar-track 
+    background: #ffffff
+
+.pullreq_merge_div_right_bottom_changecode
+  &::-webkit-scrollbar
+    width: 8px
+    height: 8px
+    background: #ffffff
+  
+  &::-webkit-scrollbar-thumb 
+    border-radius: 3.5px
+    background-color: $scroll-color
+    &:hover 
+      background-color: $scroll-color-hover
+    
+  &::-webkit-scrollbar-track 
+    background: #ffffff
+  
+         

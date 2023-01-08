@@ -15,6 +15,7 @@ import com.ggit.service.MemberService;
 import com.ggit.service.PushService;
 import com.ggit.service.RepoService;
 import com.ggit.socket.InfoDTO.Info;
+import com.ggit.util.PushZip;
 import com.ggit.vo.MemberVo;
 import com.ggit.vo.PushVo;
 import com.ggit.vo.RepoVo;
@@ -186,8 +187,8 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 
 	private void fileSend(ObjectOutputStream dos, String repo, String token) {
 
-		File path = new File(storage + "repositorys/" + repo + "/" + token);
-		ZipUtil.pack(path, new File(path.getPath() + ".zip"));
+		File path = new File(storage + "repositorys/" + repo + "/" + token + ".zip");
+
 		FileInputStream fis;
 		BufferedInputStream bis;
 
@@ -197,21 +198,17 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 
 			// 파일을 읽어서 서버에 전송
 
-			File file = new File(path.getPath() + ".zip");
+			File file = new File(path.getPath());
 			fis = new FileInputStream(file);
 			bis = new BufferedInputStream(fis);
 
 			int len;
-			int size = 100000;
-			int i = 0;
-			byte[] Object = new byte[size];
+
+			byte[] Object = new byte[4096000];
 			while ((len = bis.read(Object)) > 0) {
 
 				dos.write(Object, 0, len);
 			}
-
-			System.out.println(len);
-			// 서버에 전송
 
 			fis.close();
 			bis.close();
@@ -220,8 +217,6 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 			infoDTO.setCommand(Info.FILEEND);
 			dos.writeObject(infoDTO);
 			dos.flush();
-
-			file.delete();
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -264,7 +259,7 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 				bos.write(Object, 0, len);
 
 			}
-			System.out.println(len);
+
 			result = "SUCCESS";
 			// bos.flush();
 			System.out.println(1);
@@ -275,7 +270,8 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 			fos.close();
 			File zip = new File(writePath + token + ".zip");
 			ZipUtil.unpack(zip, new File(zip.getPath().replace(".zip", "")));
-			zip.delete();
+
+			new PushZip(writePath + token, true).run();
 
 		} catch (Exception e1) {
 			e1.printStackTrace();

@@ -1,5 +1,5 @@
 <template lang="">
-    <div class="code_top_container">
+    <div class="code_top_container" :style="cssVariable">
         <div class="code_middle_container_right">
            
             <div class="code_navigator">
@@ -9,13 +9,13 @@
                 <div class="code_btn">
                   
                   <button class="code_btn" @click="toggleOnOff">code </button>
-                    <div class="code_menu_top_div">
-                      <div class="code_menu" v-if="isStatusOn">
+                    <div class="code_menu_top_div" v-if="isStatusOn">
+                      <div class="code_menu" >
                           <div class="code_clone">
                             <svg aria-hidden="true" height="14" viewBox="0 -1 16 16" version="1.1" width="14" data-view-component="true" class="octicon octicon-terminal mr-2">
                                 <path fill-rule="evenodd" d="M0 2.75C0 1.784.784 1 1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75zm1.75-.25a.25.25 0 00-.25.25v10.5c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V2.75a.25.25 0 00-.25-.25H1.75zM7.25 8a.75.75 0 01-.22.53l-2.25 2.25a.75.75 0 11-1.06-1.06L5.44 8 3.72 6.28a.75.75 0 111.06-1.06l2.25 2.25c.141.14.22.331.22.53zm1.5 1.5a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z"></path>
                             </svg> 
-                            <div class="clone_string">Clone</div>
+                            <div class="clone_string">접속 코드</div>
                           </div>
 
                           <br>
@@ -31,13 +31,20 @@
                         
                           <br>
                           <div class="code_download_div">
-                            <div class="code_download" @click="fileDown">
-                              <a>
-                                <svg aria-hidden="true" height="14" viewBox="0 -0.5 16 16" version="1.1" width="14" data-view-component="true" class="octicon octicon-file-zip mr-2">
-                                    <path fill-rule="evenodd" d="M3.5 1.75a.25.25 0 01.25-.25h3a.75.75 0 000 1.5h.5a.75.75 0 000-1.5h2.086a.25.25 0 01.177.073l2.914 2.914a.25.25 0 01.073.177v8.586a.25.25 0 01-.25.25h-.5a.75.75 0 000 1.5h.5A1.75 1.75 0 0014 13.25V4.664c0-.464-.184-.909-.513-1.237L10.573.513A1.75 1.75 0 009.336 0H3.75A1.75 1.75 0 002 1.75v11.5c0 .649.353 1.214.874 1.515a.75.75 0 10.752-1.298.25.25 0 01-.126-.217V1.75zM8.75 3a.75.75 0 000 1.5h.5a.75.75 0 000-1.5h-.5zM6 5.25a.75.75 0 01.75-.75h.5a.75.75 0 010 1.5h-.5A.75.75 0 016 5.25zm2 1.5A.75.75 0 018.75 6h.5a.75.75 0 010 1.5h-.5A.75.75 0 018 6.75zm-1.25.75a.75.75 0 000 1.5h.5a.75.75 0 000-1.5h-.5zM8 9.75A.75.75 0 018.75 9h.5a.75.75 0 010 1.5h-.5A.75.75 0 018 9.75zm-.75.75a1.75 1.75 0 00-1.75 1.75v3c0 .414.336.75.75.75h2.5a.75.75 0 00.75-.75v-3a1.75 1.75 0 00-1.75-1.75h-.5zM7 12.25a.25.25 0 01.25-.25h.5a.25.25 0 01.25.25v2.25H7v-2.25z"></path>
-                                </svg>
-                                Download ZIP
+                            <div class="code_download " v-show="!downloading">
+                              <a  @click="fileDown">
+                                <font-awesome-icon icon="fa-regular fa-circle-down" />
+                                다운로드
+                                
                               </a>
+                          </div>
+                           <div class="code_download " v-show="downloading">
+                       
+                                <font-awesome-icon icon="fa-regular fa-circle-down" />
+                                다운로드중
+                                
+                                <img v-show="downloading" src="@/assets/imgs/main/download/loading2.gif" width="15px" height="15px"/>
+                     
                           </div>
                         </div>  
                       </div>
@@ -64,8 +71,10 @@
                 
 
                 </div>
+                <div class="repo_list" v-show="downloading" style="display:block" >다운로드 중...</div>
                 <a :href="backURL"><div class="repo_list" style="display:block" v-show="!(path==undefined)">  . . </div></a>
                  <div class="repo_list" v-show="loading" style="display:block" v-if="!isEmpty">데이터 불러오는 중...</div>
+               
                 <div class="repo_list" v-for="data in file_list"  v-if="!isEmpty">
                   
                   <div class="repo_list_part1">
@@ -82,7 +91,7 @@
                        <svg v-show="!data.directory" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" >
                         <path fill-rule="evenodd" d="M3.75 1.5a.25.25 0 00-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 00.25-.25V6h-2.75A1.75 1.75 0 019 4.25V1.5H3.75zm6.75.062V4.25c0 .138.112.25.25.25h2.688a.252.252 0 00-.011-.013l-2.914-2.914a.272.272 0 00-.013-.011zM2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0113.25 16h-9.5A1.75 1.75 0 012 14.25V1.75z"></path>
                       </svg>
-                      {{data.name}} / {{data.totalLine}}줄
+                      <a @click="goTarget"> {{data.name}} / {{data.totalLine}}줄 </a> 
                     </div>
                        <textarea v-if="data.state=='file'"  class="repo_file_content scrollBar" readonly="true">{{data.content}}</textarea>
                   </div>
@@ -125,20 +134,13 @@
                         </svg> {{star.length}} stars
                     </a>    
                 </div>
-                <div class="fork_link">
-                    <a href="#" class="fork_link_href">
-                        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-repo-forked mr-2">
-                            <path fill-rule="evenodd" d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z"></path>
-                        </svg>
-                         {{push.repo_fork}} fork
-                    </a>
-                </div>
+                
 
             </div>
             <div class="contributors_box">
                 <h2 class="contributor_h2">
-                    Contributor
-                    <span class="contributor_member_count">{{contributors.length}}</span>
+                    구성원
+                    <span class="r_count">{{contributors.length}}</span>
                 </h2>
                 
                 <ul>
@@ -162,6 +164,13 @@ import marked from "marked";
 import { TimeAgo } from "vue2-timeago";
 
 export default {
+  computed: {
+    cssVariable() {
+      return {
+        "--file_line_height": this.file_line_height,
+      };
+    },
+  },
   data() {
     return {
       discription: "",
@@ -186,22 +195,29 @@ export default {
       profileImg: [],
       i: 0,
       isEmpty: false,
+      downloading: false,
+      file_line_height: "0px",
     };
   },
   components: {
     TimeAgo,
   },
   methods: {
+    goTarget() {
+      window.scrollTo(0, 255);
+    },
     toggleOnOff: function () {
       this.isStatusOn = !this.isStatusOn;
     },
     fileDown: function () {
+      this.downloading = true;
       axios
         .get("/api/download", {
           responseType: "blob",
           params: {
             repo: this.repoIdx,
             token: this.push.push_token,
+            fileName: this.$route.params.repository,
           },
         })
         .then((response) => {
@@ -209,12 +225,13 @@ export default {
           const link = document.createElement("a");
           link.href = url;
           link.setAttribute("download", response.headers.filename); //or any other extension
-          console.log(response.headers.filename);
           document.body.appendChild(link);
           link.click();
+          this.downloading = false;
         })
         .catch((exception) => {
           alert("파일 다운로드 실패");
+          this.downloading = false;
         });
     },
 
@@ -267,9 +284,9 @@ export default {
         })
         .then((response) => {
           this.file_list = response.data;
-          console.log(this.file_list);
 
           if (this.file_list[0].state == "file") {
+            this.file_line_height = this.file_list[0].totalLine * 19 + "px";
             //현재 위치가 파일인경우
             if (this.file_list[0].name == "README.md") {
               this.changeMD(this.file_list[0].content);
@@ -289,7 +306,6 @@ export default {
           }
           this.loading = false;
           // alert(this.star)
-          this.getContriImg();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
         });
     },
 
@@ -302,7 +318,10 @@ export default {
         })
         .then((response) => {
           this.star = response.data;
+          this.profileImg.splice(0);
+          this.getContriImg();
           this.getFile();
+
           // console.log(this.star)
           // alert(this.star)
         });

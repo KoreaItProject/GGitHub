@@ -7,7 +7,7 @@
         background-repeat: no-repeat, round;
         background-size: cover;
         background-position: center;
-        "
+      "
     >
       <div class="main_img_div_left">
         <h1 id="title">How people build software</h1>
@@ -30,48 +30,47 @@
             </p>
             <div v-bind:style="check_display">
               <span
-                style="color:red"
+                style="color: red"
                 class="nick_span nick_span_red"
                 v-if="!nickCheck"
                 >사용중인 닉네임입니다.</span
               >
               <span
-                style="color:blue"
+                style="color: blue"
                 class="nick_span nick_span_blue"
                 v-if="nickCheck"
                 >사용 가능한 닉네임입니다.</span
               >
             </div>
 
-            
+            <input
+              ref="ref_email"
+              id="input_email"
+              class="input"
+              name="email"
+              placeholder="이메일"
+              v-model="email"
+            />
+            <a class="btn_a" @click="mail_sender">
+              <span class="btn_span">인증</span>
+              <div class="liquid"></div>
+            </a>
+
+            <div v-if="this.emailCheck == true">
               <input
-                ref="ref_email"
-                id="input_email"
+                ref="ref_check_code"
+                id="input_code"
                 class="input"
-                name="email"
-                placeholder="이메일"
-                v-model="email"
+                name="email_code"
+                placeholder="인증번호"
+                v-model="input_code"
               />
-              <a class="btn_a" @click="mail_sender">
-                <span class="btn_span">인증</span>
+              <a class="btn_a" @click="code_check">
+                <span class="btn_span">확인</span>
                 <div class="liquid"></div>
               </a>
+            </div>
 
-              <div v-if="this.emailCheck == true">
-                <input
-                  ref="ref_check_code"
-                  id="input_code"
-                  class="input"
-                  name="email_code"
-                  placeholder="인증번호"
-                  v-model="input_code"
-                />
-                <a class="btn_a" @click="code_check">
-                  <span class="btn_span">확인</span>
-                  <div class="liquid"></div>
-                </a>
-              </div>
-              
             <p>
               <input
                 ref="ref_pw"
@@ -83,20 +82,20 @@
               />
             </p>
 
-              <div class="div_letter">
-                <h6 class="">
-                  Use at least one letter, one numeral, and seven characters.
-                </h6>
-              </div>
-                <p style="margin: 10px 0px;" >
-                  <button type="submit" class="btn--primary">회원가입</button>
-                </p>
+            <div class="div_letter">
+              <h6 class="">
+                Use at least one letter, one numeral, and seven characters.
+              </h6>
+            </div>
+            <p style="margin: 10px 0px">
+              <button type="submit" class="btn--primary">회원가입</button>
+            </p>
 
-              <div class="div_letter">
-                By clicking "Sign up for GitHub", you agree to our terms of service
-                and privacy policy. We'll occasionally send you account related
-                emails.
-              </div>
+            <div class="div_letter">
+              By clicking "Sign up for GitHub", you agree to our terms of
+              service and privacy policy. We'll occasionally send you account
+              related emails.
+            </div>
           </form>
         </div>
       </div>
@@ -118,9 +117,10 @@ export default {
       nick: "",
       email: "",
       pw: "",
-      check_display: "display:none;"
+      check_display: "display:none;",
     };
   },
+  mounted() {},
   methods: {
     async signup() {
       if (this.nick == "" || this.email == "" || this.pw == "") {
@@ -130,14 +130,13 @@ export default {
         this.$refs.ref_nick.focus();
       } else if (!this.emailCheck) {
         alert("이메일 인증을 해주세요!");
-      }else if(!this.codeCheck){
+      } else if (!this.codeCheck) {
         alert("인증 번호를 확인해주세요!");
-      }
-       else {
+      } else {
         const sign_up_result = await axios.post("/api/signup", {
           nick: this.nick,
           email: this.email,
-          pw: this.pw
+          pw: this.pw,
         });
         if (sign_up_result.data > 0) {
           alert("회원가입 성공");
@@ -163,14 +162,14 @@ export default {
           await axios
             .get("/api/hasNick", {
               params: {
-                nick: this.nick
-              }
+                nick: this.nick,
+              },
             })
-            .then(response => {
+            .then((response) => {
               // handle success
               this.nickCheck = !response.data;
             })
-            .catch(error => {
+            .catch((error) => {
               // handle error
               console.log(error);
             })
@@ -187,17 +186,17 @@ export default {
       } else {
         await axios
           .post("/api/emailsender", { email: this.email })
-          .then(response => {
-            this.return_code = response.data
+          .then((response) => {
+            this.return_code = response.data;
             if (response.status == 200) {
               alert("인증 메일 전송 성공");
               this.emailCheck = true;
-              document.getElementById("input_email").readOnly=true;
+              document.getElementById("input_email").readOnly = true;
             } else {
               alert("메일 전송 실패");
             }
           })
-          .catch(error => {
+          .catch((error) => {
             console.log(error);
           })
           .finally(() => {
@@ -205,17 +204,17 @@ export default {
           });
       }
     }, // mail_sender()
-    code_check(){
-      if(this.input_code == this.return_code){
-        alert('인증 완료!');
+    code_check() {
+      if (this.input_code == this.return_code) {
+        alert("인증 완료!");
         this.codeCheck = true;
-        document.getElementById("input_code").readOnly=true;
-      }else{
-        alert('인증 실패!');
+        document.getElementById("input_code").readOnly = true;
+      } else {
+        alert("인증 실패!");
         this.$refs.ref_check_code.focus();
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

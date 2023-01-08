@@ -6,8 +6,6 @@
                     <a href="/">
                         <img class="logo" src="static/imgs/login/logoblack.png" />
                     </a>
-                    
-                    
                 </div>
             </div>
         </div>
@@ -65,7 +63,7 @@ export default {
           alert("로그인 실패 아이디 및 비밀번호를 확인해주세요");
           this.$refs.ref_email.focus();
         } else {
-          window.location.href = "/" + u_data.data.nick;
+          window.history.back();
         }
       }
     },
