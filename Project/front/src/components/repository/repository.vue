@@ -148,11 +148,8 @@ export default {
       pin_Check: false,
       isLogin: store.getters.getIsLogin,
       publ: true,
-<<<<<<< HEAD
-      starcount:"",
-=======
+
       starcount: false,
->>>>>>> bc19f60177c3c3890649dfa9f0575ad9f4970c0f
     };
   },
   computed: {
