@@ -19,24 +19,80 @@ $td3_font_size: 12px
         margin-top: 25px
         .pullreq_merge_div_left2
             padding: 10px
-            margin-top: 20px
+            float: right
+            .pullreq_merge_div_left2_div
+                //margin-bottom: 20px
+                margin-top: -35px
+                .pullreq_merge_div_left2_backBtn
+                    margin-bottom: 20px
+                    text-align: center
+                    border: 1px solid #d0d7de
+                    background-color: #f6f8fa
+                    width: 35px
+                    height: 35px
             .pullreq_merge_div_left_data
-                height: 100px    
+                height: 80px    
+                //margin-top: -20px
                 margin-bottom: 10px
                 border-radius: 6px  
+                width: 260px
                 background-color: #f6f8fa
                 border: 1px solid #d0d7de
                 &:hover
                     background-color: #e2e2e2
                     cursor: pointer
+                .left_data_top
+                    height: 50%
+                    .left_data_top_filename
+                        margin: 10px
+                        margin: 15px 10px 10px 20px
+                        span
+                            font-weight: 400
+                            font-family: Arial, sans-serif
+                .left_data_bottom
+                    height: 50%
+                    .left_data_bottom_filepath
+                        margin: -10px 10px 10px 20px
+                        span
+                            font-size: 12.5px
+                            color: #797777
+                            font-weight: 400
+                            font-family: Arial, sans-serif
     .pullreq_merge_div_right
         //border: 1px solid #d0d7de
         width: 1400px
         flex-direction: column
-        .test
+        .plus_minus_div
             text-align: right
             margin-right: 10px
-            border: 1px solid red
+            //border: 1px solid red
+            .plus_div
+                text-align: center
+                display: inline-block
+                border: 1px solid #d0d7de
+                background-color: #f6f8fa
+                width: 35px
+                height: 35px
+                margin-bottom: -10px
+                &:hover
+                    background-color: #e2e2e2
+                .plus_div_a
+                    position: relative
+                    top: 5px
+            .minus_div
+                text-align: center
+                vertical-align: middle
+                display: inline-block
+                border: 1px solid #d0d7de
+                background-color: #f6f8fa
+                width: 35px
+                height: 35px
+                margin-bottom: -10px
+                &:hover
+                    background-color: #e2e2e2
+                .minus_div_a
+                    position: relative
+                    top: 5px
         .pullreq_merge_div_right_top
             //border: 1px solid red
             height: 40%
@@ -171,6 +227,7 @@ $td3_font_size: 12px
                         width: 97%
                         height: 500px
         .pullreq_merge_div_right_bottom_span
+            margin-top: -20px
             @media (max-width: 1100px)
                 margin-top: var(--pullreq_merge_div_right_bottom_span)
         .pullreq_merge_div_right_bottom

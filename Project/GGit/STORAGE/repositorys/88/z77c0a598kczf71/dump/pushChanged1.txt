@@ -1,0 +1,1 @@
+[{"path":"\/aaaaaaaaaa.txt","state":"del"},{"path":"\/테스트1\/aaaaaaaaaa.txt","state":"add"},{"path":"\/테스트1","state":"add"}]
