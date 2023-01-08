@@ -13,4 +13,7 @@ public class RepomemVo {
     private int member;
     private int sort;
 
+    private String member_nick;
+
+
 }

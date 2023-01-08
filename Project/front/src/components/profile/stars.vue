@@ -5,12 +5,13 @@
           
           <div class="stars_div" >
               <div>
-                <button type="button" class="star_btn"v-if="star.isMy==0" @click="insertStar(star.repo_name)">
-                  <font-awesome-icon icon="fa-regular fa-star" />
-                  즐겨찾기
-                </button>
                 
-                <button type="button" class="starred_btn" v-if="star.isMy==1" @click="deleteStar(star.repo_name)">
+                  <button type="button" class="star_btn"v-if="star.isMy==0" @click="[insertStar(star.repo_name),refreshAll()]">
+                    <font-awesome-icon icon="fa-regular fa-star" />
+                    즐겨찾기
+                  </button>
+                
+                <button type="button" class="starred_btn" v-if="star.isMy==1" @click="[deleteStar(star.repo_name),refreshAll()]">
                   <font-awesome-icon icon="fa-solid fa-star" />
                   즐겨찾기 해제
                 </button>
@@ -62,8 +63,7 @@ export default {
   data() {
     return {
       stars: [],
-      starcount:false,
-     
+      
       
     };
   },
@@ -107,7 +107,7 @@ export default {
                 })
                 .then((response) => {
                 // handle success
-                this.selectstarcount(reponame);
+                this.selectstarcount(reponame)
                 
                 })
                 .catch((error) => {
@@ -130,7 +130,7 @@ export default {
                 })
                 .then((response) => {
                 // handle success
-                this.selectstarcount(reponame);
+                this.selectstarcount(reponame)
                 
                 })
                 .catch((error) => {
@@ -143,35 +143,36 @@ export default {
                 
             },
             selectstarcount(reponame){
-          axios
-          .get("/api/selectstarcount",{
-            params:{
-              reponame: reponame,
-              idx: store.getters.getUserIdx,
-            
-            
-            },
-          })
-          .then((response) => {
-            this.starcount = response.data;
-            alert(this.starcount)
-            if (
-                response.data == 0
-              ) {
-                this.starcount = false; // 즐겨찾기
-              } else if (
-                response.data != 0 ||
-                response.data == 1
-               
-              ) {
-                // 조회된 데이터가 있을때
-                this.starcount = true; // 즐겨찾기 해제
-              }
+              axios
+              .get("/api/selectstarcount",{
+                params:{
+                  reponame: reponame,
+                  idx: store.getters.getUserIdx,
+                
+                
+                },
+              })
+              .then((response) => {
+                this.starcount = response.data;
+                alert(this.starcount)
+                
+                if (
+                    response.data == 0
+                  ) {
+                    this.starcount = false; // 즐겨찾기
+                  } else if (
+                    
+                    response.data == 1
+                  
+                  ) {
+                    // 조회된 데이터가 있을때
+                    this.starcount = true; // 즐겨찾기 해제
+                  }
 
-          })
-          
-          
-        },
+              })
+              
+              
+            },
       
             
   
