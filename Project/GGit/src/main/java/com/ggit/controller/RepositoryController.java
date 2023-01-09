@@ -69,6 +69,7 @@ public class RepositoryController {
     FollowService followService;
     @Autowired
     PullreqService pullreqService;
+    
 
     @Value("${storage_dir}")
     String storage_dir;
@@ -525,6 +526,19 @@ public class RepositoryController {
     @RequestMapping("repoMemCheck")
     public RepoVo repoMemCheck(@RequestBody RepoVo repoVo) {
         return repoService.repoMemCheck(repoVo);
+    }
+
+    @RequestMapping("selectrepomem")
+    public List<RepomemVo> selectrepomem(String reponame){
+        List<RepomemVo> selectrepomem = repomemService.selectrepomem(reponame);
+        return selectrepomem;
+    }
+    @RequestMapping("deleterepomem")
+    public int deleterepomem(String reponame, String nick){
+        System.out.println(reponame);
+        System.out.println(nick);
+        int deleterepomem = repomemService.deleterepomem(reponame,nick);
+        return deleterepomem;
     }
 }
 

@@ -10,4 +10,13 @@
     <update id="repoSortUpdate">
         UPDATE repomem SET sort = ${sort} where repo=${repo} and member=${member}
     </update>
+    <select id="selectrepomem" resultType="com.ggit.vo.RepomemVo">
+        SELECT member.nick as member_nick
+        FROM member,repomem
+        WHERE member.idx=repomem.member and repomem.repo=(select repo.idx from repo where repo.name=#{reponame});
+    </select>
+
+    <delete id="deleterepomem">
+        DELETE FROM repomem WHERE member=(select idx from member where nick=#{nick}) and repomem.repo=(select repo.idx from repo where repo.name=#{reponame});
+    </delete>
 </mapper>

@@ -37,7 +37,7 @@
             </div>
         </div>
         <div v-if="merge_page == true" style="height: 100%">
-            <pullreq_merge_mem></pullreq_merge_mem>
+            <pullreq_merge_mem @merge_func_close="merge_func_close"></pullreq_merge_mem>
         </div>
     </div>
 </template>
@@ -124,7 +124,12 @@ export default {
             this.test = token;
             this.pullreq_page = false;
             this.merge_page = true;
+        },
+        merge_func_close(){
+            this.pullreq_page = true;
+            this.merge_page = false;
         }
+
     }
 };
 </script>

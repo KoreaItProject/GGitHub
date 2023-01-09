@@ -16,4 +16,8 @@ public interface RepomemMapper {
     void join(RepomemVo repomemVo);
 
     void repoSortUpdate(RepomemVo repoVo);
+
+    List<RepomemVo> selectrepomem(String reponame);
+
+    int deleterepomem(String reponame, String nick);
 }
