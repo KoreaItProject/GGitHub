@@ -89,7 +89,7 @@ export default {
         })
         .then((response) => {
           this.searchResult = response.data;
-          console.log(this.searchResult);
+
         });
     },
 
@@ -110,6 +110,9 @@ export default {
       })
       .then((response) => {
         this.pageCount = Math.trunc(response.data / 10) + 1;
+        if(response.data % 10==0){
+                this.pageCount--
+              }
       });
     this.getMyResuet();
   },

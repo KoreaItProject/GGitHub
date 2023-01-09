@@ -26,6 +26,7 @@
 <script>
 import mainHistory from "./mainHistory.vue";
 import myHistory from "./myHistory.vue";
+import store from "@/vuex/store.js";
 export default {
   data() {
     return {
@@ -36,6 +37,7 @@ export default {
     mainHistory: mainHistory,
     myHistory: myHistory,
   },
+  mounted() {},
 };
 </script>
 <style lang="sass">

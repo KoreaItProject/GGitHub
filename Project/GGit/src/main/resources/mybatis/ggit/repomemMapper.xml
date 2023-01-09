@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ggit.db.mapper.RepomemMapper">
+<mapper namespace="com.ggit.mappers.RepomemMapper">
     <select id="repomem" resultType="com.ggit.vo.RepomemVo">
         SELECT * FROM repomem;
     </select>
@@ -10,4 +10,13 @@
     <update id="repoSortUpdate">
         UPDATE repomem SET sort = ${sort} where repo=${repo} and member=${member}
     </update>
+    <select id="selectrepomem" resultType="com.ggit.vo.RepomemVo">
+        SELECT member.nick as member_nick
+        FROM member,repomem
+        WHERE member.idx=repomem.member and repomem.repo=(select repo.idx from repo where repo.name=#{reponame});
+    </select>
+
+    <delete id="deleterepomem">
+        DELETE FROM repomem WHERE member=(select idx from member where nick=#{nick}) and repomem.repo=(select repo.idx from repo where repo.name=#{reponame});
+    </delete>
 </mapper>
