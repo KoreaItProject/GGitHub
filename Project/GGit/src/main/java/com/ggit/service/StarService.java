@@ -6,7 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ggit.db.mapper.StarMapper;
+import com.ggit.mappers.StarMapper;
 import com.ggit.vo.RepositoriesVO;
 import com.ggit.vo.StarVo;
 

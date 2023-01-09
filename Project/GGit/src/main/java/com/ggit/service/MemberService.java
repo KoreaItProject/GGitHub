@@ -6,7 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ggit.db.mapper.MemberMapper;
+import com.ggit.mappers.MemberMapper;
 import com.ggit.vo.MemberVo;
 import com.ggit.vo.RepositoriesVO;
 

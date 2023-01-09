@@ -1,4 +1,4 @@
-package com.ggit.db.mapper;
+package com.ggit.mappers;
 
 import java.util.List;
 import java.util.Map;

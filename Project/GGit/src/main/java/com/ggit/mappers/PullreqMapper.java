@@ -1,4 +1,4 @@
-package com.ggit.db.mapper;
+package com.ggit.mappers;
 
 import java.util.List;
 
@@ -12,15 +12,13 @@ import com.ggit.vo.RepomemVo;
 @Repository
 @Mapper
 public interface PullreqMapper {
-    
-
 
     List<PullreqVo> pullreq();
 
     List<PullreqVo> pullreq_select(int idx);
 
     List<PullreqVo> pullreq_select_mem(int idx);
-    
+
     RepomemVo repoInMem(PullreqVo pullreqVo);
 
     int pullrequest(PullreqVo pullreqVo);

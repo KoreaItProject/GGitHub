@@ -6,7 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ggit.db.mapper.RepoMapper;
+import com.ggit.mappers.RepoMapper;
 import com.ggit.vo.RepoVo;
 import com.ggit.vo.RepositoriesVO;
 
