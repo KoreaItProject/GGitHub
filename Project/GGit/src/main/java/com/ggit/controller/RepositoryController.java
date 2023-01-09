@@ -69,7 +69,6 @@ public class RepositoryController {
     FollowService followService;
     @Autowired
     PullreqService pullreqService;
-    
 
     @Value("${storage_dir}")
     String storage_dir;
@@ -212,7 +211,7 @@ public class RepositoryController {
         new WriteData(storage_dir + "repositorys/" + repoidx + "/" + token + "/dump/pushChanged2.txt")
                 .write("[]");
 
-        new PushZip(storage_dir + "repositorys/" + repoidx + "/" + token).run();
+        new PushZip(targFile.getPath()).run();
         pushVo.setToken(newToken);
         pushVo.setMember(Integer.parseInt(member));
         pushVo.setRepo(repoidx);
@@ -529,15 +528,16 @@ public class RepositoryController {
     }
 
     @RequestMapping("selectrepomem")
-    public List<RepomemVo> selectrepomem(String reponame){
+    public List<RepomemVo> selectrepomem(String reponame) {
         List<RepomemVo> selectrepomem = repomemService.selectrepomem(reponame);
         return selectrepomem;
     }
+
     @RequestMapping("deleterepomem")
-    public int deleterepomem(String reponame, String nick){
+    public int deleterepomem(String reponame, String nick) {
         System.out.println(reponame);
         System.out.println(nick);
-        int deleterepomem = repomemService.deleterepomem(reponame,nick);
+        int deleterepomem = repomemService.deleterepomem(reponame, nick);
         return deleterepomem;
     }
 }
