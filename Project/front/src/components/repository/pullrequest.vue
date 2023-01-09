@@ -37,7 +37,7 @@
             </div>
         </div>
         <div v-if="merge_page == true" style="height: 100%">
-            <pullreq_merge_mem @merge_func_close="merge_func_close"></pullreq_merge_mem>
+            <pullreq_merge_mem @merge_func_close="merge_func_close" :token_repoidx="this.token_repoidx"></pullreq_merge_mem>
         </div>
     </div>
 </template>
@@ -75,8 +75,16 @@ export default {
             span1: "white",
             span2: "rgb(188, 204, 202,0.2)",
 
-            test: ''
+            token_repoidx:[
+                {
+                    token: '',
+                    repo_idx: this.repo_idx
+                } 
+            ],
         };
+    },
+    props:{
+        repo_idx: String
     },
     components: {
         pullreqnomem : pullreqnomem,
@@ -88,6 +96,7 @@ export default {
     },
     methods: {
         changetab(tab){
+            
             if (tab == "repomember") {
                 this.isrepomember = true;
                 this.ispullreq = false;
@@ -121,7 +130,7 @@ export default {
             })
         },
         merge_func(token){
-            this.test = token;
+            this.token_repoidx[0].token = token;
             this.pullreq_page = false;
             this.merge_page = true;
         },

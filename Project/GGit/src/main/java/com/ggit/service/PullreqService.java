@@ -45,4 +45,9 @@ public class PullreqService {
     public int pullrequest(PullreqVo pullreqVo){
         return mapper.pullrequest(pullreqVo);
     }
+
+    // idx의 최신 main파일토큰 가져오기
+    public String getLastMainToken(int repo_idx){
+        return mapper.getLastMainToken(repo_idx);
+    }
 }

@@ -14,15 +14,15 @@
                         </button>
                     </div>
                     
-                    <div class="pullreq_merge_div_left_data" v-for="(data, index) in test_data">
+                    <div class="pullreq_merge_div_left_data" @click="test_a(index)" v-for="(data, index) in test_data">
                         <div class="left_data_top">
                             <div class="left_data_top_filename">
-                                <span>fileTest.html</span>
+                                <span>{{data.fileName}}</span>
                             </div>
                         </div>
                         <div class="left_data_bottom">
                             <div class="left_data_bottom_filepath">
-                                <span>C:/data/path/123</span>
+                                <span>{{data.filePath}}</span>
                             </div>
                         </div>
                     </div>
@@ -71,7 +71,7 @@
                         <span>&nbsp;&nbsp;병합 파일</span>
                         <div class="pullreq_merge_div_right_top_right">
                             <table>
-                                <tr v-for="(data,index) in test_line">
+                                <tr v-for="(data,index) in test_data[this.left_data_index].fileData">
                                     <td class="td1"></td>
                                     <td class="td2">{{index+1}}</td>
                                     <td class="td3">
@@ -87,11 +87,12 @@
 
                 <div class="pullreq_merge_div_right_bottom_span" :style="cssVariable">
                     <span>&nbsp;&nbsp;병합 비교</span>
+                    
                 </div>
                 <div class="pullreq_merge_div_right_bottom" :style="cssVariable">
                     <div class="pullreq_merge_div_right_bottom_changecode">
                         <table>
-                            <tr v-for="(data,index) in test_line">
+                            <tr v-for="(data,index) in test_data[this.left_data_index].fileData">
                                 <td class="td1"></td>
                                 <td class="td2">{{index+1}}</td>
                                 <td class="td3">
@@ -112,7 +113,7 @@ import axios from 'axios';
 export default {
     data(){
         return{
-            test_data:["","",""],
+            test_data:[],
             test_line:[],
 
             pullreq_merge_right_top_state: false,
@@ -121,9 +122,16 @@ export default {
             test1: '1000px',
             test2: '300px',
             test3: '150%',
-            test4: '165%'
-
+            test4: '165%',
+            
+            token: this.token_repoidx[0].token,
+            repo_idx: this.token_repoidx[0].repo_idx,
+            
+            left_data_index: '0',
         }
+    },
+    props:{
+        token_repoidx: Array,
     },
     mounted(){
         this.getMergeFile();
@@ -131,11 +139,12 @@ export default {
     methods: {
         getMergeFile(){
             axios.post("/api/testcon", {
-
+                repo_idx: this.repo_idx,
+                token: this.token
             })
             .then(response => {
-                //console.log(response);
-                this.test_line = response.data
+                console.log(response);
+                this.test_data = response.data;
             })
         },
         pullreq_merge_right_top_state_func(){
@@ -163,6 +172,9 @@ export default {
         },
         merge_func_close(){
             this.$emit("merge_func_close");
+        },
+        test_a(index){
+            this.left_data_index = index;
         }
     },
     computed: {

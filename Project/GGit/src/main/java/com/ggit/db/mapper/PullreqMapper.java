@@ -24,4 +24,6 @@ public interface PullreqMapper {
     RepomemVo repoInMem(PullreqVo pullreqVo);
 
     int pullrequest(PullreqVo pullreqVo);
+
+    String getLastMainToken(int repo_idx);
 }
