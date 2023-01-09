@@ -171,7 +171,8 @@ export default {
     token,
   },
   mounted() {
-    this.getRepoIdx_RepoMemCheck();
+    this.tabCheck();
+
     // 저장소 idx 가져온 후 내가 속해있는 저장소인지 확인하자
   },
   methods: {
@@ -199,6 +200,8 @@ export default {
         this.isCode = true;
         this.tab1_color = "4px";
       }
+
+      this.getRepoIdx_RepoMemCheck();
     },
     goLogin() {
       window.location.href = "/login";
@@ -222,7 +225,6 @@ export default {
             } else {
               this.publ = true;
             }
-            this.tabCheck();
           }
         });
     },
@@ -334,13 +336,6 @@ export default {
           // handle success
           // alert("추가되었습니다.")
           this.selectstarcount();
-        })
-        .catch((error) => {
-          // handle error
-          console.log(error);
-        })
-        .finally(() => {
-          // always executed
         });
     },
     deleteStar() {
@@ -355,13 +350,6 @@ export default {
           // handle success
           // alert("해제되었습니다.")
           this.selectstarcount();
-        })
-        .catch((error) => {
-          // handle error
-          console.log(error);
-        })
-        .finally(() => {
-          // always executed
         });
     },
     selectstarcount() {

@@ -56,7 +56,7 @@
         <!-- 로그인 안됐을 때 -->
         <div class="header_right_div" v-if="!islogin">
           <div class="header_tab_div">
-            <a class="header_tab"><span>회원가입</span></a>
+            <a class="header_tab" href="./"><span>회원가입</span></a>
             <a class="header_tab" href="/login"><span>로그인</span></a>
             <a class="header_tab" href="/download"><span>다운로드</span></a>
           </div>
