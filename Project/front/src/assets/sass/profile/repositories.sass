@@ -8,9 +8,15 @@ $line-color: #d0d7de
         width: 100%
         border-top: 1px solid $line-color
         padding: 20px 20px
-        display: block
+        display: flex
+        justify-content: center
+        align-items: center
+        cursor: pointer
+
         &:hover
             background-color: rgb(246, 248, 250,0.6 )
+        .repo_div_con
+            width: 100%
         .repo_name_div
             width: 100%
 
@@ -22,7 +28,7 @@ $line-color: #d0d7de
             margin-top: 8px
             width: 100%
             font-size: 14px
-            max-height: 50px
+            padding-bottom: 3px
             overflow: hidden
             text-overflow: ellipsis
             white-space: nowrap
@@ -54,10 +60,9 @@ $line-color: #d0d7de
             text-align: center
             margin: 0 3px
             border-radius: 8px
-            border: 1px solid $line-color
-            color: #666
+
             display: inline
-            color: #666
+
             text-decoration: none
 
         .pagination li.active
@@ -102,3 +107,6 @@ $line-color: #d0d7de
 .con_top
     width: 100%
     height: 46px
+.unStar_div
+    width: 90px
+    height: 30px

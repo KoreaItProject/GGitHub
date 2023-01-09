@@ -318,7 +318,7 @@ export default {
       axios
         .get("/api/insertStar", {
           params: {
-            reponame: this.$route.params.repository,
+            repoidx: this.repo_idx,
             idx: store.getters.getUserIdx,
           },
         })
@@ -339,7 +339,7 @@ export default {
       axios
         .get("/api/deleteStar", {
           params: {
-            reponame: this.$route.params.repository,
+            repoidx: this.repo_idx,
             idx: store.getters.getUserIdx,
           },
         })
@@ -360,16 +360,17 @@ export default {
       axios
         .get("/api/selectstarcount", {
           params: {
-            reponame: this.$route.params.repository,
+            repoidx: this.repo_idx,
             idx: store.getters.getUserIdx,
           },
         })
         .then((response) => {
           this.starcount = response.data;
+
           // alert(this.starcount)
           if (response.data == 0) {
             this.starcount = false; // 즐겨찾기
-          } else if (response.data == 1) {
+          } else if (response.data >= 1) {
             // 조회된 데이터가 있을때
             this.starcount = true; // 즐겨찾기 해제
           }

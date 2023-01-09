@@ -3,8 +3,7 @@ package com.ggit.controller;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
@@ -14,7 +13,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collector;
+
 import java.util.stream.Collectors;
 
 import org.apache.ibatis.binding.BindingException;
@@ -24,19 +23,12 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.annotation.RequestScope;
 
-import com.fasterxml.jackson.core.JsonParser;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.ggit.service.FollowService;
 import com.ggit.service.PullreqService;
 import com.ggit.service.PushService;
@@ -47,8 +39,7 @@ import com.ggit.util.PushZip;
 import com.ggit.util.RandStr;
 import com.ggit.util.ReadData;
 import com.ggit.util.WriteData;
-import com.ggit.vo.FollowVo;
-import com.ggit.vo.PullreqVo;
+
 import com.ggit.vo.PushVo;
 import com.ggit.vo.RepoVo;
 import com.ggit.vo.RepomemVo;
@@ -239,21 +230,6 @@ public class RepositoryController {
         List<RepositoriesVO> repositories = repoService.selectRepositories(nick);
         return repositories;
     }
-
-    // @RequestMapping("/repoSort")
-    // public void repoSort( @RequestBody Map<String,String> map) {
-
-    // int owner = Integer.parseInt(map.get("owner")+"");
-    // System.out.println(owner);
-    // System.out.println((map.get("Repo")));
-
-    // for (int i = 0; i < Repo.size(); i++) {
-    // System.out.println("sort = " + i + " repo = " + Repo.get(i).getRepo_idx());
-
-    // }
-    // System.out.println("==========================");
-
-    // }
 
     @RequestMapping("/repoSort")
     public void repoSort(@RequestBody SortData sortData) {// https://wakestand.tistory.com/787 269번 줄

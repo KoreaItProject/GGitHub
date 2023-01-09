@@ -1,34 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ggit.db.mapper.StarMapper">
-    <select id="star"  resultType="com.ggit.vo.StarVo">
-        SELECT * FROM star;
-    </select>
+    <select id="star" resultType="com.ggit.vo.StarVo"> SELECT * FROM star; </select>
 
-    <select id="selectStarlist"  resultType="com.ggit.vo.StarVo">
-        SELECT DISTINCT s.repo,s.idx, s.member, (select member.nick from member where repo.owner=member.idx ) as repo_owner,
-        member.nick as member_nick,repo.name as repo_name, description as repo_description,
-        (select count(star.repo)from star where star.repo=repo.idx) as star_count,
-        (select count(star.idx) from star where s.repo=star.repo and star.member=${idx}) as isMy,
-        repo.download as repo_down, (SELECT push.date from push where push.repo = s.repo limit 1) as push_date
-        FROM star s,repo, member,push 
-        WHERE s.member=(select member.idx from member where member.nick=#{nick})and member.idx = s.member and s.repo = repo.idx;
-    </select>
+    <select id="selectStarlist" resultType="com.ggit.vo.RepositoriesVO"> select repo.idx as
+        repo_idx,repo.name as repo_name,member.nick as member_nick ,(select count(push.token) from
+        push where push.repo = repo.idx and push.branch = 0 ) as commits ,repo.download as
+        repo_download, (select count(star.idx) from star where star.repo = repo.idx ) as star_count,
+        (select push.date from push where push.repo = repo.idx and push.branch=0 limit 1) as
+        push_date , repo.public as repo_publ, repo.description as description from repo,member ,star
+        where star.member = ${member} and repo.idx = star.repo and repo.owner = member.idx and (
+        member.nick like '%${search}%' or repo.name like '%${search}%' or repo.description like
+        '%${search}%') order by push_date desc limit ${start} , ${count} </select>
+    <select id="starTotal" resultType="int"> select count(repo.name) from repo,member ,star where
+        star.member = ${member} and repo.idx = star.repo and repo.owner = member.idx and (
+        member.nick like '%${search}%' or repo.name like '%${search}%' or repo.description like
+        '%${search}%') </select>
 
-    <select id="selectstarcount" resultType="int">
-        SELECT count(idx)
-        FROM star
-        WHERE member=${idx} and repo=(select idx from repo where name=#{reponame})
-    </select>
+    <select id="selectstarcount" resultType="int"> SELECT count(idx) FROM star WHERE member=${idx}
+        and repo=#{repoidx} </select>
 
-    <insert id="insertStar">
-        INSERT INTO star(repo,member) VALUES((select repo.idx from repo where repo.name=#{reponame}),${idx})
-    </insert>
+    <insert id="insertStar"> INSERT INTO star(repo,member) VALUES(#{repoidx},${idx}) </insert>
 
-    <delete id="deleteStar">
-         DELETE FROM star WHERE member=${idx} and star.repo=(select repo.idx from repo where repo.name=#{reponame})
-    </delete>
-   
-    
-   
+    <delete id="deleteStar"> DELETE FROM star WHERE member=${idx} and star.repo=#{repoidx} </delete>
+
+
 </mapper>
