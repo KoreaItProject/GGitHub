@@ -115,7 +115,6 @@ import myCode from "@/components/repository/myCode.vue";
 
 import token from "@/components/repository/token.vue";
 
-
 import history from "@/components/repository/history/history.vue";
 import pullrequest from "@/components/repository/pullrequest.vue";
 import setting from "@/components/repository/setting/setting.vue";
@@ -201,7 +200,7 @@ export default {
         this.tab1_color = "4px";
       }
     },
-    goLogin(){
+    goLogin() {
       window.location.href = "/login";
     },
     getPublic() {
@@ -366,24 +365,26 @@ export default {
         });
     },
     selectstarcount() {
-      axios
-        .get("/api/selectstarcount", {
-          params: {
-            repoidx: this.repo_idx,
-            idx: store.getters.getUserIdx,
-          },
-        })
-        .then((response) => {
-          this.starcount = response.data;
+      if (store.getters.getIsLogin) {
+        axios
+          .get("/api/selectstarcount", {
+            params: {
+              repoidx: this.repo_idx,
+              idx: store.getters.getUserIdx,
+            },
+          })
+          .then((response) => {
+            this.starcount = response.data;
 
-          // alert(this.starcount)
-          if (response.data == 0) {
-            this.starcount = false; // 즐겨찾기
-          } else if (response.data >= 1) {
-            // 조회된 데이터가 있을때
-            this.starcount = true; // 즐겨찾기 해제
-          }
-        });
+            // alert(this.starcount)
+            if (response.data == 0) {
+              this.starcount = false; // 즐겨찾기
+            } else if (response.data >= 1) {
+              // 조회된 데이터가 있을때
+              this.starcount = true; // 즐겨찾기 해제
+            }
+          });
+      }
     },
   },
 };
