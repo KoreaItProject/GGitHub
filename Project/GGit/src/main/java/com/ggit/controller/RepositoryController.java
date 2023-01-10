@@ -534,8 +534,8 @@ public class RepositoryController {
         if (repoidx == 0) {
             return 0;
         }
-        System.out.println(repoidx);
-        repoService.deleteRepo(repoidx);
+
+        repoService.deleteRepo(repoidx, storage_dir);
 
         return 1;
     }
