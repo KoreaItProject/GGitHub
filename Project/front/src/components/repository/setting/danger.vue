@@ -4,42 +4,42 @@
         <div class="danger_div_box">
             <li
             style="list-style:none;
-            padding: 16px">
+            padding: 16px" v-if="public">
                 <div >
-                    <button class="change_visibility">Change visibility</button>
+                    <button class="change_visibility" @click="setPublic">비공개로 전환</button>
                 </div>
                 <div class="change_repository_visibility">
-                    <strong>Change repository visibility</strong>
+                    <strong>공개</strong>
                     <div class="change_repository_visibility_message">
-                        This repository is currently public.
+                        현재 저장소는 공개 상태입니다
                     </div>
                 </div>
             </li>
             <li
             style="list-style:none;
-            padding: 16px">
+            padding: 16px"
+            v-if="!public">
                 <div >
-                    <button class="transfer_btn">Transfer</button>
+                    <button class="change_visibility"  @click="setPrivate" >공개로 전환</button>
                 </div>
-                <div class="transfer_ownership">
-                    <strong>
-                        Transfer ownership
-                    </strong>
-                    <div class="transfer_ownership_message">
-                        Transfer this repository to another user or to an organization where you have the ability to create repositories.
+                <div class="change_repository_visibility">
+                    <strong>공개</strong>
+                    <div class="change_repository_visibility_message">
+                          현재 저장소는 비공개 상태입니다.
                     </div>
                 </div>
             </li>
+           
             <li
             style="list-style:none;
             padding: 16px">
                 <div >
-                    <button class="delete_btn" >Delete this repository</button>
+                    <button class="delete_btn" >현재 저장소 삭제</button>
                 </div>
                 <div class="delete_this_repository">
-                <strong>Delete this repository</strong>
+                <strong>저장소 삭제</strong>
                 <div class="delete_this_repository_message">
-                    Once you delete a repository, there is no going back. Please be certain.
+                   저장소를 삭제하면 되돌릴 수 없습니다.
                 </div>
             </div>
             </li>
@@ -51,7 +51,14 @@
     </div>
 </template>
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      public: true,
+    };
+  },
+  methods() {},
+};
 </script>
 <style lang="sass">
 @import 'src/assets/sass/repository/setting/danger'
