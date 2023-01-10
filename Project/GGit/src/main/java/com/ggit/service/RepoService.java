@@ -130,4 +130,8 @@ public class RepoService {
         mapper.setPublic(repoVo);
     }
 
+    public void deleteRepo(int repoidx) {
+        mapper.deleteRepo(repoidx);
+    }
+
 }

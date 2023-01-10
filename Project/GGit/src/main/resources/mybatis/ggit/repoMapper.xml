@@ -145,5 +145,17 @@
         public = ${publ}
         where idx = ${idx}
     </update>
+
+    <delete id="deleteRepo">
+        delete  t1,t2,t3,t4,t5,t6
+        from repo t1
+        left join repomem t2 on t1.idx = t2.repo
+        left join push t3 on t1.idx = t3.repo
+        left join star t4 on t1.idx = t4.repo
+        left join pullreq t5 on t1.idx = t5.repo
+        left join pin t6 on t1.idx = t6.repo
+        where t1.idx= ${repoidx}
+
+    </delete>
    
 </mapper>
