@@ -144,6 +144,7 @@ export default {
       mdText: "",
       pins: [],
       contribution_top: "0px",
+      contribution_top2: "0px",
       contribution_data: [], // 잔디 데이터
       user_idx: "",
       readme_status: null
@@ -235,12 +236,15 @@ export default {
     cssVariable() {
       return {
         "--contribution-top": this.contribution_top,
+        "--contribution_top2": this.contribution_top2
       };
     },
     changeMarkdown() {
-      console.log("발생");
       this.contribution_top =
         Math.trunc((this.pins.length + 1) / 2) * 112 + "px";
+      this.contribution_top2 =
+        Math.trunc((this.pins.length + 1) / 2) * (-110) + "px";
+
 
       marked.setOptions({
         renderer: new marked.Renderer(),
