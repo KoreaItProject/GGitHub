@@ -168,7 +168,7 @@ public class RepositoryController {
         map.put("repoIdx", repoIdx + "");
         map.put("token", "push.token");
         String token = repoService.selectRepositorycode(map).getPush_token();
-        con = new ReadData(storage_dir + "repositorys\\" + repoIdx + "\\" + token + "\\data\\README.md").getCon();
+        con = new ReadData(storage_dir + "repositorys/" + repoIdx + "/" + token + "/data/README.md").getCon();
         return con;
     }
 
@@ -504,7 +504,7 @@ public class RepositoryController {
     public JSONArray getHistoryChanged(int repo, String token) {
         JSONArray changed = null;
         try {
-            String con = new ReadData(storage_dir + "repositorys\\" + repo + "\\" + token + "\\dump\\pushChanged1.txt")
+            String con = new ReadData(storage_dir + "repositorys/" + repo + "/" + token + "/dump/pushChanged1.txt")
                     .getCon();
             changed = (JSONArray) (new JSONParser()).parse(con);
         } catch (Exception e) {
