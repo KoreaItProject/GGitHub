@@ -8,13 +8,13 @@
       ></div>
     </div>
     <div class="overView_pinned_div">
-      <div class="overView_pinned_top">
+      <div class="overView_pinned_top" v-if="pins.length > 0">
         <span class="overView_pinned_top_left">Pinned</span>
         <span class="overView_pinned_top_right"
           ><a>Customize your pins</a></span
         >
       </div>
-      <div class="overView_pins_div">
+      <div class="overView_pins_div" v-if="pins.length > 0">
         <draggable
           v-model="pins"
           @change="checkMove()"
