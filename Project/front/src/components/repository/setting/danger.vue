@@ -53,11 +53,14 @@
             <div class="delinfo_top_info">
                  저장소를 삭제하면 모든 데이터가 삭제되고 다시 되돌릴 수 없습니다.
             </div>
-            <div class="delinfo_con">
+            <div class="delinfo_con"  v-show="!vibration">
                  저장소를 삭제하려면 {{infoText}} 를 입력해주세요
             </div>
-            <input type="text" class="delinfo_con_input"></input>
-            <div class="delinfo_btn">
+            <div class="vibration delinfo_con" v-show="vibration" >
+                 저장소를 삭제하려면 {{infoText}} 를 입력해주세요
+            </div>
+            <input type="text" class="delinfo_con_input" @input="getinput"></input>
+            <div class="delinfo_btn" @click="del">
                 확인
             </div>
             <div class="delinfo_btn" @click="delshow=false">
@@ -78,6 +81,8 @@ export default {
       infoText:
         "/" + this.$route.params.nick + "/" + this.$route.params.repository,
       repoidx: 0,
+      vibration: false,
+      infoInput: "",
     };
   },
   methods: {
@@ -136,7 +141,29 @@ export default {
         });
     },
 
-    del() {},
+    del() {
+      if (this.infoText != this.infoInput) {
+        this.vibration = true;
+        setTimeout(() => (this.vibration = false), 300);
+      } else {
+        axios
+          .get("/api/deleterepo", {
+            params: {
+              repoidx: this.repoidx,
+            },
+          })
+          .then((response) => {
+            if (response.data == 1) {
+              alert("저장소 삭제완료");
+            } else {
+              alert("저장소 삭제실패");
+            }
+          });
+      }
+    },
+    getinput(e) {
+      this.infoInput = e.target.value;
+    },
   },
   mounted() {
     axios
