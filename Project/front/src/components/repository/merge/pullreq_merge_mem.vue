@@ -111,6 +111,17 @@
 import axios from 'axios';
 
 export default {
+    computed: {
+        cssVariable(){
+            return {
+                "--pullreq_merge_div_right_bottom_span": this.pullreq_merge_div_right_bottom_span,
+                "--test1": this.test1,
+                "--test2": this.test2,
+                "--test3": this.test3,
+                "--test4": this.test4,
+            }
+        }
+    },
     data(){
         return{
             test_data:[],
@@ -177,17 +188,7 @@ export default {
             this.left_data_index = index;
         }
     },
-    computed: {
-        cssVariable(){
-            return {
-                "--pullreq_merge_div_right_bottom_span": this.pullreq_merge_div_right_bottom_span,
-                "--test1": this.test1,
-                "--test2": this.test2,
-                "--test3": this.test3,
-                "--test4": this.test4,
-            }
-        }
-    }
+    
 }
 </script>
 <style lang="sass">

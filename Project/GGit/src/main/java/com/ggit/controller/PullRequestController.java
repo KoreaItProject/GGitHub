@@ -72,7 +72,7 @@ public class PullRequestController {
     public ArrayList<PullreqVo2> testcon(@RequestBody PullreqVo pullreqVo){
         
         //System.out.println("==> " + pullreqVo.getToken()); // 서버에 저장되있는 Data 가져오기
-        //System.out.println("==> " + pullreqVo.getRepo_idx()); // idx의 최신 main파일토큰 가져오기
+        //System.out.println("=======> " + pullreqVo.getRepo_idx()); // idx의 최신 main파일토큰 가져오기
 
 
         /////////////////////////////////////////////////////////////////////////////////////
@@ -81,14 +81,12 @@ public class PullRequestController {
         ArrayList<PullreqVo2> file_name_path = new ArrayList<PullreqVo2>();
 
         String MergePath = "STORAGE/repositorys/" + repo_idx + "/" + pullreqVo.getToken() + "/dump/pushChanged2.txt";
-        //STORAGE\repositorys\88\r8t7el4gg4b18c7\dump\pushChanged2.txt
         JSONArray changed = null;
         
         try {
             String con = new ReadData("STORAGE\\repositorys\\" + repo_idx + "\\" + pullreqVo.getToken() + "\\dump\\pushChanged2.txt")
                     .getCon();
             changed = (JSONArray) (new JSONParser()).parse(con);
-            //System.out.println((String)((JSONObject) changed.get(0)).get("path"));
             for(int i=0; i<changed.size(); i++){
                 PullreqVo2 pullreqVo2 = new PullreqVo2();
                 pullreqVo2.setFilePath( (String)((JSONObject) changed.get(i)).get("path") );

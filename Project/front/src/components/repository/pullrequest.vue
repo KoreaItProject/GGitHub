@@ -3,7 +3,7 @@
         <div v-if="pullreq_page == true">
             <div class="pullreq_top_div" :style="cssVariable">
                 <div class="merge_request_div">
-                    <div class="pullrequest_left_container">
+                    <div class="pullrequest_left_container" >
                         <ul>
                             <li class="setting_left_li setting_left_li2">
                                 <a @click="changetab('pullreq')">
@@ -49,16 +49,18 @@ import axios from 'axios';
 
 export default {
     computed: {
-    cssVariable() {
-      return {
-        "--li1": this.li1,
-        "--li2": this.li2,
-        
-        "--span1": this.span1,
-        "--span2": this.span2,
-      };
-    },
-  },
+        cssVariable() {
+            return {
+                "--li1": this.li1,
+                "--li2": this.li2,
+                "--span1": this.span1,
+                "--span2": this.span2,
+            };
+        },
+        test(){
+            return this.repo_idx;
+        }
+     },
     data(){
         return{
             select_bool: true,
@@ -75,12 +77,12 @@ export default {
             span1: "white",
             span2: "rgb(188, 204, 202,0.2)",
 
-            token_repoidx:[
+            token_repoidx:
                 {
                     token: '',
                     repo_idx: this.repo_idx
-                } 
-            ],
+                }
+            ,
         };
     },
     props:{
@@ -96,7 +98,6 @@ export default {
     },
     methods: {
         changetab(tab){
-            
             if (tab == "repomember") {
                 this.isrepomember = true;
                 this.ispullreq = false;
@@ -130,7 +131,7 @@ export default {
             })
         },
         merge_func(token){
-            this.token_repoidx[0].token = token;
+            this.token_repoidx.token = token;
             this.pullreq_page = false;
             this.merge_page = true;
         },
