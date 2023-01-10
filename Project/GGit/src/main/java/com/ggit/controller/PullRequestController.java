@@ -84,7 +84,7 @@ public class PullRequestController {
         JSONArray changed = null;
         
         try {
-            String con = new ReadData("STORAGE\\repositorys\\" + repo_idx + "\\" + pullreqVo.getToken() + "\\dump\\pushChanged2.txt")
+            String con = new ReadData("STORAGE/repositorys/" + repo_idx + "/" + pullreqVo.getToken() + "/dump/pushChanged2.txt")
                     .getCon();
             changed = (JSONArray) (new JSONParser()).parse(con);
             for(int i=0; i<changed.size(); i++){

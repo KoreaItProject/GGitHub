@@ -1,6 +1,6 @@
 <template>
   <div class="overView_container">
-    <div>111</div>
+    <div class="overView_readme_div" v-if="readme_status == true">README</div>
     <div class="overView_readme overView_div" v-show="mdText != ''">
       <div
         class="overView_readme_content markdown-body"
@@ -92,22 +92,28 @@
           </div>
         </draggable>
       </div>
-      <div class="overView_contribution_div" :style="cssVariable">
-        <div class="overView_contribution_inner_div">
-          <calendar-heatmap
-            :values="this.contribution_data"
-            :end-date="Date()"
-            tooltip-unit="contribution"
-            :max="5"
-            :range-color="[
-              '#ebedf0',
-              '#9be9a8',
-              '#40c463',
-              '#30a14e',
-              '#216e39',
-            ]"
-          >
-          </calendar-heatmap>
+
+      <div class="overView_contribution_container" :style="cssVariable">
+        <div class="overView_contribution_Name">
+          Contribution
+        </div>
+        <div class="overView_contribution_div">
+          <div class="overView_contribution_inner_div">
+            <calendar-heatmap
+              :values="this.contribution_data"
+              :end-date="Date()"
+              tooltip-unit="contribution"
+              :max="5"
+              :range-color="[
+                '#ebedf0',
+                '#9be9a8',
+                '#40c463',
+                '#30a14e',
+                '#216e39',
+              ]"
+            >
+            </calendar-heatmap>
+          </div>
         </div>
       </div>
     </div>
@@ -232,8 +238,9 @@ export default {
       };
     },
     changeMarkdown() {
+      console.log("발생");
       this.contribution_top =
-        Math.trunc((this.pins.length + 1) / 2) * 113 + "px";
+        Math.trunc((this.pins.length + 1) / 2) * 112 + "px";
 
       marked.setOptions({
         renderer: new marked.Renderer(),

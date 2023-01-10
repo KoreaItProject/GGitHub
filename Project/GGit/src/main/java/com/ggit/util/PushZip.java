@@ -29,7 +29,7 @@ public class PushZip extends Thread {
         if (!justData) {// 토큰 폴더 압축여부
             zip();
         }
-        path = path + "\\data";
+        path = path + "/data";
         zip();
 
     }
