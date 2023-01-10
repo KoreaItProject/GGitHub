@@ -1,5 +1,6 @@
 <template>
   <div class="overView_container">
+    <div>111</div>
     <div class="overView_readme overView_div" v-show="mdText != ''">
       <div
         class="overView_readme_content markdown-body"
@@ -139,6 +140,7 @@ export default {
       contribution_top: "0px",
       contribution_data: [], // 잔디 데이터
       user_idx: "",
+      readme_status: null
     };
   },
   mounted() {
@@ -165,7 +167,11 @@ export default {
           },
         })
         .then((response) => {
-          //console.log(response.data);
+          if(response.data == ''){
+            this.readme_status = false;
+          }else{
+            this.readme_status = true;
+          }
           this.mdText = response.data;
         });
     },

@@ -103,7 +103,7 @@
           <code-view v-if="isCode&&!token"/>
           <myCode-view v-if="isMyCode&&!token"/>
           <history-view v-if="isHistory&&!token"/>
-          <pullrequest-view v-if="isPullrequest&&!token"/>
+          <pullrequest-view :repo_idx="this.repo_idx" v-if="isPullrequest&&!token"/>
           <setting-view v-if="isSetting&&!token"/>
       </div>
   </div>
@@ -200,7 +200,6 @@ export default {
         this.isCode = true;
         this.tab1_color = "4px";
       }
-
       this.getRepoIdx_RepoMemCheck();
     },
     goLogin() {
@@ -256,11 +255,13 @@ export default {
           },
         })
         .then((response) => {
+          this.repo_idx = response.data; // 저장소 idx 할당
           // 내가 속한 저장소인지 확인하자
           if (response.data == 0) {
             window.location.href = "/pagenotfound";
           }
           this.repo_idx = response.data; // 저장소 idx 할당
+          
           this.pinCheck(); // 고정이 되어있는 저장소라면 고정(pin)버튼을 고정해제로 바꿔주자
 
           this.selectstarcount();

@@ -23,4 +23,10 @@
     <insert id="pullrequest">
         insert into pullreq(repo, member, message, token) values(#{repo_idx}, #{u_idx}, #{message}, #{token});
     </insert>
+    <select id="getLastMainToken" resultType="String">
+        SELECT token
+        FROM push
+        WHERE repo=#{repo_idx} and branch = 0
+        order by date desc;
+    </select>
 </mapper>
