@@ -529,4 +529,14 @@ public class RepositoryController {
         repoService.setPublic(repoVo);
     }
 
+    @RequestMapping("deleterepo")
+    public int deleterepo(String repoidx) {
+        if (repoidx == null) {
+            return 0;
+        }
+
+        System.out.println(repoidx);
+        return 1;
+    }
+
 }
