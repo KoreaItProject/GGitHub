@@ -126,4 +126,8 @@ public class RepoService {
         mapper.repoDown(idx);
     }
 
+    public void setPublic(RepoVo repoVo) {
+        mapper.setPublic(repoVo);
+    }
+
 }

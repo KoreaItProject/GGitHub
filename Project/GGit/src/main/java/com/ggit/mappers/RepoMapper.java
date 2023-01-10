@@ -64,4 +64,6 @@ public interface RepoMapper {
 
     void repoDown(int idx);
 
+    void setPublic(RepoVo repoVo);
+
 }

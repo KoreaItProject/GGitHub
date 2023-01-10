@@ -231,23 +231,6 @@ public class RepositoryController {
         return repositories;
     }
 
-    @RequestMapping("/repoSort")
-    public void repoSort(@RequestBody SortData sortData) {// https://wakestand.tistory.com/787 269번 줄
-
-        List<RepositoriesVO> list = sortData.getRepo();
-        int idx = sortData.getIdx();
-
-        for (int i = 0; i < list.size(); i++) {
-
-            repomemVo.setMember(idx);
-            repomemVo.setSort(i);
-            repomemVo.setRepo(list.get(i).getRepo_idx());
-            repomemService.repoSortUpdate(repomemVo);
-
-        }
-
-    }
-
     @RequestMapping("/repoIdxByNickName")
     public int repoIdxByNickName(String nick, String reponame) {
         int repoIdxByNickName;
@@ -535,22 +518,15 @@ public class RepositoryController {
 
     @RequestMapping("deleterepomem")
     public int deleterepomem(String reponame, String nick) {
-        System.out.println(reponame);
-        System.out.println(nick);
+
         int deleterepomem = repomemService.deleterepomem(reponame, nick);
         return deleterepomem;
     }
-}
 
-class SortData {
-    private int idx;
-    private List<RepositoriesVO> repo;
+    @RequestMapping("setPublic")
+    public void setPublic(RepoVo repoVo) {
 
-    public int getIdx() {
-        return idx;
+        repoService.setPublic(repoVo);
     }
 
-    public List<RepositoriesVO> getRepo() {
-        return repo;
-    }
 }
