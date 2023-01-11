@@ -155,6 +155,7 @@ export default {
           .then((response) => {
             if (response.data == 1) {
               alert("저장소 삭제완료");
+              window.location.href = "./";
             } else {
               alert("저장소 삭제실패");
             }

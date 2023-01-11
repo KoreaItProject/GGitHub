@@ -66,4 +66,6 @@ public interface RepoMapper {
 
     void setPublic(RepoVo repoVo);
 
+    void deleteRepo(int repoidx);
+
 }

@@ -530,12 +530,13 @@ public class RepositoryController {
     }
 
     @RequestMapping("deleterepo")
-    public int deleterepo(String repoidx) {
-        if (repoidx == null) {
+    public int deleterepo(int repoidx) {
+        if (repoidx == 0) {
             return 0;
         }
 
-        System.out.println(repoidx);
+        repoService.deleteRepo(repoidx, storage_dir);
+
         return 1;
     }
 
