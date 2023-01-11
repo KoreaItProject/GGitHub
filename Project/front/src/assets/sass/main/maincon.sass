@@ -1,0 +1,321 @@
+$white: #ffffff
+// html,
+// body 
+// 	padding: 0
+// 	margin: 0
+// 	height: 100%
+// 	font-family: "Inter", sans-serif
+// 	font-weight: 300
+// 	position: relative
+// 	overflow: hidden
+// 	background: $white
+
+
+// *,
+*:after,
+*:before 
+	box-sizing: border-box
+	margin: 0
+	padding: 0
+
+.sr-only 
+	position: absolute
+	width: 1px
+	height: 1px
+	padding: 0
+	margin: -1px
+	overflow: hidden
+	clip: rect(0, 0, 0, 0)
+	white-space: nowrap
+	border: 0
+
+
+.layer 
+	height: 56vh
+	&__inner 
+		position: relative
+		height: 100%
+	
+	&--inactive 
+		.layer-item 
+			&__inner 
+				transform: translate3d(0, 100%, 0)
+			
+			&__bg-img 
+				transform: translate3d(0, 100%, 0) scale(1.2)
+			
+			&__preview-cont 
+				opacity: 0
+				transform: translatey(10px)
+			
+		
+	
+	&--active 
+		.layer-item 
+			&:nth-child(1) 
+				&:not(.layer-item--active) 
+					opacity: 0
+					transform: scale(0.5) translate3d(0, 0, 0)
+					transition: transform 0.95s, opacity 0.95s
+				
+			
+			&:nth-child(2) 
+				&:not(.layer-item--active) 
+					opacity: 0
+					transform: scale(0.5) translate3d(105%, 0, 0)
+					transition: transform 0.95s, opacity 0.95s
+				
+			
+			&:nth-child(3) 
+				&:not(.layer-item--active) 
+					opacity: 0
+					transform: scale(0.5) translate3d(210%, 0, 0)
+					transition: transform 0.95s, opacity 0.95s
+				
+			
+			&:nth-child(4) 
+				&:not(.layer-item--active) 
+					opacity: 0
+					transform: scale(0.5) translate3d(315%, 0, 0)
+					transition: transform 0.95s, opacity 0.95s
+				
+			
+			&:nth-child(5) 
+				&:not(.layer-item--active) 
+					opacity: 0
+					transform: scale(0.5) translate3d(420%, 0, 0)
+					transition: transform 0.95s, opacity 0.95s
+				
+			
+		
+	
+	&:hover 
+		.layer-item 
+			&__bg 
+				&:after 
+					opacity: 1
+				
+			
+		
+	
+
+.layer-item 
+	position: absolute
+	left: 0
+	top: 0
+	width: 20%
+	height: 100%
+	background: #eaeaea
+	transition: transform 0.6s 0.7s, width 0.7s, opacity 0.6s 0.7s, z-index 0s 1.3s
+	will-change: transform, width, opacity
+	&:not(.layer-item--active) 
+		cursor: pointer
+	
+	&__overflow 
+		overflow: hidden
+		position: relative
+		height: 100%
+	
+	&__inner 
+		overflow: hidden
+		position: relative
+		height: 100%
+		transition: transform 1s
+	
+	&__bg 
+		position: relative
+		width: 100%
+		height: 100%
+		transition: transform 0.6s 0.7s
+		will-change: transform
+		&:after 
+			content: ""
+			position: absolute
+			z-index: 1
+			left: 0
+			top: 0
+			width: 100%
+			height: 100%
+			background: rgba(0, 0, 0, 0.4)
+			opacity: 0
+			transition: opacity 0.5s
+		
+	
+	&__bg-img 
+		position: absolute
+		left: 0
+		top: -5%
+		width: 100%
+		height: 110%
+		background-size: cover
+		background-position: center center
+		transition: transform 1s
+		transform: translate3d(0, 0, 0) scale(1)
+		img 
+			width: 100%
+			height: 100%
+			object-fit: cover
+		
+	
+	&__preview-cont 
+		z-index: 2
+		display: flex
+		justify-content: center
+		align-items: center
+		position: absolute
+		left: 0
+		top: 0
+		width: 100%
+		height: 100%
+		transition: all 0.3s 1.2s
+	
+	&__heading 
+		color: $white
+		text-transform: capitalize
+		font-size: 24px
+		font-weight: 600
+	
+	&__content 
+		z-index: -1
+		position: absolute
+		left: 0
+		top: 0
+		width: 100%
+		height: 100%
+		opacity: 0
+		pointer-events: none
+		transition: all 0.1s
+	
+	&__text 
+		font-size: 24px
+		color: $white
+	
+	&__close-btn 
+		z-index: -1
+		position: absolute
+		right: 10px
+		top: 10px
+		width: 48px
+		height: 48px
+		opacity: 0
+		pointer-events: none
+		transition: all 0s 0.45s
+		cursor: pointer
+		background-color: transparent
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='icon icon-tabler icon-tabler-x' width='24' height='24' viewBox='0 0 24 24' stroke-width='2' stroke='%23ffffff' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath stroke='none' d='M0 0h24v24H0z' fill='none'%3E%3C/path%3E%3Cline x1='18' y1='6' x2='6' y2='18'%3E%3C/line%3E%3Cline x1='6' y1='6' x2='18' y2='18'%3E%3C/line%3E%3C/svg%3E")
+		border: 0
+		background-repeat: no-repeat
+		background-position: center center
+		background-size: 32px
+	
+	&:hover & 
+		&__bg 
+			&:after 
+				opacity: 0
+			
+		
+	
+	&--active 
+		z-index: 1
+		width: 100%
+		transform: translate3d(0, 0, 0) !important
+		transition: transform 0.6s, width 0.7s 0.7s, z-index 0s
+		.layer-item__bg-img 
+			&:before 
+				transition-delay: 0.6s
+				transform: scale(1.1)
+			
+		
+	
+	&--active & 
+		&__bg 
+			transform: translate3d(0, 0, 0) !important
+			transition: transform 0.6s
+			width: 100%
+			&:before 
+				transition: transform 0.8s
+			
+			&:after 
+				transition: opacity 0.5s 1.4s
+				opacity: 1 !important
+			
+		
+		&__bg-img 
+			transition: transform 0.8s
+		
+		&__preview-cont 
+			opacity: 0
+			transform: translatey(30px)
+			transition: all 0.5s
+		
+		&__content 
+			padding: 30px
+			z-index: 2
+			opacity: 1
+			pointer-events: auto
+			transition: all 0.5s 1.4s
+		
+		&__close-btn 
+			z-index: 5
+			opacity: 1
+			pointer-events: auto
+			transition: all 0s 1.4s
+		
+	
+	&:nth-child(1) & 
+		&__inner 
+			transition-delay: 0s
+		
+		&__bg-img 
+			transition-delay: 0s
+		
+	
+	&:nth-child(2) 
+		transform: translate3d(105%, 0, 0)
+		transform-origin: 155% 50%
+	
+	&:nth-child(2) & 
+		&__inner 
+			transition-delay: 0.1s
+		
+		&__bg-img 
+			transition-delay: 0.1s
+		
+	
+	&:nth-child(3) 
+		transform: translate3d(210%, 0, 0)
+		transform-origin: 260% 50%
+	
+	&:nth-child(3) & 
+		&__inner 
+			transition-delay: 0.2s
+		
+		&__bg-img 
+			transition-delay: 0.2s
+		
+	
+	&:nth-child(4) 
+		transform: translate3d(315%, 0, 0)
+		transform-origin: 360% 50%
+	
+	&:nth-child(4) & 
+		&__inner 
+			transition-delay: 0.3s
+		
+		&__bg-img 
+			transition-delay: 0.3s
+		
+	
+	&:nth-child(5) 
+		transform: translate3d(420.5%, 0, 0)
+		transform-origin: 470% 50%
+	
+	&:nth-child(5) & 
+		&__inner 
+			transition-delay: 0.4s
+		
+		&__bg-img 
+			transition-delay: 0.4s
+		
+	
+

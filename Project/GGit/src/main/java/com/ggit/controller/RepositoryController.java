@@ -87,7 +87,7 @@ public class RepositoryController {
             String description = (String) jsonObject.get("description");
             int pub = Integer.parseInt(jsonObject.get("pub") + "");
             int owner = Integer.parseInt(jsonObject.get("owner") + "");
-
+            
             repoVo.setName(repoName);
             repoVo.setDescription(description);
             repoVo.setPubl(pub);
