@@ -52,7 +52,7 @@ export default {
   methods: {
     ggitsourcDownload: function () {
       axios
-        .get("/api/download", {
+        .get("/api/ggitsourceDownload", {
           responseType: "blob",
         })
         .then((response) => {
