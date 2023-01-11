@@ -36,7 +36,7 @@
         SELECT push.message as
         push_message, push.repo as repo_idx, 
         push.token as push_token,push.date as push_date,member.nick as member_nick, push.before_token as before_token,
-        push.selected as selected ,push.fromMain as fromMain 
+        push.selected as selected ,push.fromMain as fromMain ,push.main_token as main_token
         from push,member 
         where push.repo =(select idx from repo
         where name= #{repo} and owner= (select idx from member where nick= #{ownerNick})) and
@@ -56,7 +56,7 @@
     <select id="clone" resultType="com.ggit.vo.RepositoriesVO"> select repo.idx as repo_idx
         ,push.token as push_token from repo , push where repo.clone=#{clone} and repo.idx =
         push.repo ORDER BY push.date DESC LIMIT 1 </select>
-    <select id="pulltoken" resultType="com.ggit.vo.RepositoriesVO"> select token as push_token,
+    <select id="pulltoken" resultType="com.ggit.vo.RepositoriesVO"> select token as push_token,main_token as main_token,
         before_token from push where repo = ${repo} and branch = ${member} ORDER BY selected
         DESC,date DESC LIMIT 1 </select>
 

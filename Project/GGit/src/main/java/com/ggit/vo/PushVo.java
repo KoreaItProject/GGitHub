@@ -24,6 +24,8 @@ public class PushVo {
 
     private int branch;
 
+    private String main_token;
+
     private String before_token;
 
     private int selected;

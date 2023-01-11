@@ -137,7 +137,8 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 						repositoriesVO = repoService.pulltoken(map);
 						infoDTO.setLastToken(repositoriesVO.getPush_token());
 					} else {
-						infoDTO.setLastToken(repositoriesVO.getBefore_token());
+						infoDTO.setLastToken(repositoriesVO.getMain_token());
+						System.out.println("main---" + repositoriesVO.getMain_token());
 					}
 					infoDTO.setToken(repositoriesVO.getPush_token());
 
@@ -148,12 +149,14 @@ class ServerHandler extends Thread // 처리해주는 곳(소켓에 대한 정�
 
 				} else if (dto.getCommand() == Info.PUSH) {
 
+					System.out.println("maintoken" + dto.getLastToken());
 					pushVo.setToken(dto.getToken());
 					pushVo.setMember(Integer.parseInt(dto.getId()));
 					pushVo.setRepo(Integer.parseInt(dto.getIdx()));
 					pushVo.setMessage(dto.getMessage());
 					pushVo.setBranch(Integer.parseInt(dto.getId()));
-					pushVo.setBefore_token(dto.getLastToken());
+					pushVo.setMain_token(dto.getLastToken());
+					pushVo.setBefore_token(dto.getBeforeToken());
 					pushService.push(pushVo);
 
 					String writePath = storage + "repositorys/" + dto.getIdx() + "/";

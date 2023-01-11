@@ -218,6 +218,7 @@ public class RepositoryController {
         pushVo.setMessage("메인 저장소에서 가져옴");
         pushVo.setBranch(Integer.parseInt(member));
         pushVo.setBefore_token(token);
+        pushVo.setMain_token(token);
         pushVo.setFromMain(1);
         pushService.push(pushVo);
 

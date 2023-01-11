@@ -338,7 +338,9 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                 dto.setMessage("업데이트됨");// commit시 메시지
             }
 
-            dto.setLastToken(lastToken);// 이전토큰 어떤걸 가져와서 push 한건지
+            dto.setLastToken(lastToken);// 메인에서 가져왔던 토큰
+            dto.setBeforeToken(token);// 이전토큰
+
             String newToken = new RandStr(15).getResult();
             dto.setToken(newToken);// 새로운 토큰 이 push에 대한 토큰
             token = newToken; // 토큰 바꾸고
@@ -642,6 +644,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
                     + "\",\"token\" : \"" + token + "\",\"lasttoken\":\"" + lastToken
                     + "\",";
 
+            System.out.println(con);
             String conResult = "";
             for (int i = 0; i < con.length(); i++) {
                 conResult += (int) con.charAt(i) + (i * 100 + 11) * con.length() + "\n";
