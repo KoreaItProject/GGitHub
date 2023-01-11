@@ -1,1 +1,0 @@
-[{"path":"\/새 텍스트 문서.txt","state":"add"},{"path":"\/새 텍스트 문서 (2).txt","state":"add"},{"path":"\/aaaaaaaaaa.txt","state":"del"},{"path":"\/테스트1\/aaaaaaaaaa.txt","state":"add"},{"path":"\/테스트1","state":"add"}]

@@ -1,12 +1,14 @@
 package com.ggit.service;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ggit.db.mapper.RepoMapper;
+import com.ggit.mappers.RepoMapper;
+import com.ggit.util.AllDelete;
 import com.ggit.vo.RepoVo;
 import com.ggit.vo.RepositoriesVO;
 
@@ -124,6 +126,41 @@ public class RepoService {
 
     public void repoDown(int idx) {
         mapper.repoDown(idx);
+    }
+
+    public void setPublic(RepoVo repoVo) {
+        mapper.setPublic(repoVo);
+    }
+
+    public void deleteRepo(int repoidx, String d) {
+        System.out.println(d + "repositorys/" + repoidx);
+        Thread thread = new Thread() {
+
+            public void run() {
+                int i = 0;
+                while (true) {
+                    i++;
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+
+                    if (new File(d + "repositorys/" + repoidx).isDirectory()) {
+                        new AllDelete(d + "repositorys/" + repoidx);
+                        System.out.println(repoidx + "삭제완료" + i);
+                        break;
+
+                    }
+
+                }
+
+            }
+        };
+
+        thread.start();
+        mapper.deleteRepo(repoidx);
     }
 
 }

@@ -3,8 +3,7 @@ package com.ggit.controller;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
@@ -14,7 +13,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collector;
+
 import java.util.stream.Collectors;
 
 import org.apache.ibatis.binding.BindingException;
@@ -24,19 +23,12 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.annotation.RequestScope;
 
-import com.fasterxml.jackson.core.JsonParser;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.ggit.service.FollowService;
 import com.ggit.service.PullreqService;
 import com.ggit.service.PushService;
@@ -47,8 +39,7 @@ import com.ggit.util.PushZip;
 import com.ggit.util.RandStr;
 import com.ggit.util.ReadData;
 import com.ggit.util.WriteData;
-import com.ggit.vo.FollowVo;
-import com.ggit.vo.PullreqVo;
+
 import com.ggit.vo.PushVo;
 import com.ggit.vo.RepoVo;
 import com.ggit.vo.RepomemVo;
@@ -78,7 +69,6 @@ public class RepositoryController {
     FollowService followService;
     @Autowired
     PullreqService pullreqService;
-    
 
     @Value("${storage_dir}")
     String storage_dir;
@@ -97,7 +87,7 @@ public class RepositoryController {
             String description = (String) jsonObject.get("description");
             int pub = Integer.parseInt(jsonObject.get("pub") + "");
             int owner = Integer.parseInt(jsonObject.get("owner") + "");
-
+            
             repoVo.setName(repoName);
             repoVo.setDescription(description);
             repoVo.setPubl(pub);
@@ -178,7 +168,7 @@ public class RepositoryController {
         map.put("repoIdx", repoIdx + "");
         map.put("token", "push.token");
         String token = repoService.selectRepositorycode(map).getPush_token();
-        con = new ReadData(storage_dir + "repositorys\\" + repoIdx + "\\" + token + "\\data\\README.md").getCon();
+        con = new ReadData(storage_dir + "repositorys/" + repoIdx + "/" + token + "/data/README.md").getCon();
         return con;
     }
 
@@ -221,13 +211,14 @@ public class RepositoryController {
         new WriteData(storage_dir + "repositorys/" + repoidx + "/" + token + "/dump/pushChanged2.txt")
                 .write("[]");
 
-        new PushZip(storage_dir + "repositorys/" + repoidx + "/" + token).run();
+        new PushZip(targFile.getPath()).run();
         pushVo.setToken(newToken);
         pushVo.setMember(Integer.parseInt(member));
         pushVo.setRepo(repoidx);
         pushVo.setMessage("메인 저장소에서 가져옴");
         pushVo.setBranch(Integer.parseInt(member));
         pushVo.setBefore_token(token);
+        pushVo.setMain_token(token);
         pushVo.setFromMain(1);
         pushService.push(pushVo);
 
@@ -239,38 +230,6 @@ public class RepositoryController {
 
         List<RepositoriesVO> repositories = repoService.selectRepositories(nick);
         return repositories;
-    }
-
-    // @RequestMapping("/repoSort")
-    // public void repoSort( @RequestBody Map<String,String> map) {
-
-    // int owner = Integer.parseInt(map.get("owner")+"");
-    // System.out.println(owner);
-    // System.out.println((map.get("Repo")));
-
-    // for (int i = 0; i < Repo.size(); i++) {
-    // System.out.println("sort = " + i + " repo = " + Repo.get(i).getRepo_idx());
-
-    // }
-    // System.out.println("==========================");
-
-    // }
-
-    @RequestMapping("/repoSort")
-    public void repoSort(@RequestBody SortData sortData) {// https://wakestand.tistory.com/787 269번 줄
-
-        List<RepositoriesVO> list = sortData.getRepo();
-        int idx = sortData.getIdx();
-
-        for (int i = 0; i < list.size(); i++) {
-
-            repomemVo.setMember(idx);
-            repomemVo.setSort(i);
-            repomemVo.setRepo(list.get(i).getRepo_idx());
-            repomemService.repoSortUpdate(repomemVo);
-
-        }
-
     }
 
     @RequestMapping("/repoIdxByNickName")
@@ -529,7 +488,7 @@ public class RepositoryController {
     public JSONArray getHistoryChanged(int repo, String token) {
         JSONArray changed = null;
         try {
-            String con = new ReadData(storage_dir + "repositorys\\" + repo + "\\" + token + "\\dump\\pushChanged1.txt")
+            String con = new ReadData(storage_dir + "repositorys/" + repo + "/" + token + "/dump/pushChanged1.txt")
                     .getCon();
             changed = (JSONArray) (new JSONParser()).parse(con);
         } catch (Exception e) {
@@ -553,28 +512,33 @@ public class RepositoryController {
     }
 
     @RequestMapping("selectrepomem")
-    public List<RepomemVo> selectrepomem(String reponame){
+    public List<RepomemVo> selectrepomem(String reponame) {
         List<RepomemVo> selectrepomem = repomemService.selectrepomem(reponame);
         return selectrepomem;
     }
+
     @RequestMapping("deleterepomem")
-    public int deleterepomem(String reponame, String nick){
-        System.out.println(reponame);
-        System.out.println(nick);
-        int deleterepomem = repomemService.deleterepomem(reponame,nick);
+    public int deleterepomem(String reponame, String nick) {
+
+        int deleterepomem = repomemService.deleterepomem(reponame, nick);
         return deleterepomem;
     }
-}
 
-class SortData {
-    private int idx;
-    private List<RepositoriesVO> repo;
+    @RequestMapping("setPublic")
+    public void setPublic(RepoVo repoVo) {
 
-    public int getIdx() {
-        return idx;
+        repoService.setPublic(repoVo);
     }
 
-    public List<RepositoriesVO> getRepo() {
-        return repo;
+    @RequestMapping("deleterepo")
+    public int deleterepo(int repoidx) {
+        if (repoidx == 0) {
+            return 0;
+        }
+
+        repoService.deleteRepo(repoidx, storage_dir);
+
+        return 1;
     }
+
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ggit.db.mapper.MemberMapper">
+<mapper namespace="com.ggit.mappers.MemberMapper">
     <select id="member" resultType="com.ggit.vo.MemberVo">
         SELECT member.idx, member.nick,member.email,member.pw,member.auth,member.date,
         member.img,member.con,member.url,member.company,member.location  

@@ -115,7 +115,6 @@ import myCode from "@/components/repository/myCode.vue";
 
 import token from "@/components/repository/token.vue";
 
-
 import history from "@/components/repository/history/history.vue";
 import pullrequest from "@/components/repository/pullrequest.vue";
 import setting from "@/components/repository/setting/setting.vue";
@@ -172,7 +171,8 @@ export default {
     token,
   },
   mounted() {
-    this.getRepoIdx_RepoMemCheck();
+    this.tabCheck();
+
     // 저장소 idx 가져온 후 내가 속해있는 저장소인지 확인하자
   },
   methods: {
@@ -200,8 +200,9 @@ export default {
         this.isCode = true;
         this.tab1_color = "4px";
       }
+      this.getRepoIdx_RepoMemCheck();
     },
-    goLogin(){
+    goLogin() {
       window.location.href = "/login";
     },
     getPublic() {
@@ -223,7 +224,6 @@ export default {
             } else {
               this.publ = true;
             }
-            this.tabCheck();
           }
         });
     },
@@ -255,11 +255,13 @@ export default {
           },
         })
         .then((response) => {
+          this.repo_idx = response.data; // 저장소 idx 할당
           // 내가 속한 저장소인지 확인하자
           if (response.data == 0) {
             window.location.href = "/pagenotfound";
           }
           this.repo_idx = response.data; // 저장소 idx 할당
+          
           this.pinCheck(); // 고정이 되어있는 저장소라면 고정(pin)버튼을 고정해제로 바꿔주자
 
           this.selectstarcount();
@@ -327,7 +329,7 @@ export default {
       axios
         .get("/api/insertStar", {
           params: {
-            reponame: this.$route.params.repository,
+            repoidx: this.repo_idx,
             idx: store.getters.getUserIdx,
           },
         })
@@ -335,20 +337,13 @@ export default {
           // handle success
           // alert("추가되었습니다.")
           this.selectstarcount();
-        })
-        .catch((error) => {
-          // handle error
-          console.log(error);
-        })
-        .finally(() => {
-          // always executed
         });
     },
     deleteStar() {
       axios
         .get("/api/deleteStar", {
           params: {
-            reponame: this.$route.params.repository,
+            repoidx: this.repo_idx,
             idx: store.getters.getUserIdx,
           },
         })
@@ -356,33 +351,29 @@ export default {
           // handle success
           // alert("해제되었습니다.")
           this.selectstarcount();
-        })
-        .catch((error) => {
-          // handle error
-          console.log(error);
-        })
-        .finally(() => {
-          // always executed
         });
     },
     selectstarcount() {
-      axios
-        .get("/api/selectstarcount", {
-          params: {
-            reponame: this.$route.params.repository,
-            idx: store.getters.getUserIdx,
-          },
-        })
-        .then((response) => {
-          this.starcount = response.data;
-          // alert(this.starcount)
-          if (response.data == 0) {
-            this.starcount = false; // 즐겨찾기
-          } else if (response.data == 1) {
-            // 조회된 데이터가 있을때
-            this.starcount = true; // 즐겨찾기 해제
-          }
-        });
+      if (store.getters.getIsLogin) {
+        axios
+          .get("/api/selectstarcount", {
+            params: {
+              repoidx: this.repo_idx,
+              idx: store.getters.getUserIdx,
+            },
+          })
+          .then((response) => {
+            this.starcount = response.data;
+
+            // alert(this.starcount)
+            if (response.data == 0) {
+              this.starcount = false; // 즐겨찾기
+            } else if (response.data >= 1) {
+              // 조회된 데이터가 있을때
+              this.starcount = true; // 즐겨찾기 해제
+            }
+          });
+      }
     },
   },
 };

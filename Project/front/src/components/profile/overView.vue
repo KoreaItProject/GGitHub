@@ -1,5 +1,6 @@
 <template>
   <div class="overView_container">
+    <div class="overView_readme_div" v-if="readme_status == true">README</div>
     <div class="overView_readme overView_div" v-show="mdText != ''">
       <div
         class="overView_readme_content markdown-body"
@@ -7,13 +8,13 @@
       ></div>
     </div>
     <div class="overView_pinned_div">
-      <div class="overView_pinned_top">
+      <div class="overView_pinned_top" v-if="pins.length > 0">
         <span class="overView_pinned_top_left">Pinned</span>
         <span class="overView_pinned_top_right"
           ><a>Customize your pins</a></span
         >
       </div>
-      <div class="overView_pins_div">
+      <div class="overView_pins_div" v-if="pins.length > 0">
         <draggable
           v-model="pins"
           @change="checkMove()"
@@ -91,22 +92,28 @@
           </div>
         </draggable>
       </div>
-      <div class="overView_contribution_div" :style="cssVariable">
-        <div class="overView_contribution_inner_div">
-          <calendar-heatmap
-            :values="this.contribution_data"
-            :end-date="Date()"
-            tooltip-unit="contribution"
-            :max="5"
-            :range-color="[
-              '#ebedf0',
-              '#9be9a8',
-              '#40c463',
-              '#30a14e',
-              '#216e39',
-            ]"
-          >
-          </calendar-heatmap>
+
+      <div class="overView_contribution_container" :style="cssVariable">
+        <div class="overView_contribution_Name">
+          Contribution
+        </div>
+        <div class="overView_contribution_div">
+          <div class="overView_contribution_inner_div">
+            <calendar-heatmap
+              :values="this.contribution_data"
+              :end-date="Date()"
+              tooltip-unit="contribution"
+              :max="5"
+              :range-color="[
+                '#ebedf0',
+                '#9be9a8',
+                '#40c463',
+                '#30a14e',
+                '#216e39',
+              ]"
+            >
+            </calendar-heatmap>
+          </div>
         </div>
       </div>
     </div>
@@ -137,8 +144,10 @@ export default {
       mdText: "",
       pins: [],
       contribution_top: "0px",
+      contribution_top2: "0px",
       contribution_data: [], // 잔디 데이터
       user_idx: "",
+      readme_status: null
     };
   },
   mounted() {
@@ -165,7 +174,11 @@ export default {
           },
         })
         .then((response) => {
-          //console.log(response.data);
+          if(response.data == ''){
+            this.readme_status = false;
+          }else{
+            this.readme_status = true;
+          }
           this.mdText = response.data;
         });
     },
@@ -223,11 +236,15 @@ export default {
     cssVariable() {
       return {
         "--contribution-top": this.contribution_top,
+        "--contribution_top2": this.contribution_top2
       };
     },
     changeMarkdown() {
       this.contribution_top =
-        Math.trunc((this.pins.length + 1) / 2) * 113 + "px";
+        Math.trunc((this.pins.length + 1) / 2) * 112 + "px";
+      this.contribution_top2 =
+        Math.trunc((this.pins.length + 1) / 2) * (-110) + "px";
+
 
       marked.setOptions({
         renderer: new marked.Renderer(),

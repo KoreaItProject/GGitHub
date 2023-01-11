@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ggit.db.mapper.PullreqMapper">
+<mapper namespace="com.ggit.mappers.PullreqMapper">
     <select id="pullreq"  resultType="com.ggit.vo.PullreqVo">
         SELECT * FROM pullreq;
     </select>
@@ -23,4 +23,10 @@
     <insert id="pullrequest">
         insert into pullreq(repo, member, message, token) values(#{repo_idx}, #{u_idx}, #{message}, #{token});
     </insert>
+    <select id="getLastMainToken" resultType="String">
+        SELECT token
+        FROM push
+        WHERE repo=#{repo_idx} and branch = 0
+        order by date desc;
+    </select>
 </mapper>

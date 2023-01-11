@@ -7,6 +7,10 @@ $width_value: 100%
 .overView_container
     width: 100%
     padding-left: 20px
+    .overView_readme_div
+        margin-left: 7px
+        margin-bottom: -20px
+        margin-top: 30px
     .overView_readme
         max-width: 886px
         width: 98.7%
@@ -34,6 +38,7 @@ $width_value: 100%
             .overView_pinned_top_right
                 float: right
                 font-size: 13px
+                margin-right: 13px
 
         .overView_pins_div
             width: 100%
@@ -93,31 +98,34 @@ $width_value: 100%
                         .overView_pins_div_inner_first_right
                             .repo_move_icon:hover
                                 cursor: grab
-
-    .overView_contribution_div
-        max-width: 886px
-        width: 98.7%
-        margin-left: 5px
-        margin-top: 25px
-        padding: 20px
-        border: 1px solid #d0d7de
-        border-radius: 10px
+    .overView_contribution_container
         margin-top: var(--contribution-top)
-        @media screen and ( max-width:  1006px)
-            margin-top: 0
-            width: 100%
-        @media screen and ( max-width: 1290px)
-            height: 200px
-
-        .overView_contribution_inner_div
-            display: flex
-            align-items: flex-end
-            align-content: flex-end
-            flex-direction: column
-            overflow: hidden
-            svg
-                width: 843px
-                height: 152px
+        .overView_contribution_Name
+            margin-bottom: 15px
+            @media screen and ( max-width:  1006px)
+                margin-top: var(--contribution_top2)
+        .overView_contribution_div
+            max-width: 886px
+            width: 98.7%
+            margin-left: 5px
+            //margin-top: 25px
+            padding: 20px
+            border: 1px solid #d0d7de
+            border-radius: 10px
+            @media screen and ( max-width:  1006px)
+                margin-top: 0px
+                width: 100%
+            @media screen and ( max-width: 1290px)
+                height: 200px
+            .overView_contribution_inner_div
+                display: flex
+                align-items: flex-end
+                align-content: flex-end
+                flex-direction: column
+                overflow: hidden
+                svg
+                    width: 843px
+                    height: 152px
                 
 
 rect

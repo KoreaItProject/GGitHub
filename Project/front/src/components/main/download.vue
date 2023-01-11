@@ -1,6 +1,12 @@
 <template lang="">
-    <div class="download_templeate">
-        <div class = "download_container1">
+    <div class="download_templeate" style=" background: url('./static/imgs/download/back.jpg');
+        background-repeat: no-repeat, round;
+        background-size: cover;
+        background-position: center;
+            background-attachment: fixed;
+            
+           ">
+        <div class = "download_container1" >
 
           <div class="download_container1_left">
             <div>
@@ -23,20 +29,30 @@
           <div class="download_container1_right">
               <img class="img1" src="@/assets/imgs/main/download/img1.png"></img>
           </div>
-           
+        
 
         </div>
-        
+        <div style="width:100%;height:400px; background-color:black;  opacity:0.4
+       "  ></div>
+
+        <div style="width:100%;text-align:center;height:250px;background-color: #f4f5f7;">
+          <img class="img2" src="@/assets/imgs/main/download/img2.png" style="width:1200px; height:250px;"></img>
+        </div>
     </div>
 </template>
 <script>
 import axios from "axios";
 import $ from "jquery";
 export default {
+  data() {
+    return {
+      bgImg: "src/assets/imgs/main/download/img2.png",
+    };
+  },
   methods: {
     ggitsourcDownload: function () {
       axios
-        .get("/api/download", {
+        .get("/api/ggitsourceDownload", {
           responseType: "blob",
         })
         .then((response) => {

@@ -5,7 +5,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ggit.db.mapper.PushMapper;
+import com.ggit.mappers.PushMapper;
 import com.ggit.vo.PushVo;
 
 @Service

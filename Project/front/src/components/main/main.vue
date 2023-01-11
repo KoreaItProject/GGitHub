@@ -100,12 +100,24 @@
         </div>
       </div>
     </div>
+    <div class="main_down_div">
+      <h1>main_down_div</h1>
+      <div class="main_down_div1">
+
+        
+
+
+
+
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import { log } from "console";
+
+
 export default {
   data() {
     return {
@@ -120,8 +132,12 @@ export default {
       check_display: "display:none;",
     };
   },
-  mounted() {},
+  mounted() {
+  
+  },
   methods: {
+   
+
     async signup() {
       if (this.nick == "" || this.email == "" || this.pw == "") {
         alert("빈 곳을 채워주세요");
@@ -216,9 +232,14 @@ export default {
     },
   },
 };
+
+
+
 </script>
+
 
 <style lang="sass">
 @import "src/assets/sass/main/main"
 @import "src/assets/sass/main/main_email_check"
+@import "src/assets/sass/main/maincon"
 </style>

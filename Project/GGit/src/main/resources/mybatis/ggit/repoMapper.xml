@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ggit.db.mapper.RepoMapper">
+<mapper namespace="com.ggit.mappers.RepoMapper">
     <select id="repo" resultType="com.ggit.vo.RepoVo"> SELECT * FROM repo; </select>
-    <select id="nameForIdx" resultType="int"> select idx from repo where name = #{repoName} and
+    <select id="nameForIdx" resultType="int"> 
+        select idx from repo 
+        where name = #{repoName} and
         owner=(select idx from member where nick = #{ownerNick}) </select>
     <!-- member,repomem,repo 세개 모두다 검색 -->
     <!-- SELECT repo.idx as repo_idx,repo.name as repo_name,repo.createDate as repo_crateDate
@@ -17,21 +19,30 @@
     repo,repomem,member where repomem.repo=repo.idx and repo.owner=member.idx and
     repomem.member=${member}; -->
 
-    <select id="getPublic" resultType="int"> select public from repo where owner = (select idx from
-        member where nick=#{nick}) and name = #{repoName} </select>
-    <select id="checkRepo" resultType="int"> select count(idx) from repo where owner=${owner} and
-        name = #{repoName} </select>
-    <insert id="createRepo"> insert into repo(name,public,owner,clone,description)
-        value(#{name},${publ},${owner},#{clone},#{description}); <selectKey keyProperty="idx"
+    <select id="getPublic" resultType="int"> 
+        select public from repo 
+        where owner = (select idx from member where nick=#{nick}) and name = #{repoName} </select>
+    <select id="checkRepo" resultType="int"> 
+        select count(idx) 
+        from repo 
+        where owner=${owner} and name = #{repoName} </select>
+    <insert id="createRepo"> insert into 
+        repo(name,public,owner,clone,description)
+        value(#{name},${publ},${owner},#{clone},#{description}); 
+        <selectKey keyProperty="idx"
             resultType="int" order="AFTER"> select LAST_INSERT_ID() </selectKey>
     </insert>
-    <select id="selectHistory" resultType="com.ggit.vo.RepositoriesVO"> SELECT push.message as
-        push_message, push.repo as repo_idx, push.token as push_token,push.date as
-        push_date,member.nick as member_nick, push.before_token as before_token,push.selected as
-        selected ,push.fromMain as fromMain from push,member where push.repo =(select idx from repo
+    <select id="selectHistory" resultType="com.ggit.vo.RepositoriesVO"> 
+        SELECT push.message as
+        push_message, push.repo as repo_idx, 
+        push.token as push_token,push.date as push_date,member.nick as member_nick, push.before_token as before_token,
+        push.selected as selected ,push.fromMain as fromMain ,push.main_token as main_token
+        from push,member 
+        where push.repo =(select idx from repo
         where name= #{repo} and owner= (select idx from member where nick= #{ownerNick})) and
         push.branch = ${branch} and push.member=member.idx order by push.date desc </select>
-    <select id="selectRepositories" resultType="com.ggit.vo.RepositoriesVO"> SELECT repo.idx as
+    <select id="selectRepositories" resultType="com.ggit.vo.RepositoriesVO"> 
+        SELECT repo.idx as
         repo_idx, repo.name as repo_name, repo.createDate as repo_crateDate, repo.public as
         repo_publ, repo.owner as repo_owner, repo.fork as repo_fork, repomem.idx as repomem_idx,
         repomem.repo as repomem_repo, repomem.member as repomem_member, repomem.sort as
@@ -45,7 +56,7 @@
     <select id="clone" resultType="com.ggit.vo.RepositoriesVO"> select repo.idx as repo_idx
         ,push.token as push_token from repo , push where repo.clone=#{clone} and repo.idx =
         push.repo ORDER BY push.date DESC LIMIT 1 </select>
-    <select id="pulltoken" resultType="com.ggit.vo.RepositoriesVO"> select token as push_token,
+    <select id="pulltoken" resultType="com.ggit.vo.RepositoriesVO"> select token as push_token,main_token as main_token,
         before_token from push where repo = ${repo} and branch = ${member} ORDER BY selected
         DESC,date DESC LIMIT 1 </select>
 
@@ -129,4 +140,22 @@
         download = download+1 
         where idx = ${idx}
     </update>
+    <update id="setPublic">
+        update repo set
+        public = ${publ}
+        where idx = ${idx}
+    </update>
+
+    <delete id="deleteRepo">
+        delete  t1,t2,t3,t4,t5,t6
+        from repo t1
+        left join repomem t2 on t1.idx = t2.repo
+        left join push t3 on t1.idx = t3.repo
+        left join star t4 on t1.idx = t4.repo
+        left join pullreq t5 on t1.idx = t5.repo
+        left join pin t6 on t1.idx = t6.repo
+        where t1.idx= ${repoidx}
+
+    </delete>
+   
 </mapper>

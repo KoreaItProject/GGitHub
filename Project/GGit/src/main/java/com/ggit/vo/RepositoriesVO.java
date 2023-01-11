@@ -43,6 +43,7 @@ public class RepositoriesVO {
     private String push_date;
     private int selected;
     private String before_token;
+    private String main_token;
     private int fromMain = 0;
     // 커밋수
     private int commits;

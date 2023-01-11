@@ -3,7 +3,7 @@
         <div v-if="pullreq_page == true">
             <div class="pullreq_top_div" :style="cssVariable">
                 <div class="merge_request_div">
-                    <div class="pullrequest_left_container">
+                    <div class="pullrequest_left_container" >
                         <ul>
                             <li class="setting_left_li setting_left_li2">
                                 <a @click="changetab('pullreq')">
@@ -37,7 +37,7 @@
             </div>
         </div>
         <div v-if="merge_page == true" style="height: 100%">
-            <pullreq_merge_mem @merge_func_close="merge_func_close"></pullreq_merge_mem>
+            <pullreq_merge_mem @merge_func_close="merge_func_close" :token_repoidx="this.token_repoidx"></pullreq_merge_mem>
         </div>
     </div>
 </template>
@@ -49,16 +49,16 @@ import axios from 'axios';
 
 export default {
     computed: {
-    cssVariable() {
-      return {
-        "--li1": this.li1,
-        "--li2": this.li2,
+        cssVariable() {
+            return {
+                "--li1": this.li1,
+                "--li2": this.li2,
+                "--span1": this.span1,
+                "--span2": this.span2,
+            };
+        },
         
-        "--span1": this.span1,
-        "--span2": this.span2,
-      };
-    },
-  },
+     },
     data(){
         return{
             select_bool: true,
@@ -75,9 +75,19 @@ export default {
             span1: "white",
             span2: "rgb(188, 204, 202,0.2)",
 
-            test: ''
+            //repo_idxs: this.repo_idx_props,
+
+            token_repoidx:
+            {
+                token: '',
+                repo_idx: '',
+            },
         };
     },
+    // props: {
+    //     repo_idx_props: Number
+    // },
+    
     components: {
         pullreqnomem : pullreqnomem,
         pullreqmem : pullreqmem,
@@ -120,8 +130,9 @@ export default {
                 }
             })
         },
-        merge_func(token){
-            this.test = token;
+        merge_func(token_para, repo_idx_para){
+            this.token_repoidx.token = token_para;
+            this.token_repoidx.repo_idx = repo_idx_para;
             this.pullreq_page = false;
             this.merge_page = true;
         },

@@ -23,6 +23,7 @@ public class InfoDTO implements Serializable {
   private String idx;
   private String token;
   private String lastToken;
+  private String beforeToken;
 
   public String getMessage() {
     return message;
@@ -86,6 +87,14 @@ public class InfoDTO implements Serializable {
 
   public void setLastToken(String lastToken) {
     this.lastToken = lastToken;
+  }
+
+  public String getBeforeToken() {
+    return beforeToken;
+  }
+
+  public void setBeforeToken(String beforeToken) {
+    this.beforeToken = beforeToken;
   }
 
 }

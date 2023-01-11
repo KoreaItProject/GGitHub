@@ -21,7 +21,7 @@
             </div>
 
             <div class="pullreq_main_body" v-for="(Data,index) in pullreqData">    
-                <div class="pullreq_main_body_flex" @click="pullreqUserData(Data.token)">
+                <div class="pullreq_main_body_flex" @click="pullreqUserData(Data.token, Data.repo)">
                     <div class="pullreq_main_body_icon">
                         <span class="pullreq_main_body_icon_span">
                             <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="color-fg-color">
@@ -40,8 +40,6 @@
 <script>
 import axios from 'axios';
 
-
-
 export default {
     data(){
         return{
@@ -54,8 +52,9 @@ export default {
         // this.mergeRequest()
     },
     methods: {
-        pullreqUserData(token){
-            this.$emit("merge_func", token);
+        pullreqUserData(token, repo_idx){
+            this.$emit("merge_func", token, repo_idx);
+            //this.$emit("merge_func2", repo_idx);
         },
         find_repo(){ // 존재하는 저장소인지 확인하자
             axios.post("/api/find_repo",{

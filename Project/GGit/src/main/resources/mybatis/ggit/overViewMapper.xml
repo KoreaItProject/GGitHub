@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ggit.db.mapper.OverViewMapper">
+<mapper namespace="com.ggit.mappers.OverViewMapper">
     <select id="getContributionData" resultType="com.ggit.vo.OverViewVo">
         select date_format(s1.date, '%Y-%m-%d')as date, count(*) as count
         from(
