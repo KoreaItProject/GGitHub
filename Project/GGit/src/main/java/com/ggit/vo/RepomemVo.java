@@ -14,6 +14,8 @@ public class RepomemVo {
     private int sort;
 
     private String member_nick;
+    private String member_img;
+    
 
 
 }

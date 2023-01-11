@@ -35,6 +35,7 @@ public class RepositoriesVO {
     private int member_auth;
     private String member_date;
     private String member_con;
+    
 
     // push
     private String push_message;

@@ -11,7 +11,7 @@
         UPDATE repomem SET sort = ${sort} where repo=${repo} and member=${member}
     </update>
     <select id="selectrepomem" resultType="com.ggit.vo.RepomemVo">
-        SELECT member.nick as member_nick
+        SELECT member.nick as member_nick, member.img as member_img
         FROM member,repomem
         WHERE member.idx=repomem.member and repomem.repo=(select repo.idx from repo where repo.name=#{reponame});
     </select>
