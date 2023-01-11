@@ -57,9 +57,7 @@ export default {
                 "--span2": this.span2,
             };
         },
-        test(){
-            return this.repo_idx;
-        }
+        
      },
     data(){
         return{
@@ -77,17 +75,19 @@ export default {
             span1: "white",
             span2: "rgb(188, 204, 202,0.2)",
 
+            //repo_idxs: this.repo_idx_props,
+
             token_repoidx:
-                {
-                    token: '',
-                    repo_idx: this.repo_idx
-                }
-            ,
+            {
+                token: '',
+                repo_idx: '',
+            },
         };
     },
-    props:{
-        repo_idx: String
-    },
+    // props: {
+    //     repo_idx_props: Number
+    // },
+    
     components: {
         pullreqnomem : pullreqnomem,
         pullreqmem : pullreqmem,
@@ -130,8 +130,9 @@ export default {
                 }
             })
         },
-        merge_func(token){
-            this.token_repoidx.token = token;
+        merge_func(token_para, repo_idx_para){
+            this.token_repoidx.token = token_para;
+            this.token_repoidx.repo_idx = repo_idx_para;
             this.pullreq_page = false;
             this.merge_page = true;
         },

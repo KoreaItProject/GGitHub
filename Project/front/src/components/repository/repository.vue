@@ -103,7 +103,7 @@
           <code-view v-if="isCode&&!token"/>
           <myCode-view v-if="isMyCode&&!token"/>
           <history-view v-if="isHistory&&!token"/>
-          <pullrequest-view :repo_idx="this.repo_idx" v-if="isPullrequest&&!token"/>
+          <pullrequest-view v-if="isPullrequest&&!token"/>
           <setting-view v-if="isSetting&&!token"/>
       </div>
   </div>
