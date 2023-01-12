@@ -114,6 +114,7 @@ public class GGitSource extends JFrame implements MouseInputListener, Runnable {
         }
 
         setSize(250, 350); // 컨테이너 크기 지정
+        // setSize(260, 355); // 컨테이너 크기 지정
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         setLocationRelativeTo(null);

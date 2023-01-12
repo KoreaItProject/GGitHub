@@ -87,4 +87,8 @@ public class MemberService {
     public List<RepositoriesVO> searchMember(Map<String, String> map) {
         return mapper.searchMember(map);
     }
+
+    public List<RepositoriesVO> searchMembernick(String search){
+        return mapper.searchMembernick(search);
+    }
 }

@@ -22,11 +22,15 @@ export default {
     "header-view": Header,
     "footer-view": Footer,
   },
-
 };
 </script>
 
 
 <style lang="scss">
 @import "src/assets/sass/reset/reset";
+</style>
+<style lang="css">
+html {
+  zoom: 0.9;
+}
 </style>

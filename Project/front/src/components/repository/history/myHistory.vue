@@ -13,15 +13,15 @@
                   
                     <div class="history_token"><font-awesome-icon icon="fa-regular fa-copy" /> {{data.push_token}}</div>
                   </div>
+                   <div class="repo_history_btn" title="저장소 보기" @click="goToken(data.push_token)" v-if ="data.marged==0">
+                      <font-awesome-icon icon="fa-regular fa-eye" />
+                      </div>
                   <div class="repo_history_btn" @click="click(index)" title="현재 상태로 지정">
                     
                     <font-awesome-icon icon="fa-check" />
                   </div>
                 </div>       
-               
-           
-              
-                 
+
                     <div class="history_info_div" v-if="clickIndex==index">
 
                     <div class="history_info_left">
@@ -42,7 +42,7 @@
                  
               </div>
 
-              <div style="text-align:center;;width:100%;padding:5px 0" v-if="data.fromMain==0">
+              <div style="text-align:center;;width:100%;padding:5px 0" v-if="data.fromMain==0&&!(index!=history.length-1&&history[index+1].push_token!=data.before_token&&data.fromMain==0)">
                   <font-awesome-icon icon="fa-solid fa-arrow-up" />
                   
                 </div> 
@@ -51,19 +51,15 @@
                         
 
                           <div style="text-align:center;;width:100%;padding:5px 0" v-if="data.fromMain==1">
-                      
-                            <a style="font-size:14px" @click="goToken(data.main_token)"><font-awesome-icon icon="fa-regular fa-file-code" /> {{data.main_token}} </a> <font-awesome-icon icon="fa-solid fa-arrow-right" />
+                            <a style="font-size:15px" @click="goToken(data.push_token)"><font-awesome-icon icon="fa-regular fa-file-code" /> {{data.push_token}} </a> <font-awesome-icon icon="fa-solid fa-arrow-right " />
                           </div> 
                           <!--  -->
 
                 <!-- 이전과 맞물리지 않는다면 동작 -->
-                <div class="repository_history_table"
-                style="padding:5px 0;text-align:center;font-size:14px" v-if="index!=history.length-1&&history[index+1].push_token!=data.before_token&&data.fromMain==0">
-                  <a id="scroll_move" :href="'#'+data.before_token"><font-awesome-icon icon="fa-regular fa-copy" /> {{data.before_token}}</a>
-              </div>
-                <div style="text-align:center;;width:100%;padding:5px 0;" v-if="index!=history.length-1&&history[index+1].push_token!=data.before_token&&data.fromMain==0">
-                  <font-awesome-icon icon="fa-solid fa-arrows-split-up-and-left" />
-                </div>
+                <div style="text-align:center;;width:100%;padding:5px 0"  v-if="index!=history.length-1&&history[index+1].push_token!=data.before_token&&data.fromMain==0">
+                  <a style="font-size:15px" id="scroll_move"  @click="goscroll(data.before_token)"><font-awesome-icon icon="fa-regular fa-copy" /> {{data.before_token}}  <i class="fa-solid fa-arrow-turn-up" style="color:#fa5a5a"></i></a>
+              </div> 
+          
             </div>
             <!--  -->
 
@@ -83,19 +79,18 @@ import store from "@/vuex/store";
 import { TimeAgo } from "vue2-timeago";
 import $ from "jquery";
 export default {
-data() {
-  return {
-    clickIndex: -1,
-    history: {},
-    changed: {},
-  };
-},
-components: {
-  TimeAgo,
-},
-methods: {
-
-  goToken(token) {
+  data() {
+    return {
+      clickIndex: -1,
+      history: {},
+      changed: {},
+    };
+  },
+  components: {
+    TimeAgo,
+  },
+  methods: {
+    goToken(token) {
       window.location.href =
         "/token/" +
         this.$route.params.nick +
@@ -105,71 +100,68 @@ methods: {
         token +
         "";
     },
-  clickDiv(index, repo) {
-    this.clickIndex == index
-      ? (this.clickIndex = -1)
-      : (this.clickIndex = index);
-    axios
-      .get("/api/getHistoryChanged", {
-        params: {
-          repo: repo,
-          token: this.history[index].push_token,
-        },
-      })
-      .then((response) => {
-        this.changed = response.data;
-        // console.log(this.clone);
-        //alert(this.clone);
-      });
+    clickDiv(index, repo) {
+      this.clickIndex == index
+        ? (this.clickIndex = -1)
+        : (this.clickIndex = index);
+      axios
+        .get("/api/getHistoryChanged", {
+          params: {
+            repo: repo,
+            token: this.history[index].push_token,
+          },
+        })
+        .then((response) => {
+          this.changed = response.data;
+          // console.log(this.clone);
+          //alert(this.clone);
+        });
+    },
+    click(idx) {
+      axios
+        .get("/api/changeSelected", {
+          params: {
+            token: this.history[idx].push_token,
+            repo: this.$route.params.repository,
+            member: store.getters.getUserIdx,
+            ownerNick: this.$route.params.nick,
+          },
+        })
+        .then((response) => {
+          alert("작업 저장소 상태가 변경 되었습니다.");
+          this.getHistory();
+        });
+    },
+    getHistory() {
+      axios
+        .get("/api/selectHistory", {
+          params: {
+            mode: "my",
+            repo: this.$route.params.repository,
+            member: store.getters.getUserIdx,
+            ownerNick: this.$route.params.nick,
+          },
+        })
+        .then((response) => {
+          this.history = response.data;
+
+          // console.log(this.clone);
+          //alert(this.clone);
+        });
+    },
+    goscroll(token) {
+      window.location.href = "#" + token;
+
+      if (window.innerHeight > window.scrollY) {
+        window.scrollTo({ left: 0, top: 0 });
+      }
+      $("#" + token).addClass("vibration");
+      setTimeout(() => $("#" + token).removeClass("vibration"), 3000);
+    },
   },
-  click(idx) {
-    axios
-      .get("/api/changeSelected", {
-        params: {
-          token: this.history[idx].push_token,
-          repo: this.$route.params.repository,
-          member: store.getters.getUserIdx,
-          ownerNick: this.$route.params.nick,
-        },
-      })
-      .then((response) => {
-        alert("작업 저장소 상태가 변경 되었습니다.");
-        this.getHistory();
-      });
+  mounted() {
+    this.getHistory();
   },
-  getHistory() {
-    axios
-      .get("/api/selectHistory", {
-        params: {
-          mode: "my",
-          repo: this.$route.params.repository,
-          member: store.getters.getUserIdx,
-          ownerNick: this.$route.params.nick,
-        },
-      })
-      .then((response) => {
-        this.history = response.data;
-
-        // console.log(this.clone);
-        //alert(this.clone);
-      });
-  },
-},
-mounted() {
-  this.getHistory();
-
-  $(document).ready(function($) {
-
-$(".scroll_move").click(function(event){         
-
-        event.preventDefault();
-
-        $('html,body').animate({scrollTop:$(this.hash).offset().top}, 500);
-
-});
-
-});
-},
 };
 </script>
 <style lang="">

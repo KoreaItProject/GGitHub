@@ -3,30 +3,29 @@
     
           <div class="repository_history_table_div scrollBar">
             
-              <div v-for="(data,index) in history" >
-                <div class="repository_history_table">    
+              <div v-for="(data,index) in history"  style="margin-bottom:-7px" >
+                <div class="repository_history_table" :style="data.marged!=0?'border-bottom:0;padding-bottom:3px;':''">    
                   <div class="repo_history_div">
-                    <div class="repo_history_con"  @click="clickDiv(index,data.repo_idx)">
-                      <div class="history_message blue_point"><font-awesome-icon icon="fa-check " v-if="data.selected==1"/>{{data.push_message}}</div>
+                    <div class="repo_history_con"  @click="clickDiv(index,data.repo_idx,data.marged,data.push_token)">
+                      <div class="history_message blue_point" v-if ="data.marged==0"><font-awesome-icon icon="fa-check " v-if="data.selected==1"/>{{data.push_message}}</div>
+                      <div class="history_nick blue_point" v-if ="data.marged==1" ><i class="fa-solid fa-arrows-turn-to-dots"></i></div>
+                      <div class="history_nick blue_point" v-if ="data.marged==2" ><i class="fa fa-bolt"></i></div>
                       <div class="history_nick">{{data.member_nick}}</div>
                       <div class="history_date"><font-awesome-icon icon="fa-solid fa-arrows-rotate" /> <time-ago local="en" :datetime="data.push_date" refresh tooltip long/></div>
                       <div class="history_token"><font-awesome-icon icon="fa-regular fa-file-code" /> {{data.push_token}}</div>
                     </div>
-                    <div class="repo_history_btn" title="저장소 보기" @click="goToken(data.push_token)">
+                    <div class="repo_history_btn" title="저장소 보기" @click="goToken(data.push_token)" v-if ="data.marged==0">
                       <font-awesome-icon icon="fa-regular fa-eye" />
                       </div>
-                    <div class="repo_history_btn" title="작업 저장소로 가져오기" @click="click(index)">
-                      
+                    <div class="repo_history_btn" title="작업 저장소로 가져오기" @click="click(index)" v-if ="data.marged==0">
                       <font-awesome-icon icon="fa-solid fa-arrow-right" />
                     </div>
+                  
                   </div>       
                  
-             
-                
-                   
                       <div class="history_info_div" v-if="clickIndex==index">
 
-                      <div class="history_info_left">
+                      <div class="history_info_left" >
                           {{data.push_message}}
                           
                       </div>
@@ -38,11 +37,15 @@
                           </a>
                       </div>
                     </div>
-                </div>
-                <div style="text-align:center;;width:100%;padding:5px 0">
+              </div>
+  
+
+                <div style="text-align:center;width:100%;padding:5px 0 12px 0" v-if ="data.marged==0">
                   <font-awesome-icon icon="fa-solid fa-arrow-up" />
                 </div> 
+
               </div>
+
               <div class="repository_history_table" style="padding:5px 0;text-align:center">
                 저장소 생성
               </div>
@@ -78,23 +81,27 @@ export default {
         token +
         "";
     },
-    clickDiv(index, repo) {
-      this.clickIndex == index
-        ? (this.clickIndex = -1)
-        : (this.clickIndex = index);
+    clickDiv(index, repo, marged, token) {
+      if (marged == 0) {
+        this.clickIndex == index
+          ? (this.clickIndex = -1)
+          : (this.clickIndex = index);
 
-      axios
-        .get("/api/getHistoryChanged", {
-          params: {
-            repo: repo,
-            token: this.history[index].push_token,
-          },
-        })
-        .then((response) => {
-          this.changed = response.data;
-          // console.log(this.clone);
-          //alert(this.clone);
-        });
+        axios
+          .get("/api/getHistoryChanged", {
+            params: {
+              repo: repo,
+              token: this.history[index].push_token,
+            },
+          })
+          .then((response) => {
+            this.changed = response.data;
+            // console.log(this.clone);
+            //alert(this.clone);
+          });
+      } else {
+        this.goToken(token);
+      }
     },
     selectHistory() {
       axios
