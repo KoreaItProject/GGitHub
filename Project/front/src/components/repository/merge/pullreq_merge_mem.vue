@@ -130,7 +130,6 @@
 
 <script>
 import axios from 'axios';
-import { Editor, EditorContent } from 'tiptap';
 import $ from 'jquery';
 
 
