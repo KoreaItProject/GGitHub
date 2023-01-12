@@ -118,7 +118,9 @@
                         <!-- </vue-editor> -->
 
                         <div id="summernote"></div>
-                        <!-- <editor-content class="editor__content" :editor="editor" /> -->
+                       
+
+                        
                     </div>
                 </div>
             </div>
@@ -128,8 +130,9 @@
 
 <script>
 import axios from 'axios';
-import { Editor, EditorContent } from 'tiptap'
+import { Editor, EditorContent } from 'tiptap';
 import $ from 'jquery';
+
 
 export default {
     computed: {
@@ -161,6 +164,7 @@ export default {
             
             left_data_index: '0',
             editor: null,
+            content: null,
         }
     },
     props:{
@@ -172,16 +176,10 @@ export default {
         $('#summernote').summernote();
         alert("@@@");
 
-        // this.editor = new Editor({
-        //     content: '<p>I’m running Tiptap with Vue.js. 🎉</p>',
-        //     extensions: [
-        //         StarterKit,
-        //     ],
-        // })
+       
     },
     components: {
-        //VueEditor
-        EditorContent
+  
     },
     methods: {
         getMergeFile(){
@@ -233,9 +231,7 @@ export default {
             }
         }
     },
-    // beforeDestroy() {
-    //     this.editor.destroy()
-    // },
+ 
     
 }
 </script>

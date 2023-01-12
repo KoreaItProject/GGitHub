@@ -31,6 +31,7 @@
     "vue-cookies": "^1.8.2",
     "vue-persistedstate": "^1.2.5",
     "vue-router": "^3.0.1",
+    "vue-summernote": "^1.0.3",
     "vue2-editor": "^2.10.3",
     "vue2-timeago": "^2.0.9",
     "vuedraggable": "^2.24.3",
