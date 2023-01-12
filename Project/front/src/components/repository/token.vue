@@ -8,7 +8,7 @@
                 </div>
                 <div class="code_btn">
                   
-                  <button class="code_btn" @click="toggleOnOff">code </button>
+                  <button class="code_btn" @click="toggleOnOff"> <font-awesome-icon icon="fa-solid fa-bars" /> 메뉴 </button>
                     <div class="code_menu_top_div" v-if="isStatusOn">
                       <div class="code_menu" >
                           <div class="code_clone">
@@ -60,11 +60,9 @@
                     <a class="owner_href" >{{push.member_nick}}</a> 
                     <a class="repo_last_commit_content" href="#">{{push.push_message}}</a> 
                     <a class="repo_commit_count" href="#">
-                        <svg text="gray" aria-hidden="true" height="15px" viewBox="0 0 16 16" version="1.1" width="15px" data-view-component="true" class="octicon octicon-history">
-                            <path fill-rule="evenodd" d="M1.643 3.143L.427 1.927A.25.25 0 000 2.104V5.75c0 .138.112.25.25.25h3.646a.25.25 0 00.177-.427L2.715 4.215a6.5 6.5 0 11-1.18 4.458.75.75 0 10-1.493.154 8.001 8.001 0 101.6-5.684zM7.75 4a.75.75 0 01.75.75v2.992l2.028.812a.75.75 0 01-.557 1.392l-2.5-1A.75.75 0 017 8.25v-3.5A.75.75 0 017.75 4z"></path>
-                        </svg>
+                        <font-awesome-icon icon="fa-regular fa-circle-up" />
                         <strong class="commit_count_strong">{{push.commits}}</strong>
-                        <span class="commit_count_sapn">commits</span>
+                        <span class="commit_count_sapn">업로드</span>
                     </a> <!-- 커밋횟수 불러오기 -->
                     <a class="repo_last_commit_time" href="#"><time-ago  :datetime="push.push_date" refresh tooltip long /></a>
                     <a class="repo_last_commit_token" href="#">{{push.push_token}}</a>
@@ -117,14 +115,14 @@
         </div>
         <div class="code_middle_container_left"  >
             <div class="about_box">
-                <h2 class="about_string">About</h2>
+                <h2 class="about_string">정보</h2>
                 <p class="about_setting_message">{{this.discription}}</p>
                 <div class="readme_link">
                     <a href="#" class="readme_link_href">
                     <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-book mr-2">
                         <path fill-rule="evenodd" d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.744 3.744 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75V1.75zm8.755 3a2.25 2.25 0 012.25-2.25H14.5v9h-3.757c-.71 0-1.4.201-1.992.572l.004-7.322zm-1.504 7.324l.004-5.073-.002-2.253A2.25 2.25 0 005.003 2.5H1.5v9h3.757a3.75 3.75 0 011.994.574z"></path>
                     </svg>
-                    Readme</a>
+                    README</a>
                 </div>
                 <div class="stars_link">
                     <a href="#" class="stars_link_href">

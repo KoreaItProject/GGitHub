@@ -13,6 +13,9 @@
                   
                     <div class="history_token"><font-awesome-icon icon="fa-regular fa-copy" /> {{data.push_token}}</div>
                   </div>
+                   <div class="repo_history_btn" title="저장소 보기" @click="goToken(data.push_token)" v-if ="data.marged==0">
+                      <font-awesome-icon icon="fa-regular fa-eye" />
+                      </div>
                   <div class="repo_history_btn" @click="click(index)" title="현재 상태로 지정">
                     
                     <font-awesome-icon icon="fa-check" />
@@ -54,7 +57,7 @@
 
                 <!-- 이전과 맞물리지 않는다면 동작 -->
                 <div style="text-align:center;;width:100%;padding:5px 0"  v-if="index!=history.length-1&&history[index+1].push_token!=data.before_token&&data.fromMain==0">
-                  <a style="font-size:15px" id="scroll_move"  @click="goscroll(data.before_token)"><font-awesome-icon icon="fa-regular fa-copy" /> {{data.before_token}}  <i class="fa-solid fa-arrow-turn-up"></i></a>
+                  <a style="font-size:15px" id="scroll_move"  @click="goscroll(data.before_token)"><font-awesome-icon icon="fa-regular fa-copy" /> {{data.before_token}}  <i class="fa-solid fa-arrow-turn-up" style="color:#fa5a5a"></i></a>
               </div> 
           
             </div>
@@ -150,8 +153,10 @@ export default {
       window.location.href = "#" + token;
 
       if (window.innerHeight > window.scrollY) {
-        window.scrollBy({ left: 0, top: -65 });
+        window.scrollTo({ left: 0, top: 0 });
       }
+      $("#" + token).addClass("vibration");
+      setTimeout(() => $("#" + token).removeClass("vibration"), 3000);
     },
   },
   mounted() {

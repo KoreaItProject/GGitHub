@@ -4,7 +4,7 @@
           <div class="repository_history_table_div scrollBar">
             
               <div v-for="(data,index) in history"  style="margin-bottom:-7px" >
-                <div class="repository_history_table" :style="data.marged!=0?'border-bottom:0;padding-bottom:3px':''">    
+                <div class="repository_history_table" :style="data.marged!=0?'border-bottom:0;padding-bottom:3px;':''">    
                   <div class="repo_history_div">
                     <div class="repo_history_con"  @click="clickDiv(index,data.repo_idx,data.marged,data.push_token)">
                       <div class="history_message blue_point" v-if ="data.marged==0"><font-awesome-icon icon="fa-check " v-if="data.selected==1"/>{{data.push_message}}</div>
@@ -40,7 +40,7 @@
               </div>
   
 
-                <div style="text-align:center;;width:100%;padding:5px 0 12px 0" v-if ="data.marged==0">
+                <div style="text-align:center;width:100%;padding:5px 0 12px 0" v-if ="data.marged==0">
                   <font-awesome-icon icon="fa-solid fa-arrow-up" />
                 </div> 
 
@@ -81,9 +81,9 @@ export default {
         token +
         "";
     },
-    clickDiv(index, repo,marged,token) {
-      if(marged==0){
-          this.clickIndex == index
+    clickDiv(index, repo, marged, token) {
+      if (marged == 0) {
+        this.clickIndex == index
           ? (this.clickIndex = -1)
           : (this.clickIndex = index);
 
@@ -99,10 +99,9 @@ export default {
             // console.log(this.clone);
             //alert(this.clone);
           });
-      }else{
+      } else {
         this.goToken(token);
       }
-     
     },
     selectHistory() {
       axios
