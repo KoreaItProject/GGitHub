@@ -25,7 +25,7 @@
             <div
               class="header_search_info"
               v-if="searchInfo"
-              @click="searchInfo = flase"
+              @click="searchInfo = false"
             >
               <a
                 class="header_search_info_div"

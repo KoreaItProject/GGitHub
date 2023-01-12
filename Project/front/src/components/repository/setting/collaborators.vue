@@ -1,25 +1,54 @@
 
   
 </template><template lang="">
-      <div class="collaborators_main_layout">
+      <div class="collaborators_main_layout" >
         <div class="Add_collaborators_box" v-if="isStatusOn">
-          <a class="close_btn" @click="toggleOnOff"><font-awesome-icon icon="fa-regular fa-circle-xmark" /></a>
+          <a class="close_btn" @click="[toggleOnOff(),searchInfo=false,n=-1]"><font-awesome-icon icon="fa-regular fa-circle-xmark" /></a>
               <div class="book_svg">
                 <svg height="32" aria-hidden="true" viewBox="0 0 24 24" version="1.1" width="32" data-view-component="true" class="octicon octicon-repo color-fg-muted">
                   <path fill-rule="evenodd" d="M3 2.75A2.75 2.75 0 015.75 0h14.5a.75.75 0 01.75.75v20.5a.75.75 0 01-.75.75h-6a.75.75 0 010-1.5h5.25v-4H6A1.5 1.5 0 004.5 18v.75c0 .716.43 1.334 1.05 1.605a.75.75 0 01-.6 1.374A3.25 3.25 0 013 18.75v-16zM19.5 1.5V15H6c-.546 0-1.059.146-1.5.401V2.75c0-.69.56-1.25 1.25-1.25H19.5z"></path><path d="M7 18.25a.25.25 0 01.25-.25h5a.25.25 0 01.25.25v5.01a.25.25 0 01-.397.201l-2.206-1.604a.25.25 0 00-.294 0L7.397 23.46a.25.25 0 01-.397-.2v-5.01z"></path>
                 </svg>
               </div>
               <div class="ADD_collaborators_text"><strong>{{repo_name}}</strong> 에 추가할 공동 작업자를 선택하세요</div>
-              <div class="Add_collaborators_search_box">
-                  
+              
+              <div class="Add_collaborators_search_box" v-if="n==-1">
+                  <div>
                     <font-awesome-icon icon="fa-solid fa-magnifying-glass" class="search" />  
-                  
-                  <input type="text" class="Add_collaborators_input" placeholder="유저닉네임, 이름 또는 이메일로 검색하세요"
-                  @input="searchInput"
-                  @focus="searchInput" />
+                    <input 
+                      class="Add_collaborators_input" 
+                      type="search"
+                      :value="searchText"
+                      placeholder="유저닉네임, 이름 또는 이메일로 검색하세요"
+                      @input="searchInput"
+                      @focus="searchInput"
+                      ref="search"
+                      name="keyword"
+                      autocompletze="off"
                       
+                    />
+                    <input type="submit" hidden />
+                    
+                  </div>  
               </div>
-              <div class="Add_collaborators_btn_div"><button class="Add_collaborators_btn">공동 작업자를 선택하세요</button></div>
+              <div class="collaborators_select_member" v-if="n!=-1">
+                  <div style="width: 40px; height: 40px;"><img :src="profileImg[n]"></div>
+                  <div style="width: 500px; height:40px; text-align:left; padding-left:5px;">{{searchInfoList[n].member_nick}}</div>
+                  <a @click="n=-1"><font-awesome-icon icon="fa-solid fa-xmark"  style="float:right; padding: 5px 0px;"/></a>
+              </div>
+              <div class="collaborators_search_info" v-if="searchInfo && n==-1">
+                <div v-for="(list,idx) in searchInfoList" @click="n=idx">
+                      <div class="collaborators_search_info_img">
+                        <img :src="profileImg[idx]">
+                      </div>
+                      <div class="collaborators_search_info_nick">
+                        {{list.member_nick}}
+                      </div>
+                </div>
+               
+
+              </div>
+            
+              <div class="Add_collaborators_btn_div"><button class="Add_collaborators_btn" @click="">공동 작업자를 선택하세요</button></div>
             </div>
             
           <div class="general_string">구성원</div>
@@ -30,12 +59,13 @@
                   구성원 초대
               </div>
               
+              
 
               <div class="collaborators_invite_box">
                         <img class="collaborators_img" src="@/assets/imgs/repository/setting/collaborators/permissions.png"/>
                   
                   <div class="collaborators_invite_message">
-                      아직 공동작업자를 초대하지 않았습니다.
+                      아직 공동 작업자를 초대하지 않았습니다.
                   </div>
                   <button class="collaborators_invite_btn" @click="toggleOnOff">
                       사용자 추가
@@ -59,7 +89,7 @@
                       <!-- <div class="collaborators_list_box_checkbox"><input type="checkbox" class="collabo_body_chekbox"></input></div>checkbox -->
 
                       <div class="collaborators_list_box_img">
-                        <img src="@/assets/imgs/repository/setting/collaborators/lee_profile.jpg"
+                        <img :src=profileImg[idx]
                           style="width:32px; height:32px;"
                           class="collabo_member_img"/>
                       </div><!--img-->
@@ -93,13 +123,43 @@ export default {
       repo_mem: [],
       test1: false,
       isStatusOn:false,
+      searchText:"",
+      searchInfo:false,
+      searchInfoList:[
+        {member_nick:"",member_img:""}
+      ],
+      n:-1,
+      profileImg:[],
+
+
     };
   },
   mounted() {
     this.test();
     this.selectrepomem();
+    
   },
   methods: {
+    getContriImg() {
+      axios
+        .get("/api/getProfileImg", {
+          responseType: "blob",
+          params: {
+            img: this.searchInfoList[this.i].member_img,
+          },
+        })
+        .then((response) => {
+          // handle success
+
+          this.profileImg.push(
+            window.URL.createObjectURL(new Blob([response.data]))
+          );
+          this.i++;
+          if (this.i < this.searchInfoList.length) {
+            this.getContriImg();
+          }
+        });
+    },
     toggleOnOff: function () {
       this.isStatusOn = !this.isStatusOn;
     },
@@ -141,6 +201,28 @@ export default {
           //alert(this.clone);
         });
     },
+    searchInput(e){
+      this.searchText = e.target.value;
+
+      axios
+        .get("/api/searchMembernick", {
+            params: {
+              
+              search: this.searchText,
+            },
+          })
+          .then((response) => {
+            this.searchInfoList = response.data;
+            if (response.data == "") {
+              this.searchInfo = false;
+            } else {
+              this.searchInfo = true;
+            }
+            console.log(this.searchInfoList);
+          });
+          this.getContriImg();
+    },
+    
   },
 };
 </script>

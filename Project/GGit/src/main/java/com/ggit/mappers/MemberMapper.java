@@ -45,4 +45,6 @@ public interface MemberMapper {
 
         List<RepositoriesVO> searchMember(Map<String, String> map);
 
+        List<RepositoriesVO> searchMembernick(String search);
+
 }
