@@ -7,7 +7,7 @@
                 <h3>작업 저장소</h3>
               </div>
                 <div class="code_btn">
-                  <button class="code_btn" @click="toggleOnOff">code </button>
+                  <button class="code_btn" @click="toggleOnOff"><font-awesome-icon icon="fa-solid fa-bars" /> 메뉴</button>
                   <div class="code_menu_top_div" v-if="isStatusOn"> <!--  -->
                     <div class="code_menu" >
                         <div class="code_clone">
