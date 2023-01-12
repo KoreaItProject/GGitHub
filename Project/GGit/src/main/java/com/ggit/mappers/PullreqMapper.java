@@ -24,4 +24,6 @@ public interface PullreqMapper {
     int pullrequest(PullreqVo pullreqVo);
 
     String getLastMainToken(int repo_idx);
+    
+    int merge_main_push_count(int repo_idx);
 }

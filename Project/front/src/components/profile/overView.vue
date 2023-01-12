@@ -1,6 +1,6 @@
 <template>
   <div class="overView_container">
-    <div class="overView_readme_div" v-if="readme_status == true">README</div>
+    <div class="overView_readme_div" v-if="readme_status == true">README.md</div>
     <div class="overView_readme overView_div" v-show="mdText != ''">
       <div
         class="overView_readme_content markdown-body"
@@ -9,10 +9,13 @@
     </div>
     <div class="overView_pinned_div">
       <div class="overView_pinned_top" v-if="pins.length > 0">
-        <span class="overView_pinned_top_left">Pinned</span>
-        <span class="overView_pinned_top_right"
-          ><a>Customize your pins</a></span
-        >
+        
+        <span class="overView_pinned_top_left">
+          <svg aria-hidden="true" height="16" viewBox="0 -1 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-pin mr-2">
+            <path fill-rule="evenodd" d="M4.456.734a1.75 1.75 0 012.826.504l.613 1.327a3.081 3.081 0 002.084 1.707l2.454.584c1.332.317 1.8 1.972.832 2.94L11.06 10l3.72 3.72a.75.75 0 11-1.061 1.06L10 11.06l-2.204 2.205c-.968.968-2.623.5-2.94-.832l-.584-2.454a3.081 3.081 0 00-1.707-2.084l-1.327-.613a1.75 1.75 0 01-.504-2.826L4.456.734zM5.92 1.866a.25.25 0 00-.404-.072L1.794 5.516a.25.25 0 00.072.404l1.328.613A4.582 4.582 0 015.73 9.63l.584 2.454a.25.25 0 00.42.12l5.47-5.47a.25.25 0 00-.12-.42L9.63 5.73a4.581 4.581 0 01-3.098-2.537L5.92 1.866z"></path>
+          </svg> 고정
+        </span>
+        
       </div>
       <div class="overView_pins_div" v-if="pins.length > 0">
         <draggable
@@ -94,8 +97,8 @@
       </div>
 
       <div class="overView_contribution_container" :style="cssVariable">
-        <div class="overView_contribution_Name">
-          Contribution
+        <div style="margin-left:5px" class="overView_contribution_Name">
+          <span>기여</span>
         </div>
         <div class="overView_contribution_div">
           <div class="overView_contribution_inner_div">

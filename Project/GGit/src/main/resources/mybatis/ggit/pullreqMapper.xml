@@ -29,4 +29,9 @@
         WHERE repo=#{repo_idx} and branch = 0
         order by date desc;
     </select>
+    <select id="merge_main_push_count" resultType="int">
+        SELECT count(*) as main_mush_count
+        FROM push
+        WHERE repo=#{repo_idx} and branch = 0;
+    </select>
 </mapper>

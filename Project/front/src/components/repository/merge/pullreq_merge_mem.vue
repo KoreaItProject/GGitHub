@@ -7,22 +7,26 @@
             <div class="pullreq_merge_div_left">
                 <div class="pullreq_merge_div_left2">
                     <div class="pullreq_merge_div_left2_div">
+                        
                         <button class="pullreq_merge_div_left2_backBtn" @click="merge_func_close()">
                             <svg style="width:15px; height:15px;"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                                 <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
                             </svg>
                         </button>
+                        <button class="pullreq_merge_div_left2_MergeBtn" @click="merge()">병합하기</button>
                     </div>
                     
-                    <div class="pullreq_merge_div_left_data" @click="left_data_click_func(index)" v-for="(data, index) in merge_data">
-                        <div class="left_data_top">
-                            <div class="left_data_top_filename">
-                                <span>{{data.fileName}}</span>
+                    <div class="pullreq_merge_div_left_scroll">
+                        <div class="pullreq_merge_div_left_data" @click="left_data_click_func(index)" v-for="(data, index) in merge_data">
+                            <div class="left_data_top">
+                                <div class="left_data_top_filename">
+                                    <span>{{data.fileName}}</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="left_data_bottom">
-                            <div class="left_data_bottom_filepath">
-                                <span>{{data.filePath}}</span>
+                            <div class="left_data_bottom">
+                                <div class="left_data_bottom_filepath">
+                                    <span>{{data.filePath}}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -87,11 +91,10 @@
 
                 <div class="pullreq_merge_div_right_bottom_span" :style="cssVariable">
                     <span>&nbsp;&nbsp;병합 비교</span>
-                    
                 </div>
                 <div class="pullreq_merge_div_right_bottom" :style="cssVariable">
                     <div class="pullreq_merge_div_right_bottom_changecode">
-                        <table>
+                        <!-- <table>
                             <tr v-for="(data,index) in merge_data[left_data_index].fileData">
                                 <td class="td1"></td>
                                 <td class="td2">{{index+1}}</td>
@@ -99,7 +102,23 @@
                                     <span class="td3_span">{{data}}</span>
                                 </td>
                             </tr>
-                        </table>
+                        </table> -->
+                        <!-- <div id="summernote">asd</div> -->
+                        <!-- <vue-editor v-model="merge_data[left_data_index].fileData"> -->
+                            <!-- {{this.merge_data[this.left_data_index].fileData}} -->
+                            <!-- <table>
+                                <tr v-for="(data,index) in merge_data[left_data_index].fileData">
+                                    <td class="td1"></td>
+                                    <td class="td2">{{index+1}}</td>
+                                    <td class="td3">
+                                        <span class="td3_span">{{data}}</span>
+                                    </td>
+                                </tr>
+                            </table> -->
+                        <!-- </vue-editor> -->
+
+                        <div id="summernote"></div>
+                        <!-- <editor-content class="editor__content" :editor="editor" /> -->
                     </div>
                 </div>
             </div>
@@ -109,6 +128,8 @@
 
 <script>
 import axios from 'axios';
+import { Editor, EditorContent } from 'tiptap'
+import $ from 'jquery';
 
 export default {
     computed: {
@@ -139,6 +160,7 @@ export default {
             repo_idx: this.token_repoidx.repo_idx,
             
             left_data_index: '0',
+            editor: null,
         }
     },
     props:{
@@ -146,6 +168,20 @@ export default {
     },
     mounted(){
         this.getMergeFile();
+        
+        $('#summernote').summernote();
+        alert("@@@");
+
+        // this.editor = new Editor({
+        //     content: '<p>I’m running Tiptap with Vue.js. 🎉</p>',
+        //     extensions: [
+        //         StarterKit,
+        //     ],
+        // })
+    },
+    components: {
+        //VueEditor
+        EditorContent
     },
     methods: {
         getMergeFile(){
@@ -156,6 +192,7 @@ export default {
             .then(response => {
                 console.log(response);
                 this.merge_data = response.data;
+                this.test_editor();
             })
         },
         pullreq_merge_right_top_state_func(){
@@ -185,9 +222,20 @@ export default {
             this.$emit("merge_func_close");
         },
         left_data_click_func(index){
+            this.test_editor2();
             this.left_data_index = index;
+        },
+        merge(){
+            if(confirm("병합하시겠습니까?")){
+                
+            }else{
+                
+            }
         }
     },
+    // beforeDestroy() {
+    //     this.editor.destroy()
+    // },
     
 }
 </script>

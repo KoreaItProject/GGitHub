@@ -20,9 +20,13 @@ $td3_font_size: 12px
         .pullreq_merge_div_left2
             padding: 10px
             float: right
+           
             .pullreq_merge_div_left2_div
+                //border: 1px solid blue
                 //margin-bottom: 20px
                 margin-top: -35px
+                display: flex
+                justify-content: space-between
                 .pullreq_merge_div_left2_backBtn
                     margin-bottom: 20px
                     text-align: center
@@ -30,34 +34,47 @@ $td3_font_size: 12px
                     background-color: #f6f8fa
                     width: 35px
                     height: 35px
-            .pullreq_merge_div_left_data
-                height: 80px    
-                //margin-top: -20px
-                margin-bottom: 10px
-                border-radius: 6px  
-                width: 260px
-                background-color: #f6f8fa
-                border: 1px solid #d0d7de
-                &:hover
-                    background-color: #e2e2e2
-                    cursor: pointer
-                .left_data_top
-                    height: 50%
-                    .left_data_top_filename
-                        margin: 10px
-                        margin: 15px 10px 10px 20px
-                        span
-                            font-weight: 400
-                            font-family: Arial, sans-serif
-                .left_data_bottom
-                    height: 50%
-                    .left_data_bottom_filepath
-                        margin: -10px 10px 10px 20px
-                        span
-                            font-size: 12.5px
-                            color: #797777
-                            font-weight: 400
-                            font-family: Arial, sans-serif
+                .pullreq_merge_div_left2_MergeBtn
+                    background-color: #2da44e
+                    border: 2.5px solid #1c6d33
+                    color: white
+                    border-radius: 7px
+                    width: 100px
+                    height: 40px
+          
+                
+            .pullreq_merge_div_left_scroll 
+                overflow: auto  
+                height: 850px
+                .pullreq_merge_div_left_data
+                    backgroun-color: red
+                    height: 80px    
+                    //margin-top: -20px
+                    margin-bottom: 10px
+                    border-radius: 6px  
+                    width: 260px
+                    background-color: #f6f8fa
+                    border: 1px solid #d0d7de
+                    &:hover
+                        background-color: #e2e2e2
+                        cursor: pointer
+                    .left_data_top
+                        height: 50%
+                        .left_data_top_filename
+                            margin: 10px
+                            margin: 15px 10px 10px 20px
+                            span
+                                font-weight: 400
+                                font-family: Arial, sans-serif
+                    .left_data_bottom
+                        height: 50%
+                        .left_data_bottom_filepath
+                            margin: -10px 10px 10px 20px
+                            span
+                                font-size: 12.5px
+                                color: #797777
+                                font-weight: 400
+                                font-family: Arial, sans-serif
     .pullreq_merge_div_right
         //border: 1px solid #d0d7de
         width: 1400px
@@ -104,7 +121,6 @@ $td3_font_size: 12px
             .pullreq_merge_div_right_top_left_contain
                 width: 100%
                 .pullreq_merge_div_right_top_left
-                    
                     flex: none
                     border: 1px solid #d0d7de
                     // width: 50%
@@ -112,7 +128,6 @@ $td3_font_size: 12px
                     margin: 10px
                     border-radius: 6px
                     word-break: break-all
-                    overflow: auto
                     //font-family: $font
                     table
                         .td1

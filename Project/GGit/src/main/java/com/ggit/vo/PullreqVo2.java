@@ -14,4 +14,5 @@ public class PullreqVo2 {
     private String fileName;
 
     private ArrayList<String> fileData;
+    
 }
