@@ -16,7 +16,7 @@
           
            
              <p>GGit 페이지는</p>
-             <p>GGIT SOURCE 프로그램을 사용하여</p><p>작업 저장소에 파일을 업로드합니다.</p>
+             <p>GGIT SOURCE 프로그램을 사용하여</p><p>작업저장소에 파일을 업로드합니다.</p>
              <br>
              
               <button
@@ -25,7 +25,7 @@
               class="btn_download_ggitsource"
               @click="ggitsourcDownload"
             >
-              낏소스 다운로드 <span style="font-size:13px"> for window</span>
+              낏소스 다운로드 <span style="font-size:15px">for window</span>
             </button>
             <button
               type="submit"
@@ -33,7 +33,7 @@
               class="btn_download_ggitsource"
               @click="ggitsourcDownload"
             >
-              낏소스 다운로드 <span style="font-size:13px"> for mac</span>
+              낏소스 다운로드 <span style="font-size:1px"> for mac</span>
             </button>
           </div>
           <div class="download_container1_right">
@@ -44,31 +44,103 @@
         </div>
         
 
-        <div style="width:100%;text-align:center;height:250px;background-color: #f4f5f7;">
-          <img class="img2" src="@/assets/imgs/main/download/img2.png" style="width:1000px; "></img>
+        <div style="width:100%;text-align:center;background-color:white;padding:90px 0 10px 0;margin-top:-20px">
+          <img class="img2" src="@/assets/imgs/main/download/img2.png" style="width:1200px; "></img>
         </div>
 
-        <div class="back" ></div>
+       
+
         <div class="flex" >
-          <img src="@/assets/imgs/main/download/gif1.gif" style="width:350px;"></img>
-          <div style="margin:100px 0 0 100px ">
+          <img src="@/assets/imgs/main/download/gif1.gif" style="width:350px;border:1px solid black"></img>
+          <div style="margin:100px 0 0 80px ">
             <h2>파일의 변화 실시간 추적</h2>
             <br>
             <h3>
               추가,수정,삭제,파일명,경로 화면에 표시
             </h3>
            <br>
-            <p>IDE에서 코드를 수정하면 실시간으로 작동합니다</p>
+            <p>IDE에서 코드를 수정하면 실시간으로 동작합니다. </p>
           </div>
         </div>
 
-        <div class="flex" style="text-align:center">
-          <h2>1.저장소 메뉴에서 접속코드를 복사합니다.</h2>
-          <div style="width:340px"></div>
+        <div class="back" ></div>
+
+
+        <div class="flex" style="text-align:center;">
+          <div><h2>저장소 메뉴에서 접속코드를 복사합니다.</h2></div>
+          <div style="width:340px"><img src="@/assets/imgs/main/download/1.png" style="position:absolute; transform: translate(-100px,-200px)"></img></div>
+        </div>
+        <div class="flex" style="height:700px;padding:60px">
+          <img src="@/assets/imgs/main/download/gif2.gif" class="gifimg">
         </div>
 
+        
+
+         <div class="flex" style="text-align:left">
+           <div style="width:340px"><img src="@/assets/imgs/main/download/2.png" style="position:absolute; transform: translate(-100px,-100px)"></img></div>
+          <div>
+          <h2>프로젝트를 작업할 폴더를 선택하고</h2>
+          <h2>로그인 후 저장소 접속코드를 입력합니다.</h2>
+            <br>
+          <p>폴더와 저장소를 연결하는 작업입니다. </p>
+          </div>     
+        </div>
+        <div class="flex" style="height:800px;"><img src="@/assets/imgs/main/download/gif3.gif" class="gifimg"></img></div>
 
 
+
+
+        <div class="flex" style="text-align:left;">
+          <div>
+            <h2>생성된 project 폴더를 IDE로 열어줍니다.</h2>
+            <br>
+            <h2>변경된 부분을 확인하고</h2>
+            <h2>메시지와 함께 push 버튼을 눌러</h2>
+            <h2>작업저장소에 저장합니다.</h2>
+              <br>
+            <p>push는 연견된 저장소의 내 작업저장소에 저장합니다.</p>
+          </div>
+          <div style="width:340px"><img src="@/assets/imgs/main/download/3.png" style="position:absolute; transform: translate(50px,-100px)"></img></div>
+        </div>
+        <div class="flex" style="height:750px;padding:60px">
+          <img src="@/assets/imgs/main/download/gif4.gif" class="gifimg">
+        </div>
+
+        <div class="flex" style="text-align:left">
+           <div style="width:340px"><img src="@/assets/imgs/main/download/4.png" style="position:absolute; transform: translate(-100px,-130px)"></img></div>
+          <div>
+          <h2>프로젝트를 작업할 폴더를 선택하고</h2>
+          <h2>로그인 후 저장소 접속코드를 입력합니다.</h2>
+           <br></br>
+          <p>폴더와 저장소를 연결하는 작업입니다. </p>
+          </div>     
+        </div>
+        <div class="flex" style="height:850px;"><img src="@/assets/imgs/main/download/gif5.gif" class="gifimg"></img></div>
+
+
+        <div class="flex" style="text-align:left;">
+          <div>
+            <h2>히스토리에서 가져오고 싶은 </h2>
+            <h2>이전 작업내역을 현재 상태로 변경합니다.</h2>
+            <br>
+            <h2>pull 버튼을 눌러 작업저장소에서 </h2>
+            <h2>해당 작업내역을 즉시 가져옵니다.</h2>
+             <br></br>
+            <p>pull 할 때 현재 작업중인 내역은 소멸됨으로</p>
+            <p>push버튼을 눌러 작업저장소 저장후 사용하세요.</p>
+          </div>
+          <div style="width:340px"><img src="@/assets/imgs/main/download/5.png" style="position:absolute; transform: translate(0px,-100px)"></img></div>
+        </div>
+        <div class="flex" style="height:800px;padding:60px">
+          <img src="@/assets/imgs/main/download/gif6.gif" class="gifimg">
+        </div>
+        
+        
+        <div class="flex"></div>
+
+        <div class="flex"><p>GGitSource Made in Taehyeon</p></div>
+
+        <div class="back" ></div>
     </div>
 </template>
 <script>
