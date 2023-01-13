@@ -1,5 +1,3 @@
-
-  
 </template><template lang="">
       <div class="collaborators_main_layout" >
         <div class="Add_collaborators_box" v-if="isStatusOn">
@@ -20,7 +18,6 @@
                       :value="searchText"
                       placeholder="유저닉네임, 이름 또는 이메일로 검색하세요"
                       @input="searchInput"
-                      @focus="searchInput"
                       ref="search"
                       name="keyword"
                       autocompletze="off"
@@ -31,18 +28,18 @@
                   </div>  
               </div>
               <div class="collaborators_select_member" v-if="n!=-1">
-                  <div style="width: 40px; height: 40px;"><img :src="profileImg[n]"></div>
+                  <div style="width: 40px; height: 40px; padding: 1px 0px"><img :src="profileImg[n]" style="width:32px; height:32px;"></div>
                   <div style="width: 500px; height:40px; text-align:left; padding-left:5px;">{{searchInfoList[n].member_nick}}</div>
                   <a @click="n=-1"><font-awesome-icon icon="fa-solid fa-xmark"  style="float:right; padding: 5px 0px;"/></a>
               </div>
               <div class="collaborators_search_info" v-if="searchInfo && n==-1">
                 <div v-for="(list,idx) in searchInfoList" @click="n=idx">
                       <div class="collaborators_search_info_img">
-                        <img :src="profileImg[idx]">
+                        <img :src="profileImg[idx]" style="width:32px; height:32px;">
                       </div>
                       <div class="collaborators_search_info_nick">
                         {{list.member_nick}}
-                      </div>
+                      </div> 
                 </div>
                
 
@@ -85,11 +82,11 @@
                     </div>
                   <div class="collaborators_list_box"> <!--list_box-->
                     <div class="collaborators_list_box_header">구성원 목록</div><!-- 구성원목록 -->
-                    <div class="collaborators_list_box_body" v-for="name in repo_mem">
+                    <div class="collaborators_list_box_body" v-for="name,idx in repo_mem">
                       <!-- <div class="collaborators_list_box_checkbox"><input type="checkbox" class="collabo_body_chekbox"></input></div>checkbox -->
 
                       <div class="collaborators_list_box_img">
-                        <img :src=profileImg[idx]
+                        <img :src=profileImg2[idx]
                           style="width:32px; height:32px;"
                           class="collabo_member_img"/>
                       </div><!--img-->
@@ -125,11 +122,12 @@ export default {
       isStatusOn:false,
       searchText:"",
       searchInfo:false,
-      searchInfoList:[
-        {member_nick:"",member_img:""}
-      ],
+      searchInfoList:{member_nick:"", member_img:""},
       n:-1,
       profileImg:[],
+      profileImg2:[],
+      i:0,
+      k:0,
 
 
     };
@@ -140,6 +138,7 @@ export default {
     
   },
   methods: {
+    
     getContriImg() {
       axios
         .get("/api/getProfileImg", {
@@ -157,7 +156,30 @@ export default {
           this.i++;
           if (this.i < this.searchInfoList.length) {
             this.getContriImg();
+          
           }
+          
+        });
+    },
+    getContriImg2() {
+      axios
+        .get("/api/getProfileImg", {
+          responseType: "blob",
+          params: {
+            img: this.repo_mem[this.k].member_img,
+          },
+        })
+        .then((response) => {
+          // handle success
+          
+          this.profileImg2.push(
+            window.URL.createObjectURL(new Blob([response.data]))
+          );
+          this.k++;
+          if (this.k < this.repo_mem.length) {
+            this.getContriImg2();
+          }
+          
         });
     },
     toggleOnOff: function () {
@@ -181,7 +203,7 @@ export default {
         })
         .then((response) => {
           this.repo_mem = response.data;
-
+          this.getContriImg2();
           // console.log(this.clone);
           //alert(this.clone);
         });
@@ -195,6 +217,7 @@ export default {
           },
         })
         .then((response) => {
+          this.profileImg2.splice(0);
           this.selectrepomem();
 
           // console.log(this.clone);
@@ -203,11 +226,10 @@ export default {
     },
     searchInput(e){
       this.searchText = e.target.value;
-
+      
       axios
         .get("/api/searchMembernick", {
             params: {
-              
               search: this.searchText,
             },
           })
@@ -218,10 +240,16 @@ export default {
             } else {
               this.searchInfo = true;
             }
-            console.log(this.searchInfoList);
+            // console.log(this.searchInfoList);
+            // console.log(this.profileImg)
+            
+            this.profileImg.splice(0);
+            this.getContriImg();
           });
-          this.getContriImg();
+          
     },
+    
+
     
   },
 };

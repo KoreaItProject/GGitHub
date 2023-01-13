@@ -179,7 +179,6 @@ public class SearchController {
 
     @RequestMapping("/searchMembernick")
     public List<RepositoriesVO> searchMembernick(String search){
-        System.out.println(search);
         return memberService.searchMembernick(search);
     }
 }
