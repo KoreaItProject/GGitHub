@@ -33,7 +33,7 @@
               class="btn_download_ggitsource"
               @click="ggitsourcDownload"
             >
-              낏소스 다운로드 <span style="font-size:1px"> for mac</span>
+              낏소스 다운로드 <span style="font-size:15px"> for mac</span>
             </button>
           </div>
           <div class="download_container1_right">
