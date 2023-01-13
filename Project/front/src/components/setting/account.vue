@@ -38,6 +38,8 @@
                         <div class="auth-form-header"><h1>GGit</h1></div>
                             <div class="auth-form-body">
                                 <form @submit.prevent="onSubmitPasswordCheck" >
+                                  <label class="body-label1">비밀번호 확인 후 접근 할 수 있습니다.</label>
+                                  
                                     <label class="body-label">비밀번호</label>
                                     <input ref="ref_pw_first" type="password" name="pw_first" id="pw_field" class="form-control input-block" v-model="pw_first" @input="pw_diff_check2"></input>
 
