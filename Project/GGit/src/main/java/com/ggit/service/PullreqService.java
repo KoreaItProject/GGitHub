@@ -50,4 +50,9 @@ public class PullreqService {
     public String getLastMainToken(int repo_idx){
         return mapper.getLastMainToken(repo_idx);
     }
+
+    // 메인 저장소 push 갯수 얻기
+    public int merge_main_push_count(int repo_idx){
+        return mapper.merge_main_push_count(repo_idx);
+    }
 }

@@ -33,14 +33,24 @@
             resultType="int" order="AFTER"> select LAST_INSERT_ID() </selectKey>
     </insert>
     <select id="selectHistory" resultType="com.ggit.vo.RepositoriesVO"> 
-        SELECT push.message as
+        select * from (
+	(
+	select p.message as push_message ,p.repo as repo_idx,p.token as push_token, p.end_date as push_date,m.nick as member_nick
+	,null as before_token,0 as selected ,0 as fromMain,null as main_token,p.marged as marged , p.date as marge_date
+	
+	from pullreq p , member m
+	where p.marged!=0 and p.member = m.idx and p.repo=(select idx from repo
+        where name= #{repo} and owner= (select idx from member where nick= #{ownerNick})) and 0=${branch})
+union all
+	(SELECT push.message as
         push_message, push.repo as repo_idx, 
         push.token as push_token,push.date as push_date,member.nick as member_nick, push.before_token as before_token,
-        push.selected as selected ,push.fromMain as fromMain ,push.main_token as main_token
+        push.selected as selected ,push.fromMain as fromMain ,push.main_token as main_token, 0 as marged  , null as marge_date
         from push,member 
-        where push.repo =(select idx from repo
+        where push.repo = (select idx from repo
         where name= #{repo} and owner= (select idx from member where nick= #{ownerNick})) and
-        push.branch = ${branch} and push.member=member.idx order by push.date desc </select>
+        push.branch = ${branch} and push.member=member.idx ) 
+) a order by push_date desc; </select>
     <select id="selectRepositories" resultType="com.ggit.vo.RepositoriesVO"> 
         SELECT repo.idx as
         repo_idx, repo.name as repo_name, repo.createDate as repo_crateDate, repo.public as

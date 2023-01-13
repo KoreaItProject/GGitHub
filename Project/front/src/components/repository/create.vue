@@ -5,8 +5,9 @@
         <p class="create_message">저장소 생성</p>
         <div class="create_message_margin">
           <p class="create_message_sub">
-            하나의 저장소는 메인 저장소와 작업 저장소를 가집니다. -저장소
-            README의 README.md파일은 프로필 오버뷰에 게시됩니다.-
+            하나의 저장소는 메인 저장소와 작업 저장소를 가집니다.<br />
+            저장소 이름을 README로 성정할 경우 해당 README.md파일은 프로필
+            오버뷰에 게시됩니다.
           </p>
         </div>
 
