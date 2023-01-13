@@ -129,7 +129,7 @@
             <p>pull 할 때 현재 작업중인 내역은 소멸됨으로</p>
             <p>push버튼을 눌러 작업저장소 저장후 사용하세요.</p>
           </div>
-          <div style="width:340px"><img src="@/assets/imgs/main/download/5.png" style="position:absolute; transform: translate(0px,-100px)"></img></div>
+          <div style="width:340px"><img src="@/assets/imgs/main/download/5.png" style="position:absolute; transform: translate(20px,-100px)"></img></div>
         </div>
         <div class="flex" style="height:800px;padding:60px">
           <img src="@/assets/imgs/main/download/gif6.gif" class="gifimg">
