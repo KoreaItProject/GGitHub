@@ -261,7 +261,7 @@ export default {
             window.location.href = "/pagenotfound";
           }
           this.repo_idx = response.data; // 저장소 idx 할당
-          
+
           this.pinCheck(); // 고정이 되어있는 저장소라면 고정(pin)버튼을 고정해제로 바꿔주자
 
           this.selectstarcount();
