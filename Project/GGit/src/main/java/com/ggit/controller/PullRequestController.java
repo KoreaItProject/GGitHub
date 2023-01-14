@@ -82,14 +82,6 @@ public class PullRequestController {
         String[] fileName_arr;
         ArrayList<PullreqVo2> file_name_path = new ArrayList<PullreqVo2>();
 
-        // 만약 메인 저장소의 push 갯수가 1개라면 (보류)
-        // int main_mush_count = pullreqService.merge_main_push_count(repo_idx);
-        // if(main_mush_count == 1){
-
-        // }else{
-        // System.out.println("22");
-        // }
-
         // 병합 파일 경로
         String MergePath = storage_dir + "repositorys/" + repo_idx + "/" + pullreqVo.getToken()
                 + "/dump/pushChanged2.txt";
@@ -103,14 +95,14 @@ public class PullRequestController {
         JSONArray mainchanged = null;
 
         try {
-            // 병합 파일의 pushChanged2 가져오기
+            // 병합 파일의 pushChanged2 내용 가져오기
             String con = new ReadData(MergePath).getCon();
             changed = (JSONArray) (new JSONParser()).parse(con);
-            // System.out.println("병합파일 => " + con);
 
-            // 메인 파일의 pushChanged2 가져오기
+            // 메인 파일의 pushChanged1 내용 가져오기
             String maincon = new ReadData(MainMergePath).getCon();
             mainchanged = (JSONArray) (new JSONParser()).parse(maincon);
+
             System.out.println("메인=> " + mainchanged);
             // System.out.println("메인병합파일 => " + mainchanged);
             int marginState = 2;
@@ -138,8 +130,6 @@ public class PullRequestController {
                     }
                 }
                 pullreqVo2.setMarginState(marginState);
-
-                //////////////////////////////////////////////////////////////////////////////////////////////
                 pullreqVo2.setFilePath((String) ((JSONObject) changed.get(i)).get("path"));
 
                 fileName_arr = pullreqVo2.getFilePath().split("/");
@@ -176,28 +166,6 @@ public class PullRequestController {
             e1.printStackTrace();
         }
 
-        /////////////////////////////////////////////////////////////////////////////////
-
-        ArrayList<String> test_line = new ArrayList<String>();
-
-        try {
-            // BufferedReader inFiles = new BufferedReader(new InputStreamReader(new
-            // FileInputStream("src/main/java/com/ggit/config/testfile.txt"),
-            // StandardCharsets.UTF_8));
-            BufferedReader inFiles = new BufferedReader(
-                    new InputStreamReader(new FileInputStream(MergePath), StandardCharsets.UTF_8));
-
-            String line = "";
-            while ((line = inFiles.readLine()) != null) {
-                test_line.add(line);
-            }
-            // .readLine()은 끝에 개행문자를 읽지 않는다.
-            inFiles.close();
-        } catch (FileNotFoundException e) {
-            // TODO: handle exception
-        } catch (IOException e) {
-            System.out.println(e);
-        }
         return file_name_path;
 
     }
