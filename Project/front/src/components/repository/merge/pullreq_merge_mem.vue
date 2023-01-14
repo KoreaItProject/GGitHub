@@ -18,7 +18,7 @@
                     
                     <div class="pullreq_merge_div_left_scroll ">
 
-                        <div class="not_match scrollBar">
+                        <div class="not_match scrollBar" v-show="0<no_merge_count">
                             <div class="pullreq_merge_div_left_data" @click="left_data_click_func(index)" v-for="(data, index) in merge_data" v-if="data.marginState==0" >
                       
                                 <div class="left_data_top">
@@ -37,7 +37,7 @@
                             
                         </div>
                     
-                        <div class="ok_match scrollBar">
+                        <div class="ok_match scrollBar" v-show="0<ok_merge_count">
                             <div class="pullreq_merge_div_left_data" @click="left_data_click_func(index)" v-for="(data, index) in merge_data"  v-if="data.marginState==1" >
                        
                                 <div class="left_data_top">
@@ -53,7 +53,7 @@
                             </div>
                         </div>
                  
-                        <div class="match scrollBar">
+                        <div class="match scrollBar" v-show="0<merge_count">
                             <div class="pullreq_merge_div_left_data" @click="left_data_click_func(index)" v-for="(data, index) in merge_data"  v-if="data.marginState==2">
                         
                               
@@ -203,6 +203,23 @@ export default {
   },
   components: {},
   methods: {
+    countMarge() {
+      //갯수가 있는지 없는지 확인
+      this.no_merge_count = 0;
+      this.ok_merge_count = 0;
+      this.merge_count = 0;
+      for (let i = 0; i < this.merge_data.length; i++) {
+        let marginState = this.merge_data[i].marginState;
+        console.log(this.merge_data[i].marginState);
+        if (marginState == 0) {
+          this.no_merge_count++;
+        } else if (marginState == 1) {
+          this.ok_merge_count++;
+        } else if (marginState == 2) {
+          this.merge_count++;
+        }
+      }
+    },
     getMergeFile() {
       axios
         .post("/api/testcon", {
@@ -216,6 +233,7 @@ export default {
             "pasteHTML",
             this.merge_data[this.left_data_index].sb_vo
           );
+          this.countMarge();
         });
     },
     pullreq_merge_right_top_state_func() {
@@ -266,6 +284,7 @@ export default {
         "pasteHTML",
         this.merge_data[this.left_data_index].sb_vo
       );
+      this.countMarge();
     },
 
     merge() {
