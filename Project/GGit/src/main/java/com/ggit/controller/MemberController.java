@@ -97,7 +97,7 @@ public class MemberController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        
     }
 
     @RequestMapping(value = "/saveImg", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
@@ -196,4 +196,5 @@ public class MemberController {
 
         return followService.followCount(nick);
     }
+    
 }
