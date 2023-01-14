@@ -42,7 +42,7 @@
 
               </div>
             
-              <div class="Add_collaborators_btn_div"><button class="Add_collaborators_btn" @click="[insertrepomem(searchInfoList[n].member_nick),toggleOnOff()]">공동 작업자를 선택하세요</button></div>
+              <div class="Add_collaborators_btn_div"><button class="Add_collaborators_btn" @click="insertrepomem(searchInfoList[n].member_nick)">공동 작업자를 선택하세요</button></div>
             </div>
             
           <div class="general_string">구성원</div>
@@ -153,9 +153,9 @@ export default {
         .then((response) => {
           
           this.selectrepomem();
-
-          // console.log(this.clone);
           alert("구성원 추가 성공");
+          this.toggleOnOff();
+          // console.log(this.clone);
 
         });
     },
