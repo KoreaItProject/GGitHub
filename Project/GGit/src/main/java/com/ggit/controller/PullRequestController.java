@@ -145,17 +145,21 @@ public class PullRequestController {
                 
                 String path = "STORAGE/repositorys/" + repo_idx + "/" + pullreqVo.getToken() + "/data" + (String)((JSONObject) changed.get(i)).get("path");
                 ArrayList<String> data_arrList = new ArrayList<String>();
+                StringBuilder sb = new StringBuilder();
+
                 ArrayList<String> main_Data_arrList = new ArrayList<String>();
     
                 BufferedReader inFiles = new BufferedReader(new InputStreamReader(new FileInputStream(path), StandardCharsets.UTF_8));
     
                 String line = "";
                 while((line = inFiles.readLine()) != null){
-                    data_arrList.add(line);
+                    data_arrList.add(line + "\n");
+                    sb.append(line+"\n");
                     //sb.append(line);
                 }
                 //.readLine()은 끝에 개행문자를 읽지 않는다.  
-                pullreqVo2.setFileData(data_arrList);          
+                pullreqVo2.setFileData(data_arrList);
+                pullreqVo2.setSb_vo(sb);       
                 inFiles.close();
                 
                 file_name_path.add(pullreqVo2);
