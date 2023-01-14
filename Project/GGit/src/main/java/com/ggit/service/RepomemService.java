@@ -32,4 +32,7 @@ public class RepomemService {
     public int deleterepomem(String reponame, String nick) {
         return mapper.deleterepomem(reponame, nick);
     }
+    public List<RepomemVo> updaterepomemauth(String nick, int auth){
+        return mapper.updaterepomemauth(nick,auth);
+    }
 }

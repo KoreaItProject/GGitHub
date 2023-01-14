@@ -28,15 +28,12 @@
                   </div>  
               </div>
               <div class="collaborators_select_member" v-if="n!=-1">
-                  <div style="width: 40px; height: 40px; padding: 1px 0px"><img :src="profileImg[n]" style="width:32px; height:32px;"></div>
                   <div style="width: 500px; height:40px; text-align:left; padding-left:5px;">{{searchInfoList[n].member_nick}}</div>
                   <a @click="n=-1"><font-awesome-icon icon="fa-solid fa-xmark"  style="float:right; padding: 5px 0px;"/></a>
               </div>
               <div class="collaborators_search_info" v-if="searchInfo && n==-1">
-                <div v-for="(list,idx) in searchInfoList" @click="n=idx">
-                      <div class="collaborators_search_info_img">
-                        <img :src="profileImg[idx]" style="width:32px; height:32px;">
-                      </div>
+                <div v-for="(list,idx) in searchInfoList" @click="n=idx" style="border-bottom:1px solid #d0d7de">
+                      
                       <div class="collaborators_search_info_nick">
                         {{list.member_nick}}
                       </div> 
@@ -50,7 +47,7 @@
             
           <div class="general_string">구성원</div>
 
-          <div class="collaborators_invite">
+          <div class="collaborators_invite" v-if="collaborators_box==1">
             
               <div class="invite_string">
                   구성원 초대
@@ -71,7 +68,7 @@
           </div>
 
           
-              <div class="collaborators_list_body" >
+              <div class="collaborators_list_body" v-if="collaborators_box==0">
                     <div class="manage_string">
                       구성원 관리
                     </div>
@@ -85,17 +82,23 @@
                     <div class="collaborators_list_box_body" v-for="name,idx in repo_mem">
                       <!-- <div class="collaborators_list_box_checkbox"><input type="checkbox" class="collabo_body_chekbox"></input></div>checkbox -->
 
-                      <div class="collaborators_list_box_img">
-                        <img :src=profileImg2[idx]
-                          style="width:32px; height:32px;"
-                          class="collabo_member_img"/>
-                      </div><!--img-->
+                     <!--img-->
 
                       <div class="collaborators_list_box_userinfo"><!--userinfo-->
                         <div class="collaborators_list_box_user_href"><a href="#" style="color:#0969DA; font-size: 14px; padding-top:0px"><strong>{{name.member_nick}}</strong></a></div><!--user_href-->
                         <div class="collaborators_list_box_usernick"> {{name.member_nick}} • collaborator</div><!--usernick-->
                       </div>
-
+                      <div class="collaborators_list_box_select_btn">
+                       
+                          <select id="auth" class="select_box" style="border:none;" @change="selectboxchange($event)">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                          </select>
+                        <a @click="updateauth(name.member_nick)"><button class="collaborator_select_btn">권한 변경</button></a>
+                      </div>
                       <div class="collaborators_list_box_removebtn"><button class="collaborator_remove_btn" @click="deleterepomem(name.member_nick)">삭제</button></div><!--remove_btn-->
 
                     </div><!-- list_box_body-->
@@ -114,8 +117,7 @@
 export default {
   data() {
     return {
-      collaborators_list_body: "display:none;",
-      collaborators_invite:"display:none;",
+      collaborators_box:3,
       repo_name: this.$route.params.repository,
       repo_mem: [],
       test1: false,
@@ -128,6 +130,7 @@ export default {
       profileImg2:[],
       i:0,
       k:0,
+      select:-1,
 
 
     };
@@ -138,60 +141,77 @@ export default {
     
   },
   methods: {
-    
-    getContriImg() {
+    selectboxchange(event){
+      this.select=event.target.value;
+      
+    },
+    updateauth(nick){
       axios
-        .get("/api/getProfileImg", {
-          responseType: "blob",
+        .get("/api/updaterepomemauth", {
           params: {
-            img: this.searchInfoList[this.i].member_img,
+            nick: nick,
+            auth: this.select
           },
         })
         .then((response) => {
-          // handle success
+          
 
-          this.profileImg.push(
-            window.URL.createObjectURL(new Blob([response.data]))
-          );
-          this.i++;
-          if (this.i < this.searchInfoList.length) {
-            this.getContriImg();
-          
-          }
-          
+          // console.log(this.clone);
+          alert(nick+"님의 권한이"+auth+"로 변경되었습니다.");
         });
-    },
-    getContriImg2() {
-      axios
-        .get("/api/getProfileImg", {
-          responseType: "blob",
-          params: {
-            img: this.repo_mem[this.k].member_img,
-          },
-        })
-        .then((response) => {
-          // handle success
+    } , 
+    // getContriImg() {
+    //   axios
+    //     .get("/api/getProfileImg", {
+    //       responseType: "blob",
+    //       params: {
+    //         img: this.searchInfoList[this.i].member_img,
+    //       },
+    //     })
+    //     .then((response) => {
+    //       // handle success
+
+    //       this.profileImg.push(
+    //         window.URL.createObjectURL(new Blob([response.data]))
+    //       );
+    //       this.i++;
+    //       if (this.i < this.searchInfoList.length) {
+    //         this.getContriImg();
           
-          this.profileImg2.push(
-            window.URL.createObjectURL(new Blob([response.data]))
-          );
-          this.k++;
-          if (this.k < this.repo_mem.length) {
-            this.getContriImg2();
-          }
+    //       }
           
-        });
-    },
+    //     });
+    // },
+    // getContriImg2() {
+    //   axios
+    //     .get("/api/getProfileImg", {
+    //       responseType: "blob",
+    //       params: {
+    //         img: this.repo_mem[this.k].member_img,
+    //       },
+    //     })
+    //     .then((response) => {
+    //       // handle success
+          
+    //       this.profileImg2.push(
+    //         window.URL.createObjectURL(new Blob([response.data]))
+    //       );
+    //       this.k++;
+    //       if (this.k < this.repo_mem.length) {
+    //         this.getContriImg2();
+    //       }
+          
+    //     });
+    // },
     toggleOnOff: function () {
       this.isStatusOn = !this.isStatusOn;
     },
     test() {
       if (this.repo_mem.length == 0) {
-        this.collaborators_list_body = "display:none;";
-        this.collaborators_invite = "display:inline;";
+        this.collaborators_box = 0;
+        
       } else {
-        this.collaborators_list_body = "display:inline;";
-        this.collaborators_invite = "display:none;";
+        this.collaborators_box = 1;
       }
     },
     selectrepomem() {
@@ -217,7 +237,7 @@ export default {
           },
         })
         .then((response) => {
-          this.profileImg2.splice(0);
+          
           this.selectrepomem();
 
           // console.log(this.clone);
@@ -243,8 +263,8 @@ export default {
             // console.log(this.searchInfoList);
             // console.log(this.profileImg)
             
-            this.profileImg.splice(0);
-            this.getContriImg();
+            // this.profileImg.splice(0);
+            // this.getContriImg();
           });
           
     },

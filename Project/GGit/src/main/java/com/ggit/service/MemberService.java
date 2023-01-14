@@ -91,4 +91,5 @@ public class MemberService {
     public List<RepositoriesVO> searchMembernick(String search){
         return mapper.searchMembernick(search);
     }
+    
 }

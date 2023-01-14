@@ -23,7 +23,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ggit.service.FollowService;
 import com.ggit.service.MemberService;
+import com.ggit.service.RepomemService;
 import com.ggit.vo.MemberVo;
+import com.ggit.vo.RepomemVo;
 import com.ggit.vo.RepositoriesVO;
 
 @RestController
@@ -32,6 +34,8 @@ public class MemberController {
     MemberService memberService;
     @Autowired
     FollowService followService;
+    @Autowired
+    RepomemService repomemService;
 
     @Value("${storage_dir}")
     String storage_dir;
@@ -195,6 +199,12 @@ public class MemberController {
     public RepositoriesVO followCount(String nick) {
 
         return followService.followCount(nick);
+    }
+    @RequestMapping("updaterepomemauth")
+    public List<RepomemVo> updaterepomemauth(String nick, int auth){
+        System.out.println(nick);
+        System.out.println(auth);
+        return repomemService.updaterepomemauth(nick,auth);
     }
     
 }

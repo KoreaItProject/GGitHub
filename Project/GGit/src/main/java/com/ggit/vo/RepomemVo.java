@@ -15,6 +15,8 @@ public class RepomemVo {
 
     private String member_nick;
     private String member_img;
+
+    private int auth;
     
 
 
