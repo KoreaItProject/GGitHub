@@ -27,4 +27,9 @@ public class PullreqVo {
 
     private int repo_idx;
 
+    private String nick;
+
+    private String nowToken; // 현재 저장소의 최신 토큰 비교병합이 필요한지 여부 파악을 위해
+
+    private String mainToken;
 }

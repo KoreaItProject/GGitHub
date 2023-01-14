@@ -87,7 +87,7 @@ public class RepositoryController {
             String description = (String) jsonObject.get("description");
             int pub = Integer.parseInt(jsonObject.get("pub") + "");
             int owner = Integer.parseInt(jsonObject.get("owner") + "");
-            
+
             repoVo.setName(repoName);
             repoVo.setDescription(description);
             repoVo.setPubl(pub);
@@ -232,7 +232,7 @@ public class RepositoryController {
         return repositories;
     }
 
-    @RequestMapping("/repoIdxByNickName")
+    @RequestMapping("/repoIdxByNickName") // 레포 인덱스 찾기
     public int repoIdxByNickName(String nick, String reponame) {
         int repoIdxByNickName;
         try {
@@ -240,6 +240,7 @@ public class RepositoryController {
             map.put("nick", nick);
             map.put("reponame", reponame);
             repoIdxByNickName = repoService.repoIdxByNickName(map);
+            System.out.println(repoIdxByNickName);
 
         } catch (Exception e) {
             return 0;
