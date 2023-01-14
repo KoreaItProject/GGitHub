@@ -16,6 +16,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,7 +28,7 @@ import com.ggit.vo.RepoVo;
 
 @RestController
 public class PullRequestController {
-    
+
     @Autowired
     RepoVo repoVo;
 
@@ -39,19 +40,20 @@ public class PullRequestController {
 
     // @Autowired
     // PullreqVo2 pullreqVo2;
-
+    @Value("${storage_dir}")
+    String storage_dir;
 
     @RequestMapping("merge_request")
-    public int merge_request(@RequestBody PullreqVo pullreqVo){
-        // 저장소 idx와 user idx를 가지고 
+    public int merge_request(@RequestBody PullreqVo pullreqVo) {
+        // 저장소 idx와 user idx를 가지고
         // 저장소에 속한 멤버이면 : 저장소 멤버 병합 요청 후 ~병합
         // 저장소에 속하지 않은 멤버이면 : 병합 요청만 ~되고 저장소 주인 또는 권한이 있는 멤버가 병합 가능
 
         // 저장소에 속해 있는지 확인
-        //System.out.println("==>" + pullreqService.repoInMem(repoVo));
-        if(pullreqService.repoInMem(pullreqVo) == null){ // 저장소 멤버가 아닐때
+        // System.out.println("==>" + pullreqService.repoInMem(repoVo));
+        if (pullreqService.repoInMem(pullreqVo) == null) { // 저장소 멤버가 아닐때
             return pullreqService.pullrequest(pullreqVo);
-        }else{ // 저장소 멤버일때
+        } else { // 저장소 멤버일때
             return pullreqService.pullrequest(pullreqVo);
         }
     }
@@ -69,29 +71,30 @@ public class PullRequestController {
     }
 
     @RequestMapping("testcon")
-    public ArrayList<PullreqVo2> testcon(@RequestBody PullreqVo pullreqVo){
-        
-        //System.out.println("==> " + pullreqVo.getToken()); // 서버에 저장되있는 Data 가져오기
-        //System.out.println("=======> " + pullreqVo.getRepo_idx()); // idx의 최신 main파일토큰 가져오기
+    public ArrayList<PullreqVo2> testcon(@RequestBody PullreqVo pullreqVo) {
 
+        // System.out.println("==> " + pullreqVo.getToken()); // 서버에 저장되있는 Data 가져오기
+        // System.out.println("=======> " + pullreqVo.getRepo_idx()); // idx의 최신
+        // main파일토큰 가져오기
 
         /////////////////////////////////////////////////////////////////////////////////////
-        int repo_idx = pullreqVo.getRepo_idx(); 
+        int repo_idx = pullreqVo.getRepo_idx();
         String[] fileName_arr;
         ArrayList<PullreqVo2> file_name_path = new ArrayList<PullreqVo2>();
 
+
         // 병합 파일 경로
-        String MergePath = "STORAGE/repositorys/" + repo_idx + "/" + pullreqVo.getToken() + "/dump/pushChanged2.txt";
+        String MergePath = storage_dir + "repositorys/" + repo_idx + "/" + pullreqVo.getToken()
+                + "/dump/pushChanged2.txt";
 
         // 메인 파일 경로
         String LastMainToken = pullreqService.getLastMainToken(pullreqVo.getRepo_idx()); // idx의 최신 main파일토큰 가져오기
-        String MainMergePath = "STORAGE/repositorys/" + repo_idx + "/" + LastMainToken + "/dump/pushChanged1.txt";
+        String MainMergePath = storage_dir + "repositorys/" + repo_idx + "/" + LastMainToken + "/dump/pushChanged1.txt";
         System.out.println("adasd => " + LastMainToken);
 
         JSONArray changed = null;
         JSONArray mainchanged = null;
-        
-       
+
         try {
             // 병합 파일의 pushChanged2 내용 가져오기
             String con = new ReadData(MergePath).getCon();
@@ -101,7 +104,6 @@ public class PullRequestController {
             // 메인 파일의 pushChanged1 내용 가져오기
             String maincon = new ReadData(MainMergePath).getCon();
             mainchanged = (JSONArray) (new JSONParser()).parse(maincon);
-            
             
             int state = 2;
             for(int i=0; i<changed.size(); i++){
@@ -174,27 +176,25 @@ public class PullRequestController {
 
                     }else{
                         
+
                     }
 
                    
 
-                }
-                
-
-                
+                }        
    
             } // for문
 
            
             
+
         } catch (Exception e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }
-        
-       
+
         return file_name_path;
-        
+
     }
-    
+
 }
