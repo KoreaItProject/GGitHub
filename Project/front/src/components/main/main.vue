@@ -1,14 +1,6 @@
 <template>
   <div class="main_container">
-    <div
-      class="main_img_div"
-      style="
-        background: url('./static/imgs/main/bg.jpg');
-        background-repeat: no-repeat, round;
-        background-size: cover;
-        background-position: center;
-      "
-    >
+    <div class="main_img_div">
       <div class="main_img_div_left">
         <h1 id="title">How people build software</h1>
         <h4 id="sub">
@@ -119,7 +111,6 @@ export default {
       email: "",
       pw: "",
       check_display: "display:none;",
-      smgHtmlPath: "https://www.naver.com/",
     };
   },
   mounted() {},
