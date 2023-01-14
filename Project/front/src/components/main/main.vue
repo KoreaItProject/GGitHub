@@ -100,23 +100,12 @@
         </div>
       </div>
     </div>
-    <div class="main_down_div">
-      <h1>main_down_div</h1>
-      <div class="main_down_div1">
-
-        
-
-
-
-
-      </div>
-    </div>
+    <div><img class="img2" src="@/assets/imgs/main/bg2.png" /></div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-
 
 export default {
   data() {
@@ -130,14 +119,11 @@ export default {
       email: "",
       pw: "",
       check_display: "display:none;",
+      smgHtmlPath: "https://www.naver.com/",
     };
   },
-  mounted() {
-  
-  },
+  mounted() {},
   methods: {
-   
-
     async signup() {
       if (this.nick == "" || this.email == "" || this.pw == "") {
         alert("빈 곳을 채워주세요");
@@ -232,9 +218,6 @@ export default {
     },
   },
 };
-
-
-
 </script>
 
 
