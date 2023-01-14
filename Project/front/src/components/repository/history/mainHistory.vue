@@ -8,8 +8,8 @@
                   <div class="repo_history_div">
                     <div class="repo_history_con"  @click="clickDiv(index,data.repo_idx,data.marged,data.push_token)">
                       <div class="history_message blue_point" v-if ="data.marged==0"><font-awesome-icon icon="fa-check " v-if="data.selected==1"/>{{data.push_message}}</div>
-                      <div class="history_nick blue_point" v-if ="data.marged==1" ><i class="fa-solid fa-arrows-turn-to-dots"></i></div>
-                      <div class="history_nick blue_point" v-if ="data.marged==2" ><i class="fa fa-bolt"></i></div>
+                      <div class="history_nick green_point" v-if ="data.marged==1" ><i class="fa-solid fa-arrows-turn-to-dots"></i></div>
+                      <div class="history_nick orange_point" v-if ="data.marged==2" ><i class="fa fa-bolt"></i></div>
                       <div class="history_nick">{{data.member_nick}}</div>
                       <div class="history_date"><font-awesome-icon icon="fa-solid fa-arrows-rotate" /> <time-ago local="en" :datetime="data.push_date" refresh tooltip long/></div>
                       <div class="history_token"><font-awesome-icon icon="fa-regular fa-file-code" /> {{data.push_token}}</div>

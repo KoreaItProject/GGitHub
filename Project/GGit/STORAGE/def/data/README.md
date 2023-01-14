@@ -1,128 +1,466 @@
-# Awesome README [![Awesome](https://cdn.jsdelivr.net/gh/sindresorhus/awesome@d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome#readme)
+# [공통] 마크다운 markdown 작성법
 
-> A curated list of awesome READMEs
+> 영어지만, 조금 더 상세하게 마크다운 사용법을 안내하고 있는
+> "Markdown Guide (https://www.markdownguide.org/)" 를 보시는 것을 추천합니다. ^^
 
-Elements in beautiful READMEs include, but are not limited to: images, screenshots, GIFs, text formatting, etc.
+> 아, 그리고 마크다운만으로 표현이 부족하다고 느끼신다면, HTML 태그를 활용하시는 것도 좋습니다.
 
-## Examples
+# 1. 마크다운에 관하여
 
-- [ai/size-limit](https://github.com/ai/size-limit#readme) - Project logo, clear description, screenshot, step-by-step installing instructions.
-- [aimeos/aimeos-typo3](https://github.com/aimeos/aimeos-typo3#readme) - Project logo. Clear description of what the project does. Demo screenshot. TOC for easy navigation. Easy installation and setup sections with screenshots. Links for further reading.
-- [ajeetdsouza/zoxide](https://github.com/ajeetdsouza/zoxide#readme) - Badges, project GIF, concise description, quick links, stepwise installation instructions.
-- [alichtman/shallow-backup](https://github.com/alichtman/shallow-backup#readme) - Clear description of what the project does. GIF Demo. TOC for easy navigation. Badges. Links for further reading. Simple install instructions.
-- [alichtman/stronghold](https://github.com/alichtman/stronghold#readme) - Project logo. Clear description of what the project does. GIF Demo. TOC for easy navigation. Badges. Links for further reading. Simple install instructions.
-- [amitmerchant1990/electron-markdownify](https://github.com/amitmerchant1990/electron-markdownify#readme) - Project logo. Minimalist description of what it is. GIF demo of the project. Key features. How to install guide. Credits.
-- [amplication/amplication](https://github.com/amplication/amplication#readme) - Clear project logo. Brief explanation. All features explained. Clean documentation. Useful links (website, docs, discord). List of contributors with their pictures and usernames.
-- [anfederico/Clairvoyant](https://github.com/anfederico/Clairvoyant#readme) - Multiple badges. Clean logo. Simple install instructions. Clear overview of the project accompanied by a schematic. GIF demo. Extensive code examples.
-- [ankitwasankar/mftool-java](https://github.com/ankitwasankar/mftool-java#readme) - Project logo with a short display of what can be achieved with it, TOC for easy navigation, important badges, clean installation guide, and multiple code snippets showing how to use the functionality.
-- [aregtech/areg-sdk](https://github.com/aregtech/areg-sdk#readme) - Description of the project and use cases with explanation graphics. Build with multiple tools and integration instructions, reference to the guidance to create the first project. Examples. Project logo. Multiple badges. Headlines with graphics. TOC for easy navigation.
-- [Armync/Arminc-AutoExec](https://github.com/ArmynC/ArminC-AutoExec/#readme) - Rich Markdown functions, modern layout, clear description and compliant with the recommended community standards.
-- [athityakumar/colorls](https://github.com/athityakumar/colorls#readme) - Multiple badges. Clean screenshots. Simple install instructions. TOC for easy navigation. Good contributor guidelines.
-- [ccostan/Home-AssistantConfig](https://github.com/CCOSTAN/Home-AssistantConfig#readme) - Project Banner. Badges. Easy navigation.
-- [choojs/choo](https://github.com/choojs/choo#readme) - Badges, clean, clear. Beautiful little menu above the fold with useful links. An FAQ inside of it for the main questions. Backers. Good language.
-- [chroline/well_app](https://github.com/chroline/well_app#readme) - Features attention-grabbing project thumbnail with clean badges, as well as download information and quick navigation links. Organized into multiple descriptive sections, each of which have a title with a yellow emoji. Includes details about the project itself, as well as the technologies used and how to contribute.
-- [create-go-app/cli](https://github.com/create-go-app/cli#readme) - Clean project logo. Useful badges (version, code style, test cover, docs). Clear readme with quickstart, understandable installation and usage manual, video screencast, ToC with well-documented project features (with a demo recording of the work in the terminal), project philosophy notes ("the why another"), most frequently asked questions, and more.
-- [Day8/re-frame](https://github.com/Day8/re-frame#readme) - Badges, logo, TOC, etc. Stands out by being a giant, well-written essay about the tech, how to use it, the philosophy behind it, and how it fits into the greater ecosystem.
-- [dowjones/react-dropdown-tree-select](https://github.com/dowjones/react-dropdown-tree-select#readme) - Clear readme with GIF screenshot for quick demo. Multiple badges, concise ToC, online playground, storybook, detailed description and more.
-- [easybase/easybase-react](https://github.com/easybase/easybase-react#readme) - Project banner and logo. Badges. Expandable walkthrough sections. Concise description and purpose. TOC for easy navigation. GIFs for installation demo. Multiple informative visuals.
-- [emalderson/thephish](https://github.com/emalderson/ThePhish#readme) - Project logo, informative badges, useful TOC, clear description, screenshots, step-by-step installation and configuration guide, contributor guidelines, code of conduct, UML diagrams, coherent tags, issue and pull request templates, well-documented and well-commented code, examples.
-- [github-changelog-generator/github-changelog-generator](https://github.com/github-changelog-generator/github-changelog-generator#readme) - TOC for easy navigation. Concise project description. Installation and usage sections. Output example. Great feature overview. List of alternatives. FAQ.
-- [gitpoint/git-point](https://github.com/gitpoint/git-point#readme) - Clear description. Project Logo. App Store logos. TOC. Clean screenshots. List of features. Detailed installation process. Landing Page.
-- [gofiber/fiber](https://github.com/gofiber/fiber#readme) - Clean project logo. Useful badges and links (languages switcher, code style, test cover, docs, Discord channel). Clear description of what the project does with quickstart, benchmark charts, well-documented code examples (with the ability to hide long content), project philosophy notes ("the why of project"), tables with project addons, list of contributors, star growth statistics, and more.
-- [Hexworks/Zircon](https://github.com/Hexworks/zircon#readme) - Dogfood in readme. Clear description of what the project does. Demo screenshot. TOC for easy navigation. Easy installation and setup sections with screenshots. Links for further reading.
-- [httpie/httpie](https://github.com/httpie/httpie#readme) - Description of what the project does. Demo screenshots. Project logo. TOC for easy navigation. Build badges. Quick and simple installation and usage sections. Includes an examples section.
-- [iharsh234/WebApp](https://github.com/iharsh234/WebApp#readme) - Project landing page. Clear description of what the project does. Demo screenshot. Simple install and usage sections. Includes an examples section with common uses and a mobile demo section.
-- [iterative/dvc](https://github.com/iterative/dvc#readme) - ReStructuredText format example, PyPi compatible. Logo, custom website-like menu. Smooth how-it-works animation. Badges. Nice contribution section with the hall-of-fame.
-- [karan/joe](https://github.com/karan/joe#readme) - Project logo. Clear description of what the project does. GIF demo. Easy install and usage sections.
-- [kopach/karma-sabarivka-reporter](https://github.com/kopach/karma-sabarivka-reporter#readme) - Project logo. Useful badges, clear readme with screenshots for quick demo. Concise ToC.
-- [L0garithmic/FastColabCopy](https://github.com/L0garithmic/FastColabCopy#readme) - Project logo. Minimalist description. Badges. GIF demo. About The Project. How To Use. Examples. Credits. Additional Examples.
-- [ma-shamshiri/Human-Activity-Recognition](https://github.com/ma-shamshiri/Human-Activity-Recognition#readme) - Beautiful table of contents. Project logo. Animated project banner. Complete project folder structure. Clear description of what the project does. Nice contributors’ section. Easy navigation.
-- [ma-shamshiri/Pacman-Game](https://github.com/ma-shamshiri/Pacman-Game#readme) - Beautiful table of contents. Project logo. Animated project banner. Suitable GIFs to display each part of the project. Complete list of project files in the repo along with their function. Complete execution instruction.
-- [ma-shamshiri/Spam-Detector](https://github.com/ma-shamshiri/Spam-Detector#readme) - Complete project file description. Project logo. Animated project banner. Concise project description. Clear execution instruction.
-- [MananTank/radioactive-state](https://github.com/MananTank/radioactive-state#readme) - Badges (version, downloads, coverage, size), Twitter Intent, Project Logo, Feature list, Motivation, Installation, Example with GIFs, Emojis, Collapsible Sections, Live Demos, API detailed usage, FAQs, Chat link.
-- [Martinsos/edlib](https://github.com/Martinsos/edlib#readme) - Informative badges (build, version, publication). Concise description. Feature list. TOC. Screenshots. Concise instructions with examples for building and including in your project. Common code examples to get you started quickly.
-- [NASA/ogma](https://github.com/NASA/ogma#readme) - Clear description. Feature list. Demo GIFs. Simple install instructions. Usage code samples. TOC for easy navigation.
-- [ngcolombia/medellin](https://github.com/ngcolombia/medellin#readme) - Project banner. Badges for stats. Well placed emoticons. Contributor's photos.
-- [nhn/tui.editor](https://github.com/nhn/tui.editor#readme) - Project logo. Clear overview of project features with a demo GIF. Badges. TOC for easy navigation. Colorful icons in front of titles.
-- [node-chat](https://github.com/IgorAntun/node-chat#readme) - Project screenshot. Informative badges. Clear description. Easy installation/use instructions. Live demo.
-- [NSRare/NSGIF](https://github.com/NSRare/NSGIF#readme) - Project logo. GIF Demo. Usage artwork. Usage code samples.
-- [OliverOverend/gym-simplifiedtetris](https://github.com/OliverOverend/gym-simplifiedtetris#readme) - GIF demo. Short description of the project. Badges. TOC. Installation and usage instructions, with copy-pastable comments and dependencies. Contributing file. Overview of the environments and agents provided.
-- [php-censor/php-censor](https://github.com/php-censor/php-censor#readme) - Multiple badges, project logo, screenshots, step-by-step installing and upgrading instructions, TOC for easy navigation.
-- [PostHog/posthog](https://github.com/PostHog/posthog#readme) - Custom-made section icons, demo GIF, deploy button, profile images for contributors, concise, clear structure, project logo.
-- [priyavrat-misra/xrays-and-gradcam](https://github.com/priyavrat-misra/xrays-and-gradcam#readme) - TOC for easy navigation. Clear introduction of what the project does. Complete list of all files in the repo and what their function is. Usage section. Clean and concise tables.
-- [React on lambda](https://github.com/sultan99/react-on-lambda#readme) - Project logo, comics to present the main idea, badges, examples with code snippets, demo projects, api documentations, editor configurations.
-- [React Parallax Tilt](https://github.com/mkosir/react-parallax-tilt#readme) - GIF demo. Multiple badges. Feature list. Great live demo with code examples. Easy to follow instructions for local development set up.
-- [Rebilly/redoc](https://github.com/Redocly/redoc#readme) - Multiple badges, project logo, live demo link, GIF-animations of the key features, TL;DR usage.
-- [release-it/release-it](https://github.com/release-it/release-it#readme) - Clear overview of project features with a demo GIF. Badges. Expandable TOC. Usage description and examples. Contribution guidelines. Detailed releases.
-- [rstacruz/hicat](https://github.com/rstacruz/hicat#readme) - GIF demo. Easy installation and setup sections with screenshots. Build badges. Great examples of use cases.
-- [ryanoasis/nerd-fonts](https://github.com/ryanoasis/nerd-fonts#readme) - Clean project logo. Brief description at top. Sankey diagram, quick links, badges, OS specific icons, TOC, detailed release changelog.
-- [sebyddd/SDVersion](https://github.com/sebyddd/SDVersion#readme) - Project logo. Build badges. Documentation structuring for multiple programming languages. Usage examples.
-- [shama/gaze](https://github.com/shama/gaze#readme) - Project logo. Concise description. Feature list. Usage section. FAQ. Great API documentation. Release history.
-- [sidneycadot/oeis](https://github.com/sidneycadot/oeis#readme) - Overview. List of required dependencies. Complete list of all files in the repo and what their function is. Visual graph of how it all ties together.
-- [sindresorhus/pageres](https://github.com/sindresorhus/pageres#readme) - Project logo. Clear description of what the project does. Build badges. Demo screenshot. Simple install and usage sections. Includes an examples section with common uses.
-- [sourcerer-io/sourcerer-app](https://github.com/sourcerer-io/sourcerer-app#readme) - Clean animated screenshot. Customized call to action badge. Usage showcase.
-- [sr6033/lterm](https://github.com/sr6033/lterm#readme) - Clean logo using characters. Brief updates on development. Detailed contribution guidelines. Contribution suggestions.
-- [Stack-in-a-box/triumphmayflowerclub.com](https://github.com/Stack-in-a-box/triumphmayflowerclub.com#readme) - Stands-out because, while only a simple website, it is presented as a very open project for lesser-experienced developers to cut their teeth on, with a friendly, inclusive tone and accessible set-up instructions. Includes many common elements found in other beautiful READMEs.
-- [sulu/sulu](https://github.com/sulu/sulu#readme) - Project logo, useful badges, clear instructions on where to find more information and report bugs, GIF screenshots, nice use of emoticons.
-- [supunlakmal/thismypc](https://github.com/supunlakmal/thismypc#readme) - Project logo. Useful badges. Web site URL. Screenshot. GIF step-by-step instructions for installation. Project folder structure.
-- [teles/array-mixer](https://github.com/teles/array-mixer#readme) - Clean project logo, badges. Table of contents. Contributing section. Many illustrated examples.
-- [thelounge/thelounge](https://github.com/thelounge/thelounge#readme) - Project logo. Useful badges and links (website, docs, demo). Screenshot. Feature list. Step-by-step instructions for installation, development, and testing. Link to the contributing guide. Good mobile summary.
-- [vhesener/Closures](https://github.com/vhesener/Closures#readme) - Project logo, cognitive funnel, animated examples. Color coordinated. Clean documentation.
-- [xnbox/DeepfakeHTTP](https://github.com/xnbox/DeepfakeHTTP#readme) - Original hero section. Clear navigation. Minimalist design. Appendices.
-- [zenml-io/zenml](https://github.com/zenml-io/zenml#readme) - Clean project logo. Useful TOC. Clear code examples amongst feature list. Quickstart example.
+## 1.1. 마크다운이란?
 
-## Articles
+[**Markdown**](https://www.markdownguide.org/getting-started/)은 텍스트 기반의 마크업언어로 2004년 존그루버에 의해 만들어졌으며 쉽게 쓰고 읽을 수 있으며 HTML로 변환이 가능하다. 특수기호와 문자를 이용한 매우 간단한 구조의 문법을 사용하여 웹에서도 보다 빠르게 컨텐츠를 작성하고 보다 직관적으로 인식할 수 있다.
+마크다운이 최근 각광받기 시작한 이유는 깃헙([https://github.com](https://github.com)) 덕분이다. 깃헙의 저장소Repository에 관한 정보를 기록하는 README.md는 깃헙을 사용하는 사람이라면 누구나 가장 먼저 접하게 되는 마크다운 문서였다. 마크다운을 통해서 설치방법, 소스코드 설명, 이슈 등을 간단하게 기록하고 가독성을 높일 수 있다는 강점이 부각되면서 점점 여러 곳으로 퍼져가게 된다.
 
-- ["Art of Readme - Learn the art of writing quality READMEs."](https://github.com/hackergrrl/art-of-readme#readme) - _Stephen Whitmore_
-- ["Elegant READMEs"](https://www.yegor256.com/2019/04/23/elegant-readme.html) - _Yegor Bugayenko_
-- ["How To Write A Great README"](https://thoughtbot.com/blog/how-to-write-a-great-readme) - _Caleb Thompson (thoughtbot)_
-- ["Readme Driven Development"](https://tom.preston-werner.com/2010/08/23/readme-driven-development.html) - _Tom Preston-Werner_
-- ["Top ten reasons why I won’t use your open source project"](https://changelog.com/posts/top-ten-reasons-why-i-wont-use-your-open-source-project) - _Adam Stacoviak_
-- ["What I learned from an old GitHub project that won 3,000 Stars in a Week"](https://www.freecodecamp.org/news/what-i-learned-from-an-old-github-project-that-won-3-000-stars-in-a-week-628349a5ee14/) - _KyuWoo Choi_
+## 1.2. 마크다운의 장-단점
 
-## Tools
+### 1.2.1. 장점
 
-- [Amazing GitHub Template](https://github.com/dec0dOS/amazing-github-template#readme) - Useful README.md, LICENSE, CONTRIBUTING.md, CODE_OF_CONDUCT.md, SECURITY.md, GitHub Issues, Pull Requests and Actions templates to jumpstart your projects.
-- [Common Readme](https://github.com/hackergrrl/common-readme#readme) - A common readme style for Node. Includes a guide and a readme generator.
-- [Feedmereadmes](https://github.com/lappleapple/feedmereadmes#readme) - README editing and project analysis/feedback.
-- [GitHub Readme Stats](https://github.com/anuraghazra/github-readme-stats#readme) - Dynamically generated customizable GitHub cards for README. Stats, extra pins, top languages and WakaTime.
-- [Hall-of-fame](https://github.com/sourcerer-io/hall-of-fame#readme) - Helps show recognition to repo contributors on README. Features new/trending/top contributors. Updates every hour.
-- [Make a README](https://www.makeareadme.com/) - A guide to writing READMEs. Includes an editable template with live Markdown rendering.
-- [README best practices](https://github.com/jehna/readme-best-practices#readme) - A place to copy-paste your README.md from
-- [readme-md-generator](https://github.com/kefranabg/readme-md-generator#readme) - A CLI that generates beautiful README.md files
-- [Readme.so](https://readme.so/) - A simple editor that allows you to quickly add and customize all the sections you need for your project's readme.
-- [READMINE](https://github.com/mhucka/readmine) - A thorough, clear and self-describing README file template for software projects; copy it and edit it as needed.
-- [StackEdit](https://stackedit.io/) - A user-friendly online editor that allows you to quickly customize all the sections you need for your project's readme.
-- [Standard Readme](https://github.com/RichardLitt/standard-readme#readme) - A standard README style specification. Has a generator to help create spec-compliant READMEs, too.
-- [user-statistician](https://github.com/cicirello/user-statistician) - A GitHub Action that generates SVG of detailed GitHub user activity for profile readmes.
-- [Zalando's README Template](https://github.com/zalando/zalando-howto-open-source/blob/master/READMEtemplate.md#readme) - Simple template to help you cover all the basics.
+    1. 간결하다.
+    2. 별도의 도구없이 작성가능하다.
+    3. 다양한 형태로 변환이 가능하다.
+    4. 텍스트(Text)로 저장되기 때문에 용량이 적어 보관이 용이하다.
+    5. 텍스트파일이기 때문에 버전관리시스템을 이용하여 변경이력을 관리할 수 있다.
+    6. 지원하는 프로그램과 플랫폼이 다양하다.
 
-## Creating GIFs
+### 1.2.2. 단점
 
-Embedding an animated gif in your README quickly demonstrates what your project does and catches the reader's eye. Here are a few programs that can help you quickly create gifs for your project:
+    1. 표준이 없다.
+    2. 표준이 없기 때문에 도구에 따라서 변환방식이나 생성물이 다르다.
+    3. 모든 HTML 마크업을 대신하지 못한다.
 
-- [Gifox](https://gifox.app) - **$14.99** - Clean UI, hotkeys, lots of advanced features.
-- [Gifski](https://github.com/sindresorhus/Gifski#readme) - **FREE** - More vivid colors than the rest, but still keep size low.
-- [Giphy Capture](https://giphy.com/apps/giphycapture) - **FREE** - Easy to upload to giphy.com, slightly annoying UX.
-- [LICEcap](https://www.cockos.com/licecap/) - **FREE** - Less intuitive, more features.
-- [Peek](https://github.com/phw/peek#readme) - **FREE** - Simple and easy to use for Linux users.
-- [Recordit](https://recordit.co/) - **FREE** - Simple, clean UI, but auto-uploads to Recordit.
-- [ScreenToGif](https://github.com/NickeManarin/ScreenToGif/) - **FREE** - Open source, customizable UI and easily editable GIFs, easy to get started.
-- [terminalizer](https://github.com/faressoft/terminalizer) - **FREE** - Record your terminal and generate animated gif images or share a web player.
-- [ttystudio](https://github.com/chjj/ttystudio#readme) - **FREE** - For commandline tools, a terminal-to-gif recorder minus the headaches.
+---
 
-## Get Feedback
+# 2. 마크다운 사용법(문법)
 
-- [feedmereadmes](https://github.com/LappleApple/feedmereadmes#readme) - Free README editing+feedback to make your open-source projects grow. See the README maturity model to help you keep going.
-- [maintainer.io](https://maintainer.io/) - Free README standardization and feedback, if you click on 'Book an audit'.
+## 2.1. 헤더Headers
 
-## Contribute
+- 큰제목: 문서 제목
 
-Contributions are always welcome!
-Please read the [contribution guidelines](contributing.md) first.
+  ```
+  This is an H1
+  =============
+  ```
 
-## License
+  This is an H1
+  =============
 
-[![CC0](https://licensebuttons.net/p/zero/1.0/88x31.png)](https://creativecommons.org/publicdomain/zero/1.0/)
+- 작은제목: 문서 부제목
 
-To the extent possible under law, [Matias Singers](https://mts.io) has waived all copyright and related or neighboring rights to this work.
+  ```
+  This is an H2
+  -------------
+  ```
+
+  This is an H2
+
+  ***
+
+- 글머리: 1~6까지만 지원
+
+```
+# This is a H1
+## This is a H2
+### This is a H3
+#### This is a H4
+##### This is a H5
+###### This is a H6
+```
+
+# This is a H1
+
+## This is a H2
+
+### This is a H3
+
+#### This is a H4
+
+##### This is a H5
+
+###### This is a H6
+
+####### This is a H7(지원하지 않음)
+
+## 2.2. BlockQuote
+
+이메일에서 사용하는 `>` 블럭인용문자를 이용한다.
+
+```
+> This is a first blockqute.
+>	> This is a second blockqute.
+>	>	> This is a third blockqute.
+```
+
+> This is a first blockqute. > This is a second blockqute. > > This is a third blockqute.
+
+이 안에서는 다른 마크다운 요소를 포함할 수 있다.
+
+> ### This is a H3
+>
+> - List
+>   ```
+>   code
+>   ```
+
+## 2.3. 목록
+
+### ● 순서있는 목록(번호)
+
+순서있는 목록은 숫자와 점을 사용한다.
+
+```
+1. 첫번째
+2. 두번째
+3. 세번째
+```
+
+1. 첫번째
+2. 두번째
+3. 세번째
+
+**현재까지는 어떤 번호를 입력해도 순서는 내림차순으로 정의된다.**
+
+```
+1. 첫번째
+3. 세번째
+2. 두번째
+```
+
+1. 첫번째
+2. 세번째
+3. 두번째
+
+딱히 개선될 것 같지는 않다. 존 그루버가 신경안쓰고 있다고...
+
+### ● 순서없는 목록(글머리 기호: `*`, `+`, `-` 지원)
+
+```
+* 빨강
+  * 녹색
+    * 파랑
+
++ 빨강
+  + 녹색
+    + 파랑
+
+- 빨강
+  - 녹색
+    - 파랑
+```
+
+- 빨강
+  - 녹색
+    - 파랑
+
+* 빨강
+  - 녹색
+    - 파랑
+
+- 빨강
+  - 녹색
+    - 파랑
+
+혼합해서 사용하는 것도 가능하다(내가 선호하는 방식)
+
+```
+* 1단계
+  - 2단계
+    + 3단계
+      + 4단계
+```
+
+- 1단계
+  - 2단계
+    - 3단계
+      - 4단계
+
+## 2.4. 코드
+
+4개의 공백 또는 하나의 탭으로 들여쓰기를 만나면 변환되기 시작하여 들여쓰지 않은 행을 만날때까지 변환이 계속된다.
+
+### 2.4.1. 들여쓰기
+
+```
+This is a normal paragraph:
+
+    This is a code block.
+
+end code block.
+```
+
+실제로 적용해보면,
+
+적용예:
+
+---
+
+This is a normal paragraph:
+
+    This is a code block.
+
+end code block.
+
+---
+
+> 한줄 띄어쓰지 않으면 인식이 제대로 안되는 문제가 발생합니다.
+
+```
+This is a normal paragraph:
+    This is a code block.
+end code block.
+```
+
+적용예:
+
+---
+
+This is a normal paragraph:
+This is a code block.
+end code block.
+
+---
+
+### 2.4.1. 코드블럭
+
+코드블럭은 다음과 같이 2가지 방식을 사용할 수 있습니다:
+
+- `<pre><code>{code}</code></pre>` 이용방식
+
+```
+<pre>
+<code>
+public class BootSpringBootApplication {
+  public static void main(String[] args) {
+    System.out.println("Hello, Honeymon");
+  }
+
+}
+</code>
+</pre>
+```
+
+<pre>
+<code>
+public class BootSpringBootApplication {
+  public static void main(String[] args) {
+    System.out.println("Hello, Honeymon");
+  }
+}
+</code>
+</pre>
+
+- 코드블럭코드("\```") 을 이용하는 방법
+
+<pre>
+<code>
+```
+public class BootSpringBootApplication {
+  public static void main(String[] args) {
+    System.out.println("Hello, Honeymon");
+  }
+}
+```
+</code>
+</pre>
+
+```
+public class BootSpringBootApplication {
+  public static void main(String[] args) {
+    System.out.println("Hello, Honeymon");
+  }
+}
+```
+
+**깃헙**에서는 코드블럭코드("\```") 시작점에 사용하는 언어를 선언하여 [문법강조(Syntax highlighting)](https://docs.github.com/en/github/writing-on-github/creating-and-highlighting-code-blocks#syntax-highlighting)이 가능하다.
+
+<pre>
+<code>
+```java
+public class BootSpringBootApplication {
+  public static void main(String[] args) {
+    System.out.println("Hello, Honeymon");
+  }
+}
+```
+</code>
+</pre>
+
+```java
+public class BootSpringBootApplication {
+  public static void main(String[] args) {
+    System.out.println("Hello, Honeymon");
+  }
+}
+```
+
+## 2.5. 수평선 `<hr/>`
+
+아래 줄은 모두 수평선을 만든다. 마크다운 문서를 미리보기로 출력할 때 _페이지 나누기_ 용도로 많이 사용한다.
+
+```
+* * *
+
+***
+
+*****
+
+- - -
+
+---------------------------------------
+```
+
+- 적용예
+
+---
+
+---
+
+---
+
+---
+
+---
+
+## 2.6. 링크
+
+- 참조링크
+
+```
+[link keyword][id]
+
+[id]: URL "Optional Title here"
+
+// code
+Link: [Google][googlelink]
+
+[googlelink]: https://google.com "Go google"
+```
+
+Link: [Google][googlelink]
+
+[googlelink]: https://google.com "Go google"
+
+- 외부링크
+
+```
+사용문법: [Title](link)
+적용예: [Google](https://google.com, "google link")
+```
+
+Link: [Google](https://google.com, "google link")
+
+- 자동연결
+
+```
+일반적인 URL 혹은 이메일주소인 경우 적절한 형식으로 링크를 형성한다.
+
+* 외부링크: <http://example.com/>
+* 이메일링크: <address@example.com>
+```
+
+- 외부링크: <http://example.com/>
+- 이메일링크: <address@example.com>
+
+## 2.7. 강조
+
+```
+*single asterisks*
+_single underscores_
+**double asterisks**
+__double underscores__
+~~cancelline~~
+```
+
+- _single asterisks_
+- _single underscores_
+- **double asterisks**
+- **double underscores**
+- ~~cancelline~~
+
+> `문장 중간에 사용할 경우에는 **띄어쓰기** 를 사용하는 것이 좋다.`  
+> 문장 중간에 사용할 경우에는 띄어쓰기를 사용하는 것이 좋다.
+
+## 2.8. 이미지
+
+```
+![Alt text](/path/to/img.jpg)
+![Alt text](/path/to/img.jpg "Optional title")
+```
+
+![석촌호수 러버덕](http://cfile6.uf.tistory.com/image/2426E646543C9B4532C7B0)
+![석촌호수 러버덕](http://cfile6.uf.tistory.com/image/2426E646543C9B4532C7B0 "RubberDuck")
+
+사이즈 조절 기능은 없기 때문에 `<img width="" height=""></img>`를 이용한다.
+
+예
+
+```
+<img src="/path/to/img.jpg" width="450px" height="300px" title="px(픽셀) 크기 설정" alt="RubberDuck"></img><br/>
+<img src="/path/to/img.jpg" width="40%" height="30%" title="px(픽셀) 크기 설정" alt="RubberDuck"></img>
+```
+
+<img src="http://cfile6.uf.tistory.com/image/2426E646543C9B4532C7B0" width="450px" height="300px" title="px(픽셀) 크기 설정" alt="RubberDuck"></img><br/>
+<img src="http://cfile6.uf.tistory.com/image/2426E646543C9B4532C7B0" width="40%" height="30%" title="%(비율) 크기 설정" alt="RubberDuck"></img>
+
+## 2.9. 줄바꿈
+
+3칸 이상 띄어쓰기(` `)를 하면 줄이 바뀐다.
+
+```
+* 줄 바꿈을 하기 위해서는 문장 마지막에서 3칸이상을 띄어쓰기해야 한다.
+이렇게
+
+* 줄 바꿈을 하기 위해서는 문장 마지막에서 3칸이상을 띄어쓰기해야 한다.___\\ 띄어쓰기
+이렇게
+```
+
+- 줄 바꿈을 하기 위해서는 문장 마지막에서 3칸이상을 띄어쓰기해야 한다. 이렇게
+
+- 줄 바꿈을 하기 위해서는 문장 마지막에서 3칸이상을 띄어쓰기해야 한다. \
+  이렇게
+
+---
+
+# 3. 마크다운 사용기
+
+## 3.1. 위지윅(WSYWIG) 에디터
+
+우리가 흔하게 접하는 웹에서 사용되는 에디터(네이버, 다음, 구글 등)이 대부분 위지윅 에디터에 속하며 기본적으로 HTML을 이용하여 스타일을 적용하여 문장을 꾸미는 형태를 취하게 된다. 그래서 하루패드와 같은 마크다운 에디터의 View 영역의 내용을 복사하여 붙여넣기를 하면 대체적으로 View영역에서 보이는 그대로 복사되는 편이다. 다만, 붙여넣기 이후에 문장들을 수정하려고 할 떄 문제가 되는데, 이는 스타일이 포함된 태그가 수정과정에서 변형되면서 전체적인 영향을 끼치는 탓이다. 티스토리 블로그에서는 쉽지 않고... 워드프레스의 경우에는 마크다운으로 작성된 포스트를 HTML로 변환해주는 기능을 활용하는 것이 좋다.
+결론은, **복사해서 붙여넣기하면 가급적이면 본문은 수정하지 않는 것이 좋다.**
+
+## 3.2. 깃헙Github, 비트버킷Bitbucket과 요비Yobi 등
+
+최근 유행하는 협업개발플랫폼의 경우에는 마크다운을 변환하는 컨버터 기능을 기본탑재하고 있기 때문에 마크다운 문법으로 작성한 텍스트를 그대로 복사해서 붙여넣거나 업로드하는 것만으로 마크다운의 적용이 가능하다.
+
+## 3.3. MS워드 적용
+
+View 영역의 항목을 그대로 붙여넣거나 HTML 내보내기 등으로 생성한 파일을 불러오는 형태로 사용가능하다. 적용한 헤더를 워드가 읽어드리면서 목차에 적용하기 때문에 이를 활용하면 목차까지도 손쉽게 적용이 가능해진다.
+
+---
+
+# 4. 정리
+
+마크다운은 기본문법만 알고있다면 일반 텍스트편집기에서도 손쉽게 작성이 가능한 마크업언어다. 현재 다양한 도구와 플랫폼에서 지원하고 있기 때문에 더욱 손쉽게 스타일적용된 문서를 작성할 수 있어 점점 널리 사용되고 있다.
+
+> 마크다운을 이해하고 사용하면서 쉽고 빠르게 스타일문서를 작성해보세요.
+
+저는 Dropbox 프로를 구매해서 집-랩탑-스마트폰이 각각 연동을 시켜서 사용하고 있습니다. 드랍박스에 저장된 마크다운 문서는 Dropbox 웹서비스 상에서 제공하기 때문에 웹상에서 바로 열람할 수도 있어 링크를 걸어서 다른 사람과 공유하는 형식으로 사용하고 있다.
+
+- 링크 예: [Markdown 설명](https://www.dropbox.com/s/mzp9tq4qtfjdlif/20141021_markdown_use_tip.md?dl=0)
+
+---
+
+# P.S.
+
+최근에는 [Notion](https://www.notion.so/product) 을 조금씩 사용중이다. Notion 에서 작성한 문서는 Atom(<https://atom.io/>), Visual Studio Code(<https://code.visualstudio.com/>), Notepad++(<https://notepad-plus-plus.org/>)텍스트 편집기에 복붙(복사하고 붙여넣기)하면 마크다운문법으로 작성된 문장이 기입되고 이지윅 에디터를 제공하는 웹에디터에 붙여넣기 하면 거의 완벽한 형태로 복사된다. 그래서 애용중이다.
+
+## ○ 참고문서
+
+- [78 Tools for writing and previewing Markdown](http://mashable.com/2013/06/24/markdown-tools/)
+- [John gruber 마크다운 번역](http://nolboo.github.io/blog/2013/09/07/john-gruber-markdown/)
+- [깃허브 취향의 마크다운 번역](http://nolboo.github.io/blog/2014/03/25/github-flavored-markdown/)
+- [허니몬의 마크다운 작성법](http://www.slideshare.net/ihoneymon/ss-40575068)
+- Notion.so(<https://www.notion.so/product>)
+- Atom(<https://atom.io/>)
+- Visual Studio Code(<https://code.visualstudio.com/>)
+- Notepad++(<https://notepad-plus-plus.org/>)

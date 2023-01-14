@@ -1,7 +1,7 @@
 <template lang="">
     <div class="pullrequest_nomem_container">
         <div class="pullrequest_nomem_name">
-            병합 요청
+            병합 요청 (외부)
         </div>
         <div class="pullreq_main_list">
             <div class="pullreq_main_header">
@@ -12,11 +12,13 @@
                         </svg>
                     </span>
                 </div>
-                <div class="pullreq_main_body_div_counts">
-                    {{pullreqData.length}}
-                </div>
-                <div>
-                    개의 병합 요청
+                <div class="repository_history_tit_left">
+                      {{pullreqData.length}}개의 병합 요청
+                  </div>
+             
+
+                <div class="repository_history_tit_right">
+                  <span class="green_point">  <i class="fa-solid fa-arrows-turn-to-dots "></i></span> 비교병합  <span class="orange_point">  <i class="fa fa-bolt"></i></span>빠른병합
                 </div>
             </div>
 
@@ -30,7 +32,20 @@
                         </span>
                     </div>
                     <div class="pullreq_main_body_innerdiv">
-                        <a class="pullreq_main_body_a"><h4>{{Data.message}}</h4></a>
+                     
+                      <a class="pullreq_main_body_nick blue_point":href="'/'+Data.nick">
+                        {{Data.nick}}
+                      </a>
+
+                      <span class="pullreq_main_body_a"  ><h4>{{Data.message}}</h4></span>
+                    </div>
+                    <div class="pullreq_main_body_btn_div">
+                      <div class="btn" @click="pullreqUserData(Data.token, Data.repo)">  
+                        
+                        <span class="green_point"> <i class="fa-solid fa-arrows-turn-to-dots " v-if="Data.nowToken!=Data.mainToken"></i> </span>
+                          <span class="orange_point"> <i class="fa fa-bolt"  v-if="Data.nowToken==Data.mainToken"></i>
+                        </span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -38,45 +53,50 @@
     </div>
 </template>
 <script>
-import axios from 'axios';
+import axios from "axios";
 export default {
-    data(){
-        return{
-            pullreqData_length: "",
-            pullreqData:[],
-        }
+  data() {
+    return {
+      pullreqData_length: "",
+      pullreqData: [],
+    };
+  },
+  mounted() {
+    this.find_repo();
+    // this.mergeRequest()
+  },
+  methods: {
+    pullreqUserData(token, repo_idx) {
+      this.$emit("merge_func", token, repo_idx);
+      //this.$emit("merge_func2", repo_idx);
     },
-    mounted(){
-        this.find_repo()
-        // this.mergeRequest()
+    find_repo() {
+      // 존재하는 저장소인지 확인하자
+      axios
+        .get("/api/repoIdxByNickName", {
+          params: {
+            nick: this.$route.params.nick,
+            reponame: this.$route.params.repository,
+          },
+        })
+        .then((response) => {
+          if (response.data == "") {
+            location.href = "/pagenotfound";
+          } else {
+            axios
+              .post("/api/pullreq_select", {
+                idx: response.data,
+              })
+              .then((response) => {
+                this.pullreqData = response.data;
+              });
+          }
+        });
     },
-    methods: {
-        pullreqUserData(u_data){
-            alert(u_data);
-        },
-        find_repo(){ // 존재하는 저장소인지 확인하자
-            axios.post("/api/find_repo",{
-                name : this.$route.params.repository
-            })
-            .then(response => {
-                if(response.data == ""){
-                    location.href="/pagenotfound";
-                }else{
-                    axios.post("/api/pullreq_select", {
-                        idx : response.data
-                    })
-                    .then(response => {
-                        this.pullreqData = response.data
-                    })
-                }
-            })
-        },
-        mergeRequest(){
-            alert(this.$route.params.repository);
-        }
-    }
-}
+    mergeRequest() {},
+  },
+};
 </script>
 <style lang="sass">
-    @import "src/assets/sass/repository/pullrequest"
+@import "src/assets/sass/repository/pullrequest"
 </style>

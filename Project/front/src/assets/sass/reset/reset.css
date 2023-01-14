@@ -395,6 +395,11 @@ table {
 }
 
 
+
+
+
+
+/* ------------------------------- */
 .scrollBar {
   overflow-y: scroll;
 }
@@ -435,6 +440,14 @@ body::-webkit-scrollbar-track , .scrollBar::-webkit-scrollbar-track{
   
  }
 
+ .green_point{
+    color:#1a7f37 !important;
+    font-family: 'Noto Sans KR', sans-serif
+ }
+ .orange_point{
+    color:#f5895b !important;
+    font-family: 'Noto Sans KR', sans-serif
+ }
  .blue_point{
     color:#4f6c9c !important;
     font-family: 'Noto Sans KR', sans-serif

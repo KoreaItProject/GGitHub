@@ -12,7 +12,7 @@ import router from "../../router";
 import sum from "summernote";
 import $ from "jquery";
 import b from "bootstrap";
-import a from "tiptap";
+
 
 export default {
   data() {

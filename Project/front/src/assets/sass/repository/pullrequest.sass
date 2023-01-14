@@ -13,7 +13,7 @@ $line-color: #d0d7de
         width: 100%
         margin: auto
         min-height: 500px
-        
+
         display: flex
         padding: 0px 16px
         margin-top: 40px
@@ -48,7 +48,7 @@ $line-color: #d0d7de
                 margin-left: 0
                 border: 1px solid #d0d7de
                 border-radius: 6px
-                border-bottom-width: 0.2px
+
             .pullreq_select_div
                 .pullreq_select
                     border-radius: 4px
@@ -58,7 +58,7 @@ $line-color: #d0d7de
             .pullreq_main_header
                 display: flex
                 align-items: center
-                padding-left: 15px 
+                padding-left: 15px
                 width: 100%
                 height: 60px
                 border-width: 0px 0px
@@ -72,31 +72,66 @@ $line-color: #d0d7de
                 background-color: #ffffff
                 border-color: #d0d7de
                 border-style: solid
+                border-bottom: 0
+                border-bottom-left-radius: 7px
+                border-bottom-right-radius: 7px
+
                 .pullreq_main_body_icon
                     padding-right: 15px
             .pullreq_main_body
-                border-width: 0px 0px 1px 0px
-                border-style: solid
-                border-color: #d0d7de
+
+                border-top: 1px solid #d0d7de
                 background-color: #ffffff
                 max-width: 1216px
                 width: 100%
-                height: 63px
-
-                cursor: pointer
-                &:hover
-                    background-color: #f6f8fa
+                height: 67px
+                border-bottom-right-radius: 6px
+                border-bottom-left-radius: 6px
 
                 .pullreq_main_body_flex
                     display: flex
                     .pullreq_main_body_icon
                         margin-left: 15px
                         margin-top: 15px
-                        .pullreq_main_body_icon_span 
+                        .pullreq_main_body_icon_span
                             .color-fg-color
                                 color: #1a7f37
                                 fill: currentColor
+
                     .pullreq_main_body_innerdiv
                         margin-left: 15px
-                        margin-top: 16px
-                    
+                        margin-top: 13px
+                        width: 100%
+
+                        .pullreq_main_body_nick
+                            font-size: 18px
+
+                        .pullreq_main_body_a
+                            width: 100%
+                            overflow: hidden
+                            text-overflow: ellipsis
+                            white-space: nowrap
+                    .pullreq_main_body_btn_div
+
+                        width: 80px
+                        padding: 14px 5px
+                        .btn
+                            font-size: 20px
+                            width: 50px
+                            text-align: center
+                            border: 1px solid #d0d7de
+                            padding: 7px 0 8px 0
+                            border-radius: 7px
+                            cursor: pointer
+                            &:hover
+                                background-color: #f6f8fa
+
+    .repository_history_tit_right
+
+        margin-right: 30px
+        font-size: 15px
+
+        width: 250px
+        text-align: right
+    .repository_history_tit_left
+        width: 100%

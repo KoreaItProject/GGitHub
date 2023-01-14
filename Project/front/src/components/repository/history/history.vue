@@ -5,7 +5,7 @@
               <div class="repository_history_head">
                 <div class="repository_history_tit"><h3><font-awesome-icon icon="fa-regular fa-file-code" /> 메인 히스토리</h3></div>
                 <div class="repository_history_tit_right">
-                  <span class="blue_point">  <i class="fa-solid fa-arrows-turn-to-dots "></i></span> 비교병합  <span class="blue_point">  <i class="fa fa-bolt"></i></span>빠른병합
+                  <span class="green_point">  <i class="fa-solid fa-arrows-turn-to-dots "></i></span> 비교병합  <span class="orange_point">  <i class="fa fa-bolt"></i></span>빠른병합
                 </div>
               </div>
                 

@@ -3,9 +3,10 @@ $scroll-color-hover: #e398a5
 $font: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace
 $td_left: 25px
 $td3_font_size: 12px
+$line-color: #d0d7de
 .pullreq_merge_name
     height: 36px
-    
+
 .pullreq_merge_container
     //border: 1px solid red
     height: var(--test1)
@@ -17,10 +18,11 @@ $td3_font_size: 12px
         flex: none
         width: 300px
         margin-top: 25px
+        margin-right: 10px
         .pullreq_merge_div_left2
             padding: 10px
             float: right
-           
+
             .pullreq_merge_div_left2_div
                 //border: 1px solid blue
                 //margin-bottom: 20px
@@ -41,19 +43,40 @@ $td3_font_size: 12px
                     border-radius: 7px
                     width: 100px
                     height: 40px
-          
-                
-            .pullreq_merge_div_left_scroll 
-                overflow: auto  
-                height: 850px
+
+            .pullreq_merge_div_left_scroll
+
+                background-color: #f6f8fa
+                border: 1px solid $line-color
+                border-radius: 9px
+                .not_match
+                    height: 100%
+                    max-height: 370px
+
+                    padding: 10px 10px 10px 15px
+                    border-bottom: 3px solid #777777
+
+                .ok_match
+                    height: 100%
+                    max-height: 370px
+                    padding: 10px 10px 5px 15px
+                    border-bottom: 3px solid #777777
+                .match
+                    height: 100%
+                    max-height: 370px
+                    padding: 10px 10px 5px 15px
+                .match_center
+                    height: 3px
+                    width: 100%
+
                 .pullreq_merge_div_left_data
                     backgroun-color: red
-                    height: 80px    
+
                     //margin-top: -20px
-                    margin-bottom: 10px
-                    border-radius: 6px  
+                    margin-bottom: 5px
+                    border-radius: 6px
                     width: 260px
-                    background-color: #f6f8fa
+                    background-color: white
                     border: 1px solid #d0d7de
                     &:hover
                         background-color: #e2e2e2
@@ -61,15 +84,15 @@ $td3_font_size: 12px
                     .left_data_top
                         height: 50%
                         .left_data_top_filename
-                            margin: 10px
-                            margin: 15px 10px 10px 20px
+
+                            margin: 10px 10px 0px 13px
                             span
                                 font-weight: 400
                                 font-family: Arial, sans-serif
                     .left_data_bottom
                         height: 50%
                         .left_data_bottom_filepath
-                            margin: -10px 10px 10px 20px
+                            margin: 0px 10px 10px 13px
                             span
                                 font-size: 12.5px
                                 color: #797777
@@ -112,7 +135,7 @@ $td3_font_size: 12px
                     top: 5px
         .pullreq_merge_div_right_top
             //border: 1px solid red
-            
+
             height: 40%
             display: flex
             @media (max-width: 1100px)
@@ -170,15 +193,15 @@ $td3_font_size: 12px
                             line-height: 20px
                             vertical-align: top
                             .td3_span
-                                    display: table-cell
-                                    overflow: visible
+                                display: table-cell
+                                overflow: visible
                                     //font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace
-                                    font-size: $td3_font_size
-                                    //font-weight: 
+                                font-size: $td3_font_size
+                                //font-weight:
                                     color: #24292f
                                     word-wrap: anywhere
                                     white-space: pre-wrap
-                    
+
                     @media (max-width: 1100px)
                         width: 97%
                         height: 500px
@@ -187,7 +210,7 @@ $td3_font_size: 12px
                 width: 100%
                 .pullreq_merge_div_right_top_right
                     border: 1px solid #d0d7de
-                    
+
                     height: 95%
                     margin: 10px
                     border-radius: 6px
@@ -235,13 +258,13 @@ $td3_font_size: 12px
                             line-height: 20px
                             vertical-align: top
                             .td3_span
-                                    display: table-cell
-                                    overflow: visible
+                                display: table-cell
+                                overflow: visible
                                     //font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace
-                                    font-size: $td3_font_size
-                                    color: #24292f
-                                    word-wrap: anywhere
-                                    white-space: pre-wrap
+                                font-size: $td3_font_size
+                                color: #24292f
+                                word-wrap: anywhere
+                                white-space: pre-wrap
                     @media (max-width: 1100px)
                         width: 97%
                         height: 500px
@@ -257,7 +280,7 @@ $td3_font_size: 12px
                 margin-top: -290px
                 height: 60%
             .pullreq_merge_div_right_bottom_changecode
-                border: 1px solid #d0d7de
+
                 height: var(--test3)
                 word-break: break-all
                 overflow: auto
@@ -265,9 +288,15 @@ $td3_font_size: 12px
                 border-radius: 6px
                 //font-family: $font
                 white-space: pre-wrap
+
                 @media (max-width: 1100px)
                     height: var(--test3)
                     margin-top: 300px
+                .note-frame
+                    border-radius: 6px
+                    height: 100%
+                    .note-statusbar
+                        display: none
                 table
                     .td1
                         position: relative
@@ -309,59 +338,59 @@ $td3_font_size: 12px
                             color: #24292f
                             word-wrap: anywhere
                             white-space: pre-wrap
+            .merge_check_btn
+
     @media screen and ( max-width: 1100px )
         height: var(--test1)
 
-
+.link-dialog
+    display: none
+.note-modal
+    display: none
 
 .pullreq_merge_div_right_top_left
-  &::-webkit-scrollbar
-    width: 8px
-    height: 8px
-    background: #ffffff
-  
-  &::-webkit-scrollbar-thumb 
-    border-radius: 3.5px
-    background-color: $scroll-color
-    opacity: 1
-    &:hover 
-      background-color: $scroll-color-hover
-    
-  &::-webkit-scrollbar-track 
-    //background: #ffffff
-    opacity: 1
+    &::-webkit-scrollbar
+        width: 8px
+        height: 8px
+        background: #ffffff
 
-    
+    &::-webkit-scrollbar-thumb
+        border-radius: 3.5px
+        background-color: $scroll-color
+        opacity: 1
+        &:hover
+            background-color: $scroll-color-hover
 
+    &::-webkit-scrollbar-track
+        //background: #ffffff
+        opacity: 1
 
 .pullreq_merge_div_right_top_right
-  &::-webkit-scrollbar
-    width: 8px
-    height: 8px
-    background: #ffffff
-  
-  &::-webkit-scrollbar-thumb 
-    border-radius: 3.5px
-    background-color: $scroll-color
-    &:hover 
-      background-color: $scroll-color-hover
-    
-  &::-webkit-scrollbar-track 
-    background: #ffffff
+    &::-webkit-scrollbar
+        width: 8px
+        height: 8px
+        background: #ffffff
 
-.pullreq_merge_div_right_bottom_changecode
-  &::-webkit-scrollbar
-    width: 8px
-    height: 8px
-    background: #ffffff
-  
-  &::-webkit-scrollbar-thumb 
-    border-radius: 3.5px
-    background-color: $scroll-color
-    &:hover 
-      background-color: $scroll-color-hover
-    
-  &::-webkit-scrollbar-track 
-    background: #ffffff
-  
-         
+    &::-webkit-scrollbar-thumb
+        border-radius: 3.5px
+        background-color: $scroll-color
+        &:hover
+            background-color: $scroll-color-hover
+
+    &::-webkit-scrollbar-track
+        background: #ffffff
+
+    .pullreq_merge_div_right_bottom_changecode
+    &::-webkit-scrollbar
+        width: 8px
+        height: 8px
+        background: #ffffff
+
+    &::-webkit-scrollbar-thumb
+        border-radius: 3.5px
+        background-color: $scroll-color
+        &:hover
+            background-color: $scroll-color-hover
+
+    &::-webkit-scrollbar-track
+        background: #ffffff
