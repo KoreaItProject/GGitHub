@@ -87,7 +87,7 @@
 <select id="searchMembernick" resultType="com.ggit.vo.RepositoriesVO">
     SELECT member.nick as member_nick, member.email as member_email, member.img as member_img from member where (member.nick like "${search}%");
 </select>
-<update id="updaterepomemauth" resultType="com.ggit.mappers.RepomemMapper">
+<!-- <update id="updaterepomemauth" resultType="com.ggit.mappers.RepomemMapper">
     UPDATE repomem SET auth=${auth} where repomem.member=(select member.idx from member where member.nick=#{nick})
-</update>
+</update> -->
 </mapper>
