@@ -13,7 +13,7 @@
                                 <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
                             </svg>
                         </button>
-                        <button class="pullreq_merge_div_left2_MergeBtn" @click="merge()">병합하기</button>
+                        <button class="pullreq_merge_div_left2_MergeBtn" @click="merge()" v-if="no_merge_count==0">병합하기</button>
                     </div>
                     
                     <div class="pullreq_merge_div_left_scroll ">
@@ -23,8 +23,9 @@
                       
                                 <div class="left_data_top">
                                     <div class="left_data_top_filename">
-                                        <span>{{data.fileName}}</span>
+                                        <span class="orange_point"><font-awesome-icon icon="fa-solid fa-bug-slash" /></span> {{data.fileName}}
                                     </div>
+                                   
                                 </div>
                                 <div class="left_data_bottom">
                                     <div class="left_data_bottom_filepath">
@@ -42,7 +43,7 @@
                        
                                 <div class="left_data_top">
                                     <div class="left_data_top_filename">
-                                        <span>{{data.fileName}}</span>
+                                        <span class="green_point"><font-awesome-icon icon="fa-regular fa-circle-check" /></span> {{data.fileName}}
                                     </div>
                                 </div>
                                 <div class="left_data_bottom">
@@ -59,7 +60,7 @@
                               
                                 <div class="left_data_top">
                                     <div class="left_data_top_filename">
-                                        <span>{{data.fileName}}</span>
+                                        <span class="blue_point"><font-awesome-icon icon="fa-solid fa-arrows-rotate" /></span> {{data.fileName}}
                                     </div>
                                 </div>
                                 <div class="left_data_bottom">

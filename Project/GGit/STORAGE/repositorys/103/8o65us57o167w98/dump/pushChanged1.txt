@@ -1,1 +1,1 @@
-[{"path":"\/111.txt","state":"change"},{"path":"\/222.txt","state":"change"},{"path":"\/333.txt","state":"change"}]
+[{"path":"\/111.txt","state":"change"},{"path":"\/222.txt","state":"change"},]
