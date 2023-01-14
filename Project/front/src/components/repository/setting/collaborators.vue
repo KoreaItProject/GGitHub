@@ -42,7 +42,7 @@
 
               </div>
             
-              <div class="Add_collaborators_btn_div"><button class="Add_collaborators_btn" @click="">공동 작업자를 선택하세요</button></div>
+              <div class="Add_collaborators_btn_div"><button class="Add_collaborators_btn" @click="[insertrepomem(searchInfoList[n].member_nick),toggleOnOff()]">공동 작업자를 선택하세요</button></div>
             </div>
             
           <div class="general_string">구성원</div>
@@ -113,6 +113,7 @@
 </template>
 <script>
   import axios from "axios";
+  // import store from "../vuex/store";
 
 export default {
   data() {
@@ -141,6 +142,30 @@ export default {
     
   },
   methods: {
+    insertrepomem(nick) {
+      axios
+        .get("/api/insertrepomem", {
+          params: {
+            reponame: this.$route.params.repository,
+            nick: nick,
+          },
+        })
+        .then((response) => {
+          
+          this.selectrepomem();
+
+          // console.log(this.clone);
+          alert("구성원 추가 성공");
+
+        });
+    },
+    logincheck(){
+      if(store.getters.getUserNick==this.$route.params.nick){
+        changeAuth==true;
+      }else{
+        changeAuth==false;
+      };
+    },
     selectboxchange(event){
       this.select=event.target.value;
       
@@ -157,7 +182,7 @@ export default {
           
 
           // console.log(this.clone);
-          alert(nick+"님의 권한이"+auth+"로 변경되었습니다.");
+          alert("권한 변경 완료");
         });
     } , 
     // getContriImg() {
@@ -223,7 +248,7 @@ export default {
         })
         .then((response) => {
           this.repo_mem = response.data;
-          this.getContriImg2();
+     
           // console.log(this.clone);
           //alert(this.clone);
         });

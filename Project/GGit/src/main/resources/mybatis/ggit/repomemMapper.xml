@@ -19,4 +19,10 @@
     <delete id="deleterepomem">
         DELETE FROM repomem WHERE member=(select idx from member where nick=#{nick}) and repomem.repo=(select repo.idx from repo where repo.name=#{reponame});
     </delete>
+    <update id="updaterepomemauth">
+        UPDATE repomem SET auth=${auth} where repomem.member=(select member.idx from member where member.nick=#{nick})
+    </update>
+    <insert id="insertrepomem">
+        INSERT INTO repomem(repo,member,auth) VALUES ((select repo.idx from repo where repo.name=#{reponame}),(select member.idx from member where member.nick=#{nick}),0)
+    </insert>
 </mapper>

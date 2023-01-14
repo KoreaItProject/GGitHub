@@ -201,10 +201,17 @@ public class MemberController {
         return followService.followCount(nick);
     }
     @RequestMapping("updaterepomemauth")
-    public List<RepomemVo> updaterepomemauth(String nick, int auth){
+    public int updaterepomemauth(String nick, int auth){
         System.out.println(nick);
         System.out.println(auth);
         return repomemService.updaterepomemauth(nick,auth);
+    }
+
+    @RequestMapping("insertrepomem")
+    public int insertrepomem(String reponame, String nick){
+        System.out.println(nick);
+        System.out.println(reponame);
+        return repomemService.insertrepomem(reponame,nick);
     }
     
 }
