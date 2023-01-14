@@ -1,1 +1,14 @@
-[{"path":"\/111.txt","state":"change"},{"path":"\/222.txt","state":"change"},]
+
+[
+        {
+            "path":"\/README.md",
+            "state":"add"
+        },
+        {
+            "path":"\/111.txt"
+            "state":"add"
+        }
+      
+]
+
+

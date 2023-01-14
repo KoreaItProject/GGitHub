@@ -105,8 +105,7 @@ public class PullRequestController {
             int marginState = 2;
             for (int i = 0; i < changed.size(); i++) {
                 PullreqVo2 pullreqVo2 = new PullreqVo2(); // vo 객체 생성
-                // System.out.println("======>" + (String)((JSONObject)
-                // changed.get(i)).get("path")); // 병합파일의 경로 출력
+              
                 marginState = 2;
                 for (int j = 0; j < mainchanged.size(); j++) {
 
@@ -114,11 +113,30 @@ public class PullRequestController {
                     String mainChanged_str_path = (String) ((JSONObject) mainchanged.get(j)).get("path");
                     if (changed_str_path.equals(mainChanged_str_path)) {
 
-
                         System.out.println("같은 경로가 있음");
                         System.out.println(changed_str_path);
                         System.out.println(mainChanged_str_path);
                         marginState = 0;
+
+                        ArrayList<String> data_arrList_main = new ArrayList<String>();
+            
+                        String path_main = storage_dir + "repositorys/" + repo_idx + "/" + LastMainToken + "/data" 
+                        + (String) ((JSONObject) mainchanged.get(j)).get("path");
+
+                        
+                        StringBuilder sb_main = new StringBuilder();
+
+                        BufferedReader inFilesMain = new BufferedReader(
+                        new InputStreamReader(new FileInputStream(path_main), StandardCharsets.UTF_8));
+
+                        String line_main = "";
+                        while ((line_main = inFilesMain.readLine()) != null) {
+                            data_arrList_main.add(line_main + "\n");
+                            sb_main.append(line_main + "\n");
+                        }
+
+                        pullreqVo2.setFileDataMain(data_arrList_main);
+                        pullreqVo2.setSb_vo_main(sb_main);
 
                     } else {
                         System.out.println("같은 경로가 없음!!");
@@ -126,7 +144,9 @@ public class PullRequestController {
                         System.out.println(mainChanged_str_path);
                         pullreqVo2.setMarginState(2);
                     }
-                }
+                } // for문
+
+                
                 pullreqVo2.setMarginState(marginState);
                 pullreqVo2.setFilePath((String) ((JSONObject) changed.get(i)).get("path"));
 

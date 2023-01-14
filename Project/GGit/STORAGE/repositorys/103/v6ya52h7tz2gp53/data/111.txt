@@ -1,9 +1,16 @@
-11111
-111111
-    1111111111
-1111111
-11111111111
-11111111
-111111111111
-11111111
-1111111
+ public List<PullreqVo> pullreq_select(int idx) {
+        return mapper.pullreq_select(idx);
+    }
+
+    public List<PullreqVo> pullreq_select_mem(int idx) {
+        return mapper.pullreq_select_mem(idx);
+    }
+
+    // 저장소 멤버인지 확인
+    public RepomemVo repoInMem(PullreqVo pullreqVo) {
+        return mapper.repoInMem(pullreqVo);
+    }
+
+    public int pullrequest(PullreqVo pullreqVo) {
+        return mapper.pullrequest(pullreqVo);
+    }
