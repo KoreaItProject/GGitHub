@@ -13,7 +13,7 @@
                                 <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
                             </svg>
                         </button>
-                        <button class="pullreq_merge_div_left2_MergeBtn" @click="merge()">병합하기</button>
+                        <button class="pullreq_merge_div_left2_MergeBtn" @click="merge_check_btn()">병합하기</button>
                     </div>
                     
                     <div class="pullreq_merge_div_left_scroll ">
@@ -101,7 +101,7 @@
                         <span>&nbsp;&nbsp;메인 파일</span>
                         <div class="pullreq_merge_div_right_top_left">
                             <table>
-                                <tr v-for="(data,index) in test_line">
+                                <tr v-for="(data,index) in merge_data[left_data_index].fileDataMain">
                                     <td class="td1"></td>
                                     <td class="td2">{{index+1}}</td>
                                     <td class="td3">
@@ -135,7 +135,7 @@
                 </div>
                 <div class="pullreq_merge_div_right_bottom" :style="cssVariable">
                     <div class="pullreq_merge_div_right_bottom_changecode">
-                        <div id="summernote"></div>
+                        <div id="summernote" spellcheck="false"></div> 
                     </div>
                     <button class="merge_check_btn" @click="merge_check_btn()">비교 확인</button>
                 </div>
@@ -149,6 +149,7 @@ import axios from "axios";
 import sum from "summernote";
 import $ from "jquery";
 import b from "bootstrap";
+import {diff_match_patch, diff_main, diff_cleanupSemantic, diff_prettyHtml} from "@/assets/js/diff.js"
 
 export default {
   computed: {
@@ -165,6 +166,8 @@ export default {
   },
   data() {
     return {
+      test1 : '123',
+      test2 : '124',
       merge_data: [[]],
       no_merge_count: 0, //갯수가 있는지 없는지 확인
       ok_merge_count: 0,
@@ -190,7 +193,6 @@ export default {
   },
   mounted() {
     this.getMergeFile();
-
     $("#summernote").summernote({
       height: 820,
       toolbar: false,
@@ -212,10 +214,10 @@ export default {
         .then((response) => {
           console.log(response);
           this.merge_data = response.data;
-          $("#summernote").summernote(
-            "pasteHTML",
-            this.merge_data[this.left_data_index].sb_vo
-          );
+          //alert(this.merge_data[this.left_data_index].sb_vo);
+          //alert(this.merge_data[this.left_data_index].sb_vo_main);
+          $("#summernote").summernote("pasteHTML",this.test(this.merge_data[this.left_data_index].sb_vo_main, this.merge_data[this.left_data_index].sb_vo));
+          this.merge_test();
         });
     },
     pullreq_merge_right_top_state_func() {
@@ -247,40 +249,66 @@ export default {
       this.$emit("merge_func_close");
     },
     left_data_click_func(index) {
-      var test = $("#summernote").summernote("code");
-      //test = test.replace(/<br\/>/ig, "\n");
-      test = test.replace(/<\/p>/gi, "\n");
-      test = test.replace(/<br>/gi, "");
-      test = test.replace(
-        /<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/gi,
-        ""
-      );
-      this.merge_data[this.left_data_index].sb_vo = test;
 
-      //this.merge_data[this.left_data_index].sb_vo = $('#summernote').summernote('code');
-      //this.merge_data[this.left_data_index].sb_vo = $('#summernote').summernote('code').replace(/<[^>]*>?/g, '');
-      console.log(this.merge_data[this.left_data_index].sb_vo);
-      this.left_data_index = index;
-      $("#summernote").summernote("reset");
-      $("#summernote").summernote(
-        "pasteHTML",
-        this.merge_data[this.left_data_index].sb_vo
-      );
-    },
+        var data = $("#summernote").summernote('code');
+        while(data.startsWith('<p><br></p>')){
+            data = data.replace('<p><br></p>','');
+        }
+        var test = data;
+        this.merge_data[this.left_data_index].sb_vo_merge = test;
 
-    merge() {
-      if (confirm("병합하시겠습니까?")) {
-      } else {
-      }
+        this.left_data_index = index;
+        //this.merge_data[this.left_data_index].sb_vo_merge = $("#summernote").summernote('code');
+
+        //var tt = this.test(this.merge_data[index].sb_vo_main, this.merge_data[index].sb_vo);
+        //this.merge_data[this.left_data_index].sb_vo_merge = tt
+        
+        
+
+        $("#summernote").summernote('reset');
+        $('#summernote').summernote('pasteHTML', this.merge_data[this.left_data_index].sb_vo_merge);
+        
     },
-    test(e) {
-      alert("###");
-      this.merge_data[this.left_data_index].sb_vo = e.target.value;
+    merge_check_btn(){
+            
+            var test = this.merge_data[this.left_data_index].sb_vo_merge;
+           
+            test = test.replace(/<br\/>/ig, "\n");
+            test = test.replace(/<\/p>/ig, "\n");
+            test = test.replace(/<br>/ig, "\n");
+            test = test.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
+            
+            test = test.replaceAll("<br>", "\n");
+            test = test.replace(/&gt;/ig, ">");
+            test = test.replace(/&lt;/ig, "<");
+            test = test.replaceAll("&quot;", "");
+            test = test.replaceAll("&nbsp;", " ");
+            test = test.replaceAll("&amp;", "&");
+            
+
+            console.log(test);
     },
-    test_btn() {
-      //this.merge_data[this.left_data_index].sb_vo = $('#summernote').summernote('code');
-      alert("123");
+    merge_test(){
+       for(var i=0; i<this.merge_data.length; i++){
+         this.merge_data[i].sb_vo_merge =  this.test(this.merge_data[i].sb_vo_main, this.merge_data[i].sb_vo);
+       }
     },
+    test(a, b){
+        //alert(a);
+        //alert(b);
+
+        if(a == null){
+            a = ""
+        }else if(b == null){
+            b = ""
+        }
+        var dmp = new diff_match_patch();
+        var d = dmp.diff_main(a, b);
+        dmp.diff_cleanupSemantic(d);
+        var ds = dmp.diff_prettyHtml(d);
+        //alert(ds);
+        return ds;
+    }
   },
 };
 </script>

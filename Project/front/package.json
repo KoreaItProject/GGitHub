@@ -29,6 +29,7 @@
     "vue-calendar-heatmap": "^0.8.4",
     "vue-clipboard2": "^0.3.3",
     "vue-cookies": "^1.8.2",
+    "vue-diff-match-patch": "^0.0.1",
     "vue-persistedstate": "^1.2.5",
     "vue-router": "^3.0.1",
     "vue-summernote": "^1.0.3",
