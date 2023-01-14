@@ -72,9 +72,6 @@ public class PullRequestController {
 
     @RequestMapping("testcon")
     public ArrayList<PullreqVo2> testcon(@RequestBody PullreqVo pullreqVo) {
-
-        // System.out.println("==> " + pullreqVo.getToken()); // 서버에 저장되있는 Data 가져오기
-        // System.out.println("=======> " + pullreqVo.getRepo_idx()); // idx의 최신
         // main파일토큰 가져오기
 
         /////////////////////////////////////////////////////////////////////////////////////
@@ -90,7 +87,7 @@ public class PullRequestController {
         // 메인 파일 경로
         String LastMainToken = pullreqService.getLastMainToken(pullreqVo.getRepo_idx()); // idx의 최신 main파일토큰 가져오기
         String MainMergePath = storage_dir + "repositorys/" + repo_idx + "/" + LastMainToken + "/dump/pushChanged1.txt";
-        System.out.println("adasd => " + LastMainToken);
+        
 
         JSONArray changed = null;
         JSONArray mainchanged = null;
@@ -124,12 +121,13 @@ public class PullRequestController {
                     // 2
                     if(changed_str_path.equals(mainChanged_str_path)){
                         state = 0;
+
                         pullreqVo2.setFilePath( (String)((JSONObject) changed.get(i)).get("path") );
 
                         fileName_arr = pullreqVo2.getFilePath().split("/");
                         String fileName = fileName_arr[fileName_arr.length-1];
                         pullreqVo2.setFileName(fileName);
-
+                        
                         // 파일의 상태 저장 (add, change, del)
                         pullreqVo2.setFilestate((String)((JSONObject) changed.get(i)).get("state"));
                         pullreqVo2.setFilestate((String)((JSONObject) mainchanged.get(j)).get("state"));
@@ -171,22 +169,20 @@ public class PullRequestController {
                         pullreqVo2.setState(state);
 
                         inFiles.close();
-                        
+                        inFilesmain.close();
                         
 
                     }else{
                         
 
-                    }
+                    } // if문
+                    
 
-                   
+                   file_name_path.add(pullreqVo2);
 
-                }        
+                } // 안쪽 for문       
    
-            } // for문
-
-           
-            
+            } // 바깥쪽 for문
 
         } catch (Exception e1) {
             // TODO Auto-generated catch block
