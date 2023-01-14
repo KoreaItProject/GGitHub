@@ -15,4 +15,5 @@ public class PullreqVo2 {
 
     private ArrayList<String> fileData;
     
+    private StringBuilder sb_vo;
 }

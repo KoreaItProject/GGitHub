@@ -94,34 +94,9 @@
                 </div>
                 <div class="pullreq_merge_div_right_bottom" :style="cssVariable">
                     <div class="pullreq_merge_div_right_bottom_changecode">
-                        <!-- <table>
-                            <tr v-for="(data,index) in merge_data[left_data_index].fileData">
-                                <td class="td1"></td>
-                                <td class="td2">{{index+1}}</td>
-                                <td class="td3">
-                                    <span class="td3_span">{{data}}</span>
-                                </td>
-                            </tr>
-                        </table> -->
-                        <!-- <div id="summernote">asd</div> -->
-                        <!-- <vue-editor v-model="merge_data[left_data_index].fileData"> -->
-                            <!-- {{this.merge_data[this.left_data_index].fileData}} -->
-                            <!-- <table>
-                                <tr v-for="(data,index) in merge_data[left_data_index].fileData">
-                                    <td class="td1"></td>
-                                    <td class="td2">{{index+1}}</td>
-                                    <td class="td3">
-                                        <span class="td3_span">{{data}}</span>
-                                    </td>
-                                </tr>
-                            </table> -->
-                        <!-- </vue-editor> -->
-
                         <div id="summernote"></div>
-                       
-
-                        
                     </div>
+                    <button class="merge_check_btn" @click="merge_check_btn()">비교 확인</button>
                 </div>
             </div>
         </div>
@@ -130,8 +105,9 @@
 
 <script>
 import axios from 'axios';
-import $ from 'jquery';
-
+import sum from "summernote";
+import $ from "jquery";
+import b from "bootstrap";
 
 export default {
     computed: {
@@ -162,8 +138,8 @@ export default {
             repo_idx: this.token_repoidx.repo_idx,
             
             left_data_index: '0',
-            editor: null,
-            content: null,
+
+            
         }
     },
     props:{
@@ -172,9 +148,16 @@ export default {
     mounted(){
         this.getMergeFile();
         
-        $('#summernote').summernote();
-        alert("@@@");
-
+        $('#summernote').summernote({
+            height: 820,
+            toolbar: false,
+            tabsize: 0,
+            disableDragAndDrop: true,
+            lang: "ko-KR",
+            codeviewFilter: false,
+            codeviewIframeFilter: true
+            
+        });
        
     },
     components: {
@@ -189,7 +172,7 @@ export default {
             .then(response => {
                 console.log(response);
                 this.merge_data = response.data;
-                this.test_editor();
+                $('#summernote').summernote('pasteHTML', this.merge_data[this.left_data_index].sb_vo);
             })
         },
         pullreq_merge_right_top_state_func(){
@@ -219,16 +202,39 @@ export default {
             this.$emit("merge_func_close");
         },
         left_data_click_func(index){
-            this.test_editor2();
+
+
+            var test = $('#summernote').summernote('code');
+            //test = test.replace(/<br\/>/ig, "\n");
+            test = test.replace(/<\/p>/ig, "\n");
+            test = test.replace(/<br>/ig, "");
+            test = test.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
+            this.merge_data[this.left_data_index].sb_vo = test
+            
+            //this.merge_data[this.left_data_index].sb_vo = $('#summernote').summernote('code');
+            //this.merge_data[this.left_data_index].sb_vo = $('#summernote').summernote('code').replace(/<[^>]*>?/g, '');
+            console.log(this.merge_data[this.left_data_index].sb_vo);
             this.left_data_index = index;
+            $("#summernote").summernote('reset');
+            $('#summernote').summernote('pasteHTML', this.merge_data[this.left_data_index].sb_vo);
         },
+       
         merge(){
             if(confirm("병합하시겠습니까?")){
                 
             }else{
                 
             }
+        },
+        test(e){
+            alert("###");
+            this.merge_data[this.left_data_index].sb_vo =  e.target.value;
+        },
+        test_btn(){
+            //this.merge_data[this.left_data_index].sb_vo = $('#summernote').summernote('code');
+            alert("123");
         }
+
     },
  
     
