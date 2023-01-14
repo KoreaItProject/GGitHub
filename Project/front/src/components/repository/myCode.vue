@@ -79,6 +79,7 @@
             
             <div class="repo_box">
                 <div class="repo_information" >
+                   <img :src="pushImg" class="pushImg"></img>
                     <a class="owner_href" >{{push.member_nick}}</a> 
                     <a class="repo_last_commit_content" href="#">{{push.push_message}}</a> 
                     <a class="repo_commit_count" href="#">
@@ -139,6 +140,11 @@
             <div class="about_box">
                 <h2 class="about_string">정보</h2>
                 <p class="about_setting_message">{{push.push_message}}</p>
+                <p class="about_setting_message">
+                   <font-awesome-icon icon="fa-regular fa-circle-up" />
+                        <strong class="commit_count_strong">{{push.commits}}</strong>
+                        <span class="commit_count_sapn">업로드</span>
+                </p>
                 <div class="readme_link">
                     <a href="#" class="readme_link_href">
                     <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-book mr-2">
@@ -219,6 +225,7 @@ export default {
       pullreq_menu_input_keyword: "",
       downloading: false,
       file_line_height: "0px",
+      pushImg: "",
     };
   },
   components: {
@@ -354,6 +361,7 @@ export default {
           this.star = response.data;
           this.profileImg.splice(0);
           this.getContriImg();
+          this.getpushImg();
           this.getFile();
 
           // console.log(this.star)
@@ -437,6 +445,19 @@ export default {
           } else {
             this.inMem = "display:inline"; // 저장소 멤버인 경우
           }
+        });
+    },
+    getpushImg() {
+      axios
+        .get("/api/getProfileImg", {
+          responseType: "blob",
+          params: {
+            img: this.push.member_img,
+          },
+        })
+        .then((response) => {
+          // handle success
+          this.pushImg = window.URL.createObjectURL(new Blob([response.data]));
         });
     },
     merge_request() {
