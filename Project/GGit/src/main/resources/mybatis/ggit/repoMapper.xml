@@ -70,7 +70,8 @@ union all
         before_token from push where repo = ${repo} and branch = ${member} ORDER BY selected
         DESC,date DESC LIMIT 1 </select>
 
-    <select id="selectRepositorycode" resultType="com.ggit.vo.RepositoriesVO"> SELECT push.member as
+    <select id="selectRepositorycode" resultType="com.ggit.vo.RepositoriesVO"> 
+        SELECT member.img as member_img,push.member as
         push_member, push.message as push_message, push.token as push_token, push.date as push_date,
         push.repo as push_repo, member.nick as member_nick,(select count(push.token) from push where
         repo = ${repoIdx}) as commits FROM push, member WHERE member.idx = push.member and push.repo
@@ -78,7 +79,7 @@ union all
         최근 한 값만 -->
 
     </select>
-    <select id="selectRepositoryMyCode" resultType="com.ggit.vo.RepositoriesVO"> SELECT push.member
+    <select id="selectRepositoryMyCode" resultType="com.ggit.vo.RepositoriesVO"> SELECT member.img as member_img,push.member
         as push_member, push.message as push_message, push.token as push_token, push.date as
         push_date, push.repo as push_repo, member.nick as member_nick,(select count(push.token) from
         push where repo = ${repoIdx}) as commits FROM push, member WHERE member.idx = push.member

@@ -47,4 +47,6 @@ public interface MemberMapper {
 
         List<RepositoriesVO> searchMembernick(String search);
 
+        void updaterepomemauth(String nick, int auth);
+
 }

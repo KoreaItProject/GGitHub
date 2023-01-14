@@ -1,14 +1,6 @@
 <template>
   <div class="main_container">
-    <div
-      class="main_img_div"
-      style="
-        background: url('./static/imgs/main/bg.jpg');
-        background-repeat: no-repeat, round;
-        background-size: cover;
-        background-position: center;
-      "
-    >
+    <div class="main_img_div">
       <div class="main_img_div_left">
         <h1 id="title">How people build software</h1>
         <h4 id="sub">
@@ -100,23 +92,12 @@
         </div>
       </div>
     </div>
-    <div class="main_down_div">
-      <h1>main_down_div</h1>
-      <div class="main_down_div1">
-
-        
-
-
-
-
-      </div>
-    </div>
+    <div><img class="img2" src="@/assets/imgs/main/bg2.png" /></div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-
 
 export default {
   data() {
@@ -132,12 +113,8 @@ export default {
       check_display: "display:none;",
     };
   },
-  mounted() {
-  
-  },
+  mounted() {},
   methods: {
-   
-
     async signup() {
       if (this.nick == "" || this.email == "" || this.pw == "") {
         alert("빈 곳을 채워주세요");
@@ -232,9 +209,6 @@ export default {
     },
   },
 };
-
-
-
 </script>
 
 

@@ -13,18 +13,20 @@
                                 <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
                             </svg>
                         </button>
+
                         <button class="pullreq_merge_div_left2_MergeBtn" @click="merge_check_btn()">병합하기</button>
                     </div>
                     
                     <div class="pullreq_merge_div_left_scroll ">
 
-                        <div class="not_match scrollBar">
+                        <div class="not_match scrollBar" v-show="0<no_merge_count">
                             <div class="pullreq_merge_div_left_data" @click="left_data_click_func(index)" v-for="(data, index) in merge_data" v-if="data.marginState==0" >
                       
                                 <div class="left_data_top">
                                     <div class="left_data_top_filename">
-                                        <span>{{data.fileName}}</span>
+                                        <span class="orange_point"><font-awesome-icon icon="fa-solid fa-bug-slash" /></span> {{data.fileName}}
                                     </div>
+                                   
                                 </div>
                                 <div class="left_data_bottom">
                                     <div class="left_data_bottom_filepath">
@@ -37,12 +39,12 @@
                             
                         </div>
                     
-                        <div class="ok_match scrollBar">
+                        <div class="ok_match scrollBar" v-show="0<ok_merge_count">
                             <div class="pullreq_merge_div_left_data" @click="left_data_click_func(index)" v-for="(data, index) in merge_data"  v-if="data.marginState==1" >
                        
                                 <div class="left_data_top">
                                     <div class="left_data_top_filename">
-                                        <span>{{data.fileName}}</span>
+                                        <span class="green_point"><font-awesome-icon icon="fa-regular fa-circle-check" /></span> {{data.fileName}}
                                     </div>
                                 </div>
                                 <div class="left_data_bottom">
@@ -53,13 +55,13 @@
                             </div>
                         </div>
                  
-                        <div class="match scrollBar">
+                        <div class="match scrollBar" v-show="0<merge_count">
                             <div class="pullreq_merge_div_left_data" @click="left_data_click_func(index)" v-for="(data, index) in merge_data"  v-if="data.marginState==2">
                         
                               
                                 <div class="left_data_top">
                                     <div class="left_data_top_filename">
-                                        <span>{{data.fileName}}</span>
+                                        <span class="blue_point"><font-awesome-icon icon="fa-solid fa-arrows-rotate" /></span> {{data.fileName}}
                                     </div>
                                 </div>
                                 <div class="left_data_bottom">
@@ -205,6 +207,23 @@ export default {
   },
   components: {},
   methods: {
+    countMarge() {
+      //갯수가 있는지 없는지 확인
+      this.no_merge_count = 0;
+      this.ok_merge_count = 0;
+      this.merge_count = 0;
+      for (let i = 0; i < this.merge_data.length; i++) {
+        let marginState = this.merge_data[i].marginState;
+        console.log(this.merge_data[i].marginState);
+        if (marginState == 0) {
+          this.no_merge_count++;
+        } else if (marginState == 1) {
+          this.ok_merge_count++;
+        } else if (marginState == 2) {
+          this.merge_count++;
+        }
+      }
+    },
     getMergeFile() {
       axios
         .post("/api/testcon", {
@@ -214,10 +233,11 @@ export default {
         .then((response) => {
           console.log(response);
           this.merge_data = response.data;
-          //alert(this.merge_data[this.left_data_index].sb_vo);
-          //alert(this.merge_data[this.left_data_index].sb_vo_main);
+
           $("#summernote").summernote("pasteHTML",this.test(this.merge_data[this.left_data_index].sb_vo_main, this.merge_data[this.left_data_index].sb_vo));
           this.merge_test();
+          this.countMarge();
+
         });
     },
     pullreq_merge_right_top_state_func() {
@@ -250,12 +270,17 @@ export default {
     },
     left_data_click_func(index) {
 
+
         var data = $("#summernote").summernote('code');
         while(data.startsWith('<p><br></p>')){
             data = data.replace('<p><br></p>','');
         }
         var test = data;
         this.merge_data[this.left_data_index].sb_vo_merge = test;
+
+
+        this.countMarge();
+
 
         this.left_data_index = index;
         //this.merge_data[this.left_data_index].sb_vo_merge = $("#summernote").summernote('code');
