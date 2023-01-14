@@ -113,27 +113,31 @@ public class PullRequestController {
             mainchanged = (JSONArray) (new JSONParser()).parse(maincon);
             System.out.println("메인=> " + mainchanged);
             // System.out.println("메인병합파일 => " + mainchanged);
-
+            int marginState = 2;
             for (int i = 0; i < changed.size(); i++) {
                 PullreqVo2 pullreqVo2 = new PullreqVo2(); // vo 객체 생성
                 // System.out.println("======>" + (String)((JSONObject)
                 // changed.get(i)).get("path")); // 병합파일의 경로 출력
-
+                marginState = 2;
                 for (int j = 0; j < mainchanged.size(); j++) {
 
                     String changed_str_path = (String) ((JSONObject) changed.get(i)).get("path");
-                    String mainChanged_str_path = (String) ((JSONObject) changed.get(j)).get("path");
+                    String mainChanged_str_path = (String) ((JSONObject) mainchanged.get(j)).get("path");
                     if (changed_str_path.equals(mainChanged_str_path)) {
 
                         System.out.println("같은 경로가 있음");
                         System.out.println(changed_str_path);
                         System.out.println(mainChanged_str_path);
+                        marginState = 0;
+
                     } else {
                         System.out.println("같은 경로가 없음!!");
                         System.out.println(changed_str_path);
                         System.out.println(mainChanged_str_path);
+                        pullreqVo2.setMarginState(2);
                     }
                 }
+                pullreqVo2.setMarginState(marginState);
 
                 //////////////////////////////////////////////////////////////////////////////////////////////
                 pullreqVo2.setFilePath((String) ((JSONObject) changed.get(i)).get("path"));

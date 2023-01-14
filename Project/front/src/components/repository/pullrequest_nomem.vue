@@ -1,7 +1,7 @@
 <template lang="">
     <div class="pullrequest_nomem_container">
         <div class="pullrequest_nomem_name">
-            병합 요청
+            병합 요청 (외부)
         </div>
         <div class="pullreq_main_list">
             <div class="pullreq_main_header">
@@ -66,8 +66,9 @@ export default {
     // this.mergeRequest()
   },
   methods: {
-    pullreqUserData(u_data) {
-      alert(u_data);
+    pullreqUserData(token, repo_idx) {
+      this.$emit("merge_func", token, repo_idx);
+      //this.$emit("merge_func2", repo_idx);
     },
     find_repo() {
       // 존재하는 저장소인지 확인하자
@@ -92,9 +93,7 @@ export default {
           }
         });
     },
-    mergeRequest() {
-      alert(this.$route.params.repository);
-    },
+    mergeRequest() {},
   },
 };
 </script>

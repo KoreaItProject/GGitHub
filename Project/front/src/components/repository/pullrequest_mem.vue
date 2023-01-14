@@ -1,7 +1,7 @@
 <template lang="">
     <div class="pullrequest_nomem_container">
         <div class="pullrequest_nomem_name">
-            병합 요청(멤버)
+            병합 요청 (멤버)
         </div>
         <div class="pullreq_main_list">
             <div class="pullreq_main_header">

@@ -14,6 +14,8 @@ public class PullreqVo2 {
     private String fileName;
 
     private ArrayList<String> fileData;
-    
+
     private StringBuilder sb_vo;
+
+    private int marginState;
 }
