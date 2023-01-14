@@ -80,16 +80,6 @@ public class PullRequestController {
         String[] fileName_arr;
         ArrayList<PullreqVo2> file_name_path = new ArrayList<PullreqVo2>();
 
-        // 만약 메인 저장소의 push 갯수가 1개라면 (보류)
-        // int main_mush_count = pullreqService.merge_main_push_count(repo_idx);
-        // if(main_mush_count == 1){
-            
-        // }else{
-        //     System.out.println("22");
-        // }
-        
-        
-
         // 병합 파일 경로
         String MergePath = "STORAGE/repositorys/" + repo_idx + "/" + pullreqVo.getToken() + "/dump/pushChanged2.txt";
 
@@ -103,96 +93,106 @@ public class PullRequestController {
         
        
         try {
-            // 병합 파일의 pushChanged2 가져오기
+            // 병합 파일의 pushChanged2 내용 가져오기
             String con = new ReadData(MergePath).getCon();
             changed = (JSONArray) (new JSONParser()).parse(con);
-            // System.out.println("병합파일 => " + con);
+          
 
-            // 메인 파일의 pushChanged2 가져오기
+            // 메인 파일의 pushChanged1 내용 가져오기
             String maincon = new ReadData(MainMergePath).getCon();
             mainchanged = (JSONArray) (new JSONParser()).parse(maincon);
-            System.out.println("메인=> " + mainchanged);
-            // System.out.println("메인병합파일 => " + mainchanged);
-
+            
+            
+            int state = 2;
             for(int i=0; i<changed.size(); i++){
                 PullreqVo2 pullreqVo2 = new PullreqVo2(); // vo 객체 생성
-                //System.out.println("======>" + (String)((JSONObject) changed.get(i)).get("path")); // 병합파일의 경로 출력
-                
+                state = 2;
                 for(int j=0; j<mainchanged.size(); j++){
 
                     String changed_str_path = (String)((JSONObject) changed.get(i)).get("path");
-                    String mainChanged_str_path = (String)((JSONObject) changed.get(j)).get("path");
+                    String mainChanged_str_path = (String)((JSONObject) mainchanged.get(j)).get("path");
+
+                    // merge
+                    // 1
+                    // 2
+                    // 3
+
+                    // main
+                    // 1
+                    // 2
                     if(changed_str_path.equals(mainChanged_str_path)){
+                        state = 0;
+                        pullreqVo2.setFilePath( (String)((JSONObject) changed.get(i)).get("path") );
+
+                        fileName_arr = pullreqVo2.getFilePath().split("/");
+                        String fileName = fileName_arr[fileName_arr.length-1];
+                        pullreqVo2.setFileName(fileName);
+
+                        // 파일의 상태 저장 (add, change, del)
+                        pullreqVo2.setFilestate((String)((JSONObject) changed.get(i)).get("state"));
+                        pullreqVo2.setFilestate((String)((JSONObject) mainchanged.get(j)).get("state"));
+
+
+                        String path = "STORAGE/repositorys/" + repo_idx + "/" + pullreqVo.getToken() + "/data" + (String)((JSONObject) changed.get(i)).get("path");
+                        String pathmain = "STORAGE/repositorys/" + repo_idx + "/" + pullreqVo.getToken() + "/data" + (String)((JSONObject) mainchanged.get(j)).get("path");
+
+                        BufferedReader inFiles = new BufferedReader(new InputStreamReader(new FileInputStream(path), StandardCharsets.UTF_8));
+                        BufferedReader inFilesmain = new BufferedReader(new InputStreamReader(new FileInputStream(pathmain), StandardCharsets.UTF_8));
+
+
+                        ArrayList<String> data_arrList = new ArrayList<String>();
+                        ArrayList<String> main_Data_arrList = new ArrayList<String>();
+                        StringBuilder sb = new StringBuilder();
+                        StringBuilder sbMain = new StringBuilder();
+
+                        String line = "";
+                        while((line = inFiles.readLine()) != null){
+                            data_arrList.add(line + "\n");
+                            sb.append(line+"\n");
+                            //sb.append(line);
+                        }
+
+                        String lineMain = "";
+                        while((lineMain = inFilesmain.readLine()) != null){
+                            main_Data_arrList.add(lineMain + "\n");
+                            sbMain.append(lineMain+"\n");
+                            //sb.append(line);
+                        }
+
+                        //.readLine()은 끝에 개행문자를 읽지 않는다.  
+                        pullreqVo2.setFileData(data_arrList);
+                        pullreqVo2.setFileDataMain(main_Data_arrList);
+
+                        pullreqVo2.setSb_vo(sb);
+                        pullreqVo2.setSb_vo_main(sbMain);
+
+                        pullreqVo2.setState(state);
+
+                        inFiles.close();
                         
-                        System.out.println("같은 경로가 있음");
-                        System.out.println(changed_str_path);
-                        System.out.println(mainChanged_str_path);
+                        
+
                     }else{
-                        System.out.println("같은 경로가 없음!!");
-                        System.out.println(changed_str_path);
-                        System.out.println(mainChanged_str_path);
+                        
                     }
+
+                   
+
                 }
                 
 
-                //////////////////////////////////////////////////////////////////////////////////////////////
-                pullreqVo2.setFilePath( (String)((JSONObject) changed.get(i)).get("path") );
-
-                fileName_arr = pullreqVo2.getFilePath().split("/");
-                String fileName = fileName_arr[fileName_arr.length-1];
-                pullreqVo2.setFileName(fileName);
-
                 
-                String path = "STORAGE/repositorys/" + repo_idx + "/" + pullreqVo.getToken() + "/data" + (String)((JSONObject) changed.get(i)).get("path");
-                ArrayList<String> data_arrList = new ArrayList<String>();
-                StringBuilder sb = new StringBuilder();
-
-                ArrayList<String> main_Data_arrList = new ArrayList<String>();
-    
-                BufferedReader inFiles = new BufferedReader(new InputStreamReader(new FileInputStream(path), StandardCharsets.UTF_8));
-    
-                String line = "";
-                while((line = inFiles.readLine()) != null){
-                    data_arrList.add(line + "\n");
-                    sb.append(line+"\n");
-                    //sb.append(line);
-                }
-                //.readLine()은 끝에 개행문자를 읽지 않는다.  
-                pullreqVo2.setFileData(data_arrList);
-                pullreqVo2.setSb_vo(sb);       
-                inFiles.close();
-                
-                file_name_path.add(pullreqVo2);
+   
             } // for문
-            //System.out.println("=>" + test_path);
+
+           
             
         } catch (Exception e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }
         
-
-        
-        /////////////////////////////////////////////////////////////////////////////////
-
-
-        ArrayList<String> test_line = new ArrayList<String>();
-        
-        try{
-            //BufferedReader inFiles = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/java/com/ggit/config/testfile.txt"), StandardCharsets.UTF_8));
-            BufferedReader inFiles = new BufferedReader(new InputStreamReader(new FileInputStream(MergePath), StandardCharsets.UTF_8));
-
-            String line = "";
-            while((line = inFiles.readLine()) != null){
-                test_line.add(line);
-            }
-            //.readLine()은 끝에 개행문자를 읽지 않는다.            
-            inFiles.close();
-        }catch (FileNotFoundException e) {
-            // TODO: handle exception
-        }catch(IOException e){
-            System.out.println(e);
-        }
+       
         return file_name_path;
         
     }

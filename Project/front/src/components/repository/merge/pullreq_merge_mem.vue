@@ -60,7 +60,7 @@
                         <span>&nbsp;&nbsp;메인 파일</span>
                         <div class="pullreq_merge_div_right_top_left">
                             <table>
-                                <tr v-for="(data,index) in test_line">
+                                <tr v-for="(data,index) in merge_data[left_data_index].fileDataMain">
                                     <td class="td1"></td>
                                     <td class="td2">{{index+1}}</td>
                                     <td class="td3">
@@ -202,21 +202,32 @@ export default {
             this.$emit("merge_func_close");
         },
         left_data_click_func(index){
-
-
-            var test = $('#summernote').summernote('code');
+            var data = $('#summernote').summernote('code');
+            while(data.startsWith('<p><br></p>')){
+                data=data.replace('<p><br></p>','')
+            }
+            var test = data;
+            //alert(test);
             //test = test.replace(/<br\/>/ig, "\n");
-            test = test.replace(/<\/p>/ig, "\n");
-            test = test.replace(/<br>/ig, "");
-            test = test.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
+            //test = test.replace(/<\/p>/ig, "\n");
+            //test = test.replace(/<br>/ig, "");
+            //test = test.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
+            
+            //test = test.replaceAll("<br>", "\n");
+            // test = test.replace(/&gt;/ig, ">");
+            // test = test.replace(/&lt;/ig, "<");
+            // test = test.replaceAll("&quot;", "");
+            // test = test.replaceAll("&nbsp;", " ");
+            // test = test.replaceAll("&amp;", "&");
+            //console.log("==>" + test);
             this.merge_data[this.left_data_index].sb_vo = test
             
             //this.merge_data[this.left_data_index].sb_vo = $('#summernote').summernote('code');
             //this.merge_data[this.left_data_index].sb_vo = $('#summernote').summernote('code').replace(/<[^>]*>?/g, '');
-            console.log(this.merge_data[this.left_data_index].sb_vo);
+            //console.log(this.merge_data[this.left_data_index].sb_vo);
             this.left_data_index = index;
-            $("#summernote").summernote('reset');
-            $('#summernote').summernote('pasteHTML', this.merge_data[this.left_data_index].sb_vo);
+            //$("#summernote").summernote('reset');
+            //$('#summernote').summernote('pasteHTML', this.merge_data[this.left_data_index].sb_vo);
         },
        
         merge(){
@@ -226,13 +237,23 @@ export default {
                 
             }
         },
-        test(e){
-            alert("###");
-            this.merge_data[this.left_data_index].sb_vo =  e.target.value;
-        },
-        test_btn(){
-            //this.merge_data[this.left_data_index].sb_vo = $('#summernote').summernote('code');
-            alert("123");
+        merge_check_btn(){
+            
+            var test = this.merge_data[this.left_data_index].sb_vo
+            
+            test = test.replace(/<br\/>/ig, "\n");
+            test = test.replace(/<\/p>/ig, "\n");
+            test = test.replace(/<br>/ig, "");
+            test = test.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
+            
+            test = test.replaceAll("<br>", "\n");
+            test = test.replace(/&gt;/ig, ">");
+            test = test.replace(/&lt;/ig, "<");
+            test = test.replaceAll("&quot;", "");
+            test = test.replaceAll("&nbsp;", " ");
+            test = test.replaceAll("&amp;", "&");
+
+            console.log("-->" + test);
         }
 
     },
