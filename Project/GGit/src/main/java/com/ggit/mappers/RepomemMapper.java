@@ -20,4 +20,6 @@ public interface RepomemMapper {
     List<RepomemVo> selectrepomem(String reponame);
 
     int deleterepomem(String reponame, String nick);
+
+    List<RepomemVo> updaterepomemauth(String nick, int auth);
 }
