@@ -10,6 +10,9 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import javax.websocket.server.PathParam;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -21,7 +24,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.ggit.service.PullreqService;
+import com.ggit.util.CopyFile;
+import com.ggit.util.PushZip;
+import com.ggit.util.RandStr;
 import com.ggit.util.ReadData;
+import com.ggit.util.WriteData;
 import com.ggit.vo.PullreqVo;
 import com.ggit.vo.PullreqVo2;
 import com.ggit.vo.RepoVo;
@@ -70,6 +77,45 @@ public class PullRequestController {
         return pullreqService.pullreq_select_mem(pullreqVo.getIdx());
     }
 
+    @RequestMapping("go_pullreq")
+    public List<PullreqVo> go_pullreq(@RequestBody String list) {
+        JSONObject jo;
+        try {
+            jo = (JSONObject) (new JSONParser().parse(list));// 가져온 margedata
+            JSONArray data = (JSONArray) jo.get("list");// 가져온 margedata를 배열로 쪼겐거 구조가 [pullreqVo2,pullreqvo2,pullreqvo2]
+                                                        // 라고 생각하면 됨 대신 다 json임
+            String repo = ((JSONObject) data.get(0)).get("repo") + "";// repo
+            String token = ((JSONObject) data.get(0)).get("token") + "";// token
+            String mainToken = ((JSONObject) data.get(0)).get("mainToken") + "";// 메인토큰
+            String newToken = new RandStr(15).getResult(); // 새로운 토큰값
+
+            boolean fast = (boolean) ((JSONObject) data.get(0)).get("fast");// 빠른병합인지여부
+
+            String mainPath = storage_dir + "repositorys/" + repo + "/" + mainToken;// 메인 폴더위치
+            String marge = storage_dir + "repositorys/" + repo + "/" + token;// 병합 폴더 우치
+            String newPath = storage_dir + "repositorys/" + repo + "/" + newToken;// 새로만들어질 폴더 위치
+            File newFile = new File(newPath);
+            newFile.mkdirs();// 새로운폴더 만들고
+            new CopyFile().copy(new File(mainPath), newFile);// 우선 메인 파일 전체를 가져온다
+
+            String path = "";// 파일 경로 for문에서 사용할거
+            String con = "";// 파일 내용 for문에서 사용할거
+            for (int i = 0; i < jo.size(); i++) {
+                path = newPath + "/data" + ((JSONObject) (data.get(i))).get("filePath") + "";// 새로운 폴더 기반 하나의 파일 경로
+                con = ((JSONObject) (data.get(i))).get("sb_vo_merge") + "";// 하나의 파일 내용
+                new File(path).mkdirs();
+                // WriteData(path)
+
+            }
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     @RequestMapping("testcon")
     public ArrayList<PullreqVo2> testcon(@RequestBody PullreqVo pullreqVo) {
         // main파일토큰 가져오기
@@ -86,7 +132,6 @@ public class PullRequestController {
         // 메인 파일 경로
         String LastMainToken = pullreqService.getLastMainToken(pullreqVo.getRepo_idx()); // idx의 최신 main파일토큰 가져오기
         String MainMergePath = storage_dir + "repositorys/" + repo_idx + "/" + LastMainToken + "/dump/pushChanged1.txt";
-        
 
         JSONArray changed = null;
         JSONArray mainchanged = null;
@@ -105,7 +150,7 @@ public class PullRequestController {
             int marginState = 2;
             for (int i = 0; i < changed.size(); i++) {
                 PullreqVo2 pullreqVo2 = new PullreqVo2(); // vo 객체 생성
-              
+
                 marginState = 2;
                 for (int j = 0; j < mainchanged.size(); j++) {
 
@@ -119,15 +164,14 @@ public class PullRequestController {
                         marginState = 0;
 
                         ArrayList<String> data_arrList_main = new ArrayList<String>();
-            
-                        String path_main = storage_dir + "repositorys/" + repo_idx + "/" + LastMainToken + "/data" 
-                        + (String) ((JSONObject) mainchanged.get(j)).get("path");
 
-                        
+                        String path_main = storage_dir + "repositorys/" + repo_idx + "/" + LastMainToken + "/data"
+                                + (String) ((JSONObject) mainchanged.get(j)).get("path");
+
                         StringBuilder sb_main = new StringBuilder();
 
                         BufferedReader inFilesMain = new BufferedReader(
-                        new InputStreamReader(new FileInputStream(path_main), StandardCharsets.UTF_8));
+                                new InputStreamReader(new FileInputStream(path_main), StandardCharsets.UTF_8));
 
                         String line_main = "";
                         while ((line_main = inFilesMain.readLine()) != null) {
@@ -146,7 +190,6 @@ public class PullRequestController {
                     }
                 } // for문
 
-                
                 pullreqVo2.setMarginState(marginState);
                 pullreqVo2.setFilePath((String) ((JSONObject) changed.get(i)).get("path"));
 
@@ -178,7 +221,6 @@ public class PullRequestController {
                 file_name_path.add(pullreqVo2);
             } // for문
               // System.out.println("=>" + test_path);
-
 
         } catch (Exception e1) {
             // TODO Auto-generated catch block
