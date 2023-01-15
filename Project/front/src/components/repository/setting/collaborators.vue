@@ -47,7 +47,7 @@
             
           <div class="general_string">구성원</div>
 
-          <div class="collaborators_invite" v-if="collaborators_box==0">
+          <div class="collaborators_invite" v-if="collaborators_box==1">
             
               <div class="invite_string">
                   구성원 초대
