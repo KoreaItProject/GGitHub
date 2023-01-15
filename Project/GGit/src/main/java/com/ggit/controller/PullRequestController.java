@@ -111,12 +111,13 @@ public class PullRequestController {
             for (int i = 0; i < data.size(); i++) {
                 path = newPath + "/data" + ((JSONObject) (data.get(i))).get("filePath") + "";// 새로운 폴더 기반 하나의 파일 경로
                 con = ((JSONObject) (data.get(i))).get("sb_vo_merge") + "";// 하나의 파일 내용
-                new File(new File(path).getPath()).mkdirs();
+                new File(new File(path).getParent()).mkdirs();
                 new WriteData(path).write(con);
 
             }
 
-            // 함수호출 (, , , ,)
+            savePullreq();
+            savePush();
 
         } catch (Exception e) {
             // TODO Auto-generated catch block
@@ -127,6 +128,13 @@ public class PullRequestController {
     }
 
     // 함수만들고 디비 저장
+    public void savePullreq() {
+
+    }
+
+    public void savePush() {
+
+    }
 
     @RequestMapping("testcon")
     public ArrayList<PullreqVo2> testcon(@RequestBody PullreqVo pullreqVo) {
