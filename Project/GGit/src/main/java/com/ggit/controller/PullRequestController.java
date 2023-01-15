@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.ggit.service.PullreqService;
+import com.ggit.service.PushService;
 import com.ggit.util.CopyFile;
 import com.ggit.util.PushZip;
 import com.ggit.util.RandStr;
@@ -45,6 +46,8 @@ public class PullRequestController {
     @Autowired
     PullreqService pullreqService;
 
+    @Autowired
+    PushService pushService;
     // @Autowired
     // PullreqVo2 pullreqVo2;
     @Value("${storage_dir}")
@@ -86,12 +89,12 @@ public class PullRequestController {
                                                         // 라고 생각하면 됨 대신 다 json임
             String repo = ((JSONObject) data.get(0)).get("repo") + "";// repo
             String token = ((JSONObject) data.get(0)).get("token") + "";// token
-            String mainToken = ((JSONObject) data.get(0)).get("mainToken") + "";// 메인토큰
+            String mainToken = pushService.maintoken(repo);// 메인토큰
             String newToken = new RandStr(15).getResult(); // 새로운 토큰값
-            System.out.println(repo);
-            System.out.println(token);
-            System.out.println(mainToken);
-            System.out.println(newToken);
+            // System.out.println(repo);
+            // System.out.println(token);
+            // System.out.println(mainToken);
+            // System.out.println(newToken);
 
             boolean fast = (boolean) ((JSONObject) data.get(0)).get("fast");// 빠른병합인지여부
 
@@ -109,7 +112,7 @@ public class PullRequestController {
                 path = newPath + "/data" + ((JSONObject) (data.get(i))).get("filePath") + "";// 새로운 폴더 기반 하나의 파일 경로
                 con = ((JSONObject) (data.get(i))).get("sb_vo_merge") + "";// 하나의 파일 내용
                 new File(path).mkdirs();
-                // WriteData(path)
+                // WriteData(path
 
             }
 
