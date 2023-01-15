@@ -285,25 +285,20 @@ export default {
     },
     left_data_click_func(index) {
       var data = $("#summernote").summernote("code");
+      
+      data = data.replaceAll("<p><br></p>", "");
+      
       while (data.startsWith("<p><br></p>")) {
         data = data.replace("<p><br></p>", "");
       }
-      var test = data;
-      this.merge_data[this.left_data_index].sb_vo_merge = test;
 
+      this.merge_data[this.left_data_index].sb_vo_merge = data;
       this.countMarge();
-
       this.left_data_index = index;
-      //this.merge_data[this.left_data_index].sb_vo_merge = $("#summernote").summernote('code');
-
-      //var tt = this.test(this.merge_data[index].sb_vo_main, this.merge_data[index].sb_vo);
-      //this.merge_data[this.left_data_index].sb_vo_merge = tt
+     
 
       $("#summernote").summernote("reset");
-      $("#summernote").summernote(
-        "pasteHTML",
-        this.merge_data[this.left_data_index].sb_vo_merge
-      );
+      $("#summernote").summernote("pasteHTML",this.merge_data[this.left_data_index].sb_vo_merge);
     },
 
     merge_check_btn() {
@@ -319,7 +314,7 @@ export default {
 
       this.merge_data[this.left_data_index].marginState = 1;
 
-      console.log(this.merge_data[this.left_data_index].sb_vo_merge);
+      //console.log(this.merge_data[this.left_data_index].sb_vo_merge);
       this.countMarge();
     },
     merge_check_cancle_btn() {
@@ -329,7 +324,7 @@ export default {
     merge_btn() {
       for (let i = 0; i < this.merge_data.length; i++) {
         var test = this.merge_data[i].sb_vo_merge;
-
+        console.log(test);
         test = test.replace(/<br\/>/gi, "\n");
         test = test.replace(/<\/p>/gi, "\n");
         test = test.replace(/<br>/gi, "\n");
