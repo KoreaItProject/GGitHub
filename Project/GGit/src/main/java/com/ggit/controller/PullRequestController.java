@@ -113,6 +113,8 @@ public class PullRequestController {
 
             }
 
+            // 함수호출 (, , , ,)
+
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -120,6 +122,8 @@ public class PullRequestController {
 
         return null;
     }
+
+    // 함수만들고 디비 저장
 
     @RequestMapping("testcon")
     public ArrayList<PullreqVo2> testcon(@RequestBody PullreqVo pullreqVo) {
