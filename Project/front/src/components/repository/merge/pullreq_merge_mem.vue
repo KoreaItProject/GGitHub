@@ -154,6 +154,8 @@ import axios from "axios";
 import sum from "summernote";
 import $ from "jquery";
 import b from "bootstrap";
+import store from "../../../vuex/store";
+
 import {
   diff_match_patch,
   diff_main,
@@ -340,13 +342,13 @@ export default {
         test = test.replaceAll("&nbsp;", " ");
         test = test.replaceAll("&amp;", "&");
 
-        var test = this.merge_data[i].sb_vo_merge;
 
         this.merge_data[i].sb_vo_merge = test;
         this.merge_data[i].repo = this.repo_idx;
         this.merge_data[i].token = this.token;
         this.merge_data[i].fast = this.fast;
         this.merge_data[i].mainToken = this.main_token;
+        this.merge_data[i].member = store.getters.getUserIdx;
       }
 
       axios

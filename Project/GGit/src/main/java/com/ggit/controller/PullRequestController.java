@@ -84,6 +84,7 @@ public class PullRequestController {
     public List<PullreqVo> go_pullreq(@RequestBody String list) {
         JSONObject jo;
         try {
+
             jo = (JSONObject) (new JSONParser().parse(list));// 가져온 margedata
             JSONArray data = (JSONArray) jo.get("list");// 가져온 margedata를 배열로 쪼겐거 구조가 [pullreqVo2,pullreqvo2,pullreqvo2]
                                                         // 라고 생각하면 됨 대신 다 json임
@@ -91,6 +92,8 @@ public class PullRequestController {
             String token = ((JSONObject) data.get(0)).get("token") + "";// token
             String mainToken = pushService.maintoken(repo);// 메인토큰
             String newToken = new RandStr(15).getResult(); // 새로운 토큰값
+            String member = ((JSONObject) data.get(0)).get("member") + "";
+            System.out.println(member);
             // System.out.println(repo);
             // System.out.println(token);
             // System.out.println(mainToken);
@@ -108,15 +111,16 @@ public class PullRequestController {
 
             String path = "";// 파일 경로 for문에서 사용할거
             String con = "";// 파일 내용 for문에서 사용할거
-            for (int i = 0; i < jo.size(); i++) {
+            for (int i = 0; i < data.size(); i++) {
                 path = newPath + "/data" + ((JSONObject) (data.get(i))).get("filePath") + "";// 새로운 폴더 기반 하나의 파일 경로
                 con = ((JSONObject) (data.get(i))).get("sb_vo_merge") + "";// 하나의 파일 내용
-                new File(path).mkdirs();
-                // WriteData(path
+                new File(new File(path).getParent()).mkdirs();
+                new WriteData(path).write(con);
 
             }
 
-            // 함수호출 (, , , ,)
+            savePullreq();
+            savePush();
 
         } catch (Exception e) {
             // TODO Auto-generated catch block
@@ -127,6 +131,13 @@ public class PullRequestController {
     }
 
     // 함수만들고 디비 저장
+    public void savePullreq() {
+
+    }
+
+    public void savePush() {
+
+    }
 
     @RequestMapping("testcon")
     public ArrayList<PullreqVo2> testcon(@RequestBody PullreqVo pullreqVo) {
