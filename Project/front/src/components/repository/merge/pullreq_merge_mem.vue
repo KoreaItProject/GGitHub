@@ -318,8 +318,6 @@ export default {
 
       //console.log(this.merge_data[this.left_data_index].sb_vo_merge);
       this.countMarge();
-
-      this.test123();
     },
     merge_check_cancle_btn() {
       this.merge_data[this.left_data_index].marginState = 0;
