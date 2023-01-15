@@ -140,9 +140,11 @@ public class PullRequestController {
             pushVo.setSelected(0);
             pushVo.setMain_token(mainToken);
 
-            savePullreq();
             int savePush_result = savePush(pushVo);
             System.out.println("savePush_result : " + savePush_result);
+            savePullreq(fast, token);
+          
+
 
         } catch (Exception e) {
             // TODO Auto-generated catch block
@@ -153,8 +155,13 @@ public class PullRequestController {
     }
 
     // 함수만들고 디비 저장
-    public void savePullreq() {
+    public void savePullreq(boolean fast, String token) {
 
+        if (fast) {
+            pullreqService.savePullreq(2, token);
+            return;
+        }
+        pullreqService.savePullreq(1, token);
     }
 
     public int savePush(PushVo pushVo) {

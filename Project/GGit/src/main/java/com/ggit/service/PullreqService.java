@@ -51,14 +51,15 @@ public class PullreqService {
     }
 
     // idx의 최신 main파일토큰 가져오기
-    public String getLastMainToken(int repo_idx){
+    public String getLastMainToken(int repo_idx) {
         return mapper.getLastMainToken(repo_idx);
     }
 
     // 메인 저장소 push 갯수 얻기
-    public int merge_main_push_count(int repo_idx){
+    public int merge_main_push_count(int repo_idx) {
         return mapper.merge_main_push_count(repo_idx);
     }
+
 
     // savePush()
     public int savePush(PushVo pushVo){
@@ -68,5 +69,9 @@ public class PullreqService {
     // 병합요청 한 사람 닉네임 얻어오기
     public String fromMemberNick(String member_idx){
         return mapper.fromMemberNick(member_idx);
+    }
+    
+    public void savePullreq(int marged, String token) {
+        mapper.savePullreq(marged, token);
     }
 }

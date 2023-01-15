@@ -25,10 +25,13 @@ public interface PullreqMapper {
     int pullrequest(PullreqVo pullreqVo);
 
     String getLastMainToken(int repo_idx);
-    
+
     int merge_main_push_count(int repo_idx);
 
     int savePush(PushVo pushVo);
 
     String fromMemberNick(String member_nick);
+
+    void savePullreq(int marged, String token);
+
 }
