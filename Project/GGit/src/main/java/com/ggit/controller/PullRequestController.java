@@ -100,7 +100,7 @@ public class PullRequestController {
             String newPath = storage_dir + "repositorys/" + repo + "/" + newToken;// 새로만들어질 폴더 위치
             File newFile = new File(newPath);
             newFile.mkdirs();// 새로운폴더 만들고
-            System.out.println(mainPath);
+
             new CopyFile().copy(new File(mainPath), newFile);// 우선 메인 파일 전체를 가져온다
 
             String path = "";// 파일 경로 for문에서 사용할거
