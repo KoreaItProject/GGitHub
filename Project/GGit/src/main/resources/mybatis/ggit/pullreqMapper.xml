@@ -41,4 +41,16 @@
         FROM push
         WHERE repo=#{repo_idx} and branch = 0;
     </select>
+    <select id="fromMemberNick" resultType="String">
+        SELECT nick
+        FROM member
+        WHERE idx=#{member_idx}
+    </select>
+    <insert id="savePush">
+        INSERT INTO push(token, member, repo, message, branch,
+                         before_token, selected, fromMain, main_token)
+        VALUES(#{token}, #{member}, #{repo}, #{message}, #{branch}, 
+               #{before_token}, #{selected}, #{fromMain}, #{main_token})
+    </insert>
+    
 </mapper>

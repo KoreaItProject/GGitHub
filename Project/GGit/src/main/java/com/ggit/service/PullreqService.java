@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ggit.mappers.PullreqMapper;
 import com.ggit.vo.PullreqVo;
+import com.ggit.vo.PushVo;
 import com.ggit.vo.RepoVo;
 import com.ggit.vo.RepomemVo;
 
@@ -21,6 +22,9 @@ public class PullreqService {
 
     @Autowired
     RepomemVo repomemVo;
+
+    @Autowired
+    PushVo pushVo;
 
     @Autowired
     public PullreqMapper mapper;
@@ -54,5 +58,15 @@ public class PullreqService {
     // 메인 저장소 push 갯수 얻기
     public int merge_main_push_count(int repo_idx){
         return mapper.merge_main_push_count(repo_idx);
+    }
+
+    // savePush()
+    public int savePush(PushVo pushVo){
+        return mapper.savePush(pushVo);
+    }
+
+    // 병합요청 한 사람 닉네임 얻어오기
+    public String fromMemberNick(String member_idx){
+        return mapper.fromMemberNick(member_idx);
     }
 }
