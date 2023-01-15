@@ -25,7 +25,4 @@ public class PullreqVo2 {
 
     private int marginState;
 
-
-
-    private int state;
 }

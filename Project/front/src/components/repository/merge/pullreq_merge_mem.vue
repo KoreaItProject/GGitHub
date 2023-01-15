@@ -78,6 +78,9 @@
 
             <div class="pullreq_merge_div_right">
                 <div class="plus_minus_div">
+                    <div class="plus_minus_div_checkBtn">
+                        <button class="merge_check_btn btns " @click="merge_check_btn()">비교 확인</button>
+                    </div>
                     <div class="minus_div" v-if="pullreq_merge_right_top_state == true">
                         <a class="minus_div_a" @click="pullreq_merge_right_top_state_func()">
                             <div class="minus_div_a_div">
@@ -137,9 +140,8 @@
                 </div>
                 <div class="pullreq_merge_div_right_bottom" :style="cssVariable">
                     <div class="pullreq_merge_div_right_bottom_changecode">
-                        <div id="summernote" spellcheck="false"></div> 
+                        <div id="summernote"></div> 
                     </div>
-                    <button class="merge_check_btn" @click="merge_check_btn()">비교 확인</button>
                 </div>
             </div>
         </div>
@@ -296,6 +298,8 @@ export default {
     },
     merge_check_btn(){
             
+            this.merge_data[this.left_data_index].marginState = 1;
+
             var test = this.merge_data[this.left_data_index].sb_vo_merge;
            
             test = test.replace(/<br\/>/ig, "\n");
