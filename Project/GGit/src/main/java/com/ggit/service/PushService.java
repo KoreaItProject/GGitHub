@@ -26,4 +26,8 @@ public class PushService {
         mapper.insel(token);
     }
 
+    public String maintoken(String repo) {
+        return mapper.maintoken(repo);
+    }
+
 }

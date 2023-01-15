@@ -83,10 +83,6 @@ export default {
       },
     };
   },
-  // props: {
-  //     repo_idx_props: Number
-  // },
-
   components: {
     pullreqnomem: pullreqnomem,
     pullreqmem: pullreqmem,
@@ -129,9 +125,11 @@ export default {
           }
         });
     },
-    merge_func(token_para, repo_idx_para) {
+    merge_func(token_para, repo_idx_para, mainToken, fast) {
       this.token_repoidx.token = token_para;
       this.token_repoidx.repo_idx = repo_idx_para;
+      this.token_repoidx.mainToken = mainToken;
+      this.token_repoidx.fast = fast;
       this.pullreq_page = false;
       this.merge_page = true;
     },

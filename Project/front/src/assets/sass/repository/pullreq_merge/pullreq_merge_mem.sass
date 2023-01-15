@@ -37,12 +37,15 @@ $line-color: #d0d7de
                     width: 35px
                     height: 35px
                 .pullreq_merge_div_left2_MergeBtn
+                    padding-top: 5px
                     background-color: #2da44e
                     border: 2.5px solid #1c6d33
                     color: white
                     border-radius: 7px
                     width: 100px
                     height: 40px
+                    &:hover
+                        background-color: #21803c
 
             .pullreq_merge_div_left_scroll
 
@@ -92,7 +95,6 @@ $line-color: #d0d7de
                         height: 50%
                         width: 100%
                         .left_data_bottom_filepath
-
                             margin: 0px 10px 10px 11px
                             span
                                 font-size: 12.5px
@@ -107,6 +109,31 @@ $line-color: #d0d7de
             text-align: right
             margin-right: 10px
             //border: 1px solid red
+            .plus_minus_div_checkBtn
+                padding: 15px
+                display: inline
+                .merge_check_btn
+                    border: 3px solid #1c843a !important
+                    background-color: #2da44e
+                    color: #ffffff
+                    font-size: 16px !important
+                    margin-bottom: -15px !important
+                    padding-top: 10px !important
+                    width: 100px !important
+                    height: 40px !important
+                    &:hover
+                        background-color: #21803c !important
+                .merge_check_cancel_btn
+                    border: 3px solid #a10505 !important
+                    background-color: #db2525
+                    color: #ffffff
+                    font-size: 16px !important
+                    margin-bottom: -15px !important
+                    padding-top: 10px !important
+                    width: 100px !important
+                    height: 40px !important
+                    &:hover
+                        background-color: #680404 !important
             .plus_div
                 text-align: center
                 display: inline-block
@@ -281,7 +308,6 @@ $line-color: #d0d7de
                 margin-top: -290px
                 height: 60%
             .pullreq_merge_div_right_bottom_changecode
-
                 height: var(--test3)
                 word-break: break-all
                 overflow: auto
@@ -339,7 +365,11 @@ $line-color: #d0d7de
                             color: #24292f
                             word-wrap: anywhere
                             white-space: pre-wrap
-            .merge_check_btn
+            
+                    
+                    
+                    
+
 
     @media screen and ( max-width: 1100px )
         height: var(--test1)

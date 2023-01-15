@@ -11,6 +11,7 @@ import java.nio.file.attribute.FileTime;
 public class CopyFile {
     public void copy(File sourceF, File targetF) {
 
+        System.out.println(sourceF.getPath());
         File[] target_file = sourceF.listFiles();
         for (File file : target_file) {
             File temp = new File(targetF.getAbsolutePath() + File.separator + file.getName());

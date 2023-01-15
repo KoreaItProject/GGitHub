@@ -25,7 +25,12 @@ public class PullreqVo2 {
 
     private int marginState;
 
-
-
     private int state;
+
+    // [0]에 마진처리를 위한 데이터를 넣음
+    private String token;
+    private String mainToken;
+    private String repo;
+    private boolean fast;
+
 }

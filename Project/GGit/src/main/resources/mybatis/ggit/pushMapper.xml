@@ -7,5 +7,6 @@
 
     <update id="delsel"> update push set selected = 0 where repo=${repo} and branch=${member} </update>
     <update id="insel"> update push set selected = 1 where token = #{token} </update>
-
+    <select id="maintoken" resultType="String">select token from push where repo=${repo} and branch
+        = 0 ORDER BY date desc limit 1</select>
 </mapper>

@@ -43,8 +43,7 @@
                       <span class="pullreq_main_body_a"  ><h4>{{Data.message}}</h4></span>
                     </div>
                     <div class="pullreq_main_body_btn_div">
-                      <div class="btn" @click="pullreqUserData(Data.token, Data.repo)">  
-                        
+                      <div class="btn" @click="pullreqUserData(Data.token, Data.repo, Data.mainToken,Data.nowToken==Data.mainToken)">  
                         <span class="green_point"> <i class="fa-solid fa-arrows-turn-to-dots " v-if="Data.nowToken!=Data.mainToken"></i> </span>
                           <span class="orange_point"> <i class="fa fa-bolt"  v-if="Data.nowToken==Data.mainToken"></i>
                         </span>
@@ -70,8 +69,8 @@ export default {
     // this.mergeRequest()
   },
   methods: {
-    pullreqUserData(token, repo_idx) {
-      this.$emit("merge_func", token, repo_idx);
+    pullreqUserData(token, repo_idx, mainToken, fast) {
+      this.$emit("merge_func", token, repo_idx, mainToken, fast);
       //this.$emit("merge_func2", repo_idx);
     },
     find_repo() {

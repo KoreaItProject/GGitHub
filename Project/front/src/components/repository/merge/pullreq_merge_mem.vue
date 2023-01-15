@@ -14,7 +14,7 @@
                             </svg>
                         </button>
 
-                        <button class="pullreq_merge_div_left2_MergeBtn" @click="merge_check_btn()">병합하기</button>
+                        <button class="pullreq_merge_div_left2_MergeBtn" @click="merge_btn()">병합하기</button>
                     </div>
                     
                     <div class="pullreq_merge_div_left_scroll ">
@@ -78,6 +78,10 @@
 
             <div class="pullreq_merge_div_right">
                 <div class="plus_minus_div">
+                    <div class="plus_minus_div_checkBtn">
+                        <button class="merge_check_btn btns " @click="merge_check_btn()" v-if="this.merge_data[this.left_data_index].marginState==0">비교 확인</button>
+                        <button class="merge_check_cancel_btn btns " @click="merge_check_cancle_btn()" v-if="this.merge_data[this.left_data_index].marginState==1">취소</button>
+                    </div>
                     <div class="minus_div" v-if="pullreq_merge_right_top_state == true">
                         <a class="minus_div_a" @click="pullreq_merge_right_top_state_func()">
                             <div class="minus_div_a_div">
@@ -137,9 +141,8 @@
                 </div>
                 <div class="pullreq_merge_div_right_bottom" :style="cssVariable">
                     <div class="pullreq_merge_div_right_bottom_changecode">
-                        <div id="summernote" spellcheck="false"></div> 
+                        <div id="summernote"></div> 
                     </div>
-                    <button class="merge_check_btn" @click="merge_check_btn()">비교 확인</button>
                 </div>
             </div>
         </div>
@@ -151,7 +154,14 @@ import axios from "axios";
 import sum from "summernote";
 import $ from "jquery";
 import b from "bootstrap";
-import {diff_match_patch, diff_main, diff_cleanupSemantic, diff_prettyHtml} from "@/assets/js/diff.js"
+import store from "../../../vuex/store";
+
+import {
+  diff_match_patch,
+  diff_main,
+  diff_cleanupSemantic,
+  diff_prettyHtml,
+} from "@/assets/js/diff.js";
 
 export default {
   computed: {
@@ -168,8 +178,8 @@ export default {
   },
   data() {
     return {
-      test1 : '123',
-      test2 : '124',
+      test1: "123",
+      test2: "124",
       merge_data: [[]],
       no_merge_count: 0, //갯수가 있는지 없는지 확인
       ok_merge_count: 0,
@@ -186,8 +196,10 @@ export default {
 
       token: this.token_repoidx.token,
       repo_idx: this.token_repoidx.repo_idx,
+      main_token: this.token_repoidx.mainToken,
+      fast: this.token_repoidx.fast,
 
-      left_data_index: "0",
+      left_data_index: 0,
     };
   },
   props: {
@@ -214,7 +226,7 @@ export default {
       this.merge_count = 0;
       for (let i = 0; i < this.merge_data.length; i++) {
         let marginState = this.merge_data[i].marginState;
-        console.log(this.merge_data[i].marginState);
+        //console.log(this.merge_data[i].marginState);
         if (marginState == 0) {
           this.no_merge_count++;
         } else if (marginState == 1) {
@@ -234,10 +246,15 @@ export default {
           console.log(response);
           this.merge_data = response.data;
 
-          $("#summernote").summernote("pasteHTML",this.test(this.merge_data[this.left_data_index].sb_vo_main, this.merge_data[this.left_data_index].sb_vo));
+          $("#summernote").summernote(
+            "pasteHTML",
+            this.test(
+              this.merge_data[this.left_data_index].sb_vo_main,
+              this.merge_data[this.left_data_index].sb_vo
+            )
+          );
           this.merge_test();
           this.countMarge();
-
         });
     },
     pullreq_merge_right_top_state_func() {
@@ -269,71 +286,104 @@ export default {
       this.$emit("merge_func_close");
     },
     left_data_click_func(index) {
+      var data = $("#summernote").summernote("code");
+      
+      data = data.replaceAll("<p><br></p>", "");
+      
+      while (data.startsWith("<p><br></p>")) {
+        data = data.replace("<p><br></p>", "");
+      }
 
+      this.merge_data[this.left_data_index].sb_vo_merge = data;
+      this.countMarge();
+      this.left_data_index = index;
+     
 
-        var data = $("#summernote").summernote('code');
-        while(data.startsWith('<p><br></p>')){
-            data = data.replace('<p><br></p>','');
-        }
-        var test = data;
-        this.merge_data[this.left_data_index].sb_vo_merge = test;
-
-
-        this.countMarge();
-
-
-        this.left_data_index = index;
-        //this.merge_data[this.left_data_index].sb_vo_merge = $("#summernote").summernote('code');
-
-        //var tt = this.test(this.merge_data[index].sb_vo_main, this.merge_data[index].sb_vo);
-        //this.merge_data[this.left_data_index].sb_vo_merge = tt
-        
-        
-
-        $("#summernote").summernote('reset');
-        $('#summernote').summernote('pasteHTML', this.merge_data[this.left_data_index].sb_vo_merge);
-        
+      $("#summernote").summernote("reset");
+      $("#summernote").summernote("pasteHTML",this.merge_data[this.left_data_index].sb_vo_merge);
     },
-    merge_check_btn(){
-            
-            var test = this.merge_data[this.left_data_index].sb_vo_merge;
-           
-            test = test.replace(/<br\/>/ig, "\n");
-            test = test.replace(/<\/p>/ig, "\n");
-            test = test.replace(/<br>/ig, "\n");
-            test = test.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
-            
-            test = test.replaceAll("<br>", "\n");
-            test = test.replace(/&gt;/ig, ">");
-            test = test.replace(/&lt;/ig, "<");
-            test = test.replaceAll("&quot;", "");
-            test = test.replaceAll("&nbsp;", " ");
-            test = test.replaceAll("&amp;", "&");
-            
 
-            console.log(test);
-    },
-    merge_test(){
-       for(var i=0; i<this.merge_data.length; i++){
-         this.merge_data[i].sb_vo_merge =  this.test(this.merge_data[i].sb_vo_main, this.merge_data[i].sb_vo);
-       }
-    },
-    test(a, b){
-        //alert(a);
-        //alert(b);
+    merge_check_btn() {
 
-        if(a == null){
-            a = ""
-        }else if(b == null){
-            b = ""
-        }
-        var dmp = new diff_match_patch();
-        var d = dmp.diff_main(a, b);
-        dmp.diff_cleanupSemantic(d);
-        var ds = dmp.diff_prettyHtml(d);
-        //alert(ds);
-        return ds;
-    }
+      // 비교 확인버튼 누르면 merge_data 저장
+      var data = $("#summernote").summernote("code");
+      while (data.startsWith("<p><br></p>")) {
+        data = data.replace("<p><br></p>", "");
+      }
+      var test = data;
+      this.merge_data[this.left_data_index].sb_vo_merge = test;
+      // 비교 확인버튼 누르면 merge_data 저장
+
+      this.merge_data[this.left_data_index].marginState = 1;
+
+      //console.log(this.merge_data[this.left_data_index].sb_vo_merge);
+      this.countMarge();
+    },
+    merge_check_cancle_btn() {
+      this.merge_data[this.left_data_index].marginState = 0;
+      this.countMarge();
+    },
+    merge_btn() {
+      for (let i = 0; i < this.merge_data.length; i++) {
+        var test = this.merge_data[i].sb_vo_merge;
+        console.log(test);
+        test = test.replace(/<br\/>/gi, "\n");
+        test = test.replace(/<\/p>/gi, "\n");
+        test = test.replace(/<br>/gi, "\n");
+        test = test.replace(
+          /<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/gi,
+          ""
+        );
+
+        test = test.replaceAll("<br>", "\n");
+        test = test.replace(/&gt;/gi, ">");
+        test = test.replace(/&lt;/gi, "<");
+        test = test.replaceAll("&quot;", "");
+        test = test.replaceAll("&nbsp;", " ");
+        test = test.replaceAll("&amp;", "&");
+
+
+        this.merge_data[i].sb_vo_merge = test;
+        this.merge_data[i].repo = this.repo_idx;
+        this.merge_data[i].token = this.token;
+        this.merge_data[i].fast = this.fast;
+        this.merge_data[i].mainToken = this.main_token;
+        this.merge_data[i].member = store.getters.getUserIdx;
+      }
+
+      axios
+        .post("/api/go_pullreq", {
+          list: this.merge_data,
+        })
+        .then((response) => {
+          window.location.href="?tab=code"
+        });
+    },
+
+    merge_test() {
+      for (var i = 0; i < this.merge_data.length; i++) {
+        this.merge_data[i].sb_vo_merge = this.test(
+          this.merge_data[i].sb_vo_main,
+          this.merge_data[i].sb_vo
+        );
+      }
+    },
+    test(a, b) {
+      //alert(a);
+      //alert(b);
+
+      if (a == null) {
+        a = "";
+      } else if (b == null) {
+        b = "";
+      }
+      var dmp = new diff_match_patch();
+      var d = dmp.diff_main(a, b);
+      dmp.diff_cleanupSemantic(d);
+      var ds = dmp.diff_prettyHtml(d);
+      //alert(ds);
+      return ds;
+    },
   },
 };
 </script>

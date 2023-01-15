@@ -17,4 +17,6 @@ public interface PushMapper {
     void delsel(Map map);
 
     void insel(String token);
+
+    String maintoken(String repo);
 }
