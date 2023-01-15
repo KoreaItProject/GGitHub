@@ -108,11 +108,11 @@ public class PullRequestController {
 
             String path = "";// 파일 경로 for문에서 사용할거
             String con = "";// 파일 내용 for문에서 사용할거
-            for (int i = 0; i < jo.size(); i++) {
+            for (int i = 0; i < data.size(); i++) {
                 path = newPath + "/data" + ((JSONObject) (data.get(i))).get("filePath") + "";// 새로운 폴더 기반 하나의 파일 경로
                 con = ((JSONObject) (data.get(i))).get("sb_vo_merge") + "";// 하나의 파일 내용
-                new File(path).mkdirs();
-                // WriteData(path
+                new File(new File(path).getPath()).mkdirs();
+                new WriteData(path).write(con);
 
             }
 

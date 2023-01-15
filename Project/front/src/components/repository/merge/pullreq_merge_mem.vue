@@ -345,7 +345,6 @@ export default {
         test = test.replaceAll("&nbsp;", " ");
         test = test.replaceAll("&amp;", "&");
 
-        var test = this.merge_data[i].sb_vo_merge;
 
         this.merge_data[i].sb_vo_merge = test;
         this.merge_data[i].repo = this.repo_idx;
