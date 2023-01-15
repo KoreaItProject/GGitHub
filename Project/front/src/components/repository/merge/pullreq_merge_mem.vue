@@ -154,6 +154,8 @@ import axios from "axios";
 import sum from "summernote";
 import $ from "jquery";
 import b from "bootstrap";
+import store from "../../../vuex/store";
+
 import {
   diff_match_patch,
   diff_main,
@@ -351,6 +353,7 @@ export default {
         this.merge_data[i].token = this.token;
         this.merge_data[i].fast = this.fast;
         this.merge_data[i].mainToken = this.main_token;
+        this.merge_data[i].member = store.getters.getUserIdx;
       }
 
       axios

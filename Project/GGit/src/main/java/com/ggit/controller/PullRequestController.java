@@ -84,6 +84,7 @@ public class PullRequestController {
     public List<PullreqVo> go_pullreq(@RequestBody String list) {
         JSONObject jo;
         try {
+
             jo = (JSONObject) (new JSONParser().parse(list));// 가져온 margedata
             JSONArray data = (JSONArray) jo.get("list");// 가져온 margedata를 배열로 쪼겐거 구조가 [pullreqVo2,pullreqvo2,pullreqvo2]
                                                         // 라고 생각하면 됨 대신 다 json임
@@ -91,6 +92,8 @@ public class PullRequestController {
             String token = ((JSONObject) data.get(0)).get("token") + "";// token
             String mainToken = pushService.maintoken(repo);// 메인토큰
             String newToken = new RandStr(15).getResult(); // 새로운 토큰값
+            String member = ((JSONObject) data.get(0)).get("member") + "";
+            System.out.println(member);
             // System.out.println(repo);
             // System.out.println(token);
             // System.out.println(mainToken);
