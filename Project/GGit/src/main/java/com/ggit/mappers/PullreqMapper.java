@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import com.ggit.vo.PullreqVo;
+import com.ggit.vo.PushVo;
 import com.ggit.vo.RepoVo;
 import com.ggit.vo.RepomemVo;
 
@@ -27,5 +28,10 @@ public interface PullreqMapper {
 
     int merge_main_push_count(int repo_idx);
 
+    int savePush(PushVo pushVo);
+
+    String fromMemberNick(String member_nick);
+
     void savePullreq(int marged, String token);
+
 }

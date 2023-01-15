@@ -14,7 +14,7 @@
                             </svg>
                         </button>
 
-                        <button class="pullreq_merge_div_left2_MergeBtn" @click="merge_btn()">병합하기</button>
+                        <button class="pullreq_merge_div_left2_MergeBtn" @click="merge_btn()" v-if="no_merge_count == 0">병합하기</button>
                     </div>
                     
                     <div class="pullreq_merge_div_left_scroll ">
@@ -318,6 +318,8 @@ export default {
 
       //console.log(this.merge_data[this.left_data_index].sb_vo_merge);
       this.countMarge();
+
+      this.test123();
     },
     merge_check_cancle_btn() {
       this.merge_data[this.left_data_index].marginState = 0;

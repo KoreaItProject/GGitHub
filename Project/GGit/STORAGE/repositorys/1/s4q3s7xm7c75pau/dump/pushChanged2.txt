@@ -1,0 +1,1 @@
+[{"path":"\/asdf.txt","state":"add"}]
