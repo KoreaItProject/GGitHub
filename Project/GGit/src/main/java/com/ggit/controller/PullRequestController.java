@@ -32,6 +32,7 @@ import com.ggit.util.ReadData;
 import com.ggit.util.WriteData;
 import com.ggit.vo.PullreqVo;
 import com.ggit.vo.PullreqVo2;
+import com.ggit.vo.PushVo;
 import com.ggit.vo.RepoVo;
 
 @RestController
@@ -44,10 +45,15 @@ public class PullRequestController {
     PullreqVo pullreqVo;
 
     @Autowired
+    PushVo pushVo;
+
+    @Autowired
     PullreqService pullreqService;
 
     @Autowired
     PushService pushService;
+
+    
     // @Autowired
     // PullreqVo2 pullreqVo2;
     @Value("${storage_dir}")
@@ -93,7 +99,7 @@ public class PullRequestController {
             String mainToken = pushService.maintoken(repo);// 메인토큰
             String newToken = new RandStr(15).getResult(); // 새로운 토큰값
             String member = ((JSONObject) data.get(0)).get("member") + "";
-            System.out.println(member);
+            System.out.println("-=-=>" + member);
             // System.out.println(repo);
             // System.out.println(token);
             // System.out.println(mainToken);
@@ -118,9 +124,27 @@ public class PullRequestController {
                 new WriteData(path).write(con);
 
             }
+            
+            // ~로부터 병합
+            String nick = pullreqService.fromMemberNick(member);
+            System.out.println("nick ==> " + nick);
 
+            pushVo.setToken(newToken);
+            pushVo.setMember(Integer.parseInt(member));
+            pushVo.setRepo(Integer.parseInt(repo));
+            pushVo.setMessage("'"+nick+"'로부터 병합"); 
+            //pushVo.setDate();
+            pushVo.setBranch(0);
+            pushVo.setBefore_token(newToken);
+            pushVo.setFromMain(0);
+            pushVo.setSelected(0);
+            pushVo.setMain_token(mainToken);
+
+            int savePush_result = savePush(pushVo);
+            System.out.println("savePush_result : " + savePush_result);
             savePullreq(fast, token);
-            savePush();
+          
+
 
         } catch (Exception e) {
             // TODO Auto-generated catch block
@@ -140,8 +164,8 @@ public class PullRequestController {
         pullreqService.savePullreq(1, token);
     }
 
-    public void savePush() {
-
+    public int savePush(PushVo pushVo) {
+        return pullreqService.savePush(pushVo);
     }
 
     @RequestMapping("testcon")

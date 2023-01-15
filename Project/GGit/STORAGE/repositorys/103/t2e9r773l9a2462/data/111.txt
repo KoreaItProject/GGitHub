@@ -1,0 +1,19 @@
+main 111
+텍스트 파일 public List pullreq_select(int idx) {
+        return mapper.pullreq_select(idx);
+    }
+
+    public List pullreq_select_mem(int idx) {
+        return mapper.pullreq_select_mem(idx);
+    }
+
+    // 저장소 멤버인지 확인
+    public RepomemVo repoInMem(PullreqVo pullreqVo) {
+        return mapper.repoInMem(pullreqVo);
+    }
+
+    public int pullrequest(PullreqVo pullreqVo) {
+        return mapper.pullrequest(pullreqVo);
+    }
+
+
