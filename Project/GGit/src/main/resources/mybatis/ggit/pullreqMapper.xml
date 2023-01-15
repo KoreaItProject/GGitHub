@@ -41,4 +41,7 @@
         FROM push
         WHERE repo=#{repo_idx} and branch = 0;
     </select>
+    <update id="savePullreq">
+        update pullreq set marged = ${marged} , end_date = now() where token = #{token};
+    </update>
 </mapper>

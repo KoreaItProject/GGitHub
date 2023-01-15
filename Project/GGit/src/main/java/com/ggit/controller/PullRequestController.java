@@ -119,7 +119,7 @@ public class PullRequestController {
 
             }
 
-            savePullreq();
+            savePullreq(fast, token);
             savePush();
 
         } catch (Exception e) {
@@ -131,8 +131,13 @@ public class PullRequestController {
     }
 
     // 함수만들고 디비 저장
-    public void savePullreq() {
+    public void savePullreq(boolean fast, String token) {
 
+        if (fast) {
+            pullreqService.savePullreq(2, token);
+            return;
+        }
+        pullreqService.savePullreq(1, token);
     }
 
     public void savePush() {

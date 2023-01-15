@@ -356,7 +356,7 @@ export default {
           list: this.merge_data,
         })
         .then((response) => {
-          console.log(response);
+          window.location.href="?tab=code"
         });
     },
 
