@@ -32,4 +32,5 @@ public class PullreqVo2 {
     private String mainToken;
     private String repo;
     private boolean fast;
+
 }

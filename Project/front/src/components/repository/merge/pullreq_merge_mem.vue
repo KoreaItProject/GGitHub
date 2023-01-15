@@ -78,6 +78,10 @@
 
             <div class="pullreq_merge_div_right">
                 <div class="plus_minus_div">
+                    <div class="plus_minus_div_checkBtn">
+                        <button class="merge_check_btn btns " @click="merge_check_btn()" v-if="this.merge_data[this.left_data_index].marginState==0">비교 확인</button>
+                        <button class="merge_check_cancel_btn btns " @click="merge_check_cancle_btn()" v-if="this.merge_data[this.left_data_index].marginState==1">취소</button>
+                    </div>
                     <div class="minus_div" v-if="pullreq_merge_right_top_state == true">
                         <a class="minus_div_a" @click="pullreq_merge_right_top_state_func()">
                             <div class="minus_div_a_div">
@@ -137,9 +141,8 @@
                 </div>
                 <div class="pullreq_merge_div_right_bottom" :style="cssVariable">
                     <div class="pullreq_merge_div_right_bottom_changecode">
-                        <div id="summernote" spellcheck="false"></div> 
+                        <div id="summernote"></div> 
                     </div>
-                    <button class="merge_check_btn" @click="merge_check_btn()">비교 확인</button>
                 </div>
             </div>
         </div>
@@ -221,7 +224,7 @@ export default {
       this.merge_count = 0;
       for (let i = 0; i < this.merge_data.length; i++) {
         let marginState = this.merge_data[i].marginState;
-        console.log(this.merge_data[i].marginState);
+        //console.log(this.merge_data[i].marginState);
         if (marginState == 0) {
           this.no_merge_count++;
         } else if (marginState == 1) {
@@ -302,6 +305,15 @@ export default {
         this.merge_data[this.left_data_index].sb_vo_merge
       );
     },
+
+    merge_check_btn() {
+      this.merge_data[this.left_data_index].marginState = 1;
+      this.countMarge();
+    },
+    merge_check_cancle_btn() {
+      this.merge_data[this.left_data_index].marginState = 0;
+      this.countMarge();
+    },
     merge_btn() {
       for (let i = 0; i < this.merge_data.length; i++) {
         var test = this.merge_data[i].sb_vo_merge;
@@ -320,6 +332,8 @@ export default {
         test = test.replaceAll("&quot;", "");
         test = test.replaceAll("&nbsp;", " ");
         test = test.replaceAll("&amp;", "&");
+
+        var test = this.merge_data[i].sb_vo_merge;
 
         this.merge_data[i].sb_vo_merge = test;
         this.merge_data[i].repo = this.repo_idx;
