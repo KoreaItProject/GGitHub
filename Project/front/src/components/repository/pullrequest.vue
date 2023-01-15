@@ -83,10 +83,6 @@ export default {
       },
     };
   },
-  // props: {
-  //     repo_idx_props: Number
-  // },
-
   components: {
     pullreqnomem: pullreqnomem,
     pullreqmem: pullreqmem,

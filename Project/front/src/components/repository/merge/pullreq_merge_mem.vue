@@ -14,7 +14,7 @@
                             </svg>
                         </button>
 
-                        <button class="pullreq_merge_div_left2_MergeBtn" @click="merge_check_btn()">병합하기</button>
+                        <button class="pullreq_merge_div_left2_MergeBtn" @click="merge_btn()">병합하기</button>
                     </div>
                     
                     <div class="pullreq_merge_div_left_scroll ">
@@ -79,7 +79,8 @@
             <div class="pullreq_merge_div_right">
                 <div class="plus_minus_div">
                     <div class="plus_minus_div_checkBtn">
-                        <button class="merge_check_btn btns " @click="merge_check_btn()">비교 확인</button>
+                        <button class="merge_check_btn btns " @click="merge_check_btn()" v-if="this.merge_data[this.left_data_index].marginState==0">비교 확인</button>
+                        <button class="merge_check_cancel_btn btns " @click="merge_check_cancle_btn()" v-if="this.merge_data[this.left_data_index].marginState==1">취소</button>
                     </div>
                     <div class="minus_div" v-if="pullreq_merge_right_top_state == true">
                         <a class="minus_div_a" @click="pullreq_merge_right_top_state_func()">
@@ -216,7 +217,7 @@ export default {
       this.merge_count = 0;
       for (let i = 0; i < this.merge_data.length; i++) {
         let marginState = this.merge_data[i].marginState;
-        console.log(this.merge_data[i].marginState);
+        //console.log(this.merge_data[i].marginState);
         if (marginState == 0) {
           this.no_merge_count++;
         } else if (marginState == 1) {
@@ -297,9 +298,15 @@ export default {
         
     },
     merge_check_btn(){
+        this.merge_data[this.left_data_index].marginState = 1;
+        this.countMarge();
+    },
+    merge_check_cancle_btn(){
+        this.merge_data[this.left_data_index].marginState = 0;
+        this.countMarge();
+    },
+    merge_btn(){
             
-            this.merge_data[this.left_data_index].marginState = 1;
-
             var test = this.merge_data[this.left_data_index].sb_vo_merge;
            
             test = test.replace(/<br\/>/ig, "\n");
