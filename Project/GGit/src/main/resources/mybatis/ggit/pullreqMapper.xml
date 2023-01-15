@@ -34,7 +34,7 @@
         SELECT token
         FROM push
         WHERE repo=#{repo_idx} and branch = 0
-        order by date desc;
+        order by date desc limit 1;
     </select>
     <select id="merge_main_push_count" resultType="int">
         SELECT count(*) as main_mush_count
