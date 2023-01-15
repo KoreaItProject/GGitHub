@@ -307,7 +307,19 @@ export default {
     },
 
     merge_check_btn() {
+
+      // 비교 확인버튼 누르면 merge_data 저장
+      var data = $("#summernote").summernote("code");
+      while (data.startsWith("<p><br></p>")) {
+        data = data.replace("<p><br></p>", "");
+      }
+      var test = data;
+      this.merge_data[this.left_data_index].sb_vo_merge = test;
+      // 비교 확인버튼 누르면 merge_data 저장
+
       this.merge_data[this.left_data_index].marginState = 1;
+
+      console.log(this.merge_data[this.left_data_index].sb_vo_merge);
       this.countMarge();
     },
     merge_check_cancle_btn() {
