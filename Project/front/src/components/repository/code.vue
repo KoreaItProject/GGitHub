@@ -291,7 +291,7 @@ export default {
           this.file_list = response.data;
 
           if (this.file_list[0].state == "file") {
-            this.file_line_height = this.file_list[0].totalLine * 19 + "px";
+            this.file_line_height = this.file_list[0].totalLine * 25 + "px";
             //현재 위치가 파일인경우
             if (this.file_list[0].name == "README.md") {
               this.changeMD(this.file_list[0].content);

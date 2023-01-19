@@ -1,1 +1,3 @@
-[{"date":"2023-01-07 14:00:47","path":"\/README.md","message":"저장소 생성"}]
+[{"date":"2023-01-07 14:00:47","path":"\/README.md","message":"저장소 생성"}
+,{"date":"2023-01-07 14:00:47","path":"\/JavaProject","message":"저장소 생성"},
+{"date":"2023-01-07 14:00:47","path":"\/JavaProject\/Main.java","message":"저장소 생성"},]

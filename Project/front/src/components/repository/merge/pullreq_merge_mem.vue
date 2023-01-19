@@ -14,7 +14,7 @@
                             </svg>
                         </button>
 
-                        <button class="pullreq_merge_div_left2_MergeBtn" @click="merge_btn()">병합하기</button>
+                        <button class="pullreq_merge_div_left2_MergeBtn" @click="merge_btn()" v-if="no_merge_count == 0">병합하기</button>
                     </div>
                     
                     <div class="pullreq_merge_div_left_scroll ">
