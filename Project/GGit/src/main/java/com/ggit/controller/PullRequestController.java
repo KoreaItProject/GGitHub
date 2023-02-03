@@ -152,7 +152,7 @@ public class PullRequestController {
         return null;
     }
 
-    // 함수만들고 디비 저장
+    // 함수만들고 디비 저장!
     public void savePullreq(boolean fast, String token) {
 
         if (fast) {
