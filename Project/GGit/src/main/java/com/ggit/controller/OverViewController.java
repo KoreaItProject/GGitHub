@@ -1,7 +1,6 @@
 package com.ggit.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,19 +17,18 @@ public class OverViewController {
 
     @Autowired
     OverViewVo overViewVo;
-    
+
     @Autowired
     OverViewService overViewService;
 
-
     @RequestMapping("getContributionData")
-    public List<OverViewVo> getContributionData(@RequestBody OverViewVo overViewVo){
+    public List<OverViewVo> getContributionData(@RequestBody OverViewVo overViewVo) {
         String idx = overViewService.getUserIdx(overViewVo);
         return overViewService.getContributionData(idx);
     }
 
     @RequestMapping("getUserIdx")
-    public String getUserIdx(@RequestBody OverViewVo overViewVo){
+    public String getUserIdx(@RequestBody OverViewVo overViewVo) {
         return overViewService.getUserIdx(overViewVo);
     }
 
@@ -42,31 +40,30 @@ public class OverViewController {
 
     // 고정이 되어있는 저장소인지 조회
     @RequestMapping("pinCheck")
-    public OverViewVo pinCheck(@RequestBody OverViewVo overViewVo){
+    public OverViewVo pinCheck(@RequestBody OverViewVo overViewVo) {
         return overViewService.pinCheck(overViewVo);
     }
 
     // pin 체크 해제(고정 해체)
     @RequestMapping("pinClickOff")
-    public int pinCheckOff(@RequestBody OverViewVo overViewVo){
+    public int pinCheckOff(@RequestBody OverViewVo overViewVo) {
         return overViewService.pinClickOff(overViewVo);
     }
 
     // pin 데이터
     @RequestMapping("getMyPin")
-    public List<OverViewVo> getMyPin(@RequestBody OverViewVo overViewVo){
+    public List<OverViewVo> getMyPin(@RequestBody OverViewVo overViewVo) {
         return overViewService.getMyPin(overViewVo);
     }
 
     @RequestMapping("/pinSort")
     public void repoSort(@RequestBody PinSortData pinsSortData) {
-        
-    
+
         List<OverViewVo> list = pinsSortData.getpinsdata();
-        //System.out.println(list);
+        // System.out.println(list);
 
         int u_idx = pinsSortData.getIdx();
-        //System.out.println("idx: " + u_idx);
+        // System.out.println("idx: " + u_idx);
 
         for (int i = 0; i < list.size(); i++) {
 
