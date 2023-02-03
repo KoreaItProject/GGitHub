@@ -1,1 +1,0 @@
-[{"path":"\/새로운파일!.txt","state":"add"},{"path":"\/README.md","state":"change"},{"path":"\/Main.java","state":"add"}]

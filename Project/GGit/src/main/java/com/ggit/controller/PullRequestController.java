@@ -53,7 +53,6 @@ public class PullRequestController {
     @Autowired
     PushService pushService;
 
-    
     // @Autowired
     // PullreqVo2 pullreqVo2;
     @Value("${storage_dir}")
@@ -124,7 +123,9 @@ public class PullRequestController {
                 new WriteData(path).write(con);
 
             }
-            
+
+            savePullreq(fast, token);
+            Thread.sleep(800);
             // ~로부터 병합
             String nick = pullreqService.fromMemberNick(member);
             System.out.println("nick ==> " + nick);
@@ -132,8 +133,8 @@ public class PullRequestController {
             pushVo.setToken(newToken);
             pushVo.setMember(Integer.parseInt(member));
             pushVo.setRepo(Integer.parseInt(repo));
-            pushVo.setMessage("'"+nick+"'로부터 병합"); 
-            //pushVo.setDate();
+            pushVo.setMessage("'" + nick + "'로부터 병합");
+            // pushVo.setDate();
             pushVo.setBranch(0);
             pushVo.setBefore_token(newToken);
             pushVo.setFromMain(0);
@@ -142,9 +143,6 @@ public class PullRequestController {
 
             int savePush_result = savePush(pushVo);
             System.out.println("savePush_result : " + savePush_result);
-            savePullreq(fast, token);
-          
-
 
         } catch (Exception e) {
             // TODO Auto-generated catch block
