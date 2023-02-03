@@ -124,8 +124,6 @@ public class PullRequestController {
 
             }
 
-            savePullreq(fast, token);
-            Thread.sleep(800);
             // ~로부터 병합
             String nick = pullreqService.fromMemberNick(member);
             System.out.println("nick ==> " + nick);
@@ -141,6 +139,8 @@ public class PullRequestController {
             pushVo.setSelected(0);
             pushVo.setMain_token(mainToken);
 
+            savePullreq(fast, token);
+            Thread.sleep(1200);
             int savePush_result = savePush(pushVo);
             System.out.println("savePush_result : " + savePush_result);
 
