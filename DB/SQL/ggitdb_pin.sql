@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.30, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.31, for Win64 (x86_64)
 --
 -- Host: localhost    Database: ggitdb
 -- ------------------------------------------------------
--- Server version	8.0.30
+-- Server version	8.0.31
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -28,7 +28,7 @@ CREATE TABLE `pin` (
   `repo` int NOT NULL,
   `sort` int DEFAULT '0',
   PRIMARY KEY (`idx`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +37,7 @@ CREATE TABLE `pin` (
 
 LOCK TABLES `pin` WRITE;
 /*!40000 ALTER TABLE `pin` DISABLE KEYS */;
-INSERT INTO `pin` VALUES (18,3,50,0),(19,3,1,0),(20,3,2,0);
+INSERT INTO `pin` VALUES (60,1,2,2),(61,2,107,3),(62,2,3,0),(63,2,1,2),(64,1,3,3),(65,2,71,1),(66,1,104,4),(67,1,1,1),(68,3,109,1),(69,3,110,0),(70,3,111,2),(71,9,120,0),(72,9,119,0),(73,8,118,0),(74,8,117,0),(75,7,112,0),(76,7,113,0);
 /*!40000 ALTER TABLE `pin` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-21 15:11:41
+-- Dump completed on 2023-02-05  0:41:03

@@ -3,6 +3,7 @@ package com.ggit.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,6 +47,11 @@ public class TestController {
     RepomemService repomemService;
     @Autowired
     StarService starService;
+
+    @RequestMapping("/getPath")
+    public String PostTest() {
+        return this.getClass().getResource("").getPath();
+    }
 
     @PostMapping("/post")
     public String PostTest(@RequestBody String msg) {
