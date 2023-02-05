@@ -116,12 +116,20 @@ public class PullRequestController {
 
             String path = "";// 파일 경로 for문에서 사용할거
             String con = "";// 파일 내용 for문에서 사용할거
+            String marginState = "";
+            String file_state = "";
+            String pushDataCon = new ReadData(newPath + "/.ggit/.repo/file/dump/pushData.txt").getCon();
+
+            JSONArray pushData = (JSONArray) new JSONParser().parse(pushDataCon);
             for (int i = 0; i < data.size(); i++) {
                 path = newPath + "/data" + ((JSONObject) (data.get(i))).get("filePath") + "";// 새로운 폴더 기반 하나의 파일 경로
                 con = ((JSONObject) (data.get(i))).get("sb_vo_merge") + "";// 하나의 파일 내용
+                marginState = ((JSONObject) (data.get(i))).get("marginState") + "";
+                file_state = ((JSONObject) (data.get(i))).get("file_state") + "";
                 new File(new File(path).getParent()).mkdirs();
                 new WriteData(path).write(con);
-
+                System.out.println(marginState);
+                System.out.println(file_state);
             }
 
             // ~로부터 병합
