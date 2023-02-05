@@ -1,0 +1,1 @@
+[{"path":"\/새 폴더","state":"del"},{"path":"\/README.md","state":"change"},{"path":"\/123123.txt","state":"change"},{"path":"\/새 폴더","state":"add"}]

@@ -45,9 +45,8 @@
                     <div class="pullreq_main_body_btn_div">
                       <div class="btn" @click="pullreqUserData(Data.token, Data.repo, Data.mainToken,Data.nowToken==Data.mainToken)">  
                         <span class="green_point"> <i class="fa-solid fa-arrows-turn-to-dots " v-if="Data.nowToken!=Data.mainToken"></i> </span>
-                          <span class="orange_point"> <i class="fa fa-bolt"  v-if="Data.nowToken==Data.mainToken"></i>
-                        </span>
-                        </div>
+                        <span class="orange_point"> <i class="fa fa-bolt"  v-if="Data.nowToken==Data.mainToken"></i></span>
+                      </div>
                     </div>
                 </div>
             </div>

@@ -17,7 +17,7 @@
                         <button class="pullreq_merge_div_left2_MergeBtn" @click="merge_btn()" v-if="no_merge_count == 0">병합하기</button>
                     </div>
                     
-                    <div class="pullreq_merge_div_left_scroll ">
+                    <div class="pullreq_merge_div_left_scroll">
 
                         <div class="not_match scrollBar" v-show="0<no_merge_count">
                             <div class="pullreq_merge_div_left_data" @click="left_data_click_func(index)" v-for="(data, index) in merge_data" v-if="data.marginState==0" >
@@ -34,9 +34,6 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                            
-                            
                         </div>
                     
                         <div class="ok_match scrollBar" v-show="0<ok_merge_count">
@@ -224,8 +221,10 @@ export default {
       this.no_merge_count = 0;
       this.ok_merge_count = 0;
       this.merge_count = 0;
+
       for (let i = 0; i < this.merge_data.length; i++) {
         let marginState = this.merge_data[i].marginState;
+
         //console.log(this.merge_data[i].marginState);
         if (marginState == 0) {
           this.no_merge_count++;
@@ -243,16 +242,25 @@ export default {
           token: this.token,
         })
         .then((response) => {
-          console.log(response);
+          
+          //console.log(response.data);
           this.merge_data = response.data;
 
+          // if(this.merge_data[this.left_data_index].sb_vo_main == null){
+          //   this.merge_data[this.left_data_index].sb_vo_main = " "
+          // }else if(this.merge_data[this.left_data_index].sb_vo == null){
+          //   this.merge_data[this.left_data_index].sb_vo = " "
+          // }
+
+          let data = this.test( 
+                       this.merge_data[this.left_data_index].sb_vo_main,
+                       this.merge_data[this.left_data_index].sb_vo
+                       )
+
           $("#summernote").summernote(
-            "pasteHTML",
-            this.test(
-              this.merge_data[this.left_data_index].sb_vo_main,
-              this.merge_data[this.left_data_index].sb_vo
-            )
+            data
           );
+
           this.merge_test();
           this.countMarge();
         });
@@ -361,28 +369,31 @@ export default {
     },
 
     merge_test() {
+      
       for (var i = 0; i < this.merge_data.length; i++) {
         this.merge_data[i].sb_vo_merge = this.test(
           this.merge_data[i].sb_vo_main,
           this.merge_data[i].sb_vo
         );
+        
       }
     },
     test(a, b) {
-      //alert(a);
-      //alert(b);
-
       if (a == null) {
         a = "";
       } else if (b == null) {
         b = "";
       }
-      var dmp = new diff_match_patch();
-      var d = dmp.diff_main(a, b);
-      dmp.diff_cleanupSemantic(d);
-      var ds = dmp.diff_prettyHtml(d);
-      //alert(ds);
-      return ds;
+
+      if(a == "" && b == ""){
+        return " "
+      }else{
+        var dmp = new diff_match_patch();
+        var d = dmp.diff_main(a, b);
+        dmp.diff_cleanupSemantic(d);
+        var ds = dmp.diff_prettyHtml(d);
+        return ds;
+      }
     },
   },
 };

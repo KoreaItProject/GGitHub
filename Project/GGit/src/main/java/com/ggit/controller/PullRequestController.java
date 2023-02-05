@@ -99,11 +99,6 @@ public class PullRequestController {
             String mainToken = pushService.maintoken(repo);// 메인토큰
             String newToken = new RandStr(15).getResult(); // 새로운 토큰값
             String member = ((JSONObject) data.get(0)).get("member") + "";
-            System.out.println("-=-=>" + member);
-            // System.out.println(repo);
-            // System.out.println(token);
-            // System.out.println(mainToken);
-            // System.out.println(newToken);
 
             boolean fast = (boolean) ((JSONObject) data.get(0)).get("fast");// 빠른병합인지여부
 
@@ -198,7 +193,7 @@ public class PullRequestController {
             mainchanged = (JSONArray) (new JSONParser()).parse(maincon);
 
             System.out.println("메인=> " + mainchanged);
-            // System.out.println("메인병합파일 => " + mainchanged);
+            
             int marginState = 2;
             for (int i = 0; i < changed.size(); i++) {
                 PullreqVo2 pullreqVo2 = new PullreqVo2(); // vo 객체 생성
@@ -208,6 +203,10 @@ public class PullRequestController {
 
                     String changed_str_path = (String) ((JSONObject) changed.get(i)).get("path");
                     String mainChanged_str_path = (String) ((JSONObject) mainchanged.get(j)).get("path");
+
+                    String file_state_main = (String) ((JSONObject) changed.get(i)).get("state");
+                    String file_state_merge = (String) ((JSONObject) mainchanged.get(j)).get("state");
+
                     if (changed_str_path.equals(mainChanged_str_path)) {
 
                         System.out.println("같은 경로가 있음");
@@ -233,6 +232,8 @@ public class PullRequestController {
 
                         pullreqVo2.setFileDataMain(data_arrList_main);
                         pullreqVo2.setSb_vo_main(sb_main);
+                        pullreqVo2.setFile_state_merge(file_state_merge);
+                        pullreqVo2.setFile_state_main(file_state_main);
 
                     } else {
                         System.out.println("같은 경로가 없음!!");
@@ -254,8 +255,6 @@ public class PullRequestController {
                 ArrayList<String> data_arrList = new ArrayList<String>();
                 StringBuilder sb = new StringBuilder();
 
-                ArrayList<String> main_Data_arrList = new ArrayList<String>();
-
                 BufferedReader inFiles = new BufferedReader(
                         new InputStreamReader(new FileInputStream(path), StandardCharsets.UTF_8));
 
@@ -267,6 +266,7 @@ public class PullRequestController {
                 }
                 // .readLine()은 끝에 개행문자를 읽지 않는다.
                 pullreqVo2.setFileData(data_arrList);
+                
                 pullreqVo2.setSb_vo(sb);
                 inFiles.close();
 

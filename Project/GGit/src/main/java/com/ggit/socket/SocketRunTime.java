@@ -77,7 +77,7 @@ class Sender extends Thread {
                 infoDTO = (InfoDTO) reader.readObject();
                 if (infoDTO.getCommand() == Info.STATE && infoDTO.getMessage().equals("running")) {
                     Thread.sleep(20000);
-                    System.out.println(++i * 20 + "초");
+                    //System.out.println(++i * 20 + "초");
                     writer.writeObject(infoDTO);
                     writer.flush();
                 }

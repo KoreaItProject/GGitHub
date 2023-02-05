@@ -13,8 +13,8 @@ public class PullreqVo2 {
 
     private String fileName;
 
-    private String filestate;
-    private String filestateMain;
+    //private String filestate;
+    //private String filestateMain;
 
     private ArrayList<String> fileData;
     private ArrayList<String> fileDataMain;
@@ -22,6 +22,8 @@ public class PullreqVo2 {
     private StringBuilder sb_vo;
     private StringBuilder sb_vo_main;
     private StringBuilder sb_merge;
+    private String file_state_main;
+    private String file_state_merge;
 
     private int marginState;
 
