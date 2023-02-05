@@ -55,7 +55,7 @@ public class TestController {
 
     @PostMapping("/post")
     public String PostTest(@RequestBody String msg) {
-        return "post success!!!" + msg;
+        return "post success!!" + msg;
     }
 
     @RequestMapping(value = "/member")
