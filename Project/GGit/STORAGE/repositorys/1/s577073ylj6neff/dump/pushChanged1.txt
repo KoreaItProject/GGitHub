@@ -1,0 +1,1 @@
+[{"path":"\/a6s5d4as6d.txt","state":"add"},{"path":"\/qweqweqwe.txt","state":"add"}]

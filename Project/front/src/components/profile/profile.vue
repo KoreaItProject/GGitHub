@@ -216,7 +216,7 @@
 
 <script>
 import axios from "axios";
-import overview from "@/components/profile/overview.vue";
+import overview from "@/components/profile/overView.vue";
 import repositories from "@/components/profile/repositories.vue";
 import stars from "@/components/profile/stars.vue";
 import setting from "@/components/setting/profile.vue";

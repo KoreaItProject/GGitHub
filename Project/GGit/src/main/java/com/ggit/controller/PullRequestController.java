@@ -53,7 +53,6 @@ public class PullRequestController {
     @Autowired
     PushService pushService;
 
-    
     // @Autowired
     // PullreqVo2 pullreqVo2;
     @Value("${storage_dir}")
@@ -112,14 +111,22 @@ public class PullRequestController {
 
             String path = "";// 파일 경로 for문에서 사용할거
             String con = "";// 파일 내용 for문에서 사용할거
+            String marginState = "";
+            String file_state = "";
+            String pushDataCon = new ReadData(newPath + "/.ggit/.repo/file/dump/pushData.txt").getCon();
+
+            JSONArray pushData = (JSONArray) new JSONParser().parse(pushDataCon);
             for (int i = 0; i < data.size(); i++) {
                 path = newPath + "/data" + ((JSONObject) (data.get(i))).get("filePath") + "";// 새로운 폴더 기반 하나의 파일 경로
                 con = ((JSONObject) (data.get(i))).get("sb_vo_merge") + "";// 하나의 파일 내용
+                marginState = ((JSONObject) (data.get(i))).get("marginState") + "";
+                file_state = ((JSONObject) (data.get(i))).get("file_state") + "";
                 new File(new File(path).getParent()).mkdirs();
                 new WriteData(path).write(con);
-
+                System.out.println(marginState);
+                System.out.println(file_state);
             }
-            
+
             // ~로부터 병합
             String nick = pullreqService.fromMemberNick(member);
             System.out.println("nick ==> " + nick);
@@ -127,19 +134,18 @@ public class PullRequestController {
             pushVo.setToken(newToken);
             pushVo.setMember(Integer.parseInt(member));
             pushVo.setRepo(Integer.parseInt(repo));
-            pushVo.setMessage("'"+nick+"'로부터 병합"); 
-            //pushVo.setDate();
+            pushVo.setMessage("'" + nick + "'로부터 병합");
+            // pushVo.setDate();
             pushVo.setBranch(0);
             pushVo.setBefore_token(newToken);
             pushVo.setFromMain(0);
             pushVo.setSelected(0);
             pushVo.setMain_token(mainToken);
 
+            savePullreq(fast, token);
+            Thread.sleep(1200);
             int savePush_result = savePush(pushVo);
             System.out.println("savePush_result : " + savePush_result);
-            savePullreq(fast, token);
-          
-
 
         } catch (Exception e) {
             // TODO Auto-generated catch block
@@ -149,7 +155,7 @@ public class PullRequestController {
         return null;
     }
 
-    // 함수만들고 디비 저장
+    // 함수만들고 디비 저장!
     public void savePullreq(boolean fast, String token) {
 
         if (fast) {

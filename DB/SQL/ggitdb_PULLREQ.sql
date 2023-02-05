@@ -27,11 +27,12 @@ CREATE TABLE `pullreq` (
   `repo` int NOT NULL COMMENT '저장소 번호',
   `member` int NOT NULL COMMENT '회원번호',
   `message` longtext COMMENT 'EX)병합 요청합니다. / 내용',
-  `token` varchar(45) NOT NULL COMMENT 'a(원래저장소)에서 b(fork한)를 병합할때 b의 토큰 / ㄷx)bx32sg3ko',
+  `token` varchar(45) NOT NULL COMMENT 'a(원래저장소)에서 b(fork한)를 병합할때 b의 토큰 / ex)bx32sg3ko',
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '시간 / EX)2022-10-17 11:31:41',
   `marged` tinyint(1) NOT NULL DEFAULT '0' COMMENT '요청을 수락했을때 1이 된다.',
+  `end_date` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`idx`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +41,7 @@ CREATE TABLE `pullreq` (
 
 LOCK TABLES `pullreq` WRITE;
 /*!40000 ALTER TABLE `pullreq` DISABLE KEYS */;
-INSERT INTO `pullreq` VALUES (1,10,7,'asdfc','4sg453fd','2022-10-21 05:23:19',0);
+INSERT INTO `pullreq` VALUES (20,103,3,'112233','0vt1fbbk5nahmb3','2023-01-12 03:06:22',2,'2023-01-15 08:12:50'),(21,103,3,'ㅂㅈㄷㅂㅈㄷ','v6ya52h7tz2gp53','2023-01-12 03:10:06',1,'2023-01-15 08:14:02'),(22,103,2,'병합 시켜줘 쭈발','8o65us57o167w98','2023-01-14 08:43:54',0,NULL),(30,128,1,'123','88v275135bl6obq','2023-02-03 06:23:29',2,'2023-02-03 06:23:36');
 /*!40000 ALTER TABLE `pullreq` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-11-22 16:44:54
+-- Dump completed on 2023-02-05  0:41:03

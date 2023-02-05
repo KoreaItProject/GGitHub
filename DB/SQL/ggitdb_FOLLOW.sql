@@ -27,7 +27,7 @@ CREATE TABLE `follow` (
   `member` int NOT NULL,
   `follower` int NOT NULL,
   PRIMARY KEY (`idx`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,7 +36,7 @@ CREATE TABLE `follow` (
 
 LOCK TABLES `follow` WRITE;
 /*!40000 ALTER TABLE `follow` DISABLE KEYS */;
-INSERT INTO `follow` VALUES (1,5,19),(2,1,12),(3,7,6),(4,6,13),(5,19,15),(6,2,10),(7,3,11),(8,11,18),(9,17,2),(10,3,17),(11,5,13),(12,7,12),(13,10,19),(14,20,10),(15,1,20),(16,3,18),(17,19,2),(18,15,2),(19,2,15),(20,2,14),(21,1,14),(22,1,15),(23,13,1),(24,13,3),(25,14,3),(26,3,14);
+INSERT INTO `follow` VALUES (7,3,1),(10,3,2),(30,9,1),(31,7,1),(32,10,1),(33,15,1),(34,12,1),(35,1,2),(36,4,2),(37,9,2),(38,7,2),(39,16,2),(40,12,2),(41,1,12),(42,2,12),(43,3,12),(44,1,3),(45,2,3),(46,3,4),(47,1,6),(48,2,6),(49,1,7),(50,3,9),(51,1,9),(52,2,10),(53,6,1),(54,8,1),(55,5,1),(56,8,3),(57,6,3),(58,4,3),(59,3,11),(60,2,9),(61,12,9),(62,7,9),(63,1,8),(64,2,8),(65,12,8),(66,9,8);
 /*!40000 ALTER TABLE `follow` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-11-22 16:44:54
+-- Dump completed on 2023-02-05  0:41:03

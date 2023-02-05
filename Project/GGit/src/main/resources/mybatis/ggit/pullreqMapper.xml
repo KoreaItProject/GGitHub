@@ -19,7 +19,7 @@
         (select main_token from push where token = pullreq.token) as mainToken
        
         FROM pullreq, (SELECT member FROM repomem WHERE repo = #{idx}) as repomem
-        WHERE pullreq.repo = #{idx} and repomem.member = pullreq.member
+        WHERE pullreq.repo = #{idx} and repomem.member = pullreq.member and pullreq.marged = 0
         ORDER BY date desc;
     </select>
     <select id="repoInMem" resultType="com.ggit.vo.RepomemVo">
