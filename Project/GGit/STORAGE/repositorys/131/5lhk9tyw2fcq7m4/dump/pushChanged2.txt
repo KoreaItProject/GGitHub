@@ -1,0 +1,1 @@
+[{"path":"\/java\/Main.java","state":"add"},{"path":"\/java\/SETTINGS\/setting.txt","state":"add"},{"path":"\/java\/SETTINGS","state":"add"},{"path":"\/java","state":"add"}]
