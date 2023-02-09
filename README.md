@@ -3,6 +3,8 @@
 
 코리아IT아카데미학원 프로젝트
 
+인원 : [이태현](https://github.com/leetaehyeon123),[민준성](https://github.com/eak00700),[김진렬](https://github.com/JIN-RYEOL)
+
 ----
 
 프로젝트 기간 : 2022-10-10 ~ 2023-01-10
